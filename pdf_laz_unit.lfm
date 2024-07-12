@@ -1,0 +1,556 @@
+object pdf_laz_form: Tpdf_laz_form
+  Left = 41
+  Height = 252
+  Top = 49
+  Width = 648
+  BorderIcons = [biSystemMenu]
+  Caption = '        export  PDF  document ...'
+  ClientHeight = 252
+  ClientWidth = 648
+  Color = 16314592
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  KeyPreview = True
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  OnKeyDown = FormKeyDown
+  OnResize = FormResize
+  OnShow = FormShow
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 248
+    Width = 648
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object header_label: TLabel
+    Left = 40
+    Height = 21
+    Top = 6
+    Width = 441
+    AutoSize = False
+    Caption = 'header_label'
+    WordWrap = True
+  end
+  object page_label: TLabel
+    Left = 40
+    Height = 18
+    Top = 52
+    Width = 456
+    AutoSize = False
+    Caption = 'page_label'
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
+  object origin_label: TLabel
+    Left = 40
+    Height = 21
+    Top = 26
+    Width = 512
+    AutoSize = False
+    Caption = 'origin_label'
+    WordWrap = True
+  end
+  object printer_label: TLabel
+    Left = 296
+    Height = 18
+    Top = 102
+    Width = 240
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'OT   PDF  file  creator'
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object help_shape: TShape
+    Left = 490
+    Height = 29
+    Top = 1
+    Width = 64
+    Pen.Color = clWhite
+  end
+  object row_label: TLabel
+    Left = 156
+    Height = 21
+    Top = 152
+    Width = 130
+    AutoSize = False
+    Caption = 'abc'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 188
+    Height = 20
+    Top = 79
+    Width = 52
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'prefix :'
+    Layout = tlCenter
+  end
+  object Label2: TLabel
+    Left = 564
+    Height = 20
+    Top = 2
+    Width = 80
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'next page:'
+    Layout = tlCenter
+  end
+  object page_panel: TPanel
+    Left = 296
+    Height = 24
+    Top = 130
+    Width = 261
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = 'page_panel'
+    Color = clBlack
+    Font.Color = clYellow
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 72
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 72
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+    object how_panel: TPanel
+      Left = 0
+      Height = 20
+      Top = 48
+      Width = 16
+      Caption = '?'
+      Color = clBlack
+      Font.Color = clLime
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      TabOrder = 0
+      OnClick = how_panelClick
+    end
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 0
+      Height = 24
+      Top = 1
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      Position = 4
+      TabOrder = 1
+    end
+    object colour_panel: TPanel
+      Left = 1
+      Height = 16
+      Top = 28
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 2
+      OnClick = colour_panelClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_panelClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object omit_all_panel: TPanel
+    Left = 6
+    Height = 29
+    Top = 218
+    Width = 281
+    Caption = 'omit  all  remaining  pages    F12     '
+    ClientHeight = 29
+    ClientWidth = 281
+    Color = 9502719
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+    OnClick = omit_all_buttonClick
+    object omit_all_button: TButton
+      Left = 254
+      Height = 17
+      Top = 6
+      Width = 20
+      Cancel = True
+      Caption = '  '
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ModalResult = 2
+      ParentFont = False
+      TabOrder = 0
+      OnClick = omit_all_buttonClick
+    end
+  end
+  object all_panel: TPanel
+    Left = 296
+    Height = 29
+    Top = 218
+    Width = 261
+    Caption = 'create  all  remaining  pages     '
+    ClientHeight = 29
+    ClientWidth = 261
+    Color = 10551200
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    OnClick = all_buttonClick
+    object all_button: TButton
+      Left = 234
+      Height = 17
+      Top = 6
+      Width = 20
+      Caption = '  '
+      Default = True
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ModalResult = 6
+      ParentFont = False
+      TabOrder = 0
+      OnClick = all_buttonClick
+    end
+  end
+  object next_row_button: TButton
+    Left = 184
+    Height = 22
+    Top = 184
+    Width = 97
+    Caption = '&next  row'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ModalResult = 4
+    ParentFont = False
+    TabOrder = 3
+    OnClick = next_row_buttonClick
+  end
+  object omit_panel: TPanel
+    Left = 296
+    Height = 30
+    Top = 180
+    Width = 120
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 120
+    Color = 9502719
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 2
+    object omit_page_button: TButton
+      Left = 1
+      Height = 24
+      Top = 1
+      Width = 114
+      Caption = '&omit  page'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ModalResult = 5
+      ParentFont = False
+      TabOrder = 0
+      OnClick = omit_page_buttonClick
+    end
+  end
+  object print_panel: TPanel
+    Left = 418
+    Height = 30
+    Top = 180
+    Width = 139
+    BevelOuter = bvNone
+    ClientHeight = 30
+    ClientWidth = 139
+    Color = 10551200
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 1
+    object ok_button: TButton
+      Left = 1
+      Height = 24
+      Top = 1
+      Width = 133
+      Caption = '&create  page'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ModalResult = 1
+      ParentFont = False
+      TabOrder = 0
+      OnClick = ok_buttonClick
+    end
+  end
+  object font_button: TButton
+    Left = 500
+    Height = 23
+    Top = 36
+    Width = 54
+    Caption = 'fon&t ...'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 17
+    OnClick = font_buttonClick
+  end
+  object row_progressbar: TProgressBar
+    Left = 296
+    Height = 12
+    Top = 160
+    Width = 261
+    Step = 1
+    TabOrder = 18
+  end
+  object help_button: TButton
+    Left = 493
+    Height = 23
+    Top = 4
+    Width = 58
+    Caption = '? &help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 16
+    OnClick = how_panelClick
+  end
+  object black_edges_checkbox: TCheckBox
+    Left = 12
+    Height = 23
+    Top = 188
+    Width = 141
+    Caption = 'blac&k rail-edges'
+    TabOrder = 15
+    OnClick = black_edges_checkboxClick
+  end
+  object picture_borders_checkbox: TCheckBox
+    Left = 34
+    Height = 23
+    Top = 144
+    Width = 117
+    Caption = 'with &borders'
+    TabOrder = 14
+  end
+  object include_pictures_checkbox: TCheckBox
+    Left = 12
+    Height = 23
+    Top = 124
+    Width = 291
+    Caption = 'include background pict&ure shapes'
+    TabOrder = 13
+  end
+  object detail_mode_radiobutton: TRadioButton
+    Left = 296
+    Height = 22
+    Top = 76
+    Width = 107
+    Caption = 'detail  mode'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 8
+    TabStop = True
+    OnClick = detail_mode_radiobuttonClick
+  end
+  object diagram_mode_radiobutton: TRadioButton
+    Left = 422
+    Height = 22
+    Top = 76
+    Width = 124
+    Caption = 'diagram  mode'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 9
+    OnClick = diagram_mode_radiobuttonClick
+  end
+  object include_sketchboard_items_checkbox: TCheckBox
+    Left = 12
+    Height = 23
+    Top = 102
+    Width = 222
+    Caption = 'include sketchboard items'
+    TabOrder = 12
+    Visible = False
+  end
+  object page_ident_checkbox: TCheckBox
+    Left = 12
+    Height = 23
+    Hint = 'add page-number watermark if more than 3 pages'
+    Top = 80
+    Width = 189
+    Caption = 'include page identifier'
+    Checked = True
+    ParentShowHint = False
+    ShowHint = True
+    State = cbChecked
+    TabOrder = 10
+  end
+  object ident_prefix_edit: TEdit
+    Left = 242
+    Height = 24
+    Hint = ' optional prefix on the page identifiers '
+    Top = 78
+    Width = 34
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 11
+  end
+  object page_listbox: TListBox
+    Left = 564
+    Height = 223
+    Top = 24
+    Width = 78
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    IntegralHeight = True
+    ItemHeight = 0
+    ParentFont = False
+    TabOrder = 7
+    OnClick = page_listboxClick
+  end
+  object symbols_checkbox: TCheckBox
+    Left = 12
+    Height = 23
+    Hint = ' include template symbols - feed droppers and isolation gaps '
+    Top = 166
+    Width = 146
+    Caption = 'include symbols'
+    Checked = True
+    ParentShowHint = False
+    ShowHint = True
+    State = cbChecked
+    TabOrder = 19
+  end
+  object pdf_save_dialog: TSaveDialog
+    Title = '    export  PDF  file ...'
+    DefaultExt = '.pdf'
+    Filter = 'PDF documents  (*.pdf)|*.pdf'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
+    Left = 332
+    Top = 20
+  end
+end
