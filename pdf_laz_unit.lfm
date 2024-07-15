@@ -10,7 +10,7 @@ object pdf_laz_form: Tpdf_laz_form
   Color = 16314592
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -39
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -426,26 +426,26 @@ object pdf_laz_form: Tpdf_laz_form
   end
   object black_edges_checkbox: TCheckBox
     Left = 12
-    Height = 23
+    Height = 49
     Top = 188
-    Width = 141
+    Width = 319
     Caption = 'blac&k rail-edges'
     TabOrder = 15
     OnClick = black_edges_checkboxClick
   end
   object picture_borders_checkbox: TCheckBox
     Left = 34
-    Height = 23
+    Height = 49
     Top = 144
-    Width = 117
+    Width = 257
     Caption = 'with &borders'
     TabOrder = 14
   end
   object include_pictures_checkbox: TCheckBox
     Left = 12
-    Height = 23
+    Height = 49
     Top = 124
-    Width = 291
+    Width = 684
     Caption = 'include background pict&ure shapes'
     TabOrder = 13
   end
@@ -481,19 +481,19 @@ object pdf_laz_form: Tpdf_laz_form
   end
   object include_sketchboard_items_checkbox: TCheckBox
     Left = 12
-    Height = 23
+    Height = 49
     Top = 102
-    Width = 222
+    Width = 518
     Caption = 'include sketchboard items'
     TabOrder = 12
     Visible = False
   end
   object page_ident_checkbox: TCheckBox
     Left = 12
-    Height = 23
+    Height = 49
     Hint = 'add page-number watermark if more than 3 pages'
     Top = 80
-    Width = 189
+    Width = 439
     Caption = 'include page identifier'
     Checked = True
     ParentShowHint = False
@@ -534,10 +534,10 @@ object pdf_laz_form: Tpdf_laz_form
   end
   object symbols_checkbox: TCheckBox
     Left = 12
-    Height = 23
+    Height = 49
     Hint = ' include template symbols - feed droppers and isolation gaps '
     Top = 166
-    Width = 146
+    Width = 329
     Caption = 'include symbols'
     Checked = True
     ParentShowHint = False

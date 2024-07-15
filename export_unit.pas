@@ -22,7 +22,7 @@
 
 ================================================================================
 
-   This file was saved from Delphi5
+   This file was saved from Lazarus 3.4
 
    This file was derived from Templot2 version 245a
 
@@ -163,11 +163,6 @@ var
   his_image_file_name:string='';
   his_emf_file_name:string='';
 
-  //pdf_head_factor:extended=1.0;
-  //pdf_roller_factor:extended=1.0;
-
-  // OT-FIRST moved from dtp_unit ...
-
   export_black_white:boolean=False;
   export_grey_shade:boolean=False;
 
@@ -189,28 +184,17 @@ var
   pdf_black_white:boolean=False;
   pdf_grey_shade:boolean=False;
 
+  emf_file_str:string='';   // 555a
+
 
   procedure set_boundary_rectangle_dims(calling_form:TForm);
-
-  function do_metafile(file_str:string; met_width_dots,met_height_dots:integer):boolean;
-
-  //procedure sb_draw(on_canvas:TCanvas; canvas_width,canvas_height,output_code:integer);    // draw control template or entire pad on a bitmap or metafile. OT-FIRST moved from dtp_unit
-
-  //procedure export_bgnd_shapes(on_canvas:TCanvas; canvas_height:integer; grid_left,grid_top:extended; output_code:integer);  // print all background shapes.
-
-  //procedure export_bgnd(on_canvas:TCanvas; canvas_height:integer; grid_left,grid_top:extended; output_code:integer);        // print background templates.
 
 
 implementation
 
 uses ShellAPI, control_room, pad_unit, keep_select, math_unit, preview_unit, entry_sheet, help_sheet,
-     { OT-FIRST dtp_unit, dtp_settings_unit,} alert_unit, grid_unit, { OT-FIRST pdf_unit,} print_settings_unit,colour_unit,
-
-     bgnd_unit, dxf_unit, image_viewer_unit,
-
-     export_draw_unit;  // 291a
-
-     //print_unit;    // OT-FIRST for calc_intensity
+     alert_unit, grid_unit, print_settings_unit, colour_unit, bgnd_unit, dxf_unit, image_viewer_unit,
+     export_draw_unit, pdf_laz_unit;
 
 {$R *.lfm}
 
@@ -219,6 +203,7 @@ var
 
   emf_page_count:integer=0; // 245a
 
+  met_DC_handle:HDC;          // for EMF metafiles   555a
 
 //______________________________________________________________________________
 
@@ -278,7 +263,7 @@ end;
 procedure Texport_form.hide_panelClick(Sender: TObject);
 
 begin
-  Close; //Hide;
+  Close;
   if show_margins=2 then redraw_pad(True,False);  // show PDF outlines if page size changed
 end;
 //______________________________________________________________________________
@@ -376,7 +361,7 @@ begin
 end;
 //______________________________________________________________________________
 
-function create_pdf_button_click(laz:boolean):integer;  // return number of pages in the PDF
+function create_pdf_button_click:integer;  // return number of pages in the PDF
 
 var
   n:integer;
@@ -454,7 +439,7 @@ begin
 
     if export_control_template_radiobutton.Checked=True
        then begin
-              RESULT:=print_control_template(True,laz);   // True=PDF
+              RESULT:=print_control_template(True);   // True=PDF
               EXIT;
             end;
 
@@ -473,7 +458,7 @@ begin
                       end;
 
               print_group_only_flag:=True;
-              RESULT:=print_entire_pad(True,laz);        // True=PDF
+              RESULT:=print_entire_pad(True);        // True=PDF
 
               EXIT;
             end;
@@ -487,7 +472,7 @@ begin
                       end;
 
               print_group_only_flag:=False;
-              RESULT:=print_entire_pad(True,laz);        // True=PDF
+              RESULT:=print_entire_pad(True);        // True=PDF
             end;
 
   end;//with form
@@ -497,196 +482,75 @@ end;
 procedure Texport_form.create_pdf_buttonClick(Sender: TObject);
 
 begin
-  emf_page_count:=create_pdf_button_click(True);   // laz=True  external PDF
+  emf_page_count:=create_pdf_button_click;   // external PDF
 end;
 //______________________________________________________________________________
 
-(* OT2024
-var
-  temp:extended;
-
-  box_value_dpi:integer;      // 205e ...
-  box_value_long:extended;
-  box_value_short:extended;
-
-begin
-
-  do_open_source_bang('EXPORT PDF');  // OT-FIRST
-
-  { OT-FIRST
-
-  if sb_check_valid_int(pdf_dpi_edit,50,4800,box_value_dpi)=False          // input limits 50dpi to 4800dpi
-     then begin
-            ShowMessage('Error: The DPI setting must be a valid whole number in the range 50 to 4800. A decimal point is not allowed.');
-            EXIT;
-          end;
-
-  if sb_check_valid_float(pdf_long_mm_edit,50,25000,box_value_long)=False   // input limits 50mm to 25000mm (25m)
-     then begin
-            ShowMessage('Error: The long-side page dimension must be a valid number in the range 50mm to 25000mm.');
-            EXIT;
-          end;
-
-  if sb_check_valid_float(pdf_short_mm_edit,25,12500,box_value_short)=False  // input limits 25mm to 12500mm (12.5m)
-     then begin
-            ShowMessage('Error: The short-side page dimension must be a valid number in the range 25mm to 12500mm.');
-            EXIT;
-          end;
-
-  try
-    pdf_width_dpi:=box_value_dpi;
-    pdf_height_dpi:=pdf_width_dpi;                      // both the same
-
-    pdf_height_mm:=box_value_long;
-    pdf_width_mm:=box_value_short;
-  except
-    EXIT;    // ??? should have been found in sb_check_valid
-  end;//try
-
-  if pdf_height_mm<pdf_width_mm
-     then begin
-            if alert(7,'    PDF  page  size',
-                    'You have set a long side page dimension which is shorter than the short side dimension.'
-                   +'||Are you sure this is what you intended? The PDF page outlines may not be what you expect.',
-                    '','','','','no  -  cancel','yes  -  continue',0)=5 then EXIT;
-          end;
-
-  if export_form.pdf_side_run_button.Checked=True   // swap dimensions for landscape
-     then begin
-            temp:=pdf_height_mm;
-            pdf_height_mm:=pdf_width_mm;
-            pdf_width_mm:=temp;
-          end;
-
-  if pdf_size_inside_trim_margins_checkbox.Checked=True   // 205e increase document size to allow for trim margin default sizes (fixed for PDF)
-     then begin
-            pdf_width_mm:=pdf_width_mm+9.0;     // left margin 7mm,  right margin 2mm
-            pdf_height_mm:=pdf_height_mm+10.5;  // top margin 6mm, bottom margin 4.5mm
-          end;
-
-  pdf_width_dots:=Round(pdf_width_mm*pdf_width_dpi/25.4);
-  pdf_height_dots:=Round(pdf_height_mm*pdf_height_dpi/25.4);
-
-  pdf_black_white:=export_black_radiobutton.Checked;
-  pdf_grey_shade:=export_grey_radiobutton.Checked;
-
-
-      // ready to go...
-
-  if export_control_template_radiobutton.Checked=True
-     then begin
-            print_control_template(True);   // True=PDF
-            EXIT;
-          end;
-
-  if export_group_only_radiobutton.Checked=True
-     then begin
-            if any_bgnd=0
-               then begin
-                      alert_no_bgnd;
-                      EXIT;
-                    end;
-
-            if any_selected=0
-               then begin
-                      if alert_no_group=True    // alert him, and does he want all?
-                         then EXIT;
-                    end;
-
-            print_group_only_flag:=True;
-            print_entire_pad(True);        // True=PDF
-
-            EXIT;
-          end;
-
-  if export_all_radiobutton.Checked=True
-     then begin
-            if any_bgnd<1
-               then begin
-                      alert_no_bgnd;
-                      EXIT;            // no background templates
-                    end;
-
-            print_group_only_flag:=False;
-            print_entire_pad(True);        // True=PDF
-          end;
-
-}
-
-end;
-//______________________________________________________________________________
-*)
-
-function do_metafile(file_str:string; met_width_dots,met_height_dots:integer):boolean;         // 291a
-
-   // if file_str='' create  \internal\temp_emf.emf
+function do_export_metafile(file_str:string; met_width_dots,met_height_dots:integer):boolean;     // 555a
 
 var
-  met_rect,output_rect:TRect;
-  met_DC_handle,load_DC:HDC;
-  met_canvas:TCanvas;
+  on_canvas:TCanvas;
 
   met_file_str:string;
 
   horz_factor,vert_factor:double;
 
-  ref_DC:HDC;
-
-  met_width_units,met_height_units:integer;
-
-  failed:boolean;
+  met_rect:TRect;
+  met_ref_DC:HDC;      // for EMF metafiles   555a
+  memory_met_dc:HDC;
 
 begin
   RESULT:=False;  // init
-  failed:=False;
-  met_file_str:='';
+
+  met_file_str:=file_str;
+
+  on_canvas:=TCanvas.Create;
+
+  met_ref_DC:=GetDC(0);  // screen
+
+  horz_factor:=GetDeviceCaps(met_ref_DC,HORZSIZE)*100/GetDeviceCaps(met_ref_DC,HORZRES);
+  vert_factor:=GetDeviceCaps(met_ref_DC,VERTSIZE)*100/GetDeviceCaps(met_ref_DC,VERTRES);
+
+  met_rect:=Rect(0,0,Round(met_width_dots*horz_factor),Round(met_height_dots*vert_factor));
+
+  met_dc_handle:=CreateEnhMetaFile(met_ref_DC,PChar(met_file_str),@met_rect,nil);
+
+  if met_dc_handle=0
+     then begin
+            on_canvas.Free;
+            ReleaseDC(0,met_ref_DC);
+            show_modal_message('Sorry, an error occurred in creating the metafile.');
+            EXIT;
+          end;
+
+  on_canvas.Handle:=met_dc_handle;
+
+  ReleaseDC(0,met_ref_DC);
+
+  on_canvas.Font.PixelsPerInch:=metafile_dpi;
+
+  export_draw(on_canvas,met_width_dots,met_height_dots,4);    // draw within image boundary    4= to metafile.
 
   try
-    ref_DC:=GetDC(0);  // screen
-  except
-    failed:=True;
+    memory_met_dc:=CloseEnhMetaFile(met_dc_handle);   // save it to file
+
+    if memory_met_dc=0
+       then begin
+              show_modal_message('Sorry, an error occurred in saving the metafile.');
+              EXIT;
+            end;
+
+    RESULT:=True;
+  finally
+    DeleteEnhMetaFile(memory_met_dc);
+    DeleteEnhMetaFile(met_dc_handle);
+
+    on_canvas.Free;
   end;
-
-  horz_factor:=GetDeviceCaps(ref_DC,HORZSIZE)*100/GetDeviceCaps(ref_DC,HORZRES);
-  vert_factor:=GetDeviceCaps(ref_DC,VERTSIZE)*100/GetDeviceCaps(ref_DC,VERTRES);
-
-  met_width_units:=Round(met_width_dots*horz_factor);
-  met_height_units:=Round(met_height_dots*vert_factor);
-
-  met_rect:=Rect(0,0,met_width_units,met_height_units);
-
-  if file_str<>''
-     then met_file_str:=file_str
-     else met_file_str:=exe_str+'internal\temp_emf.emf';
-
-  try
-    met_dc_handle:=CreateEnhMetaFile(ref_DC,PChar(met_file_str),@met_rect,nil);
-  except
-    failed:=True;
-  end;//try
-
-  met_canvas:=TCanvas.Create;
-
-  met_canvas.Handle:=met_dc_handle;
-
-  export_draw(met_canvas,met_width_dots,met_height_dots,4);    // draw control template or entire pad    4= for exported metafile.
-
-  try
-    CloseEnhMetaFile(met_dc_handle);
-  except
-    failed:=True;
-  end;//try
-
-  met_canvas.Free;
-
-  ReleaseDC(0,ref_DC);
-
-  RESULT:= NOT failed;
-
 end;
 //______________________________________________________________________________
 
-procedure Texport_form.create_metafile_buttonClick(Sender: TObject);       // modified for 291a
+procedure Texport_form.create_metafile_buttonClick(Sender: TObject);       // modified for 555a
 
 var
   emf_extents:Tpex; // mm
@@ -779,7 +643,7 @@ begin
           end;
 
   try
-    metafile_dpi:=box_value;
+    metafile_dpi:=Round(box_value);
   except
     ShowMessage('Invalid data for metafile DPI');   // ??? should have been found in sb_check_valid_ earlier
     EXIT;
@@ -872,9 +736,9 @@ begin
   metafile_height:=Round(img_height_mm*metafile_dpi/25.4);
 
   try
-    if do_metafile(file_str,metafile_width,metafile_height)=False
+    if do_export_metafile(file_str,metafile_width,metafile_height)=False
        then begin
-              ShowMessage('Sorry, an error occurred in creating the EMF file.');
+              show_modal_message('Sorry, an error occurred in creating the EMF file.');
               EXIT;
             end;
 
@@ -994,9 +858,7 @@ var
   create_jpg:TJpegImage;
   create_gif:TGIFImage;
 
-  { OT-FIRST create_png:TPNGObject;}
-
-  create_png:TPortableNetworkGraphic;  //  OT-FIRST
+  create_png:TPortableNetworkGraphic;
 
   folder_str:string;
   file_name_str:string;  // name part
@@ -1074,16 +936,6 @@ begin
                     end;
           end;
 
-  { OT-FIRST
-
-  if sb_check_valid_int(image_width_edit,60,12000,box_value)=False  // input limits 60 dots to 12000 dots (20" @ 600dpi)
-     then begin
-            ShowMessage('Error: The image width setting must be a valid whole number in the range 60 dots to 12000 dots.');
-            EXIT;
-          end;
-  }
-       // OT-FIRST ...
-
   try
     box_value:=StrToInt(image_width_edit.Text);
   except
@@ -1153,20 +1005,9 @@ begin
     if his_image_file_name<>'' then InitialDir:=ExtractFilePath(his_image_file_name)
                                else InitialDir:=exe_str+'IMAGE-FILES\';
 
-    { T3-FIRST
-    if transparent_gif_checkbox.Checked=True
-       then begin
-              DefaultExt:='gif';
-              FileName:=file_name_str+'.gif';
-              FilterIndex:=2;
-            end
-       else begin}
-
-              DefaultExt:='png';
-              FileName:=file_name_str+'.png';
-              FilterIndex:=1;
-
-            //end;
+    DefaultExt:='png';
+    FileName:=file_name_str+'.png';
+    FilterIndex:=1;
 
     if Execute=False then EXIT;
 
@@ -1243,8 +1084,7 @@ begin
   create_jpg:=TJpegImage.Create;
   create_gif:=TGIFImage.Create;
 
-  { OT-FIRST create_png:=TPNGObject.Create;}
-  create_png:=TPortableNetworkGraphic.Create;   // OT-FIRST
+  create_png:=TPortableNetworkGraphic.Create;
 
   try
 
@@ -1266,17 +1106,6 @@ begin
                 create_jpg.SaveToFile(file_str);
               end;
 
-      { T3-FIRST
-      if LowerCase(ExtractFileExt(file_str))='.gif'
-         then begin
-                create_bitmap.TransparentColor:=clWhite;
-                create_bitmap.Transparent:=transparent_gif_checkbox.Checked;
-
-                create_gif.Assign(create_bitmap);
-                create_gif.SaveToFile(file_str);
-              end;
-      }
-
       if LowerCase(ExtractFileExt(file_str))='.png'
          then begin
                 create_png.Assign(create_bitmap);
@@ -1285,7 +1114,6 @@ begin
 
       if LowerCase(ExtractFileExt(file_str))='.bmp'
          then create_bitmap.SaveToFile(file_str);
-
 
       repeat
 
@@ -1381,7 +1209,6 @@ i:=putdim(y_str,1,'image  rectangle  opposite  corner  dimension  Y2',output_rec
             output_rectangle_y2:=od[3];
 
             draw_export_rectangle_flag:=True;  // available for calcs
-            //non_print_output_rectangle:=True;  // for drawing function
 
             redraw(True);
           end;
@@ -1439,6 +1266,5 @@ begin
 end;
 //______________________________________________________________________________
 
-// T3-FIRST   draw functions are now in export_draw_unit  11/11/2019
 
 end.
