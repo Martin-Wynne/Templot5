@@ -14052,6 +14052,22 @@ begin
     if NodeIndexOf(FindNode('bl_z'))<>-1
        then bl_z:=ReadFloat('bl_z',0.4);                                                      // 555b
 
+    // rotate STL by
+
+    if NodeIndexOf(FindNode('stl_rot_x'))<>-1
+       then stl_rot_x:=ReadFloat('stl_rot_x',0);                                              // 555b
+
+    if NodeIndexOf(FindNode('stl_rot_y'))<>-1
+       then stl_rot_y:=ReadFloat('stl_rot_y',0);                                              // 555b
+
+    if NodeIndexOf(FindNode('stl_rot_k'))<>-1
+       then stl_rot_k:=ReadFloat('stl_rot_k',0);                                              // 555b
+
+    // fw widen
+
+    if NodeIndexOf(FindNode('fw_mod_for_gw'))<>-1
+       then fw_mod_for_gw:=ReadFloat('fw_mod_for_gw',0);                                      // 555b
+
     // other
 
     if NodeIndexOf(FindNode('chair_web_adjustment'))<>-1
@@ -14501,6 +14517,18 @@ begin
               WriteFloat('bl_y',bl_y,0);                             // 555b
 
               WriteFloat('bl_z',bl_z,0);                             // 555b
+
+              // rotate STL by
+
+              WriteFloat('stl_rot_x',stl_rot_x,0);                                             // 555b
+
+              WriteFloat('stl_rot_y',stl_rot_y,0);                                             // 555b
+
+              WriteFloat('stl_rot_k',stl_rot_k,0);                                             // 555b
+
+              // fw widen
+
+              WriteFloat('fw_mod_for_gw',fw_mod_for_gw,0);                                     // 555b
 
 // 555b
               WriteFloat('chair_web_adjustment',chair_web_adjustment,0);
