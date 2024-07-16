@@ -5905,6 +5905,8 @@ var
   brick_found:boolean;         // 239a
   brick_label_found:boolean;   // 234a
 
+  chaired_found:boolean;        // 555b
+
   shapes_z:extended;  // 234e
 
   jaw_trim:extended;  // 235b
@@ -5994,8 +5996,45 @@ begin
                    all_option_radio.Checked:=True;           // radio item.
               end;
 
+      // 555b                                                                  // 555b
+      if (group_option_radio.Checked=True) and (_3d=True)
+           then begin
+
+                //  check for chaired templates
+                chaired_found:=False;  // init
+
+                for n:=0 to (keeps_list.Count-1) do begin
+                  with Ttemplate(keeps_list.Objects[n]) do begin
+
+                    if bg_copied=False then CONTINUE;        // no data, unused template
+
+                    if (template_info.keep_dims.turnout_info2.chairing_flag=True) and (group_selected=True)
+                        then begin
+                               chaired_found:=True;
+                               BREAK;
+                             end;
+
+                  end;//with
+                end;//next
+
+                if chaired_found=False
+                   then begin
+                        if alert(6,'    no chaired templates',
+                                      '||||You have clicked the `0GROUP TEMPLATES ONLY`1 option,'
+                                      +' but there are no chaired group templates currently selected on the trackpad.'
+                                      +'||Do you want to include all background templates in the exported file?',
+                                       '','','','','no  -  cancel  export','yes  -  all  templates  in  file',0)=5
+                              then EXIT;
+                              all_option_radio.Checked:=True;           // radio item.
+                        end;
+
+
+               end;
+
+      // 555b
+
       if brick_option_radio.Checked=True
-         then begin
+           then begin
                 brick_found:=False;  // init
 
                 for n:=0 to (keeps_list.Count-1) do begin
@@ -9047,6 +9086,11 @@ begin
                   or ((fb_kludge_this=2) and (dxf_form.fb_outer_checkbox.Checked=False))
                      then CONTINUE;
                 end;
+
+        // 555b
+        if (_3d=True) and (template_info.keep_dims.turnout_info2.chairing_flag=False)    // ignore this one
+           then CONTINUE;
+        // 555b
 
         if (_3d=True) and (ABS(template_info.keep_dims.box_dims1.proto_info.scale_pi-scale)>minfp)
            then begin
@@ -13462,47 +13506,495 @@ begin
     custom_rail_web_top:=ReadFloat('custom_rail_web_top',0);
     custom_rail_web_bottom:=ReadFloat('custom_rail_web_bottom',0);
 
-    seat_thick:=ReadFloat('seat_thick',0);                                               // 555b
-    timber_thick:=ReadFloat('timber_thick',0);                                           // 555b
+// 555b
 
-    soleplate_thick:=ReadFloat('soleplate_thick',0);                                     // 555b
-    soleplate_width:=ReadFloat('soleplate_width',0);                                     // 555b
-    soleplate_rib:=ReadFloat('soleplate_rib',0);                                         // 555b
+    if NodeIndexOf(FindNode('seat_thick'))<>-1
+       then seat_thick:=ReadFloat('seat_thick',1.75);                                           // 555b
 
-    switch_slider_rib_width_mm:=ReadFloat('switch_slider_rib_width_mm',0);               // 555b
-    switch_slider_rib_top_depth:=ReadFloat('switch_slider_rib_top_depth',0);             // 555b
-    switch_slider_rib_mid_depth:=ReadFloat('switch_slider_rib_mid_depth',0);             // 555b
-    switch_slider_rib_bottom_depth:=ReadFloat('switch_slider_rib_bottom_depth',0);       // 555b
+    if NodeIndexOf(FindNode('timber_thick'))<>-1
+       then timber_thick:=ReadFloat('timber_thick',10.08);                                      // 555b
 
-    press_short_socket_fit_ends:=ReadFloat('press_short_socket_fit_ends',0);             // 555b
-    press_socket_fit_ends:=ReadFloat('press_socket_fit_ends',0);
-    press_long_socket_fit_ends:=ReadFloat('press_long_socket_fit_ends',0);
-    press_very_long_socket_fit_ends:=ReadFloat('press_very_long_socket_fit_ends',0);     // 555b
+    if NodeIndexOf(FindNode('soleplate_thick'))<>-1
+       then soleplate_thick:=ReadFloat('soleplate_thick',0.48);                                 // 555b
 
-    press_socket_fit_sides_sl:=ReadFloat('press_socket_fit_sides_sl',0);
-    press_socket_fit_sides_timb:=ReadFloat('press_socket_fit_sides_timb',0);
+    if NodeIndexOf(FindNode('soleplate_width'))<>-1
+       then soleplate_width:=ReadFloat('soleplate_width',9);                                    // 555b
 
-    plug_fit_sides:=ReadFloat('plug_fit_sides',0);
-    plug_fit_ends:=ReadFloat('plug_fit_ends',0);
+    if NodeIndexOf(FindNode('soleplate_rib'))<>-1
+       then soleplate_rib:=ReadFloat('soleplate_rib',3);                                        // 555b
 
-    plug_corner_clear_fdm:=ReadFloat('plug_corner_clear_fdm',0);
-    plug_corner_clear_cnc:=ReadFloat('plug_corner_clear_cnc',0);
+    if NodeIndexOf(FindNode('switch_slider_rib_width_mm'))<>-1
+       then switch_slider_rib_width_mm:=ReadFloat('switch_slider_rib_width_mm',1.2);            // 555b
 
-    chair_web_adjustment:=ReadFloat('chair_web_adjustment',0);
+    if NodeIndexOf(FindNode('switch_slider_rib_top_depth'))<>-1
+       then switch_slider_rib_top_depth:=ReadFloat('switch_slider_rib_top_depth',1.44);         // 555b
 
-    socket_depth:=ReadFloat('socket_depth',0);
-    timber_thick:=ReadFloat('timber_thick',0);
+    if NodeIndexOf(FindNode('switch_slider_rib_mid_depth'))<>-1
+       then switch_slider_rib_mid_depth:=ReadFloat('switch_slider_rib_mid_depth',2.88);         // 555b
 
-    sprue_thick:=ReadFloat('sprue_thick',0);
-    sprue_length:=ReadFloat('sprue_length',0);
-    sprue_width:=ReadFloat('sprue_width',0);
+    if NodeIndexOf(FindNode('switch_slider_rib_bottom_depth'))<>-1
+       then switch_slider_rib_bottom_depth:=ReadFloat('switch_slider_rib_bottom_depth',5.76);   // 555b
 
-    flange_depth:=ReadFloat('flange_depth',0);
-    side_flange_width_mm:=ReadFloat('side_flange_width_mm',0);
-    end_flange_width:=ReadFloat('end_flange_width',0);
-    flange_offset:=ReadFloat('flange_offset',0);
+    if NodeIndexOf(FindNode('sprue_thick'))<>-1
+       then sprue_thick:=ReadFloat('sprue_thick',5.76);                                         // 555b
 
-    slab_depth:=ReadFloat('slab_depth',0);
+    if NodeIndexOf(FindNode('sprue_length'))<>-1
+       then sprue_length:=ReadFloat('sprue_length',18);                                         // 555b
+
+    if NodeIndexOf(FindNode('sprue_width'))<>-1
+       then sprue_width:=ReadFloat('sprue_width',4);                                            // 555b
+
+    if NodeIndexOf(FindNode('sprue_runner_width'))<>-1
+       then sprue_runner_width:=ReadFloat('sprue_runner_width',8);                              // 555b
+
+    if NodeIndexOf(FindNode('web_length'))<>-1
+       then web_length:=ReadFloat('web_length',18);                                             // 555b
+
+    if NodeIndexOf(FindNode('web_width'))<>-1
+       then web_width:=ReadFloat('web_width',12);                                               // 555b
+
+    if NodeIndexOf(FindNode('web_width_flexi'))<>-1
+       then web_width_flexi:=ReadFloat('web_width_flexi',8);                                    // 555b
+
+    if NodeIndexOf(FindNode('web_integrity_overlap'))<>-1
+       then web_integrity_overlap:=ReadFloat('web_integrity_overlap',0.25);                     // 555b
+
+    if NodeIndexOf(FindNode('flange_integrity_overlap'))<>-1
+       then flange_integrity_overlap:=ReadFloat('flange_integrity_overlap',0.25);               // 555b
+
+    if NodeIndexOf(FindNode('side_flange_width_mm'))<>-1
+       then side_flange_width_mm:=ReadFloat('side_flange_width_mm',1.0);                        // 555b
+
+    if NodeIndexOf(FindNode('end_flange_width'))<>-1
+       then end_flange_width:=ReadFloat('end_flange_width',5);                                  // 555b
+
+     if NodeIndexOf(FindNode('flange_offset'))<>-1
+       then flange_offset:=ReadFloat('flange_offset',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('flange_depth'))<>-1
+       then flange_depth:=ReadFloat('flange_depth',2.88);                                       // 555b
+
+    if NodeIndexOf(FindNode('dropper_ridge_spacing_top_mm'))<>-1
+       then dropper_ridge_spacing_top_mm:=ReadFloat('dropper_ridge_spacing_top_mm',0.4);        // 555b
+
+    if NodeIndexOf(FindNode('dropper_ridge_spacing_bottom_mm'))<>-1
+       then dropper_ridge_spacing_bottom_mm:=ReadFloat('dropper_ridge_spacing_bottom_mm',0.6);  // 555b
+
+    if NodeIndexOf(FindNode('dropper_ridge_height'))<>-1
+       then dropper_ridge_height:=ReadFloat('dropper_ridge_height',2.16);                       // 555b
+
+
+    // brick connector clips
+
+    if NodeIndexOf(FindNode('clip_shaft_width'))<>-1
+       then clip_shaft_width:=ReadFloat('clip_shaft_width',13.5);                               // 555b
+
+    if NodeIndexOf(FindNode('clip_top_width'))<>-1
+       then clip_top_width:=ReadFloat('clip_top_width',30);                                    // 555b
+
+    if NodeIndexOf(FindNode('clip_top_length'))<>-1
+       then clip_top_length:=ReadFloat('clip_top_length',4);                                   // 555b
+
+    if NodeIndexOf(FindNode('clip_top_corner_mm'))<>-1
+       then clip_top_corner_mm:=ReadFloat('clip_top_corner_mm',0.08);                          // 555b
+
+    if NodeIndexOf(FindNode('clip_arms_width'))<>-1
+       then clip_arms_width:=ReadFloat('clip_arms_width',6);                                   // 555b
+
+    if NodeIndexOf(FindNode('clip_outers_width'))<>-1
+       then clip_outers_width:=ReadFloat('clip_outers_width',13);                              // 555b
+
+    if NodeIndexOf(FindNode('clip_outers_length'))<>-1
+       then clip_outers_length:=ReadFloat('clip_outers_length',4);                             // 555b
+
+    if NodeIndexOf(FindNode('clip_ends_clear'))<>-1
+       then clip_ends_clear:=ReadFloat('clip_ends_clear',0);                                   // 555b
+
+    if NodeIndexOf(FindNode('clip_sides_clear'))<>-1
+       then clip_sides_clear:=ReadFloat('clip_sides_clear',0.15);                              // 555b
+
+    if NodeIndexOf(FindNode('clip_hole_mm'))<>-1
+       then clip_hole_mm:=ReadFloat('clip_hole_mm',1.0);                                       // 555b
+
+    if NodeIndexOf(FindNode('clip_depth_mm'))<>-1
+       then clip_depth_mm:=ReadFloat('clip_depth_mm',1.8);                                     // 555b
+
+    if NodeIndexOf(FindNode('clip_foot_depth_mm'))<>-1
+       then clip_foot_depth_mm:=ReadFloat('clip_foot_depth_mm',0.36);                          // 555b
+
+    if NodeIndexOf(FindNode('clip_foot_offset_mm'))<>-1
+       then clip_foot_offset_mm:=ReadFloat('clip_foot_offset_mm',0.3);                         // 555b
+
+
+    // splints
+
+    if NodeIndexOf(FindNode('splint_depth'))<>-1
+       then splint_depth:=ReadFloat('splint_depth',2.88);                                      // 555b
+
+    if NodeIndexOf(FindNode('splint_width'))<>-1
+       then splint_width:=ReadFloat('splint_width',9);                                         // 555b
+
+    if NodeIndexOf(FindNode('slab_depth'))<>-1
+       then slab_depth:=ReadFloat('slab_depth',2.88);                                          // 555b
+
+    if NodeIndexOf(FindNode('label_tab_width'))<>-1
+       then label_tab_width:=ReadFloat('label_tab_width',15);                                  // 555b
+
+    if NodeIndexOf(FindNode('label_char_thickness'))<>-1
+       then label_char_thickness:=ReadFloat('label_char_thickness',1.8);                      // 555b
+
+    // sockets
+
+    if NodeIndexOf(FindNode('plugsock_length_mod'))<>-1
+       then plugsock_length_mod:=ReadFloat('plugsock_length_mod',0);                          // 555b
+
+    if NodeIndexOf(FindNode('plugsock_width_mod'))<>-1
+       then plugsock_width_mod:=ReadFloat('plugsock_width_mod',0);                            // 555b
+
+    if NodeIndexOf(FindNode('socket_chamfer'))<>-1
+       then socket_chamfer:=ReadFloat('socket_chamfer',0.15);                                 // 555b
+
+    if NodeIndexOf(FindNode('socket_chamfer_depth'))<>-1
+       then socket_chamfer_depth:=ReadFloat('socket_chamfer_depth',0.36);                     // 555b
+
+    if NodeIndexOf(FindNode('socket_depth'))<>-1
+       then socket_depth:=ReadFloat('socket_depth',8.64);                                     // 555b
+
+    // snap fit chairs
+
+    if NodeIndexOf(FindNode('snap_socket_fit_sides_sl'))<>-1
+       then snap_socket_fit_sides_sl:=ReadFloat('snap_socket_fit_sides_sl',0.06);             // 555b
+
+    if NodeIndexOf(FindNode('snap_socket_fit_sides_timb'))<>-1
+       then snap_socket_fit_sides_timb:=ReadFloat('snap_socket_fit_sides_timb',0.05);         // 555b
+
+    if NodeIndexOf(FindNode('snap_socket_fit_ends'))<>-1
+       then snap_socket_fit_ends:=ReadFloat('snap_socket_fit_ends',0.04);                     // 555b
+
+    if NodeIndexOf(FindNode('snap_socket_undercut'))<>-1
+       then snap_socket_undercut:=ReadFloat('snap_socket_undercut',7/16);                     // 555b
+
+    if NodeIndexOf(FindNode('snap_undercut_depth'))<>-1
+       then snap_undercut_depth:=ReadFloat('snap_undercut_depth',1.44);                       // 555b
+
+    if NodeIndexOf(FindNode('snap_clearcut_depth'))<>-1
+       then snap_clearcut_depth:=ReadFloat('snap_clearcut_depth',6);                          // 555b
+
+    // clip socket chairs
+
+    if NodeIndexOf(FindNode('clip_socket_fit_sides_sl'))<>-1
+       then clip_socket_fit_sides_sl:=ReadFloat('clip_socket_fit_sides_sl',0.06);             // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_fit_sides_timb'))<>-1
+       then clip_socket_fit_sides_timb:=ReadFloat('clip_socket_fit_sides_timb',0.05);         // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_fit_ends'))<>-1
+       then clip_socket_fit_ends:=ReadFloat('clip_socket_fit_ends',0.01);                     // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_undercut'))<>-1
+       then clip_socket_undercut:=ReadFloat('clip_socket_undercut',7/16);                     // 555b
+
+    if NodeIndexOf(FindNode('clip_undercut_depth'))<>-1
+       then clip_undercut_depth:=ReadFloat('clip_undercut_depth',1.44);                       // 555b
+
+    if NodeIndexOf(FindNode('clip_clearcut_depth'))<>-1
+       then clip_clearcut_depth:=ReadFloat('clip_clearcut_depth',5.5);                        // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_top_depth'))<>-1
+       then clip_socket_flap_top_depth:=ReadFloat('clip_socket_flap_top_depth',2.52);         // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_top_length'))<>-1
+       then clip_socket_flap_top_length:=ReadFloat('clip_socket_flap_top_length',3.69);       // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_jut_length'))<>-1
+       then clip_socket_flap_jut_length:=ReadFloat('clip_socket_flap_jut_length',1.1);        // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_rear_length'))<>-1
+       then clip_socket_flap_rear_length:=ReadFloat('clip_socket_flap_rear_length',0.1);      // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_clear_width'))<>-1
+       then clip_socket_flap_clear_width:=ReadFloat('clip_socket_flap_clear_width',1.5);      // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_end_space'))<>-1
+       then clip_tang_end_space:=ReadFloat('clip_tang_end_space',5/16);                       // 555b
+
+    // press fit chairs
+
+    if NodeIndexOf(FindNode('press_socket_fit_sides_sl'))<>-1
+       then press_socket_fit_sides_sl:=ReadFloat('press_socket_fit_sides_sl',0.05);           // 555b
+
+    if NodeIndexOf(FindNode('press_socket_fit_sides_timb'))<>-1
+       then press_socket_fit_sides_timb:=ReadFloat('press_socket_fit_sides_timb',0.04);       // 555b
+
+       // negative interference fit ...
+
+    if NodeIndexOf(FindNode('press_short_socket_fit_ends'))<>-1
+       then press_short_socket_fit_ends:=ReadFloat('press_short_socket_fit_ends',-0.03);      // 555b
+
+    if NodeIndexOf(FindNode('press_socket_fit_ends'))<>-1
+       then press_socket_fit_ends:=ReadFloat('press_socket_fit_ends',-0.02);                  // 555b
+
+    if NodeIndexOf(FindNode('press_long_socket_fit_ends'))<>-1
+       then press_long_socket_fit_ends:=ReadFloat('press_long_socket_fit_ends',-0.01);        // 555b
+
+    if NodeIndexOf(FindNode('press_very_long_socket_fit_ends'))<>-1
+       then press_very_long_socket_fit_ends:=ReadFloat('press_very_long_socket_fit_ends',-0.01); // 555b
+
+    // ------------
+
+    if NodeIndexOf(FindNode('socket_indent'))<>-1
+       then socket_indent:=ReadFloat('socket_indent',1/3);                                    // 555b
+
+    // snap fit plugs
+
+    if NodeIndexOf(FindNode('snap_plug_overcut'))<>-1
+       then snap_plug_overcut:=ReadFloat('snap_plug_overcut',3/8);                            // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_overcut_depth'))<>-1
+       then snap_plug_overcut_depth:=ReadFloat('snap_plug_overcut_depth',2.5);                // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_taper_depth'))<>-1
+       then snap_plug_taper_depth:=ReadFloat('snap_plug_taper_depth',2);                      // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_inset_depth'))<>-1
+       then snap_plug_inset_depth:=ReadFloat('snap_plug_inset_depth',3.5);                    // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_total_depth'))<>-1
+       then snap_plug_total_depth:=ReadFloat('snap_plug_total_depth',7.5);                    // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_extended_depth'))<>-1
+       then snap_plug_extended_depth:=ReadFloat('snap_plug_extended_depth',2.5);              // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_inset_clear_upper'))<>-1
+       then snap_plug_inset_clear_upper:=ReadFloat('snap_plug_inset_clear_upper',0.25);       // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_inset_clear_bottom'))<>-1
+       then snap_plug_inset_clear_bottom:=ReadFloat('snap_plug_inset_clear_bottom',7/16);     // 555b
+
+
+    // clip fit plugs
+
+    if NodeIndexOf(FindNode('clip_plug_taper_depth'))<>-1
+       then clip_plug_taper_depth:=ReadFloat('clip_plug_taper_depth',2);                      // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_inset_depth'))<>-1
+       then clip_plug_inset_depth:=ReadFloat('clip_plug_inset_depth',3.5);                    // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_total_depth'))<>-1
+       then clip_plug_total_depth:=ReadFloat('clip_plug_total_depth',7.75);                   // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_extended_depth'))<>-1
+       then clip_plug_extended_depth:=ReadFloat('clip_plug_extended_depth',8.375);            // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_inset_clear_upper'))<>-1
+       then clip_plug_inset_clear_upper:=ReadFloat('clip_plug_inset_clear_upper',0.25);       // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_inset_clear_bottom'))<>-1
+       then clip_plug_inset_clear_bottom:=ReadFloat('clip_plug_inset_clear_bottom',7/16);     // 555b
+
+       // clip tangs
+
+    if NodeIndexOf(FindNode('clip_tang_overcut'))<>-1
+       then clip_tang_overcut:=ReadFloat('clip_tang_overcut',1/2);                            // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_roof_front_depth'))<>-1
+       then clip_tang_roof_front_depth:=ReadFloat('clip_tang_roof_front_depth',5/4);          // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_roof_back_depth'))<>-1
+       then clip_tang_roof_back_depth:=ReadFloat('clip_tang_roof_back_depth',2);              // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_floor_depth'))<>-1
+       then clip_tang_floor_depth:=ReadFloat('clip_tang_floor_depth',6);                      // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_default_depth'))<>-1
+       then clip_tang_default_depth:=ReadFloat('clip_tang_default_depth',2.4);                // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_overcut_depth'))<>-1
+       then clip_tang_overcut_depth:=ReadFloat('clip_tang_overcut_depth',2.4);                // 555b
+
+       // ----------
+
+    // press fit plugs
+
+    if NodeIndexOf(FindNode('press_plug_taper_depth'))<>-1
+       then press_plug_taper_depth:=ReadFloat('press_plug_taper_depth',2);                    // 555b
+
+    if NodeIndexOf(FindNode('press_plug_inset_depth'))<>-1
+       then press_plug_inset_depth:=ReadFloat('press_plug_inset_depth',3.5);                  // 555b
+
+    if NodeIndexOf(FindNode('press_plug_total_depth'))<>-1
+       then press_plug_total_depth:=ReadFloat('press_plug_total_depth',7.75);                 // 555b
+
+    if NodeIndexOf(FindNode('press_plug_extended_depth'))<>-1
+       then press_plug_extended_depth:=ReadFloat('press_plug_extended_depth',8.375);          // 555b
+
+    if NodeIndexOf(FindNode('press_plug_inset_clear_upper'))<>-1
+       then press_plug_inset_clear_upper:=ReadFloat('press_plug_inset_clear_upper',0.25);     // 555b
+
+    if NodeIndexOf(FindNode('press_plug_inset_clear_bottom'))<>-1
+       then press_plug_inset_clear_bottom:=ReadFloat('press_plug_inset_clear_bottom',7/16);   // 555b
+
+
+    // plugs
+
+    if NodeIndexOf(FindNode('locator_plug_depth'))<>-1
+       then locator_plug_depth:=ReadFloat('locator_plug_depth',36);                           // 555b
+
+    if NodeIndexOf(FindNode('plug_corner_clear_fdm'))<>-1
+       then plug_corner_clear_fdm:=ReadFloat('plug_corner_clear_fdm',0.75);                   // 555b
+
+    if NodeIndexOf(FindNode('plug_corner_clear_cnc'))<>-1
+       then plug_corner_clear_cnc:=ReadFloat('plug_corner_clear_cnc',2.25);                   // 555b
+
+    if NodeIndexOf(FindNode('plug_end_width_fdm'))<>-1
+       then plug_end_width_fdm:=ReadFloat('plug_end_width_fdm',1.5);                          // 555b
+
+    if NodeIndexOf(FindNode('plug_end_width_cnc'))<>-1
+       then plug_end_width_cnc:=ReadFloat('plug_end_width_cnc',1.0);                          // 555b
+
+    if NodeIndexOf(FindNode('plug_fit_sides'))<>-1
+       then plug_fit_sides:=ReadFloat('plug_fit_sides',0);                                    // 555b
+
+    if NodeIndexOf(FindNode('plug_fit_ends'))<>-1
+       then plug_fit_ends:=ReadFloat('plug_fit_ends',0);                                      // 555b
+
+    // pyramids
+
+    if NodeIndexOf(FindNode('pyramid_height_low'))<>-1
+       then pyramid_height_low:=ReadFloat('pyramid_height_low',3.0);                          // 555b
+
+    if NodeIndexOf(FindNode('pyramid_height_high'))<>-1
+       then pyramid_height_high:=ReadFloat('pyramid_height_high',7.0);                        // 555b
+
+    if NodeIndexOf(FindNode('pyramid_taper'))<>-1
+       then pyramid_taper:=ReadFloat('pyramid_taper',1.25);                                   // 555b
+
+    if NodeIndexOf(FindNode('pyramid_top_end_inset'))<>-1
+       then pyramid_top_end_inset:=ReadFloat('pyramid_top_end_inset',3);                      // 555b
+
+    if NodeIndexOf(FindNode('pyramid_top_side_inset'))<>-1
+       then pyramid_top_side_inset:=ReadFloat('pyramid_top_side_inset',2);                    // 555b
+
+    if NodeIndexOf(FindNode('shrink_gauge_spacing'))<>-1
+       then shrink_gauge_spacing:=ReadFloat('shrink_gauge_spacing',3);                        // 555b
+
+    // loose jaw pins
+
+    if NodeIndexOf(FindNode('pyramid_height_pin'))<>-1
+       then pyramid_height_pin:=ReadFloat('pyramid_height_pin',1.0);                          // 555b
+
+    if NodeIndexOf(FindNode('pin_slot_halfwide'))<>-1
+       then pin_slot_halfwide:=ReadFloat('pin_slot_halfwide',1.8);                            // 555b
+
+    if NodeIndexOf(FindNode('pin_slot_length'))<>-1
+       then pin_slot_length:=ReadFloat('pin_slot_length',1.8);                                // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_clear_sides'))<>-1
+       then loose_pin_clear_sides:=ReadFloat('loose_pin_clear_sides',0.04);                   // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_clear_front'))<>-1
+       then loose_pin_clear_front:=ReadFloat('loose_pin_clear_front',0.04);                   // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_clear_back'))<>-1
+       then loose_pin_clear_back:=ReadFloat('loose_pin_clear_back',0.04);                     // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_bottom_taper_ins'))<>-1
+       then loose_pin_bottom_taper_ins:=ReadFloat('loose_pin_bottom_taper_ins',0.09);         // 555b
+
+    if NodeIndexOf(FindNode('key_thicken'))<>-1
+       then key_thicken:=ReadFloat('key_thicken',0.05);                                       // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_depth_clear'))<>-1
+       then loose_pin_depth_clear:=ReadFloat('loose_pin_depth_clear',1/8);                    // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_bottom_chamfer_clear'))<>-1
+       then loose_pin_bottom_chamfer_clear:=ReadFloat('loose_pin_bottom_chamfer_clear',1.75); // 555b
+
+    if NodeIndexOf(FindNode('slot_angle'))<>-1
+       then slot_angle:=ReadFloat('slot_angle',5*Pi/180);                                     // 555b
+
+    // raft
+
+    if NodeIndexOf(FindNode('raft_thick'))<>-1
+       then raft_thick:=ReadFloat('raft_thick',0.05);                                         // 555b
+
+    if NodeIndexOf(FindNode('raft_flange'))<>-1
+       then raft_flange:=ReadFloat('raft_flange',0.25);                                       // 555b
+
+    if NodeIndexOf(FindNode('raft_label_char_thickness'))<>-1
+       then raft_label_char_thickness:=ReadFloat('raft_label_char_thickness',1.0);            // 555b
+
+    if NodeIndexOf(FindNode('alignment_plate_thick_mm'))<>-1
+       then alignment_plate_thick_mm:=ReadFloat('alignment_plate_thick_mm',3.0);              // 555b
+
+    // filament
+
+    if NodeIndexOf(FindNode('filament_dia_mm'))<>-1
+       then filament_dia_mm:=ReadFloat('filament_dia_mm',1.75);                               // 555b
+
+    if NodeIndexOf(FindNode('filament_adjust'))<>-1
+       then filament_adjust:=ReadFloat('filament_adjust',0);                                  // 555b
+
+    // flangeways
+
+    if NodeIndexOf(FindNode('fw_correction_xing'))<>-1
+       then fw_correction_xing:=ReadFloat('fw_correction_xing',0);                            // 555b
+
+    if NodeIndexOf(FindNode('fw_correction_check'))<>-1
+       then fw_correction_check:=ReadFloat('fw_correction_check',0);                          // 555b
+
+    if NodeIndexOf(FindNode('fw_tweak_xing'))<>-1
+       then fw_tweak_xing:=ReadFloat('fw_tweak_xing',0);                                      // 555b
+
+    if NodeIndexOf(FindNode('fw_tweak_check'))<>-1
+       then fw_tweak_check:=ReadFloat('fw_tweak_check',0);                                    // 555b
+
+    // kerfs
+
+    if NodeIndexOf(FindNode('cutter_kerf_mm'))<>-1
+       then cutter_kerf_mm:=ReadFloat('cutter_kerf_mm',0.2);                                  // 555b
+
+    if NodeIndexOf(FindNode('kerf_extra_undercut_mm'))<>-1
+       then kerf_extra_undercut_mm:=ReadFloat('kerf_extra_undercut_mm',0);                    // 555b
+
+    // nibs and snibs
+
+    if NodeIndexOf(FindNode('nib_width'))<>-1
+       then nib_width:=ReadFloat('nib_width',0.6);                                            // 555b
+
+    if NodeIndexOf(FindNode('nib_length'))<>-1
+       then nib_length:=ReadFloat('nib_length',0.6);                                          // 555b
+
+    if NodeIndexOf(FindNode('tsn_snib_space_mm'))<>-1
+       then tsn_snib_space_mm:=ReadFloat('tsn_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('tsf_snib_space_mm'))<>-1
+       then tsf_snib_space_mm:=ReadFloat('tsf_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('msn_snib_space_mm'))<>-1
+       then msn_snib_space_mm:=ReadFloat('msn_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('msf_snib_space_mm'))<>-1
+       then msf_snib_space_mm:=ReadFloat('msf_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('snib1_extent'))<>-1
+       then snib1_extent:=ReadFloat('snib1_extent',6);                                        // 555b
+
+    if NodeIndexOf(FindNode('snib2_extent_t'))<>-1
+       then snib2_extent_t:=ReadFloat('snib2_extent_t',15.5);                                 // 555b
+
+    if NodeIndexOf(FindNode('snib2_extent_p'))<>-1
+       then snib2_extent_p:=ReadFloat('snib2_extent_p',10);                                   // 555b
+
+    if NodeIndexOf(FindNode('snib2_extent_e'))<>-1
+       then snib2_extent_e:=ReadFloat('snib2_extent_e',12.5);                                 // 555b
+
+    // other
+
+    if NodeIndexOf(FindNode('chair_web_adjustment'))<>-1
+       then chair_web_adjustment:=ReadFloat('chair_web_adjustment',0);                        // 555b
+
+// 555b
 
     rail_section_option:=ReadInteger('rail_option',0);    // 244d preserve legacy files after variable name change
 
@@ -13616,7 +14108,7 @@ begin
 
             with header_node do begin
 
-              WriteString('program_version','custom DXF data, saved from Templot version '+round_str(program_version/100,2)+version_build,''); // 555b
+              WriteString('program_version','custom DXF data, saved from Templot version '+round_str(program_version/100,2)+version_build,'');          // 555b
               WriteString('file_date',DateTimeToStr(Now),'');
 
             end;//with header
@@ -13640,6 +14132,7 @@ begin
 
               WriteFloat('custom_rail_web_top',custom_rail_web_top,0);
               WriteFloat('custom_rail_web_bottom',custom_rail_web_bottom,0);
+// 555b
 
               WriteFloat('seat_thick',seat_thick,0);                                           // 555b
               WriteFloat('timber_thick',timber_thick,0);                                       // 555b
@@ -13653,37 +14146,256 @@ begin
               WriteFloat('switch_slider_rib_mid_depth',switch_slider_rib_mid_depth,0);         // 555b
               WriteFloat('switch_slider_rib_bottom_depth',switch_slider_rib_bottom_depth,0);   // 555b
 
+              WriteFloat('sprue_thick',sprue_thick,0);                                         // 555b
+              WriteFloat('sprue_length',sprue_length,0);                                       // 555b
+              WriteFloat('sprue_width',sprue_width,0);                                         // 555b
+              WriteFloat('sprue_runner_width',sprue_runner_width,0);                           // 555b
 
+              WriteFloat('web_length',web_length,0);                                           // 555b
+              WriteFloat('web_width',web_width,0);                                             // 555b
+              WriteFloat('web_width_flexi',web_width_flexi,0);                                 // 555b
+
+              WriteFloat('web_integrity_overlap',web_integrity_overlap,0);                     // 555b
+              WriteFloat('flange_integrity_overlap',flange_integrity_overlap,0);               // 555b
+
+              WriteFloat('side_flange_width_mm',side_flange_width_mm,0);                       // 555b
+              WriteFloat('end_flange_width',end_flange_width,0);                               // 555b
+              WriteFloat('flange_offset',flange_offset,0);                                     // 555b
+              WriteFloat('flange_depth',flange_depth,0);                                       // 555b
+
+              WriteFloat('dropper_ridge_spacing_top_mm',dropper_ridge_spacing_top_mm,0);       // 555b
+              WriteFloat('dropper_ridge_spacing_bottom_mm',dropper_ridge_spacing_bottom_mm,0); // 555b
+              WriteFloat('dropper_ridge_height',dropper_ridge_height,0);                       // 555b
+
+              // connector clips
+
+              WriteFloat('clip_shaft_width',clip_shaft_width,0);                               // 555b
+              WriteFloat('clip_top_width',clip_top_width,0);                                   // 555b
+              WriteFloat('clip_top_width',clip_top_width,0);                                   // 555b
+              WriteFloat('clip_top_corner_mm',clip_top_corner_mm,0);                           // 555b
+              WriteFloat('clip_arms_width',clip_arms_width,0);                                 // 555b
+              WriteFloat('clip_outers_width',clip_outers_width,0);                             // 555b
+              WriteFloat('clip_outers_length',clip_outers_length,0);                           // 555b
+              WriteFloat('clip_ends_clear',clip_ends_clear,0);                                 // 555b
+              WriteFloat('clip_sides_clear',clip_sides_clear,0);                               // 555b
+              WriteFloat('clip_hole_mm',clip_hole_mm,0);                                       // 555b
+              WriteFloat('clip_depth_mm',clip_depth_mm,0);                                     // 555b
+              WriteFloat('clip_foot_depth_mm',clip_foot_depth_mm,0);                           // 555b
+              WriteFloat('clip_foot_offset_mm',clip_foot_offset_mm,0);                         // 555b
+
+              // splints
+
+              WriteFloat('splint_depth',splint_depth,0);                                       // 555b
+              WriteFloat('splint_width',splint_width,0);                                       // 555b
+
+              WriteFloat('slab_depth',slab_depth,0);                                           // 555b
+
+              WriteFloat('label_tab_width',label_tab_width,0);                                 // 555b
+              WriteFloat('label_char_thickness',label_char_thickness,0);                       // 555b
+
+              WriteFloat('plugsock_length_mod',plugsock_length_mod,0);                         // 555b
+              WriteFloat('plugsock_width_mod',plugsock_width_mod,0);                           // 555b
+
+              WriteFloat('socket_chamfer',socket_chamfer,0);                                   // 555b
+              WriteFloat('socket_chamfer_depth',socket_chamfer_depth,0);                       // 555b
+
+              WriteFloat('socket_depth',socket_depth,0);                                       // 555b
+
+              // snap fit chairs
+
+              WriteFloat('snap_socket_fit_sides_sl',snap_socket_fit_sides_sl,0);               // 555b
+              WriteFloat('snap_socket_fit_sides_timb',snap_socket_fit_sides_timb,0);           // 555b
+
+              WriteFloat('snap_socket_fit_ends',snap_socket_fit_ends,0);                       // 555b
+
+              WriteFloat('snap_socket_undercut',snap_socket_undercut,0);                       // 555b
+              WriteFloat('snap_undercut_depth',snap_undercut_depth,0);                         // 555b
+              WriteFloat('snap_clearcut_depth',snap_clearcut_depth,0);                         // 555b
+
+
+              // clip fit chairs
+
+              WriteFloat('clip_socket_fit_sides_sl',clip_socket_fit_sides_sl,0);               // 555b
+              WriteFloat('clip_socket_fit_sides_timb',clip_socket_fit_sides_timb,0);           // 555b
+
+              WriteFloat('clip_socket_fit_ends',clip_socket_fit_ends,0);                       // 555b
+
+              WriteFloat('clip_socket_undercut',clip_socket_undercut,0);                       // 555b
+              WriteFloat('clip_undercut_depth',clip_undercut_depth,0);                         // 555b
+              WriteFloat('clip_clearcut_depth',clip_clearcut_depth,0);                         // 555b
+
+              WriteFloat('clip_socket_flap_top_depth',clip_socket_flap_top_depth,0);           // 555b
+              WriteFloat('clip_socket_flap_top_length',clip_socket_flap_top_length,0);         // 555b
+
+              WriteFloat('clip_socket_flap_jut_length',clip_socket_flap_jut_length,0);         // 555b
+              WriteFloat('clip_socket_flap_rear_length',clip_socket_flap_rear_length,0);       // 555b
+
+              WriteFloat('clip_socket_flap_clear_width',clip_socket_flap_clear_width,0);       // 555b
+
+              WriteFloat('clip_tang_end_space',clip_tang_end_space,0);                         // 555b
+
+              // press fit chairs
+
+              WriteFloat('press_socket_fit_sides_sl',press_socket_fit_sides_sl,0);             // 555b
+              WriteFloat('press_socket_fit_sides_timb',press_socket_fit_sides_timb,0);         // 555b
+
+
+                  // negative interference fit ...
 
               WriteFloat('press_short_socket_fit_ends',press_short_socket_fit_ends,0);         // 555b
-              WriteFloat('press_socket_fit_ends',press_socket_fit_ends,0);
-              WriteFloat('press_long_socket_fit_ends',press_long_socket_fit_ends,0);    // 234e
+              WriteFloat('press_socket_fit_ends',press_socket_fit_ends,0);                     // 555b
+              WriteFloat('press_long_socket_fit_ends',press_long_socket_fit_ends,0);           // 234e
               WriteFloat('press_very_long_socket_fit_ends',press_very_long_socket_fit_ends,0); // 555b
 
-              WriteFloat('press_socket_fit_sides_sl',press_socket_fit_sides_sl,0);
-              WriteFloat('press_socket_fit_sides_timb',press_socket_fit_sides_timb,0);
+              // ----
 
-              WriteFloat('plug_fit_sides',plug_fit_sides,0);
-              WriteFloat('plug_fit_ends',plug_fit_ends,0);
+              WriteFloat('socket_indent',socket_indent,0);                                     // 555b
 
-              WriteFloat('plug_corner_clear_fdm',plug_corner_clear_fdm,0);
-              WriteFloat('plug_corner_clear_cnc',plug_corner_clear_cnc,0);
 
+              // snap fit plugs
+
+              WriteFloat('snap_plug_taper_depth',snap_plug_taper_depth,0);                     // 555b
+              WriteFloat('snap_plug_inset_depth',snap_plug_inset_depth,0);                     // 555b
+              WriteFloat('snap_plug_total_depth',snap_plug_total_depth,0);                     // 555b
+              WriteFloat('snap_plug_extended_depth',snap_plug_extended_depth,0);               // 555b
+
+              WriteFloat('snap_plug_overcut',snap_plug_overcut,0);                             // 555b
+              WriteFloat('snap_plug_overcut_depth',snap_plug_overcut_depth,0);                 // 555b
+
+              WriteFloat('snap_plug_inset_clear_upper',snap_plug_inset_clear_upper,0);         // 234e
+              WriteFloat('snap_plug_inset_clear_bottom',snap_plug_inset_clear_bottom,0);       // 555b
+
+              // clip fit plugs
+
+              WriteFloat('clip_plug_taper_depth',clip_plug_taper_depth,0);                     // 555b
+              WriteFloat('clip_plug_inset_depth',clip_plug_inset_depth,0);                     // 555b
+              WriteFloat('clip_plug_total_depth',clip_plug_total_depth,0);                     // 555b
+              WriteFloat('clip_plug_extended_depth',clip_plug_extended_depth,0);               // 555b
+
+              WriteFloat('clip_plug_inset_clear_upper',clip_plug_inset_clear_upper,0);         // 555b
+              WriteFloat('clip_plug_inset_clear_bottom',clip_plug_inset_clear_bottom,0);       // 555b
+
+              // press fit plugs
+
+              WriteFloat('press_plug_taper_depth',press_plug_taper_depth,0);                   // 555b
+              WriteFloat('press_plug_inset_depth',press_plug_inset_depth,0);                   // 555b
+              WriteFloat('press_plug_total_depth',press_plug_total_depth,0);                   // 555b
+              WriteFloat('press_plug_extended_depth',press_plug_extended_depth,0);             // 555b
+
+              WriteFloat('press_plug_inset_clear_upper',press_plug_inset_clear_upper,0);       // 234e
+              WriteFloat('press_plug_inset_clear_bottom',press_plug_inset_clear_bottom,0);     // 555b
+
+              // clip tangs
+
+              WriteFloat('clip_tang_overcut',clip_tang_overcut,0);                             // 555b
+              WriteFloat('clip_tang_roof_front_depth',clip_tang_roof_front_depth,0);           // 555b
+              WriteFloat('clip_tang_roof_back_depth',clip_tang_roof_back_depth,0);             // 555b
+              WriteFloat('clip_tang_floor_depth',clip_tang_floor_depth,0);                     // 555b
+              WriteFloat('clip_tang_default_depth',clip_tang_default_depth,0);                 // 555b
+              WriteFloat('clip_tang_overcut_depth',clip_tang_overcut_depth,0);                 // 555b
+
+              // plugs
+
+              WriteFloat('locator_plug_depth',locator_plug_depth,0);                           // 555b
+
+              WriteFloat('plug_corner_clear_fdm',plug_corner_clear_fdm,0);                     // 555b
+              WriteFloat('plug_corner_clear_cnc',plug_corner_clear_cnc,0);                     // 555b
+
+              WriteFloat('plug_end_width_fdm',plug_end_width_fdm,0);                           // 555b
+              WriteFloat('plug_end_width_cnc',plug_end_width_cnc,0);                           // 555b
+
+              WriteFloat('plug_fit_sides',plug_fit_sides,0);                                   // 555b
+              WriteFloat('plug_fit_ends',plug_fit_ends,0);                                     // 555b
+
+              // pyramids
+
+              WriteFloat('pyramid_height_low',pyramid_height_low,0);                           // 555b
+              WriteFloat('pyramid_height_high',pyramid_height_high,0);                         // 555b
+
+              WriteFloat('pyramid_taper',pyramid_taper,0);                                     // 555b
+              WriteFloat('pyramid_top_end_inset',pyramid_top_end_inset,0);                     // 555b
+
+              WriteFloat('pyramid_top_side_inset',pyramid_top_side_inset,0);                   // 555b
+              WriteFloat('shrink_gauge_spacing',shrink_gauge_spacing,0);                       // 555b
+
+              // loose jaw pins
+
+              WriteFloat('pyramid_height_pin',pyramid_height_pin,0);                           // 555b
+
+              WriteFloat('pin_slot_halfwide',pin_slot_halfwide,0);                             // 555b
+              WriteFloat('pin_slot_length',pin_slot_length,0);                                 // 555b
+
+              WriteFloat('loose_pin_clear_sides',loose_pin_clear_sides,0);                     // 555b
+
+              WriteFloat('loose_pin_clear_front',loose_pin_clear_front,0);                     // 555b
+              WriteFloat('loose_pin_clear_back',loose_pin_clear_back,0);                       // 555b
+
+              WriteFloat('loose_pin_bottom_taper_ins',loose_pin_bottom_taper_ins,0);           // 555b
+
+              WriteFloat('key_thicken',key_thicken,0);                                         // 555b
+
+              WriteFloat('loose_pin_depth_clear',loose_pin_depth_clear,0);                     // 555b
+
+              WriteFloat('loose_pin_bottom_chamfer_clear',loose_pin_bottom_chamfer_clear,0);   // 555b
+
+              WriteFloat('slot_angle',slot_angle,0);                                           // 555b
+
+              // raft
+
+              WriteFloat('raft_thick',raft_thick,0);                                           // 555b
+
+              WriteFloat('raft_flange',raft_flange,0);                                         // 555b
+
+              WriteFloat('raft_label_char_thickness',raft_label_char_thickness,0);             // 555b
+
+              WriteFloat('alignment_plate_thick_mm',alignment_plate_thick_mm,0);               // 555b
+
+              // filament
+
+              WriteFloat('filament_dia_mm',filament_dia_mm,0);                                 // 555b
+
+              WriteFloat('filament_adjust',filament_adjust,0);                                 // 555b
+
+              // flangeway
+
+              WriteFloat('fw_correction_xing',fw_correction_xing,0);                           // 555b
+
+              WriteFloat('fw_correction_check',fw_correction_check,0);                         // 555b
+
+              WriteFloat('fw_tweak_xing',fw_tweak_xing,0);                                     // 555b
+
+              WriteFloat('fw_tweak_check',fw_tweak_check,0);                                   // 555b
+
+              // kerfs
+
+              WriteFloat('cutter_kerf_mm',cutter_kerf_mm,0);                                   // 555b
+
+              WriteFloat('kerf_extra_undercut_mm',kerf_extra_undercut_mm,0);                   // 555b
+
+              // nibs and snibs
+
+              WriteFloat('nib_width',nib_width,0);                                             // 555b
+
+              WriteFloat('nib_length',nib_length,0);                                           // 555b
+
+              WriteFloat('tsn_snib_space_mm',tsn_snib_space_mm,0);                             // 555b
+
+              WriteFloat('tsf_snib_space_mm',tsf_snib_space_mm,0);                             // 555b
+
+              WriteFloat('msn_snib_space_mm',msn_snib_space_mm,0);                             // 555b
+
+              WriteFloat('msf_snib_space_mm',msf_snib_space_mm,0);                             // 555b
+
+              WriteFloat('snib1_extent',snib1_extent,0);                                       // 555b
+
+              WriteFloat('snib2_extent_t',snib2_extent_t,0);                                   // 555b
+
+              WriteFloat('snib2_extent_p',snib2_extent_p,0);                                   // 555b
+
+              WriteFloat('snib2_extent_e',snib2_extent_e,0);                                   // 555b
+
+// 555b
               WriteFloat('chair_web_adjustment',chair_web_adjustment,0);
-
-              WriteFloat('socket_depth',socket_depth,0);
-              WriteFloat('timber_thick',timber_thick,0);
-
-              WriteFloat('sprue_thick',sprue_thick,0);
-              WriteFloat('sprue_length',sprue_length,0);
-              WriteFloat('sprue_width',sprue_width,0);
-
-              WriteFloat('flange_depth',flange_depth,0);
-              WriteFloat('side_flange_width_mm',side_flange_width_mm,0);
-              WriteFloat('end_flange_width',end_flange_width,0);
-              WriteFloat('flange_offset',flange_offset,0);
-
-              WriteFloat('slab_depth',slab_depth,0);
 
               WriteInteger('rail_option',rail_section_option,0);   // 244d preserve legacy files after variable name change
 
