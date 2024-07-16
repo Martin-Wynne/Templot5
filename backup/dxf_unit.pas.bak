@@ -14041,17 +14041,6 @@ begin
     if NodeIndexOf(FindNode('resin_shrinkage_z'))<>-1
        then resin_shrinkage_z:=ReadFloat('resin_shrinkage_z',0);                              // 555b
 
-    // minibo backlash correction
-
-    if NodeIndexOf(FindNode('bl_x'))<>-1
-       then bl_x:=ReadFloat('bl_x',0.3);                                                      // 555b
-
-    if NodeIndexOf(FindNode('bl_y'))<>-1
-       then bl_y:=ReadFloat('bl_y',0.3);                                                      // 555b
-
-    if NodeIndexOf(FindNode('bl_z'))<>-1
-       then bl_z:=ReadFloat('bl_z',0.4);                                                      // 555b
-
     // other
 
     if NodeIndexOf(FindNode('chair_web_adjustment'))<>-1
@@ -14178,14 +14167,14 @@ begin
 
             data_node:=create_named_node(xml_doc.Root,'DATA');
 
-            // write out the data...
+                    // write out the data...
 
             with data_node do begin
 
-	      WriteString('custom_section_name_str',custom_section_name_str,'');
+			  WriteString('custom_section_name_str',custom_section_name_str,'');
 
-	      WriteFloat('custom_rail_depth',custom_rail_depth,0);
-	      WriteFloat('custom_rail_head_width',custom_rail_head_width,0);
+			  WriteFloat('custom_rail_depth',custom_rail_depth,0);
+			  WriteFloat('custom_rail_head_width',custom_rail_head_width,0);
 
               WriteFloat('custom_rail_corner_rad',custom_rail_corner_rad,0);
               WriteFloat('custom_rail_foot_width',custom_rail_foot_width,0);
@@ -14493,14 +14482,6 @@ begin
               WriteFloat('resin_shrinkage_y',resin_shrinkage_y,0);                             // 555b
 
               WriteFloat('resin_shrinkage_z',resin_shrinkage_z,0);                             // 555b
-
-              // minibo backlash correction
-
-              WriteFloat('bl_x',bl_x,0);                             // 555b
-
-              WriteFloat('bl_y',bl_y,0);                             // 555b
-
-              WriteFloat('bl_z',bl_z,0);                             // 555b
 
 // 555b
               WriteFloat('chair_web_adjustment',chair_web_adjustment,0);
