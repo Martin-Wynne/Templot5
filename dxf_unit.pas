@@ -13989,6 +13989,58 @@ begin
     if NodeIndexOf(FindNode('snib2_extent_e'))<>-1
        then snib2_extent_e:=ReadFloat('snib2_extent_e',12.5);                                 // 555b
 
+
+    // nails
+
+    if NodeIndexOf(FindNode('nails_height'))<>-1
+       then nails_height:=ReadFloat('nails_height',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('nails_toprad'))<>-1
+       then nails_toprad:=ReadFloat('nails_toprad',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('nails_botrad'))<>-1
+       then nails_botrad:=ReadFloat('nails_botrad',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('nailx_spacing'))<>-1
+       then nailx_spacing:=ReadFloat('nailx_spacing',0);                                      // 555b
+
+    if NodeIndexOf(FindNode('naily_spacing'))<>-1
+       then naily_spacing:=ReadFloat('naily_spacing',0);                                      // 555b
+
+
+     // shrinkage FDM - heated bed
+
+    if NodeIndexOf(FindNode('fdm_hot_shrinkage_x'))<>-1
+       then fdm_hot_shrinkage_x:=ReadFloat('fdm_hot_shrinkage_x',0);                          // 555b
+
+    if NodeIndexOf(FindNode('fdm_hot_shrinkage_y'))<>-1
+       then fdm_hot_shrinkage_y:=ReadFloat('fdm_hot_shrinkage_y',0);                          // 555b
+
+    if NodeIndexOf(FindNode('fdm_hot_shrinkage_z'))<>-1
+       then fdm_hot_shrinkage_z:=ReadFloat('fdm_hot_shrinkage_z',0);                          // 555b
+
+    // shrinkage FDM - cold bed
+
+    if NodeIndexOf(FindNode('fdm_cold_shrinkage_x'))<>-1
+       then fdm_cold_shrinkage_x:=ReadFloat('fdm_cold_shrinkage_x',0);                        // 555b
+
+    if NodeIndexOf(FindNode('fdm_cold_shrinkage_y'))<>-1
+       then fdm_cold_shrinkage_y:=ReadFloat('fdm_cold_shrinkage_y',0);                        // 555b
+
+    if NodeIndexOf(FindNode('fdm_cold_shrinkage_z'))<>-1
+       then fdm_cold_shrinkage_z:=ReadFloat('fdm_cold_shrinkage_z',0);                        // 555b
+
+    // shrinkage Resin
+
+    if NodeIndexOf(FindNode('resin_shrinkage_x'))<>-1
+       then resin_shrinkage_x:=ReadFloat('resin_shrinkage_x',0);                              // 555b
+
+    if NodeIndexOf(FindNode('resin_shrinkage_y'))<>-1
+       then resin_shrinkage_y:=ReadFloat('resin_shrinkage_y',0);                              // 555b
+
+    if NodeIndexOf(FindNode('resin_shrinkage_z'))<>-1
+       then resin_shrinkage_z:=ReadFloat('resin_shrinkage_z',0);                              // 555b
+
     // other
 
     if NodeIndexOf(FindNode('chair_web_adjustment'))<>-1
@@ -14115,14 +14167,14 @@ begin
 
             data_node:=create_named_node(xml_doc.Root,'DATA');
 
-                     // write out the data...
+                    // write out the data...
 
             with data_node do begin
 
-              WriteString('custom_section_name_str',custom_section_name_str,'');
+			  WriteString('custom_section_name_str',custom_section_name_str,'');
 
-              WriteFloat('custom_rail_depth',custom_rail_depth,0);
-              WriteFloat('custom_rail_head_width',custom_rail_head_width,0);
+			  WriteFloat('custom_rail_depth',custom_rail_depth,0);
+			  WriteFloat('custom_rail_head_width',custom_rail_head_width,0);
 
               WriteFloat('custom_rail_corner_rad',custom_rail_corner_rad,0);
               WriteFloat('custom_rail_foot_width',custom_rail_foot_width,0);
@@ -14240,17 +14292,12 @@ begin
               WriteFloat('press_socket_fit_sides_timb',press_socket_fit_sides_timb,0);         // 555b
 
 
-                  // negative interference fit ...
+              // negative interference fit ...
 
               WriteFloat('press_short_socket_fit_ends',press_short_socket_fit_ends,0);         // 555b
               WriteFloat('press_socket_fit_ends',press_socket_fit_ends,0);                     // 555b
               WriteFloat('press_long_socket_fit_ends',press_long_socket_fit_ends,0);           // 234e
               WriteFloat('press_very_long_socket_fit_ends',press_very_long_socket_fit_ends,0); // 555b
-
-              // ----
-
-              WriteFloat('socket_indent',socket_indent,0);                                     // 555b
-
 
               // snap fit plugs
 
@@ -14366,25 +14413,23 @@ begin
 
               WriteFloat('fw_tweak_check',fw_tweak_check,0);                                   // 555b
 
-              // kerfs
+              // 2D cutter kerf
 
               WriteFloat('cutter_kerf_mm',cutter_kerf_mm,0);                                   // 555b
 
               WriteFloat('kerf_extra_undercut_mm',kerf_extra_undercut_mm,0);                   // 555b
 
-              // nibs and snibs
+              // socket ends indented by ...
+
+              WriteFloat('socket_indent',socket_indent,0);                                     // 555b
+
+              // nibs
 
               WriteFloat('nib_width',nib_width,0);                                             // 555b
 
               WriteFloat('nib_length',nib_length,0);                                           // 555b
 
-              WriteFloat('tsn_snib_space_mm',tsn_snib_space_mm,0);                             // 555b
-
-              WriteFloat('tsf_snib_space_mm',tsf_snib_space_mm,0);                             // 555b
-
-              WriteFloat('msn_snib_space_mm',msn_snib_space_mm,0);                             // 555b
-
-              WriteFloat('msf_snib_space_mm',msf_snib_space_mm,0);                             // 555b
+	      // snibs
 
               WriteFloat('snib1_extent',snib1_extent,0);                                       // 555b
 
@@ -14393,6 +14438,50 @@ begin
               WriteFloat('snib2_extent_p',snib2_extent_p,0);                                   // 555b
 
               WriteFloat('snib2_extent_e',snib2_extent_e,0);                                   // 555b
+			
+              WriteFloat('tsn_snib_space_mm',tsn_snib_space_mm,0);                             // 555b
+
+              WriteFloat('tsf_snib_space_mm',tsf_snib_space_mm,0);                             // 555b
+
+              WriteFloat('msn_snib_space_mm',msn_snib_space_mm,0);                             // 555b
+
+              WriteFloat('msf_snib_space_mm',msf_snib_space_mm,0);                             // 555b
+
+	      // nails
+			  
+              WriteFloat('nails_height',nails_height,0);                                       // 555b
+
+              WriteFloat('nails_toprad',nails_toprad,0);                                       // 555b
+
+              WriteFloat('nails_botrad',nails_botrad,0);                                       // 555b
+
+              WriteFloat('nailx_spacing',nailx_spacing,0);                                     // 555b
+			
+              WriteFloat('naily_spacing',naily_spacing,0);                             	       // 555b
+
+              // shrinkage FDM - heated bed
+
+              WriteFloat('fdm_hot_shrinkage_x',fdm_hot_shrinkage_x,0);                         // 555b
+
+              WriteFloat('fdm_hot_shrinkage_y',fdm_hot_shrinkage_y,0);                         // 555b
+
+              WriteFloat('fdm_hot_shrinkage_z',fdm_hot_shrinkage_z,0);                         // 555b
+
+              // shrinkage FDM - cold bed
+
+              WriteFloat('fdm_cold_shrinkage_x',fdm_cold_shrinkage_x,0);                       // 555b
+
+              WriteFloat('fdm_cold_shrinkage_y',fdm_cold_shrinkage_y,0);                       // 555b
+
+              WriteFloat('fdm_cold_shrinkage_z',fdm_cold_shrinkage_z,0);                       // 555b
+
+              // shrinkage Resin
+
+              WriteFloat('resin_shrinkage_x',resin_shrinkage_x,0);                             // 555b
+
+              WriteFloat('resin_shrinkage_y',resin_shrinkage_y,0);                             // 555b
+
+              WriteFloat('resin_shrinkage_z',resin_shrinkage_z,0);                             // 555b
 
 // 555b
               WriteFloat('chair_web_adjustment',chair_web_adjustment,0);
