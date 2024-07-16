@@ -14043,14 +14043,14 @@ begin
 
     // minibo backlash correction
 
-    if NodeIndexOf(FindNode('b1_x'))<>-1
-       then b1_x:=ReadFloat('b1_x',0,3);                                                      // 555b
+    if NodeIndexOf(FindNode('bl_x'))<>-1
+       then bl_x:=ReadFloat('bl_x',0.3);                                                      // 555b
 
-    if NodeIndexOf(FindNode('b1_y'))<>-1
-       then b1_y:=ReadFloat('b1_y',0.3);                                                      // 555b
+    if NodeIndexOf(FindNode('bl_y'))<>-1
+       then bl_y:=ReadFloat('bl_y',0.3);                                                      // 555b
 
-    if NodeIndexOf(FindNode('b1_z'))<>-1
-       then b1_z:=ReadFloat('b1_z',0.4);                                                      // 555b
+    if NodeIndexOf(FindNode('bl_z'))<>-1
+       then bl_z:=ReadFloat('bl_z',0.4);                                                      // 555b
 
     // other
 
@@ -14496,11 +14496,11 @@ begin
 
               // minibo backlash correction
 
-              WriteFloat('b1_x',b1_x,0);                             // 555b
+              WriteFloat('bl_x',bl_x,0);                             // 555b
 
-              WriteFloat('b1_y',b1_y,0);                             // 555b
+              WriteFloat('bl_y',bl_y,0);                             // 555b
 
-              WriteFloat('b1_z',b1_z,0);                             // 555b
+              WriteFloat('bl_z',bl_z,0);                             // 555b
 
 // 555b
               WriteFloat('chair_web_adjustment',chair_web_adjustment,0);
