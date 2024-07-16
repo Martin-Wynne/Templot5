@@ -1,15 +1,16 @@
 object dxf_form: Tdxf_form
-  Left = 1
-  Height = 749
-  Top = 50
+  Left = 430
+  Height = 790
+  Top = 342
   Width = 1160
   BorderIcons = [biSystemMenu]
   Caption = '     export  DXF / STL  file ...'
-  ClientHeight = 749
+  ClientHeight = 790
   ClientWidth = 1160
-  Color = 15852503
+  Color = 16051416
+  DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -25
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnActivate = FormActivate
@@ -64,12 +65,12 @@ object dxf_form: Tdxf_form
   end
   object ok_panel: TPanel
     Left = 112
-    Height = 26
+    Height = 32
     Top = 418
     Width = 198
     Alignment = taLeftJustify
     Caption = '   export  DXF / STL  file'
-    ClientHeight = 26
+    ClientHeight = 32
     ClientWidth = 198
     Color = 8453984
     Font.Color = clBlack
@@ -84,7 +85,7 @@ object dxf_form: Tdxf_form
     object ok_button: TButton
       Left = 178
       Height = 14
-      Top = 8
+      Top = 13
       Width = 14
       Caption = '  '
       Default = True
@@ -342,12 +343,12 @@ object dxf_form: Tdxf_form
   end
   object cancel_panel: TPanel
     Left = 12
-    Height = 26
-    Top = 418
+    Height = 24
+    Top = 424
     Width = 86
     Alignment = taLeftJustify
     Caption = '  cancel'
-    ClientHeight = 26
+    ClientHeight = 24
     ClientWidth = 86
     Color = 6356991
     Font.Color = clBlack
@@ -362,7 +363,7 @@ object dxf_form: Tdxf_form
     object cancel_button: TButton
       Left = 68
       Height = 14
-      Top = 8
+      Top = 5
       Width = 14
       Cancel = True
       Caption = '  '
@@ -477,14 +478,14 @@ object dxf_form: Tdxf_form
     OnClick = help_buttonClick
   end
   object preview_panel: TPanel
-    Left = 112
+    Left = 120
     Height = 26
     Top = 382
-    Width = 198
+    Width = 188
     Alignment = taLeftJustify
     Caption = '   preview  2-D  export'
     ClientHeight = 26
-    ClientWidth = 198
+    ClientWidth = 188
     Color = 9490687
     Font.Color = clBlack
     Font.Height = -15
@@ -496,7 +497,7 @@ object dxf_form: Tdxf_form
     TabOrder = 5
     OnClick = ok_panelClick
     object preview_button: TButton
-      Left = 178
+      Left = 170
       Height = 14
       Top = 8
       Width = 14
@@ -506,16 +507,15 @@ object dxf_form: Tdxf_form
     end
   end
   object edit_preview_button: TButton
-    Left = 12
-    Height = 26
+    Left = 74
+    Height = 16
     Hint = ' set preview options '
-    Top = 382
-    Width = 86
+    Top = 388
+    Width = 42
     Caption = 'edit ...'
     Font.Color = clBlack
-    Font.Height = -15
+    Font.Height = -12
     Font.Name = 'Arial'
-    Font.Style = [fsBold]
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
@@ -523,24 +523,24 @@ object dxf_form: Tdxf_form
     OnClick = edit_preview_buttonClick
   end
   object dxf_3d_page_control: TPageControl
-    Left = 312
-    Height = 770
+    Left = 316
+    Height = 782
     Top = 2
     Width = 840
-    ActivePage = support_tabsheet
+    ActivePage = plugs_tabsheet
     Font.Color = clBlack
     Font.Height = -15
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 4
+    TabIndex = 2
     TabOrder = 7
     Visible = False
     Options = [nboMultiLine]
     object export_tabsheet: TTabSheet
       Caption = '  export    '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       ImageIndex = 6
       object options_panel: TPanel
@@ -575,7 +575,7 @@ object dxf_form: Tdxf_form
           Left = 12
           Height = 20
           Top = 12
-          Width = 187
+          Width = 190
           Caption = '&all  background  templates'
           Checked = True
           TabOrder = 0
@@ -585,7 +585,7 @@ object dxf_form: Tdxf_form
           Left = 12
           Height = 20
           Top = 50
-          Width = 160
+          Width = 163
           Caption = 'gro&up  templates  only'
           TabOrder = 1
         end
@@ -610,7 +610,7 @@ object dxf_form: Tdxf_form
           Left = 12
           Height = 20
           Top = 88
-          Width = 153
+          Width = 156
           Caption = 'timbering  brick  only'
           TabOrder = 3
         end
@@ -618,7 +618,7 @@ object dxf_form: Tdxf_form
           Left = 36
           Height = 20
           Top = 136
-          Width = 153
+          Width = 156
           Caption = 'add  brick  label  text'
           Checked = True
           State = cbChecked
@@ -639,11 +639,11 @@ object dxf_form: Tdxf_form
       end
       object function_groupbox: TGroupBox
         Left = 16
-        Height = 216
+        Height = 176
         Top = 282
         Width = 248
         Caption = ' export :  '
-        ClientHeight = 195
+        ClientHeight = 155
         ClientWidth = 244
         Color = 14741759
         Font.Color = clMaroon
@@ -658,7 +658,7 @@ object dxf_form: Tdxf_form
           Left = 72
           Height = 22
           Top = 28
-          Width = 53
+          Width = 56
           Caption = 'track'
           Checked = True
           Font.Color = clBlack
@@ -673,7 +673,7 @@ object dxf_form: Tdxf_form
           Left = 72
           Height = 22
           Top = 64
-          Width = 108
+          Width = 111
           Caption = 'rail  filing  jig'
           Font.Color = clBlack
           Font.Height = -15
@@ -687,7 +687,7 @@ object dxf_form: Tdxf_form
           Left = 72
           Height = 22
           Top = 136
-          Width = 109
+          Width = 112
           Caption = 'tweezer  tips'
           Font.Color = clBlack
           Font.Height = -15
@@ -701,7 +701,7 @@ object dxf_form: Tdxf_form
           Left = 72
           Height = 22
           Top = 100
-          Width = 131
+          Width = 134
           Caption = 'rail  bending  jig'
           Enabled = False
           Font.Color = clBlack
@@ -714,11 +714,11 @@ object dxf_form: Tdxf_form
       end
       object export_groupbox: TGroupBox
         Left = 330
-        Height = 436
+        Height = 401
         Top = 60
         Width = 235
         Caption = ' export  format :  '
-        ClientHeight = 415
+        ClientHeight = 380
         ClientWidth = 231
         Color = 14745599
         Font.Color = clBlue
@@ -730,9 +730,9 @@ object dxf_form: Tdxf_form
         ParentFont = False
         TabOrder = 2
         object Label37: TLabel
-          Left = 4
+          Left = 12
           Height = 18
-          Top = 392
+          Top = 378
           Width = 217
           Alignment = taRightJustify
           AutoSize = False
@@ -765,10 +765,10 @@ object dxf_form: Tdxf_form
           WordWrap = True
         end
         object _2d_radiobutton: TRadioButton
-          Left = 16
+          Left = 32
           Height = 22
           Top = 28
-          Width = 80
+          Width = 83
           Caption = '2-D  DXF'
           Checked = True
           Font.Color = clBlack
@@ -782,9 +782,9 @@ object dxf_form: Tdxf_form
         end
         object emf_checkbox: TCheckBox
           Left = 122
-          Height = 19
+          Height = 20
           Top = 70
-          Width = 88
+          Width = 91
           Caption = 'also EMF file'
           Font.Color = clBlack
           Font.Height = -12
@@ -797,8 +797,8 @@ object dxf_form: Tdxf_form
           Left = 16
           Height = 22
           Hint = ' size / shrinkage  adjustment  for  resin  printer '
-          Top = 200
-          Width = 170
+          Top = 222
+          Width = 173
           Caption = '3-D  for  resin  printer'
           Font.Color = clBlack
           Font.Height = -15
@@ -814,8 +814,8 @@ object dxf_form: Tdxf_form
           Left = 16
           Height = 22
           Hint = ' no  size  adjustment '
-          Top = 270
-          Width = 109
+          Top = 294
+          Width = 112
           Caption = '3-D  for  CAD'
           Font.Color = clBlack
           Font.Height = -15
@@ -831,7 +831,7 @@ object dxf_form: Tdxf_form
           Left = 64
           Height = 24
           Hint = ' set  size / shrinkage  adjustments  for  3-D '
-          Top = 230
+          Top = 246
           Width = 158
           Caption = 'shrinkage  ( resin ) ...'
           Font.Color = clBlack
@@ -849,7 +849,7 @@ object dxf_form: Tdxf_form
           Height = 22
           Hint = ' size / shrinkage  adjustment  for  FDM  ( filament  printer )  using  heated  build  plate '
           Top = 118
-          Width = 167
+          Width = 170
           Caption = '3-D  for  FDM  printer'
           Font.Color = clBlack
           Font.Height = -15
@@ -863,11 +863,11 @@ object dxf_form: Tdxf_form
         end
         object file_type_groupbox: TGroupBox
           Left = 40
-          Height = 66
-          Top = 310
+          Height = 47
+          Top = 326
           Width = 186
           Caption = ' 3-D  file  type :  '
-          ClientHeight = 45
+          ClientHeight = 26
           ClientWidth = 182
           Enabled = False
           ParentBackground = False
@@ -876,7 +876,7 @@ object dxf_form: Tdxf_form
             Left = 10
             Height = 20
             Top = 22
-            Width = 44
+            Width = 47
             Caption = 'DXF'
             Enabled = False
             Font.Color = clBlack
@@ -890,7 +890,7 @@ object dxf_form: Tdxf_form
             Left = 68
             Height = 20
             Top = 22
-            Width = 43
+            Width = 46
             Caption = 'STL'
             Checked = True
             Enabled = False
@@ -906,7 +906,7 @@ object dxf_form: Tdxf_form
             Left = 124
             Height = 20
             Top = 22
-            Width = 46
+            Width = 49
             Caption = 'both'
             Enabled = False
             Font.Color = clBlack
@@ -938,7 +938,7 @@ object dxf_form: Tdxf_form
           Left = 70
           Height = 20
           Top = 142
-          Width = 125
+          Width = 128
           Caption = 'heated  workbed'
           Checked = True
           Font.Color = clBlack
@@ -954,7 +954,7 @@ object dxf_form: Tdxf_form
     end
     object rails_tab_sheet: TTabSheet
       Caption = '    rail    '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       Font.Color = clBlack
       Font.Height = -13
@@ -1018,11 +1018,11 @@ object dxf_form: Tdxf_form
       end
       object rail_fit_groupbox: TGroupBox
         Left = 7
-        Height = 600
+        Height = 700
         Top = 12
         Width = 300
         Caption = ' model  rail  sections :  '
-        ClientHeight = 579
+        ClientHeight = 679
         ClientWidth = 296
         Color = 15794175
         Font.Color = clBlack
@@ -1036,7 +1036,7 @@ object dxf_form: Tdxf_form
         object Label29: TLabel
           Left = 16
           Height = 53
-          Top = 250
+          Top = 260
           Width = 250
           AutoSize = False
           Caption = 'these model settings are based on limited experimental testing -- your feedback is welcome'
@@ -1063,7 +1063,7 @@ object dxf_form: Tdxf_form
         object Label30: TLabel
           Left = 16
           Height = 52
-          Top = 510
+          Top = 590
           Width = 250
           AutoSize = False
           Caption = 'if the rails layer is included in the 3-D file, the generated rails will match the selected rail section, rescaled if necessary'
@@ -1077,7 +1077,7 @@ object dxf_form: Tdxf_form
         object Label33: TLabel
           Left = 16
           Height = 34
-          Top = 580
+          Top = 650
           Width = 250
           AutoSize = False
           Caption = '• the rails and chair fits will be vertical, any rail inclination is ignored in 3-D exports'
@@ -1105,8 +1105,8 @@ object dxf_form: Tdxf_form
         object bs95r_radiobutton: TRadioButton
           Left = 24
           Height = 20
-          Top = 480
-          Width = 204
+          Top = 548
+          Width = 207
           Caption = 'BS-95R Bullhead  exact scale'
           Font.Color = clBlack
           Font.Height = -13
@@ -1120,7 +1120,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 22
           Top = 204
-          Width = 151
+          Width = 154
           Caption = 'Peco code 124  BH'
           Font.Color = clBlack
           Font.Height = -15
@@ -1134,7 +1134,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 22
           Top = 54
-          Width = 226
+          Width = 229
           Caption = 'C&&L / EMGS / S4Soc  code 75'
           Checked = True
           Font.Color = clBlack
@@ -1150,7 +1150,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 22
           Top = 84
-          Width = 114
+          Width = 117
           Caption = 'SMP  code 75'
           Font.Color = clBlack
           Font.Height = -15
@@ -1163,8 +1163,8 @@ object dxf_form: Tdxf_form
         object custom_rail_radiobutton: TRadioButton
           Left = 24
           Height = 22
-          Top = 400
-          Width = 81
+          Top = 470
+          Width = 84
           Caption = 'custom  :'
           Font.Color = clBlack
           Font.Height = -15
@@ -1178,7 +1178,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 20
           Top = 144
-          Width = 108
+          Width = 111
           Caption = 'C&&L  code 125'
           Enabled = False
           Font.Color = clBlack
@@ -1193,7 +1193,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 22
           Top = 174
-          Width = 120
+          Width = 123
           Caption = 'C&&L  code 131'
           Font.Color = clBlack
           Font.Height = -15
@@ -1207,7 +1207,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 20
           Top = 114
-          Width = 133
+          Width = 136
           Caption = 'Peco  code 75  BH'
           Enabled = False
           TabOrder = 7
@@ -1216,7 +1216,7 @@ object dxf_form: Tdxf_form
         object set_custom_rail_button: TButton
           Left = 100
           Height = 24
-          Top = 430
+          Top = 498
           Width = 170
           Caption = 'set  custom  BH  rail ...'
           TabOrder = 8
@@ -1237,7 +1237,7 @@ object dxf_form: Tdxf_form
         Height = 20
         Hint = ' use one extra block slide chair for increased switch opening - for 00 / EM / 0-MF, etc. '
         Top = 202
-        Width = 278
+        Width = 281
         Caption = 'extra  clearance  at  open  switch  blade '
         ParentShowHint = False
         ShowHint = True
@@ -1279,7 +1279,7 @@ object dxf_form: Tdxf_form
           Left = 12
           Height = 20
           Top = 22
-          Width = 75
+          Width = 78
           Caption = 'rail head'
           Checked = True
           Font.Color = clBlack
@@ -1294,7 +1294,7 @@ object dxf_form: Tdxf_form
           Left = 114
           Height = 20
           Top = 48
-          Width = 51
+          Width = 54
           Caption = 'inner'
           Checked = True
           Font.Color = clBlack
@@ -1309,7 +1309,7 @@ object dxf_form: Tdxf_form
           Left = 177
           Height = 20
           Top = 48
-          Width = 51
+          Width = 54
           Caption = 'outer'
           Checked = True
           Font.Color = clBlack
@@ -1363,7 +1363,7 @@ object dxf_form: Tdxf_form
     end
     object plugs_tabsheet: TTabSheet
       Caption = '    chairs   plugs / sockets    '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       Font.Color = clBlack
       Font.Height = -13
@@ -1704,7 +1704,7 @@ object dxf_form: Tdxf_form
         Left = 16
         Height = 22
         Top = 86
-        Width = 160
+        Width = 163
         Caption = 'include  chair  plugs'
         Checked = True
         Font.Color = clBlack
@@ -1719,7 +1719,7 @@ object dxf_form: Tdxf_form
         Left = 38
         Height = 20
         Top = 106
-        Width = 143
+        Width = 146
         Caption = 'with CNC corner relief'
         Font.Color = clBlack
         Font.Height = -13
@@ -1731,7 +1731,7 @@ object dxf_form: Tdxf_form
         Left = 368
         Height = 20
         Top = 104
-        Width = 153
+        Width = 156
         Caption = 'timber  locator  plugs'
         TabOrder = 5
       end
@@ -1748,7 +1748,7 @@ object dxf_form: Tdxf_form
         Left = 14
         Height = 22
         Top = 180
-        Width = 79
+        Width = 82
         Caption = 'CLIP - fit'
         Checked = True
         Font.Color = clBlack
@@ -1763,7 +1763,7 @@ object dxf_form: Tdxf_form
         Left = 340
         Height = 20
         Top = 716
-        Width = 117
+        Width = 120
         Caption = 'omit clip-fit tangs'
         Font.Color = clBlack
         Font.Height = -13
@@ -1775,7 +1775,7 @@ object dxf_form: Tdxf_form
         Left = 220
         Height = 22
         Top = 180
-        Width = 85
+        Width = 88
         Caption = 'SNAP - fit'
         Font.Color = clBlack
         Font.Height = -15
@@ -1788,7 +1788,7 @@ object dxf_form: Tdxf_form
         Left = 432
         Height = 22
         Top = 180
-        Width = 96
+        Width = 99
         Caption = 'PRESS - fit'
         Font.Color = clBlack
         Font.Height = -15
@@ -1879,7 +1879,7 @@ object dxf_form: Tdxf_form
         Left = 700
         Height = 20
         Top = 724
-        Width = 113
+        Width = 116
         Caption = 'socket end flaps'
         Enabled = False
         Font.Color = clBlack
@@ -1908,7 +1908,7 @@ object dxf_form: Tdxf_form
         Height = 20
         Hint = ' adjust chair sockets for filament diameter '
         Top = 132
-        Width = 173
+        Width = 176
         Caption = 'adjust  for  filament  dia.'
         Font.Color = clBlack
         Font.Height = -13
@@ -1924,7 +1924,7 @@ object dxf_form: Tdxf_form
         Left = 368
         Height = 20
         Top = 131
-        Width = 104
+        Width = 107
         Caption = 'blind  sockets'
         Font.Color = clBlack
         Font.Height = -13
@@ -1937,7 +1937,7 @@ object dxf_form: Tdxf_form
         Left = 272
         Height = 20
         Top = 72
-        Width = 519
+        Width = 522
         Caption = 'increase  plug / socket  size  in  larger  scales  for  reliable  chair-base  printing'
         Checked = True
         State = cbChecked
@@ -1946,7 +1946,7 @@ object dxf_form: Tdxf_form
     end
     object bricks_tabsheet: TTabSheet
       Caption = '    timbers    '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       Font.Color = clBlack
       Font.Height = -13
@@ -2064,9 +2064,9 @@ object dxf_form: Tdxf_form
       end
       object exp_checkbox: TCheckBox
         Left = 509
-        Height = 19
+        Height = 20
         Top = 16
-        Width = 93
+        Width = 96
         Caption = 'exp both clips'
         Font.Color = clBlack
         Font.Height = -12
@@ -2120,7 +2120,7 @@ object dxf_form: Tdxf_form
         Left = 244
         Height = 20
         Top = 116
-        Width = 172
+        Width = 175
         Caption = 'switch  drive  sllder  ribs'
         Checked = True
         State = cbChecked
@@ -2130,7 +2130,7 @@ object dxf_form: Tdxf_form
         Left = 244
         Height = 20
         Top = 150
-        Width = 212
+        Width = 215
         Caption = 'dropper-wire  retaining  ridges'
         Checked = True
         State = cbChecked
@@ -2140,7 +2140,7 @@ object dxf_form: Tdxf_form
         Left = 456
         Height = 20
         Top = 212
-        Width = 119
+        Width = 122
         Caption = 'flexi-track  base'
         TabOrder = 9
       end
@@ -2158,7 +2158,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 20
           Top = 16
-          Width = 25
+          Width = 28
           Caption = '1'
           Checked = True
           TabOrder = 0
@@ -2168,7 +2168,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 20
           Top = 40
-          Width = 25
+          Width = 28
           Caption = '2'
           TabOrder = 1
         end
@@ -2176,7 +2176,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 20
           Top = 64
-          Width = 25
+          Width = 28
           Caption = '3'
           TabOrder = 2
         end
@@ -2184,7 +2184,7 @@ object dxf_form: Tdxf_form
           Left = 24
           Height = 20
           Top = 88
-          Width = 67
+          Width = 70
           Caption = 'random'
           TabOrder = 3
         end
@@ -2211,7 +2211,7 @@ object dxf_form: Tdxf_form
         Left = 32
         Height = 20
         Top = 368
-        Width = 267
+        Width = 270
         Caption = 'omit  timber  flanges  if  socket  conflict'
         Checked = True
         State = cbChecked
@@ -2221,7 +2221,7 @@ object dxf_form: Tdxf_form
         Left = 32
         Height = 20
         Top = 424
-        Width = 322
+        Width = 325
         Caption = 'modify  plug / timber  depths  for  model  scale :'
         TabOrder = 14
       end
@@ -2242,7 +2242,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 20
         Top = 248
-        Width = 334
+        Width = 337
         Caption = 'include  brick  assemblers  ( background  shapes )'
         Checked = True
         State = cbChecked
@@ -2251,7 +2251,7 @@ object dxf_form: Tdxf_form
     end
     object support_tabsheet: TTabSheet
       Caption = '    supports    '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       ImageIndex = 5
       object rafts_button: TButton
@@ -2286,7 +2286,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 22
         Top = 25
-        Width = 184
+        Width = 187
         Caption = 'include  chair  supports'
         Checked = True
         Font.Color = clBlack
@@ -2301,7 +2301,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 22
         Top = 61
-        Width = 283
+        Width = 286
         Caption = 'include  pin  supports  on  loose  jaws'
         Checked = True
         Font.Color = clBlack
@@ -2314,11 +2314,11 @@ object dxf_form: Tdxf_form
       end
       object rectangles_groupbox: TGroupBox
         Left = 12
-        Height = 150
+        Height = 124
         Top = 195
         Width = 793
         Caption = ' 3D  rectangle  shapes  as :  '
-        ClientHeight = 129
+        ClientHeight = 103
         ClientWidth = 789
         Color = 15269887
         Font.Color = clBlack
@@ -2343,8 +2343,8 @@ object dxf_form: Tdxf_form
         end
         object Shape7: TShape
           Left = 390
-          Height = 100
-          Top = 20
+          Height = 65
+          Top = 48
           Width = 1
           Brush.Color = clBlack
         end
@@ -2352,7 +2352,7 @@ object dxf_form: Tdxf_form
           Left = 26
           Height = 20
           Top = 34
-          Width = 85
+          Width = 88
           Caption = 'brick slabs'
           Font.Color = clBlack
           Font.Height = -13
@@ -2365,7 +2365,7 @@ object dxf_form: Tdxf_form
           Left = 148
           Height = 20
           Top = 34
-          Width = 81
+          Width = 84
           Caption = 'chair rafts'
           Checked = True
           Font.Color = clBlack
@@ -2380,7 +2380,7 @@ object dxf_form: Tdxf_form
           Left = 268
           Height = 20
           Top = 34
-          Width = 92
+          Width = 95
           Caption = 'bed of nails'
           Font.Color = clBlack
           Font.Height = -13
@@ -2393,7 +2393,7 @@ object dxf_form: Tdxf_form
           Left = 28
           Height = 20
           Top = 80
-          Width = 303
+          Width = 306
           Caption = 'match colour when exporting by brick colour'
           Checked = True
           Font.Color = clBlack
@@ -2408,7 +2408,7 @@ object dxf_form: Tdxf_form
           Left = 420
           Height = 20
           Top = 34
-          Width = 128
+          Width = 131
           Caption = 'alignment  plates'
           TabOrder = 4
         end
@@ -2451,7 +2451,7 @@ object dxf_form: Tdxf_form
     end
     object combos_tabsheet: TTabSheet
       Caption = '    layers    '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       Font.Color = clBlack
       Font.Height = -13
@@ -4282,7 +4282,7 @@ object dxf_form: Tdxf_form
         Left = 510
         Height = 20
         Top = 582
-        Width = 96
+        Width = 99
         Caption = 'end  flanges'
         Checked = True
         State = cbChecked
@@ -4359,7 +4359,7 @@ object dxf_form: Tdxf_form
         OnExit = rails_comboChange
       end
       object timbout_kerf_combo: TComboBox
-        Left = 242
+        Left = 241
         Height = 24
         Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
         Top = 140
@@ -4467,7 +4467,7 @@ object dxf_form: Tdxf_form
         Left = 510
         Height = 20
         Top = 630
-        Width = 90
+        Width = 93
         Caption = 'brim  fence'
         TabOrder = 56
       end
@@ -4475,7 +4475,7 @@ object dxf_form: Tdxf_form
         Left = 510
         Height = 20
         Top = 558
-        Width = 66
+        Width = 69
         Caption = 'on  kerf'
         Checked = True
         State = cbChecked
@@ -4499,14 +4499,14 @@ object dxf_form: Tdxf_form
         Left = 510
         Height = 20
         Top = 446
-        Width = 104
+        Width = 107
         Caption = 'plus undercut'
         TabOrder = 59
       end
     end
     object kerf_tabsheet: TTabSheet
       Caption = '  2D  kerf  '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       Font.Color = clBlack
       Font.Height = -13
@@ -4536,7 +4536,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 20
         Top = 164
-        Width = 338
+        Width = 341
         Caption = 'export  only  kerf  lines  for  timbers-only  laser  2D'
         Checked = True
         Font.Color = clBlack
@@ -4551,7 +4551,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 20
         Top = 196
-        Width = 301
+        Width = 304
         Caption = 'include  kerf  lines  on  unchaired  templates'
         TabOrder = 3
       end
@@ -4559,7 +4559,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 20
         Top = 66
-        Width = 120
+        Width = 123
         Caption = 'add  nibs / snibs'
         Checked = True
         State = cbChecked
@@ -4569,7 +4569,7 @@ object dxf_form: Tdxf_form
         Left = 20
         Height = 20
         Top = 100
-        Width = 283
+        Width = 286
         Caption = 'leave  space  between  1st  and  2nd  snib'
         Checked = True
         State = cbChecked
@@ -4597,7 +4597,7 @@ object dxf_form: Tdxf_form
         Left = 400
         Height = 20
         Top = 68
-        Width = 272
+        Width = 275
         Caption = 'indented  socket  ends  on  kerf  outline '
         Checked = True
         State = cbChecked
@@ -4606,13 +4606,13 @@ object dxf_form: Tdxf_form
     end
     object custom_tabsheet: TTabSheet
       Caption = '  custom  '
-      ClientHeight = 739
+      ClientHeight = 751
       ClientWidth = 832
       ImageIndex = 7
       object Label44: TLabel
         Left = 22
         Height = 15
-        Top = 552
+        Top = 556
         Width = 94
         Caption = 'DO NOT CHANGE'
         Font.Color = clRed
@@ -4623,7 +4623,7 @@ object dxf_form: Tdxf_form
       end
       object Shape2: TShape
         Left = 20
-        Height = 130
+        Height = 121
         Top = 571
         Width = 149
         Brush.Color = 8433919
@@ -4732,7 +4732,7 @@ object dxf_form: Tdxf_form
         Height = 20
         Hint = ' 3-D  files  to  contain  only  rails,  timbers,  chairs/baseplates '
         Top = 708
-        Width = 220
+        Width = 223
         Caption = 'Z-datum  on  underside  of  timbers'
         Checked = True
         Font.Color = clBlack
@@ -4822,9 +4822,9 @@ object dxf_form: Tdxf_form
       end
       object fill_below_key_checkbox: TCheckBox
         Left = 278
-        Height = 19
+        Height = 20
         Top = 708
-        Width = 93
+        Width = 96
         Caption = 'fill  below  key'
         Enabled = False
         Font.Color = clBlack
@@ -4913,7 +4913,7 @@ object dxf_form: Tdxf_form
           Left = 8
           Height = 20
           Top = 2
-          Width = 42
+          Width = 45
           Caption = '&mm'
           Checked = True
           TabOrder = 0
@@ -4923,7 +4923,7 @@ object dxf_form: Tdxf_form
           Left = 8
           Height = 20
           Top = 42
-          Width = 59
+          Width = 62
           Caption = '&inches'
           TabOrder = 1
         end
@@ -4931,7 +4931,7 @@ object dxf_form: Tdxf_form
           Left = 108
           Height = 20
           Top = 4
-          Width = 112
+          Width = 115
           Caption = 'drawing  &limits'
           TabOrder = 2
         end
@@ -4940,7 +4940,7 @@ object dxf_form: Tdxf_form
           Height = 20
           Hint = ' the % scaling setting is on the output menu '
           Top = 28
-          Width = 120
+          Width = 123
           Caption = 's&caled  999.99 %'
           ParentShowHint = False
           ShowHint = True
@@ -5145,7 +5145,7 @@ object dxf_form: Tdxf_form
       Width = 233
       Alignment = taCenter
       AutoSize = False
-      Caption = 'v.555 experimental work in progress :  all DXF / STL functions affected '
+      Caption = 'v.244 experimental work in progress :  all DXF / STL functions affected '
       Color = clYellow
       Font.Color = clRed
       Font.Height = -15
@@ -5190,29 +5190,29 @@ object dxf_form: Tdxf_form
     Title = '      export  DXF  file  as ...'
     DefaultExt = '.dxf'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofEnableSizing]
-    Left = 904
-    Top = 616
+    Left = 1024
+    Top = 680
   end
   object custom_load_dialog: TOpenDialog
     Title = 'reload  custom  data  from ...'
     DefaultExt = '.sk4'
     Options = [ofHideReadOnly, ofShowHelp, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 632
-    Top = 616
+    Left = 408
+    Top = 688
   end
   object custom_save_dialog: TSaveDialog
     Title = 'save  custom  data  as ...'
     DefaultExt = '.sk4'
     FileName = 'custom_data.sk4'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofEnableSizing]
-    Left = 728
-    Top = 616
+    Left = 648
+    Top = 672
   end
   object grbl_file_dialog: TOpenDialog
     Title = 'modify  G  code  for  GRBL ...'
     DefaultExt = '.nc'
     Options = [ofHideReadOnly, ofShowHelp, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 816
-    Top = 616
+    Left = 864
+    Top = 680
   end
 end
