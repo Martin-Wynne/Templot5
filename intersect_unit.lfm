@@ -1,0 +1,449 @@
+object intersect_form: Tintersect_form
+  Left = 703
+  Height = 467
+  Top = 420
+  Width = 638
+  BorderStyle = bsSizeToolWin
+  Caption = '    find  intersection'
+  ClientHeight = 467
+  ClientWidth = 638
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -29
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label1: TLabel
+    Left = 4
+    Height = 70
+    Top = 292
+    Width = 289
+    AutoSize = False
+    Caption = 'This function will find the intersection of a rail or centre-line on the selected background template, with a rail or centre-line on the control template, and move the peg on the control template to it.'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label2: TLabel
+    Left = 0
+    Height = 20
+    Top = 398
+    Width = 378
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'this function is experimental - please report issues'
+    Color = clWhite
+    Font.Color = clRed
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+  end
+  object help_shape: TShape
+    Left = 551
+    Height = 28
+    Top = 2
+    Width = 66
+    Pen.Color = clWhite
+  end
+  object Label5: TLabel
+    Left = 34
+    Height = 22
+    Top = 4
+    Width = 187
+    AutoSize = False
+    Caption = 'find  intersection'
+    Font.Color = 16711808
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object control_groupbox: TGroupBox
+    Left = 318
+    Height = 298
+    Top = 36
+    Width = 300
+    Caption = ' on  the  control  template :  '
+    ClientHeight = 275
+    ClientWidth = 296
+    Color = 13695224
+    Font.Color = clMaroon
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+    object control4_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 12
+      Width = 214
+      Caption = '4.  turnout-road    stock  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object control3_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 40
+      Width = 238
+      Caption = '3.  main-road         crossing  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object control2_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 68
+      Width = 237
+      Caption = '2.  turnout-road    crossing  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+    object control1_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 96
+      Width = 215
+      Caption = '1.  main-road         stock  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+    object control25_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 136
+      Width = 220
+      Caption = 'centre-line  of  turnout  road'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+    end
+    object control24_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 164
+      Width = 201
+      Caption = 'centre-line  of  main  road'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      TabStop = True
+    end
+    object expert_groupbox: TGroupBox
+      Left = 40
+      Height = 72
+      Top = 196
+      Width = 252
+      Caption = ' expert :  '
+      ClientHeight = 51
+      ClientWidth = 248
+      Color = 15269864
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 6
+      object angle_label: TLabel
+        Left = 0
+        Height = 20
+        Top = 28
+        Width = 156
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = '1:7 RAM'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object adjust_rad_checkbox: TCheckBox
+        Left = 6
+        Height = 20
+        Hint = ' adjust the curving radius in the control template until the intersection is at the specified angle '
+        Top = 4
+        Width = 200
+        Caption = 'adjust radius to intersect at :'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+      object angle_button: TButton
+        Left = 164
+        Height = 23
+        Hint = ' set the intersection angle '
+        Top = 24
+        Width = 81
+        Caption = 'change ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        OnClick = angle_buttonClick
+      end
+    end
+  end
+  object bgnd_groupbox: TGroupBox
+    Left = 2
+    Height = 250
+    Top = 34
+    Width = 300
+    Caption = ' on  selected  background  template :  '
+    ClientHeight = 227
+    ClientWidth = 296
+    Color = 13172712
+    Font.Color = clGreen
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    object bgnd4_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 12
+      Width = 214
+      Caption = '4.  turnout-road    stock  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object bgnd3_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 40
+      Width = 238
+      Caption = '3.  main-road         crossing  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object bgnd2_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 68
+      Width = 237
+      Caption = '2.  turnout-road    crossing  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+    object bgnd1_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 96
+      Width = 215
+      Caption = '1.  main-road         stock  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+    object bgnd25_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 136
+      Width = 220
+      Caption = 'centre-line  of  turnout  road'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+    end
+    object bgnd24_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 164
+      Width = 201
+      Caption = 'centre-line  of  main  road'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      TabStop = True
+    end
+    object bgnd_move_peg_checkbox: TCheckBox
+      Left = 36
+      Height = 20
+      Hint = ' move the fixing peg on the background template to the found intersection '
+      Top = 200
+      Width = 246
+      Caption = 'put background peg on intersection'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 6
+    end
+  end
+  object find_intersect_button: TButton
+    Tag = -1
+    Left = 392
+    Height = 29
+    Top = 374
+    Width = 150
+    Caption = 'find  intersection'
+    Font.Color = clBlack
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    OnClick = find_intersect_buttonClick
+  end
+  object hide_panel: TPanel
+    Left = 554
+    Height = 26
+    Top = 394
+    Width = 66
+    Alignment = taLeftJustify
+    Caption = '  hide'
+    ClientHeight = 26
+    ClientWidth = 66
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+    OnClick = hide_buttonClick
+    object hide_button: TButton
+      Left = 50
+      Height = 16
+      Top = 6
+      Width = 16
+      Cancel = True
+      Caption = '  '
+      TabOrder = 0
+      OnClick = hide_buttonClick
+    end
+  end
+  object progress_bar: TProgressBar
+    Left = 356
+    Height = 16
+    Top = 346
+    Width = 133
+    Max = 20
+    TabOrder = 3
+  end
+  object cancel_button: TButton
+    Left = 496
+    Height = 22
+    Hint = ' cancel calculations '
+    Top = 344
+    Width = 97
+    Caption = 'cancel  find'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    OnClick = cancel_buttonClick
+  end
+  object result_static: TStaticText
+    Left = 20
+    Height = 36
+    Top = 362
+    Width = 305
+    Caption = 'intersection :  1:8'
+    Color = 15852503
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentColor = False
+    TabOrder = 6
+  end
+  object help_button: TButton
+    Left = 554
+    Height = 22
+    Top = 5
+    Width = 60
+    Caption = '? help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    OnClick = help_buttonClick
+  end
+end

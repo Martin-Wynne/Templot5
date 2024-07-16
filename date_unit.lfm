@@ -1,0 +1,60 @@
+object date_form: Tdate_form
+  Left = 846
+  Height = 175
+  Top = 539
+  Width = 518
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '   group  by   template  date  . . .'
+  ClientHeight = 175
+  ClientWidth = 518
+  Color = 16056312
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 124
+    Width = 500
+    AutoSize = False
+  end
+  object before_button: TButton
+    Left = 54
+    Height = 25
+    Top = 10
+    Width = 260
+    Caption = 'group  all  templates  stored  before :'
+    ModalResult = 7
+    TabOrder = 0
+  end
+  object on_after_button: TButton
+    Left = 20
+    Height = 25
+    Top = 86
+    Width = 294
+    Caption = 'group  all  templates  stored  on  or  after :'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ModalResult = 6
+    ParentFont = False
+    TabOrder = 2
+  end
+  object on_button: TButton
+    Left = 74
+    Height = 25
+    Top = 48
+    Width = 240
+    Caption = 'group  all  templates  stored  on :'
+    ModalResult = 4
+    TabOrder = 1
+  end
+end

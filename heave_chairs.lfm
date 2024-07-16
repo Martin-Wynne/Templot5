@@ -1,0 +1,1430 @@
+object heave_chairs_form: Theave_chairs_form
+  Left = 705
+  Height = 691
+  Top = 270
+  Width = 1078
+  BorderIcons = []
+  BorderStyle = bsSizeToolWin
+  Caption = ':      heave  chairs  on  timber . . .'
+  ClientHeight = 691
+  ClientWidth = 1078
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label4: TLabel
+    Left = 924
+    Height = 107
+    Top = 90
+    Width = 128
+    AutoSize = False
+    Caption = 'switch and crossing chairs not listed here are matched to their location on the rail and cannot be used elsewhere'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object rail_numbers_image: TImage
+    Left = 364
+    Height = 180
+    Top = 60
+    Width = 312
+    Center = True
+    Stretch = True
+  end
+  object Label1: TLabel
+    Left = 364
+    Height = 17
+    Top = 242
+    Width = 312
+    AutoSize = False
+    Caption = 'note rails 2 and 3 cross over through the V-crossing'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 364
+    Height = 17
+    Top = 260
+    Width = 169
+    AutoSize = False
+    Caption = 'plain track is rails 1 and 3'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object top_label: TLabel
+    Left = 368
+    Height = 30
+    Top = 20
+    Width = 320
+    AutoSize = False
+    Caption = 'heave  chairs  on  timber'
+    Font.Color = 16711808
+    Font.Height = -22
+    Font.Name = 'Arial'
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 640
+    Width = 1060
+    AutoSize = False
+    Font.Color = clBlack
+    Font.Height = -2
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 702
+    Height = 18
+    Top = 0
+    Width = 209
+    AutoSize = False
+    Caption = 'interchangeable  REA  chairs:'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 8
+    Height = 38
+    Top = 64
+    Width = 22
+    AutoSize = False
+    Caption = '4'
+    Font.Color = 16744448
+    Font.Height = -33
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 8
+    Height = 38
+    Top = 220
+    Width = 22
+    AutoSize = False
+    Caption = '3'
+    Font.Color = 16744448
+    Font.Height = -33
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 8
+    Height = 38
+    Top = 376
+    Width = 22
+    AutoSize = False
+    Caption = '2'
+    Font.Color = 16744448
+    Font.Height = -33
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label8: TLabel
+    Left = 8
+    Height = 38
+    Top = 532
+    Width = 22
+    AutoSize = False
+    Caption = '1'
+    Font.Color = 16744448
+    Font.Height = -33
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label12: TLabel
+    Left = 370
+    Height = 18
+    Top = 618
+    Width = 525
+    AutoSize = False
+    Caption = 'interchangeable  chairs  in  244 :  SC  S1  S1J  L1  P  CC  only'
+    Font.Color = 192
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Memo2: TMemo
+    Left = 760
+    Height = 340
+    Top = 18
+    Width = 158
+    BorderStyle = bsNone
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Lines.Strings = (
+      'ordinary'
+      'joint'
+      'bridge'
+      'bridge'
+      'check rail flare-in (fixed) '
+      'check rail'
+      'check rail flare-out (fixed) '
+      'half-bolted outer'
+      'half-bolted inner'
+      'bridge check rail flare-in'
+      'bridge check rail'
+      'bridge check rail flare-out'
+      'parallel wing'
+      'parallel wing flare-out LH'
+      'parallel wing flare-out RH'
+      'saddle'
+      'saddle'
+      'slide'
+      'switch-diamond slide'
+      'switch-diamond heel slide'
+      'fictional'
+    )
+    ParentColor = True
+    ParentFont = False
+    TabOrder = 5
+  end
+  object Memo1: TMemo
+    Left = 690
+    Height = 340
+    Top = 18
+    Width = 70
+    Alignment = taRightJustify
+    BorderStyle = bsNone
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Lines.Strings = (
+      'S1'
+      'S1J'
+      'L1'
+      'M1'
+      'CCL/R'
+      'CC'
+      'CCR/L'
+      'S1O'
+      'S1N'
+      'L1CCL/R'
+      'L1CC'
+      'L1CCR/L'
+      'PW'
+      'PWL'
+      'PWR'
+      'SS'
+      'MS'
+      'P'
+      'SDP'
+      'SDS'
+      'SC'
+    )
+    ParentColor = True
+    ParentFont = False
+    TabOrder = 4
+  end
+  object rail4_groupbox: TGroupBox
+    Left = 40
+    Height = 142
+    Top = 18
+    Width = 300
+    Caption = ' on  rail  4 :  '
+    ClientHeight = 118
+    ClientWidth = 296
+    Color = 16378847
+    Font.Color = 16744448
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    object chair4_type_label: TLabel
+      Left = 138
+      Height = 22
+      Top = 74
+      Width = 76
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -20
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object normal_ch_label4: TLabel
+      Left = 22
+      Height = 19
+      Top = 76
+      Width = 110
+      Alignment = taRightJustify
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object rail4_combo: TComboBox
+      Left = 172
+      Height = 26
+      Top = 108
+      Width = 120
+      Color = clWhite
+      DropDownCount = 10
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ItemHeight = 18
+      Items.Strings = (
+        'S1'
+        'S1J'
+        'L1'
+        'M1'
+        'CCL/R'
+        'CC'
+        'CCR/L'
+        'S1O'
+        'S1N'
+        'L1CCL/R'
+        'L1CC'
+        'L1CCR/L'
+        'PW'
+        'PWL'
+        'PWR'
+        'SS'
+        'MS'
+        'P'
+        'SDP'
+        'SDS'
+        'SC'
+      )
+      ParentFont = False
+      ParentShowHint = False
+      Style = csDropDownList
+      TabOrder = 0
+      OnClick = rail4_comboClick
+    end
+    object flip_key4_checkbox: TCheckBox
+      Left = 224
+      Height = 20
+      Top = 46
+      Width = 67
+      Caption = 'flip key'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object omit4_checkbox: TCheckBox
+      Left = 10
+      Height = 22
+      Top = 40
+      Width = 94
+      Caption = 'omit  chair'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnMouseUp = omit4_checkboxMouseUp
+    end
+    object sc4_size_button: TButton
+      Left = 216
+      Height = 20
+      Top = 74
+      Width = 74
+      Caption = 'SC  size ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = sc4_size_buttonClick
+    end
+    object customized4_checkbox: TCheckBox
+      Left = 270
+      Height = 20
+      Top = 18
+      Width = 21
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnMouseUp = customized4_checkboxMouseUp
+    end
+    object change4_checkbox: TCheckBox
+      Left = 16
+      Height = 22
+      Top = 112
+      Width = 146
+      Caption = 'change  chair  to :'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnMouseUp = change4_checkboxMouseUp
+    end
+    object customize4_button: TButton
+      Left = 176
+      Height = 20
+      Top = 18
+      Width = 90
+      Caption = 'customize ...'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = customize4_buttonClick
+    end
+    object show_customized4_button: TButton
+      Left = 134
+      Height = 20
+      Top = 18
+      Width = 40
+      Caption = 'show'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 7
+      OnClick = show_customized4_buttonClick
+    end
+  end
+  object rail3_groupbox: TGroupBox
+    Left = 40
+    Height = 142
+    Top = 174
+    Width = 300
+    Caption = ' on  rail  3 :  '
+    ClientHeight = 118
+    ClientWidth = 296
+    Color = 16378847
+    Font.Color = 16744448
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    object chair3_type_label: TLabel
+      Left = 138
+      Height = 22
+      Top = 74
+      Width = 76
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -20
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object normal_ch_label3: TLabel
+      Left = 22
+      Height = 19
+      Top = 76
+      Width = 110
+      Alignment = taRightJustify
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object rail3_combo: TComboBox
+      Left = 172
+      Height = 26
+      Top = 108
+      Width = 120
+      Color = clWhite
+      DropDownCount = 10
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ItemHeight = 18
+      Items.Strings = (
+        'S1'
+        'S1J'
+        'L1'
+        'M1'
+        'CCL/R'
+        'CC'
+        'CCR/L'
+        'S1O'
+        'S1N'
+        'L1CCL/R'
+        'L1CC'
+        'L1CCR/L'
+        'PW'
+        'PWL'
+        'PWR'
+        'SS'
+        'MS'
+        'P'
+        'SDP'
+        'SDS'
+        'SC'
+      )
+      ParentFont = False
+      ParentShowHint = False
+      Style = csDropDownList
+      TabOrder = 0
+      OnClick = rail3_comboClick
+    end
+    object flip_key3_checkbox: TCheckBox
+      Left = 224
+      Height = 20
+      Top = 46
+      Width = 67
+      Caption = 'flip key'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object omit3_checkbox: TCheckBox
+      Left = 10
+      Height = 22
+      Top = 40
+      Width = 94
+      Caption = 'omit  chair'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnMouseUp = omit3_checkboxMouseUp
+    end
+    object sc3_size_button: TButton
+      Left = 216
+      Height = 20
+      Top = 74
+      Width = 74
+      Caption = 'SC  size ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = sc3_size_buttonClick
+    end
+    object customized3_checkbox: TCheckBox
+      Left = 270
+      Height = 20
+      Top = 18
+      Width = 21
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnMouseUp = customized3_checkboxMouseUp
+    end
+    object change3_checkbox: TCheckBox
+      Left = 16
+      Height = 22
+      Top = 112
+      Width = 146
+      Caption = 'change  chair  to :'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnMouseUp = change3_checkboxMouseUp
+    end
+    object customize3_button: TButton
+      Left = 176
+      Height = 20
+      Top = 18
+      Width = 90
+      Caption = 'customize ...'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = customize3_buttonClick
+    end
+    object show_customized3_button: TButton
+      Left = 134
+      Height = 20
+      Top = 18
+      Width = 40
+      Caption = 'show'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 7
+      OnClick = show_customized3_buttonClick
+    end
+  end
+  object rail2_groupbox: TGroupBox
+    Left = 40
+    Height = 142
+    Top = 330
+    Width = 300
+    Caption = ' on  rail  2 :  '
+    ClientHeight = 118
+    ClientWidth = 296
+    Color = 16378847
+    Font.Color = 16744448
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+    object chair2_type_label: TLabel
+      Left = 138
+      Height = 22
+      Top = 74
+      Width = 76
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -20
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object normal_ch_label2: TLabel
+      Left = 22
+      Height = 19
+      Top = 76
+      Width = 110
+      Alignment = taRightJustify
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object rail2_combo: TComboBox
+      Left = 172
+      Height = 26
+      Top = 108
+      Width = 120
+      Color = clWhite
+      DropDownCount = 10
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ItemHeight = 18
+      Items.Strings = (
+        'S1'
+        'S1J'
+        'L1'
+        'M1'
+        'CCL/R'
+        'CC'
+        'CCR/L'
+        'S1O'
+        'S1N'
+        'L1CCL/R'
+        'L1CC'
+        'L1CCR/L'
+        'PW'
+        'PWL'
+        'PWR'
+        'SS'
+        'MS'
+        'P'
+        'SDP'
+        'SDS'
+        'SC'
+      )
+      ParentFont = False
+      ParentShowHint = False
+      Style = csDropDownList
+      TabOrder = 0
+      OnClick = rail2_comboClick
+    end
+    object flip_key2_checkbox: TCheckBox
+      Left = 224
+      Height = 20
+      Top = 46
+      Width = 67
+      Caption = 'flip key'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object omit2_checkbox: TCheckBox
+      Left = 10
+      Height = 22
+      Top = 40
+      Width = 94
+      Caption = 'omit  chair'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnMouseUp = omit2_checkboxMouseUp
+    end
+    object sc2_size_button: TButton
+      Left = 216
+      Height = 20
+      Top = 74
+      Width = 74
+      Caption = 'SC  size ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = sc2_size_buttonClick
+    end
+    object customized2_checkbox: TCheckBox
+      Left = 270
+      Height = 20
+      Top = 18
+      Width = 21
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnMouseUp = customized2_checkboxMouseUp
+    end
+    object change2_checkbox: TCheckBox
+      Left = 16
+      Height = 22
+      Top = 112
+      Width = 146
+      Caption = 'change  chair  to :'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnMouseUp = change2_checkboxMouseUp
+    end
+    object customize2_button: TButton
+      Left = 176
+      Height = 20
+      Top = 18
+      Width = 90
+      Caption = 'customize ...'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = customize2_buttonClick
+    end
+    object show_customized2_button: TButton
+      Left = 134
+      Height = 20
+      Top = 18
+      Width = 40
+      Caption = 'show'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 7
+      OnClick = show_customized2_buttonClick
+    end
+  end
+  object rail1_groupbox: TGroupBox
+    Left = 40
+    Height = 142
+    Top = 486
+    Width = 300
+    Caption = ' on  rail  1 :  '
+    ClientHeight = 118
+    ClientWidth = 296
+    Color = 16378847
+    Font.Color = 16744448
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    object chair1_type_label: TLabel
+      Left = 138
+      Height = 22
+      Top = 74
+      Width = 76
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -20
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object normal_ch_label1: TLabel
+      Left = 22
+      Height = 19
+      Top = 76
+      Width = 110
+      Alignment = taRightJustify
+      AutoSize = False
+      Font.Color = 16744448
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object rail1_combo: TComboBox
+      Left = 172
+      Height = 26
+      Top = 108
+      Width = 120
+      Color = clWhite
+      DropDownCount = 10
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ItemHeight = 18
+      Items.Strings = (
+        'S1'
+        'S1J'
+        'L1'
+        'M1'
+        'CCL/R'
+        'CC'
+        'CCR/L'
+        'S1O'
+        'S1N'
+        'L1CCL/R'
+        'L1CC'
+        'L1CCR/L'
+        'PW'
+        'PWL'
+        'PWR'
+        'SS'
+        'MS'
+        'P'
+        'SDP'
+        'SDS'
+        'SC'
+      )
+      ParentFont = False
+      ParentShowHint = False
+      Style = csDropDownList
+      TabOrder = 0
+      OnClick = rail1_comboClick
+    end
+    object flip_key1_checkbox: TCheckBox
+      Left = 224
+      Height = 20
+      Top = 46
+      Width = 67
+      Caption = 'flip key'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object omit1_checkbox: TCheckBox
+      Left = 10
+      Height = 22
+      Top = 40
+      Width = 94
+      Caption = 'omit  chair'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnMouseUp = omit1_checkboxMouseUp
+    end
+    object sc1_size_button: TButton
+      Left = 216
+      Height = 20
+      Top = 74
+      Width = 74
+      Caption = 'SC  size ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = sc1_size_buttonClick
+    end
+    object customized1_checkbox: TCheckBox
+      Left = 270
+      Height = 20
+      Top = 18
+      Width = 21
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnMouseUp = customized1_checkboxMouseUp
+    end
+    object change1_checkbox: TCheckBox
+      Left = 16
+      Height = 22
+      Top = 112
+      Width = 146
+      Caption = 'change  chair  to :'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnMouseUp = change1_checkboxMouseUp
+    end
+    object customize1_button: TButton
+      Left = 176
+      Height = 20
+      Top = 18
+      Width = 90
+      Caption = 'customize ...'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      OnClick = customize1_buttonClick
+    end
+    object show_customized1_button: TButton
+      Left = 134
+      Height = 20
+      Top = 18
+      Width = 40
+      Caption = 'show'
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 7
+      OnClick = show_customized1_buttonClick
+    end
+  end
+  object hide_panel: TPanel
+    Left = 972
+    Height = 30
+    Top = 608
+    Width = 81
+    Alignment = taLeftJustify
+    Caption = '   hide'
+    ClientHeight = 30
+    ClientWidth = 81
+    Color = 9502719
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+    OnClick = hide_buttonClick
+    object hide_button: TButton
+      Left = 60
+      Height = 14
+      Top = 12
+      Width = 14
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = hide_buttonClick
+    end
+  end
+  object customize_groupbox: TGroupBox
+    Left = 360
+    Height = 230
+    Top = 370
+    Width = 693
+    Caption = '  customize  chair :  '
+    ClientHeight = 209
+    ClientWidth = 689
+    Color = 14741744
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 7
+    Visible = False
+    object Label9: TLabel
+      Left = 142
+      Height = 40
+      Top = 68
+      Width = 80
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'export gauge jaw'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label13: TLabel
+      Left = 240
+      Height = 40
+      Top = 68
+      Width = 100
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'export outer jaw + key'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label14: TLabel
+      Left = 354
+      Height = 40
+      Top = 68
+      Width = 76
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'outer jaw  is loose'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label15: TLabel
+      Left = 436
+      Height = 40
+      Top = 68
+      Width = 82
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'export as loose jaw'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label16: TLabel
+      Left = 586
+      Height = 40
+      Top = 68
+      Width = 72
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'export  rail seat'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label17: TLabel
+      Left = 36
+      Height = 40
+      Top = 68
+      Width = 105
+      AutoSize = False
+      Caption = 'rail  in  chair'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object rail_label: TLabel
+      Left = 16
+      Height = 24
+      Top = 32
+      Width = 200
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'on  rail'
+      Color = clWhite
+      Font.Color = 16711808
+      Font.Height = -18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      OnClick = customize_set_buttonClick
+    end
+    object Label10: TLabel
+      Left = 220
+      Height = 32
+      Top = 172
+      Width = 240
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'not yet fully working in 244'
+      Color = clYellow
+      Font.Color = clRed
+      Font.Height = -18
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+    end
+    object Label11: TLabel
+      Left = 136
+      Height = 17
+      Top = 13
+      Width = 132
+      AutoSize = False
+      Caption = 'click to save settings'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    inline frame_main_rail: Tchair_frame
+      Left = 4
+      Height = 22
+      Top = 116
+      Width = 680
+      ClientHeight = 22
+      ClientWidth = 680
+      ParentBackground = False
+      inherited frame_label: TLabel
+        Font.Color = clBlue
+        Font.Height = -20
+        ParentFont = False
+      end
+      inherited Label1: TLabel
+        Visible = False
+      end
+      inherited loose_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+    end
+    inline frame_2nd_rail: Tchair_frame
+      Left = 4
+      Height = 22
+      Top = 144
+      Width = 680
+      ClientHeight = 22
+      ClientWidth = 680
+      ParentBackground = False
+      TabOrder = 1
+      Visible = False
+      inherited frame_label: TLabel
+        Caption = 'second  rail'
+        Font.Color = clBlue
+        Font.Height = -20
+        ParentFont = False
+      end
+      inherited Label1: TLabel
+        Caption = '1'
+        Visible = False
+      end
+      inherited loose_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+    end
+    object GroupBox2: TGroupBox
+      Left = 302
+      Height = 48
+      Top = 14
+      Width = 381
+      Caption = ' change  plug  fit  to :  '
+      ClientHeight = 27
+      ClientWidth = 377
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 2
+      object Label18: TLabel
+        Left = 152
+        Height = 16
+        Top = 8
+        Width = 210
+        AutoSize = False
+        Caption = 'changes  not  yet  working  in  244a'
+        Font.Color = 192
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+      end
+      object clip_radio: TRadioButton
+        Left = 128
+        Height = 20
+        Top = 22
+        Width = 60
+        Caption = 'clip-fit'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+      end
+      object snap_radio: TRadioButton
+        Left = 208
+        Height = 20
+        Top = 22
+        Width = 67
+        Caption = 'snap-fit'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+      end
+      object press_radio: TRadioButton
+        Left = 296
+        Height = 20
+        Top = 22
+        Width = 70
+        Caption = 'press-fit'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+      end
+      object no_change_radio: TRadioButton
+        Left = 12
+        Height = 20
+        Top = 22
+        Width = 92
+        Caption = 'no  change'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 3
+        TabStop = True
+      end
+    end
+    inline frame_3rd_rail: Tchair_frame
+      Left = 4
+      Height = 22
+      Top = 172
+      Width = 680
+      ClientHeight = 22
+      ClientWidth = 680
+      ParentBackground = False
+      TabOrder = 3
+      Visible = False
+      inherited frame_label: TLabel
+        Caption = 'third  rail'
+        Font.Color = clBlue
+        Font.Height = -20
+        ParentFont = False
+      end
+      inherited Label1: TLabel
+        Caption = '2'
+        Visible = False
+      end
+      inherited loose_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+    end
+    inline frame_4th_rail: Tchair_frame
+      Left = 4
+      Height = 22
+      Top = 200
+      Width = 680
+      ClientHeight = 22
+      ClientWidth = 680
+      ParentBackground = False
+      TabOrder = 4
+      Visible = False
+      inherited frame_label: TLabel
+        Caption = 'fourth  rail'
+        Font.Color = clBlue
+        Font.Height = -20
+        ParentFont = False
+      end
+      inherited Label1: TLabel
+        Caption = '3'
+        Visible = False
+      end
+      inherited loose_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited export_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox1: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox0: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+      inherited include_checkbox2: TCheckBox
+        Checked = False
+        State = cbUnchecked
+      end
+    end
+    object customize_set_button: TButton
+      Left = 224
+      Height = 24
+      Top = 32
+      Width = 38
+      Caption = 'set'
+      Font.Color = 16744448
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnClick = customize_set_buttonClick
+    end
+  end
+end

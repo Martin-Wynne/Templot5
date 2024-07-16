@@ -1,0 +1,814 @@
+object jigs_form: Tjigs_form
+  Left = 40
+  Height = 561
+  Top = 80
+  Width = 946
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '    DXF / STL  exports  for  track - building  tools'
+  ClientHeight = 561
+  ClientWidth = 946
+  Color = 16776438
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 510
+    Width = 928
+    AutoSize = False
+    Font.Color = clBlack
+    Font.Height = -3
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object jigs_groupbox: TGroupBox
+    Left = 12
+    Height = 494
+    Top = 12
+    Width = 821
+    Caption = ' filing  jig :  '
+    ClientHeight = 471
+    ClientWidth = 817
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    object Label11: TLabel
+      Left = 200
+      Height = 20
+      Top = 62
+      Width = 30
+      AutoSize = False
+      Caption = 'mm'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 18
+      Height = 20
+      Top = 62
+      Width = 124
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'part  thickness :'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 200
+      Height = 20
+      Top = 94
+      Width = 30
+      AutoSize = False
+      Caption = 'mm'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label14: TLabel
+      Left = 18
+      Height = 20
+      Top = 94
+      Width = 124
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'bolt  hole :'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label16: TLabel
+      Left = 638
+      Height = 20
+      Top = 20
+      Width = 124
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'label  rail  Code :'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label17: TLabel
+      Left = 226
+      Height = 20
+      Top = 444
+      Width = 30
+      AutoSize = False
+      Caption = 'mm'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label18: TLabel
+      Left = 50
+      Height = 20
+      Top = 444
+      Width = 124
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'groove  depth :'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object rail_type_groupbox: TGroupBox
+      Left = 14
+      Height = 106
+      Top = 126
+      Width = 185
+      Caption = ' rail  type :  '
+      ClientHeight = 85
+      ClientWidth = 181
+      Color = 15794160
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      object bh_radio: TRadioButton
+        Left = 12
+        Height = 20
+        Top = 26
+        Width = 107
+        Caption = ' BH  bullhead'
+        Checked = True
+        TabOrder = 0
+        TabStop = True
+      end
+      object RadioButton2: TRadioButton
+        Left = 12
+        Height = 20
+        Top = 52
+        Width = 143
+        Caption = 'FB - LH  flat-bottom'
+        Enabled = False
+        TabOrder = 1
+      end
+      object RadioButton3: TRadioButton
+        Left = 12
+        Height = 20
+        Top = 78
+        Width = 144
+        Caption = 'FB - RH  flat-bottom'
+        Enabled = False
+        TabOrder = 2
+      end
+    end
+    object xing_groupbox: TGroupBox
+      Left = 312
+      Height = 124
+      Top = 48
+      Width = 361
+      Caption = ' crossing  rails :  '
+      ClientHeight = 103
+      ClientWidth = 357
+      Color = 15269887
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+      object Label1: TLabel
+        Left = 16
+        Height = 20
+        Top = 30
+        Width = 124
+        AutoSize = False
+        Caption = 'angle  RAM :'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 46
+        Height = 20
+        Top = 56
+        Width = 128
+        AutoSize = False
+        Caption = 'as control template'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object xing_control_label: TLabel
+        Left = 174
+        Height = 20
+        Top = 55
+        Width = 56
+        AutoSize = False
+        Caption = '1: 8.00'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object xing_angle_as_control_radio: TRadioButton
+        Left = 24
+        Height = 20
+        Top = 56
+        Width = 21
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        TabStop = True
+      end
+      object xing_angle_entered_radio: TRadioButton
+        Left = 24
+        Height = 22
+        Top = 92
+        Width = 33
+        Caption = '1:'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+      end
+      object xing_angle_edit: TEdit
+        Left = 64
+        Height = 26
+        Top = 90
+        Width = 44
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+        Text = '7.50'
+        OnMouseDown = xing_angle_editMouseDown
+      end
+      object knuckle_guide_checkbox: TCheckBox
+        Left = 153
+        Height = 20
+        Top = 16
+        Width = 190
+        Caption = 'add  knuckle  bend  gauge'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 3
+      end
+    end
+    object switch_groupbox: TGroupBox
+      Left = 316
+      Height = 259
+      Top = 222
+      Width = 489
+      Caption = ' switch  rails :  '
+      ClientHeight = 238
+      ClientWidth = 485
+      Color = 15269887
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 2
+      Visible = False
+      object GroupBox2: TGroupBox
+        Left = 24
+        Height = 61
+        Top = 180
+        Width = 397
+        Caption = ' toe angle  RAM :  '
+        ClientHeight = 40
+        ClientWidth = 393
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentFont = False
+        TabOrder = 0
+        object Label4: TLabel
+          Left = 34
+          Height = 20
+          Top = 26
+          Width = 128
+          AutoSize = False
+          Caption = 'as control template'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object switch_control_label: TLabel
+          Left = 160
+          Height = 20
+          Top = 25
+          Width = 62
+          AutoSize = False
+          Caption = '1: 24.00'
+          Font.Color = clBlue
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object switch_angle_as_control_radio: TRadioButton
+          Left = 12
+          Height = 20
+          Top = 26
+          Width = 21
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          TabStop = True
+        end
+        object switch_angle_entered_radio: TRadioButton
+          Left = 288
+          Height = 22
+          Top = 26
+          Width = 33
+          Caption = '1:'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+        end
+        object switch_angle_edit: TEdit
+          Left = 328
+          Height = 26
+          Top = 24
+          Width = 46
+          Font.Color = clBlue
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+          Text = '32.00'
+          OnMouseDown = switch_angle_editMouseDown
+        end
+      end
+      object back_radio: TRadioButton
+        Left = 24
+        Height = 22
+        Top = 36
+        Width = 123
+        Caption = 'back  of  blade'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        TabStop = True
+        OnMouseDown = back_radioMouseDown
+      end
+      object front_groupbox: TGroupBox
+        Left = 246
+        Height = 96
+        Top = 66
+        Width = 227
+        Caption = ' front  angle :  '
+        ClientHeight = 75
+        ClientWidth = 223
+        Color = 16777200
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 2
+        Visible = False
+        object Label19: TLabel
+          Left = 182
+          Height = 20
+          Top = 32
+          Width = 36
+          AutoSize = False
+          Caption = 'degs'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label20: TLabel
+          Left = 8
+          Height = 20
+          Top = 32
+          Width = 121
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = 'front slope angle :'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object slope_angle_edit: TEdit
+          Left = 132
+          Height = 26
+          Top = 29
+          Width = 46
+          Font.Color = clBlue
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          Text = '20'
+          OnMouseDown = switch_angle_editMouseDown
+        end
+        object angled_base_checkbox: TCheckBox
+          Left = 14
+          Height = 20
+          Top = 64
+          Width = 127
+          Caption = 'angled  jig  base'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 1
+        end
+      end
+      object front_left_radio: TRadioButton
+        Left = 24
+        Height = 22
+        Top = 90
+        Width = 195
+        Caption = 'front  of  Left-side  blade'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 3
+        OnMouseDown = front_left_radioMouseDown
+      end
+      object front_right_radio: TRadioButton
+        Left = 24
+        Height = 22
+        Top = 128
+        Width = 205
+        Caption = 'front  of  Right-side  blade'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 4
+        OnMouseDown = front_right_radioMouseDown
+      end
+      object top_pad_checkbox: TCheckBox
+        Left = 380
+        Height = 20
+        Top = 12
+        Width = 89
+        Caption = 'add top pad'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 5
+      end
+      object set_top_pad_button: TButton
+        Left = 428
+        Height = 17
+        Top = 32
+        Width = 40
+        Caption = 'set...'
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 6
+        OnClick = set_top_pad_buttonClick
+      end
+    end
+    object xing_radio: TRadioButton
+      Left = 288
+      Height = 22
+      Top = 24
+      Width = 163
+      Caption = 'crossing  vee  rails :'
+      Checked = True
+      TabOrder = 3
+      TabStop = True
+      OnMouseDown = xing_radioMouseDown
+    end
+    object switch_radio: TRadioButton
+      Left = 288
+      Height = 22
+      Top = 198
+      Width = 129
+      Caption = 'switch  blades :'
+      TabOrder = 4
+      OnMouseDown = switch_radioMouseDown
+    end
+    object dims_groupbox: TGroupBox
+      Left = 14
+      Height = 146
+      Top = 246
+      Width = 236
+      Caption = ' rail-fit  dimensions :  '
+      ClientHeight = 125
+      ClientWidth = 232
+      Color = 16777200
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 5
+      object Label5: TLabel
+        Left = 198
+        Height = 20
+        Top = 76
+        Width = 30
+        AutoSize = False
+        Caption = 'mm'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 198
+        Height = 20
+        Top = 108
+        Width = 30
+        AutoSize = False
+        Caption = 'mm'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label7: TLabel
+        Left = 22
+        Height = 20
+        Top = 76
+        Width = 124
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'rail  head  width :'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label8: TLabel
+        Left = 198
+        Height = 20
+        Top = 44
+        Width = 30
+        AutoSize = False
+        Caption = 'mm'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label9: TLabel
+        Left = 4
+        Height = 20
+        Top = 44
+        Width = 142
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'part  groove  depth :'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label10: TLabel
+        Left = 8
+        Height = 20
+        Top = 108
+        Width = 138
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'FB  rail  foot  width :'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label15: TLabel
+        Left = 56
+        Height = 20
+        Top = 18
+        Width = 172
+        AutoSize = False
+        Caption = 'refer to Templot Club forum'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+      end
+      object rail_head_width_edit: TEdit
+        Left = 152
+        Height = 26
+        Top = 74
+        Width = 41
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        Text = '0.92'
+      end
+      object rail_fb_foot_width_edit: TEdit
+        Left = 152
+        Height = 26
+        Top = 106
+        Width = 41
+        Enabled = False
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        Text = '1.83'
+      end
+      object groove_depth_edit: TEdit
+        Left = 152
+        Height = 26
+        Top = 42
+        Width = 41
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+        Text = '0.96'
+      end
+    end
+    object north_checkbox: TCheckBox
+      Left = 16
+      Height = 22
+      Top = 28
+      Width = 95
+      Caption = 'north  part'
+      Checked = True
+      State = cbChecked
+      TabOrder = 6
+    end
+    object south_checkbox: TCheckBox
+      Left = 128
+      Height = 22
+      Top = 28
+      Width = 97
+      Caption = 'south  part'
+      Checked = True
+      State = cbChecked
+      TabOrder = 7
+    end
+    object part_thickness_edit: TEdit
+      Left = 148
+      Height = 26
+      Hint = '  refer to Templot Club forum for FDM printing information  '
+      Top = 58
+      Width = 46
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 8
+      Text = '9.6'
+    end
+    object bolt_hole_edit: TEdit
+      Left = 148
+      Height = 26
+      Top = 92
+      Width = 46
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      TabOrder = 9
+      Text = '5.9'
+    end
+    object rail_code_edit: TEdit
+      Left = 768
+      Height = 26
+      Top = 18
+      Width = 36
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 10
+      Text = '75'
+    end
+    object knuckle_radio: TRadioButton
+      Left = 32
+      Height = 22
+      Top = 416
+      Width = 217
+      Caption = 'knuckle  bend  gauge  only :'
+      TabOrder = 11
+      OnMouseDown = xing_radioMouseDown
+    end
+    object kn_groove_depth_edit: TEdit
+      Left = 180
+      Height = 26
+      Top = 442
+      Width = 41
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 12
+      Text = '2.1'
+    end
+  end
+  object ok_button: TButton
+    Left = 846
+    Height = 25
+    Top = 458
+    Width = 64
+    Caption = 'OK'
+    ModalResult = 1
+    TabOrder = 1
+  end
+end

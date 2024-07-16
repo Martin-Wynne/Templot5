@@ -1,0 +1,1338 @@
+object control_room_form: Tcontrol_room_form
+  Left = 732
+  Height = 442
+  Top = 309
+  Width = 750
+  HorzScrollBar.Tracking = True
+  VertScrollBar.Tracking = True
+  BorderIcons = [biSystemMenu]
+  Caption = '         welcome  to  TEMPLOT'
+  ClientHeight = 442
+  ClientWidth = 750
+  Color = clYellow
+  DesignTimePPI = 120
+  Enabled = False
+  Font.Color = clBlack
+  Font.Height = -364
+  Font.Name = 'MS Sans Serif'
+  KeyPreview = True
+  Menu = control_room_menu_bar
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnResize = FormResize
+  Position = poScreenCenter
+  ShowHint = True
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object reminder_label: TLabel
+    Left = 60
+    Height = 180
+    Top = 60
+    Width = 270
+    AutoSize = False
+    Caption = 'A reminder message from the previous session can be shown here.'
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
+  object logo_bumf_label: TLabel
+    Left = 538
+    Height = 54
+    Top = 164
+    Width = 208
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'precision track design for model railways '
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Trebuchet MS'
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+    WordWrap = True
+  end
+  object version_label: TLabel
+    Left = 678
+    Height = 26
+    Top = 120
+    Width = 66
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '5.55.a'
+    Font.Color = clRed
+    Font.Height = -18
+    Font.Name = 'Trebuchet MS'
+    Font.Style = [fsItalic]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object tm_label: TLabel
+    Left = 724
+    Height = 12
+    Top = 36
+    Width = 18
+    AutoSize = False
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -10
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = colour_buttonClick
+  end
+  object startup_label: TLabel
+    Left = 32
+    Height = 44
+    Top = 250
+    Width = 502
+    AutoSize = False
+    Caption = '... welcome  to  OpenTemplot'
+    Font.Color = clBlue
+    Font.Height = -30
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold, fsItalic]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object first_time_here_label: TLabel
+    Left = 548
+    Height = 38
+    Top = 340
+    Width = 196
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '   FIRST  TIME  HERE ?            CLICK  trackpad  '
+    Color = clRed
+    Font.Color = clYellow
+    Font.Height = -13
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold, fsItalic]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+    Visible = False
+    WordWrap = True
+  end
+  object internet_label: TLabel
+    Left = 432
+    Height = 14
+    Top = 366
+    Width = 295
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'clicking  GO  connects  to  Templot  web  site'
+    Font.Color = clGray
+    Font.Height = -11
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object about_label: TLabel
+    Cursor = crHandPoint
+    Left = 690
+    Height = 18
+    Hint = ' about  Templot '
+    Top = 232
+    Width = 50
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'about'
+    Enabled = False
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold, fsUnderline]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    Visible = False
+    OnClick = about_templot_version_menu_entryClick
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 404
+    Width = 750
+    AutoSize = False
+  end
+  object Label2: TLabel
+    Left = 550
+    Height = 26
+    Top = 120
+    Width = 124
+    AutoSize = False
+    Caption = '3D plug track'
+    Font.Color = clRed
+    Font.Height = -18
+    Font.Name = 'Trebuchet MS'
+    Font.Style = [fsBold, fsItalic]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object top_bar_shape: TShape
+    Left = 0
+    Height = 16
+    Top = 0
+    Width = 750
+    Brush.Color = 16765088
+    Pen.Color = 16765088
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 100
+    Hint = ' click to change menu style '
+    Top = 16
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 100
+    ClientWidth = 20
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 9
+    Visible = False
+    object how_panel: TPanel
+      Left = 2
+      Height = 20
+      Hint = ' what  next ? '
+      Top = 50
+      Width = 16
+      Caption = '?'
+      Color = clBlack
+      Font.Color = clLime
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = how_panelClick
+    end
+    object chat_panel: TPanel
+      Left = 2
+      Height = 16
+      Hint = ' chat '
+      Top = 72
+      Width = 16
+      Caption = '='
+      Color = clBlack
+      Font.Color = clLime
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnClick = chat_panelClick
+    end
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Hint = ' reduce / enlarge  the  program  panel  window '
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      ParentShowHint = False
+      Position = 4
+      ShowHint = True
+      TabOrder = 2
+    end
+    object colour_panel: TPanel
+      Left = 2
+      Height = 16
+      Hint = ' change  colour '
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnClick = colour_buttonClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Hint = ' change  the  program  panel  colour '
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_buttonClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object open_panel: TPanel
+    Left = 20
+    Height = 36
+    Top = 382
+    Width = 710
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Caption = '                                    Ready,    Steady,    CLICK ...'
+    ClientHeight = 36
+    ClientWidth = 710
+    Color = 16742144
+    Font.Color = clWhite
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 0
+    object open_button: TButton
+      Left = 450
+      Height = 28
+      Hint = ' click  here  to  start '
+      Top = 4
+      Width = 50
+      Caption = 'GO'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnClick = open_buttonClick
+    end
+    object go_prefs_button: TButton
+      Left = 504
+      Height = 28
+      Hint = ' click  here  to  start  with  your  previous  program  preferences '
+      Top = 4
+      Width = 200
+      Caption = 'GO  using  my  preferences'
+      Enabled = False
+      Font.Color = clWhite
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = go_prefs_buttonClick
+    end
+  end
+  object pad_button: TButton
+    Left = 643
+    Height = 33
+    Hint = ' go  to  the  trackpad '
+    Top = 384
+    Width = 97
+    Caption = '&trackpad'
+    Default = True
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    Visible = False
+    OnClick = pad_buttonClick
+  end
+  object reload_button: TButton
+    Left = 12
+    Height = 29
+    Hint = ' load  or  reload  your  storage  box  from  any  box  file '
+    Top = 386
+    Width = 68
+    Caption = '&file ...'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 8
+    Visible = False
+    OnClick = reload_buttonClick
+  end
+  object recent_button: TButton
+    Left = 86
+    Height = 29
+    Hint = ' load  or  reload  your  storage  box  from  a  recently  used  file '
+    Top = 386
+    Width = 112
+    Caption = '&recent  files'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    Visible = False
+    OnClick = recent_buttonClick
+  end
+  object viewer_button: TButton
+    Left = 204
+    Height = 29
+    Hint = ' explore  your  saved  box  files '
+    Top = 386
+    Width = 104
+    Caption = 'file  &viewer'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+    Visible = False
+  end
+  object storage_box_button: TButton
+    Left = 314
+    Height = 29
+    Hint = ' show  your  template  storage  box '
+    Top = 386
+    Width = 50
+    Caption = '&box'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    Visible = False
+    OnClick = storage_box_menu_entryClick
+  end
+  object control_sketchboard_button: TButton
+    Left = 518
+    Height = 29
+    Hint = ' go  to  the  sketchboard '
+    Top = 386
+    Width = 119
+    Caption = 's&ketchboard'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    Visible = False
+  end
+  object shapes_button: TButton
+    Left = 370
+    Height = 29
+    Hint = ' show  your  background  shapes '
+    Top = 386
+    Width = 76
+    Caption = '&shapes'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    Visible = False
+    OnClick = shapes_buttonClick
+  end
+  object statusbar_panel: TPanel
+    Left = 0
+    Height = 18
+    Top = 424
+    Width = 750
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Caption = '  ©  2024  Martin Wynne and OpenTemplot contributors'
+    ClientHeight = 18
+    ClientWidth = 750
+    Color = 16765088
+    Enabled = False
+    Font.Color = 6316128
+    Font.Height = -12
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 11
+    OnClick = about_templot_version_menu_entryClick
+    object Label1: TLabel
+      Left = 648
+      Height = 15
+      Top = 2
+      Width = 88
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '85a.uk'
+    end
+  end
+  object maps_button: TButton
+    Left = 452
+    Height = 29
+    Hint = ' get  a  background  map '
+    Top = 386
+    Width = 60
+    Caption = '&maps'
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    Visible = False
+    OnClick = maps_buttonClick
+  end
+  object logo_panel: TPanel
+    Left = 340
+    Height = 68
+    Top = 46
+    Width = 400
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = 'OpenTEMPLOT2024'
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -33
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 10
+  end
+  object trackpad_groupbox: TGroupBox
+    Left = 564
+    Height = 81
+    Top = 276
+    Width = 160
+    Caption = ' trackpad  window :  '
+    ClientHeight = 60
+    ClientWidth = 156
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 12
+    Visible = False
+    object pad_maximized_radio: TRadioButton
+      Left = 20
+      Height = 20
+      Hint = ' borderless full-screen '
+      Top = 0
+      Width = 94
+      Caption = 'maximized'
+      Checked = True
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      TabStop = True
+      OnMouseDown = pad_maximized_radioMouseDown
+    end
+    object pad_downsized_radio: TRadioButton
+      Left = 20
+      Height = 20
+      Hint = ' for easier re-positioning and resizing '
+      Top = 24
+      Width = 101
+      Caption = 'down-sized'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnMouseDown = pad_downsized_radioMouseDown
+    end
+  end
+  object control_room_menu_bar: TMainMenu
+    Left = 376
+    Top = 136
+    object session_menu: TMenuItem
+      Caption = '&session'
+      Enabled = False
+      OnClick = session_menuClick
+      object project_title_menu_entry: TMenuItem
+        Caption = 'project  box  &title ...'
+        OnClick = project_title_menu_entryClick
+      end
+      object new_gauge_menu_entry: TMenuItem
+        Caption = 'g&auge  and  scale ...'
+        OnClick = new_gauge_menu_entryClick
+      end
+      object N5: TMenuItem
+        Caption = '-'
+        GroupIndex = 12
+      end
+      object printersetup1: TMenuItem
+        Caption = 'pri&nter  setup ...'
+        GroupIndex = 12
+        OnClick = printer_setup_menu_entryClick
+      end
+      object printer_calibration_menu_entry: TMenuItem
+        Caption = 'printer  &calibration ...'
+        GroupIndex = 12
+        ShortCut = 8308
+        OnClick = printer_calibration_menu_entryClick
+      end
+      object N1: TMenuItem
+        Caption = '-'
+        GroupIndex = 12
+      end
+      object sketchboard_menu_entry: TMenuItem
+        Caption = 's&ketchboard'
+        GroupIndex = 12
+        ShortCut = 16459
+        OnClick = control_sketchboard_buttonClick
+      end
+      object N29: TMenuItem
+        Caption = '-'
+        GroupIndex = 12
+      end
+      object reminder_menu_entry: TMenuItem
+        Caption = '&write  a  reminder ...'
+        GroupIndex = 12
+        ShortCut = 16471
+        OnClick = reminder_menu_entryClick
+      end
+      object quit_menu_entry: TMenuItem
+        Caption = 'quit  &Templot'
+        GroupIndex = 12
+        OnClick = quit_menu_entryClick
+      end
+    end
+    object file_menu: TMenuItem
+      Caption = '&file'
+      Enabled = False
+      OnClick = session_menuClick
+      object recent_menu_entry: TMenuItem
+        Caption = '&recent  box  files ...'
+        OnClick = recent_buttonClick
+      end
+      object room_file_viewer_menu_entry: TMenuItem
+        Caption = 'box  file  &viewer'
+      end
+      object reload_menu_entry: TMenuItem
+        Caption = 'load / &reload / add  box  file ...'
+        ShortCut = 16466
+        OnClick = reload_buttonClick
+      end
+      object save_all_menu_entry: TMenuItem
+        Caption = '&save  all   to  box  file ...'
+        Enabled = False
+        ShortCut = 16467
+        OnClick = save_all_menu_entryClick
+      end
+      object getfile_from_code_menu_entry: TMenuItem
+        Caption = 'get  file  from  CODE &NUMBER'
+      end
+      object N18: TMenuItem
+        Caption = '-'
+      end
+      object exports_menu_entry: TMenuItem
+        Caption = '&export  file ...'
+        ShortCut = 16453
+        OnClick = exports_menu_entryClick
+      end
+      object N11: TMenuItem
+        Caption = '-'
+      end
+      object open_storage_box_menu_entry: TMenuItem
+        Caption = 'storage  &box'
+        ShortCut = 16450
+        OnClick = storage_box_menu_entryClick
+      end
+    end
+    object preferences_menu: TMenuItem
+      Caption = 'pr&eferences'
+      Enabled = False
+      GroupIndex = 12
+      OnClick = preferences_menuClick
+      object saved_preferences_setup_menu_entry: TMenuItem
+        Caption = 'begin  &saving  preferences ...'
+        GroupIndex = 12
+        OnClick = saved_preferences_setup_menu_entryClick
+      end
+      object N14: TMenuItem
+        Caption = '-'
+        GroupIndex = 40
+        RadioItem = True
+      end
+      object update_prefs_on_quit_menu_entry: TMenuItem
+        Caption = 'update  preferences  on  q&uit'
+        Enabled = False
+        GroupIndex = 40
+        RadioItem = True
+        OnClick = update_prefs_on_quit_menu_entryClick
+      end
+      object N17: TMenuItem
+        Caption = '-'
+        GroupIndex = 40
+        RadioItem = True
+      end
+      object prefs_exclude_gen_settings_menu_entry: TMenuItem
+        Caption = 'e&xclude  generator  settings'
+        Checked = True
+        Enabled = False
+        GroupIndex = 40
+        RadioItem = True
+        OnClick = prefs_exclude_gen_settings_menu_entryClick
+      end
+      object prefs_include_gen_settings_menu_entry: TMenuItem
+        Caption = 'i&nclude  generator  settings'
+        Enabled = False
+        GroupIndex = 40
+        RadioItem = True
+        OnClick = prefs_include_gen_settings_menu_entryClick
+      end
+      object N6: TMenuItem
+        Caption = '-'
+        GroupIndex = 40
+      end
+      object abandon_prefs_menu_entry: TMenuItem
+        Caption = '&abandon  saved  preferences'
+        Enabled = False
+        GroupIndex = 40
+        OnClick = abandon_prefs_menu_entryClick
+      end
+    end
+    object background_menu: TMenuItem
+      Caption = '&background'
+      Enabled = False
+      GroupIndex = 12
+      OnClick = session_menuClick
+      object storage_box_menu_entry: TMenuItem
+        Caption = 'storage  b&ox'
+        GroupIndex = 90
+        ShortCut = 16450
+        OnClick = storage_box_menu_entryClick
+      end
+      object clear_templates_menu_entry: TMenuItem
+        Caption = '&clear  all  stored  templates'
+        GroupIndex = 90
+        ShortCut = 16430
+        OnClick = clear_templates_menu_entryClick
+      end
+      object N4: TMenuItem
+        Caption = '-'
+        GroupIndex = 90
+      end
+      object shapes_menu_entry: TMenuItem
+        Caption = 'background  &shapes'
+        GroupIndex = 90
+        ShortCut = 16467
+        OnClick = shapes_menu_entryClick
+      end
+      object clear_shapes_menu_entry: TMenuItem
+        Caption = 'clear  all  sh&apes'
+        GroupIndex = 90
+        OnClick = clear_shapes_menu_entryClick
+      end
+    end
+    object program_menu: TMenuItem
+      Caption = 'progra&m'
+      Enabled = False
+      GroupIndex = 12
+      OnClick = program_menuClick
+      object printer_font_menu_entry: TMenuItem
+        Caption = 'printer  fon&t + margins ...'
+        GroupIndex = 12
+        OnClick = printer_font_menu_entryClick
+      end
+      object jpg_menu_entry: TMenuItem
+        Caption = 'JPG  quality ...'
+        GroupIndex = 12
+        OnClick = jpg_menu_entryClick
+      end
+      object number_format_menu_entry: TMenuItem
+        Caption = '&number  format ...'
+        GroupIndex = 12
+        OnClick = number_format_menu_entryClick
+      end
+      object custom_input_factors_menu_entry: TMenuItem
+        Caption = '&custom  input  factors ...'
+        GroupIndex = 12
+        OnClick = custom_input_factors_menu_entryClick
+      end
+      object max_explode_menu_entry: TMenuItem
+        Caption = 'ma&x  explode  ( zoom-in ) ...'
+        GroupIndex = 12
+        OnClick = max_explode_menu_entryClick
+      end
+      object peg_arm_menu_entry: TMenuItem
+        Caption = 'peg  arm  &length ...'
+        GroupIndex = 12
+        OnClick = peg_arm_menu_entryClick
+      end
+      object data_panel_font_menu_entry: TMenuItem
+        Caption = 'd&ata  panel  font ...'
+        GroupIndex = 12
+        OnClick = data_panel_font_menu_entryClick
+      end
+      object screen_scaling_menu_entry: TMenuItem
+        Caption = 'sc&reen  scaling  method ...'
+        GroupIndex = 12
+        OnClick = screen_scaling_menu_entryClick
+      end
+      object popup_menu_position_menu_entry: TMenuItem
+        Caption = 'p&op-up  menu  position ...'
+        GroupIndex = 12
+        OnClick = popup_menu_position_menu_entryClick
+      end
+      object trackpad_position_menu_entry: TMenuItem
+        Caption = 'trackpad  position ...'
+        GroupIndex = 90
+        OnClick = trackpad_position_menu_entryClick
+      end
+      object delete_reminder_menu_entry: TMenuItem
+        Caption = '&delete  reminder  message'
+        GroupIndex = 90
+        OnClick = delete_reminder_menu_entryClick
+      end
+      object use_wine_fonts_menu_entry: TMenuItem
+        Caption = 'use  &Wine  fonts'
+        Enabled = False
+        GroupIndex = 90
+        OnClick = use_wine_fonts_menu_entryClick
+      end
+      object show_time_ticker_menu_entry: TMenuItem
+        Caption = 'show  time  ticker'
+        GroupIndex = 90
+        OnClick = show_time_ticker_menu_entryClick
+      end
+      object blank_spaces_in_menus_menu_entry: TMenuItem
+        Caption = 'blank  spaces  in  menus'
+        Checked = True
+        GroupIndex = 90
+        OnClick = blank_spaces_in_menus_menu_entryClick
+      end
+      object restore_t55_startup_menu_entry: TMenuItem
+        Caption = 'restore  T-55  start-up'
+        GroupIndex = 90
+        OnClick = restore_t55_startup_menu_entryClick
+      end
+      object mouse_action_menu_entry: TMenuItem
+        Caption = 'mou&se  action'
+        GroupIndex = 90
+        OnClick = mouse_action_menu_entryClick
+        object click_move_click_menu_entry: TMenuItem
+          Caption = '&click - move - click  only'
+          GroupIndex = 2
+          RadioItem = True
+          OnClick = click_move_click_menu_entryClick
+        end
+        object button_down_menu_entry: TMenuItem
+          Caption = 'button-&down  ( drag )  only'
+          GroupIndex = 2
+          RadioItem = True
+          OnClick = button_down_menu_entryClick
+        end
+        object either_action_menu_entry: TMenuItem
+          Caption = 'allow  &either  mode'
+          Checked = True
+          GroupIndex = 2
+          RadioItem = True
+          OnClick = either_action_menu_entryClick
+        end
+        object N13: TMenuItem
+          Caption = '-'
+          GroupIndex = 4
+        end
+        object auto_mouse_dir_menu_entry: TMenuItem
+          Caption = '&auto  mouse  direction'
+          Checked = True
+          GroupIndex = 4
+          OnClick = auto_mouse_dir_menu_entryClick
+        end
+      end
+      object templatenamelabels1: TMenuItem
+        Caption = 'template  name  la&bels'
+        GroupIndex = 90
+        object very_random_labels_menu_entry: TMenuItem
+          Caption = '&very  random  initial  positions'
+          GroupIndex = 10
+          RadioItem = True
+          OnClick = very_random_labels_menu_entryClick
+        end
+        object random_labels_menu_entry: TMenuItem
+          Caption = '&random  initial  positions'
+          Checked = True
+          GroupIndex = 10
+          RadioItem = True
+          OnClick = random_labels_menu_entryClick
+        end
+        object fixed_labels_menu_entry: TMenuItem
+          Caption = '&fixed  initial  positions'
+          GroupIndex = 10
+          RadioItem = True
+          OnClick = fixed_labels_menu_entryClick
+        end
+        object previous_labels_menu_entry: TMenuItem
+          Caption = '&unchanged  initial  positions'
+          GroupIndex = 10
+          RadioItem = True
+          OnClick = previous_labels_menu_entryClick
+        end
+        object N22: TMenuItem
+          Caption = '-'
+          GroupIndex = 20
+        end
+        object labelshelp1: TMenuItem
+          Caption = '?  label  positions  -  &help'
+          GroupIndex = 20
+        end
+      end
+      object click_mode_options_menu_entry: TMenuItem
+        Caption = 'clic&k - mode  options'
+        GroupIndex = 90
+        OnClick = click_mode_options_menu_entryClick
+        object classic_templot_mode_menu_entry: TMenuItem
+          Caption = '&normal  mode'
+          Checked = True
+          GroupIndex = 10
+          RadioItem = True
+          OnClick = classic_templot_mode_menu_entryClick
+        end
+        object make_on_click_mode_menu_entry: TMenuItem
+          Caption = '&make-on-click  mode'
+          GroupIndex = 10
+          RadioItem = True
+          OnClick = make_on_click_mode_menu_entryClick
+        end
+        object N27: TMenuItem
+          Caption = '-'
+          GroupIndex = 20
+        end
+        object click_mode_help_menu_entry: TMenuItem
+          Caption = '? click - mode  &help'
+          GroupIndex = 20
+        end
+      end
+      object filevieweroptions1: TMenuItem
+        Caption = 'file  &viewer  options'
+        GroupIndex = 90
+        object viewer_bitmaps_menu_entry: TMenuItem
+          Caption = 'images  in  &memory'
+          Checked = True
+          GroupIndex = 10
+          RadioItem = True
+        end
+        object viewer_png_menu_entry: TMenuItem
+          Caption = 'images  as  &files'
+          GroupIndex = 10
+          RadioItem = True
+        end
+        object N28: TMenuItem
+          Caption = '-'
+          GroupIndex = 20
+        end
+        object file_viewer_help_menu_entry: TMenuItem
+          Caption = '?  &help'
+          GroupIndex = 20
+        end
+      end
+      object N21: TMenuItem
+        Caption = '-'
+        GroupIndex = 90
+      end
+      object expert1: TMenuItem
+        Caption = '&expert'
+        GroupIndex = 90
+        object cpuusage1: TMenuItem
+          Caption = 'cpu  &usage'
+          GroupIndex = 12
+          object fast_100_menu_entry: TMenuItem
+            Caption = '100%  always  ( &fast )'
+            GroupIndex = 80
+            RadioItem = True
+            OnClick = fast_100_menu_entryClick
+          end
+          object mouse_100_menu_entry: TMenuItem
+            Caption = '100%  for  &mouse  actions  only'
+            GroupIndex = 80
+            RadioItem = True
+            OnClick = mouse_100_menu_entryClick
+          end
+          object allow_full_idle_menu_entry: TMenuItem
+            Caption = 'allow  full  idle  ( &slow )'
+            Checked = True
+            GroupIndex = 80
+            RadioItem = True
+            OnClick = allow_full_idle_menu_entryClick
+          end
+          object N15: TMenuItem
+            Caption = '-'
+            GroupIndex = 90
+          end
+          object allow_idle_help_menu_entry: TMenuItem
+            Caption = '? cpu  -  &help'
+            GroupIndex = 90
+            OnClick = allow_idle_help_menu_entryClick
+          end
+        end
+        object graphics_limits_menu_entry: TMenuItem
+          Caption = 'graphics  &limits'
+          GroupIndex = 12
+          object graphics_16_bit_limits_menu_entry: TMenuItem
+            Caption = '16-bit  limits'
+            Checked = True
+            GroupIndex = 20
+            RadioItem = True
+            OnClick = graphics_16_bit_limits_menu_entryClick
+          end
+          object graphics_24_bit_limits_menu_entry: TMenuItem
+            Caption = '24-bit  limits'
+            Enabled = False
+            GroupIndex = 20
+            RadioItem = True
+            OnClick = graphics_24_bit_limits_menu_entryClick
+          end
+          object graphics_32_bit_limits_menu_entry: TMenuItem
+            Caption = '32-bit  limits'
+            Enabled = False
+            GroupIndex = 20
+            RadioItem = True
+            OnClick = graphics_32_bit_limits_menu_entryClick
+          end
+          object graphics_no_limits_menu_entry: TMenuItem
+            Caption = 'no  limits'
+            Enabled = False
+            GroupIndex = 20
+            RadioItem = True
+            OnClick = graphics_no_limits_menu_entryClick
+          end
+          object N2: TMenuItem
+            Caption = '-'
+            GroupIndex = 40
+          end
+          object graphics_limits_help_menu_entry: TMenuItem
+            Caption = '? graphics  limits  -  help'
+            GroupIndex = 40
+            OnClick = graphics_limits_help_menu_entryClick
+          end
+        end
+        object unitangles1: TMenuItem
+          Caption = 'unit  &angles'
+          GroupIndex = 12
+          object clm_help_menu_entry: TMenuItem
+            Caption = '?  &help'
+            GroupIndex = 40
+            OnClick = clm_help_menu_entryClick
+          end
+          object N10: TMenuItem
+            Caption = '-'
+            GroupIndex = 40
+          end
+          object ram1: TMenuItem
+            Caption = '&RAM'
+            Checked = True
+            GroupIndex = 60
+            RadioItem = True
+          end
+          object CLM1: TMenuItem
+            Caption = '&CLM    ( n/a )'
+            Enabled = False
+            GroupIndex = 60
+            RadioItem = True
+          end
+          object IM1: TMenuItem
+            Caption = '&IM    ( n/a )'
+            Enabled = False
+            GroupIndex = 60
+            RadioItem = True
+          end
+          object SM1: TMenuItem
+            Caption = '&SM    ( n/a )'
+            Enabled = False
+            GroupIndex = 60
+            RadioItem = True
+          end
+        end
+        object curvingmethod1: TMenuItem
+          Caption = '&curving  method'
+          GroupIndex = 12
+          object standard_wrap_menu_entry: TMenuItem
+            Caption = 'standard  &wrap'
+            Checked = True
+            GroupIndex = 6
+            RadioItem = True
+            OnClick = standard_wrap_menu_entryClick
+          end
+          object sliding_wrap_menu_entry: TMenuItem
+            Caption = '&sliding  wrap  ( n/a )'
+            Enabled = False
+            GroupIndex = 6
+            RadioItem = True
+          end
+          object draw_curved_menu_entry: TMenuItem
+            Caption = '&draw  curved    ( n/a )'
+            Enabled = False
+            GroupIndex = 6
+            RadioItem = True
+          end
+          object N23: TMenuItem
+            Caption = '-'
+            GroupIndex = 6
+          end
+          object wraphelp1: TMenuItem
+            Caption = '?  wrap  -  &help'
+            Enabled = False
+            GroupIndex = 6
+          end
+        end
+        object transitionmaths1: TMenuItem
+          Caption = 'transition  &maths'
+          GroupIndex = 12
+          object auto_terms_menu_entry: TMenuItem
+            Caption = '&auto  terms'
+            Checked = True
+            GroupIndex = 2
+            RadioItem = True
+            OnClick = auto_terms_menu_entryClick
+          end
+          object custom_terms_menu_entry: TMenuItem
+            Caption = '&custom  terms ...'
+            GroupIndex = 2
+            RadioItem = True
+            OnClick = custom_terms_menu_entryClick
+          end
+          object N7: TMenuItem
+            Caption = '-'
+            GroupIndex = 4
+          end
+          object max_spiral_menu_entry: TMenuItem
+            Caption = 'ma&x  spiral ...'
+            GroupIndex = 4
+            OnClick = max_spiral_menu_entryClick
+          end
+        end
+        object data_distortions_menu_entry: TMenuItem
+          Caption = '&data  distortions'
+          GroupIndex = 12
+          object distortion_help_menu_entry: TMenuItem
+            Caption = '?  distortions  -  &help'
+            OnClick = distortion_help_menu_entryClick
+          end
+          object N9: TMenuItem
+            Caption = '-'
+          end
+          object cancel_all_distortions_menu_entry: TMenuItem
+            Caption = 'canc&el  all'
+            OnClick = cancel_all_distortions_menu_entryClick
+          end
+          object N3: TMenuItem
+            Caption = '-'
+          end
+          object x_scaling_menu_entry: TMenuItem
+            Caption = '&X - scaling ...'
+            OnClick = x_scaling_menu_entryClick
+          end
+          object y_scaling_menu_entry: TMenuItem
+            Caption = '&Y - scaling ...'
+            OnClick = y_scaling_menu_entryClick
+          end
+          object aspect_distortion_menu_entry: TMenuItem
+            Caption = '&aspect  distortion ...'
+            OnClick = aspect_distortion_menu_entryClick
+          end
+          object x_coning_menu_entry: TMenuItem
+            Caption = 'X - &coning ...'
+            OnClick = x_coning_menu_entryClick
+          end
+          object y_coning_menu_entry: TMenuItem
+            Caption = 'Y - co&ning ...'
+            OnClick = y_coning_menu_entryClick
+          end
+          object x_skewing_menu_entry: TMenuItem
+            Caption = 'X - &skewing ...'
+            OnClick = x_skewing_menu_entryClick
+          end
+          object y_skewing_menu_entry: TMenuItem
+            Caption = 'Y - s&kewing ...'
+            OnClick = y_skewing_menu_entryClick
+          end
+          object mirror_x_menu_entry: TMenuItem
+            Caption = '&mirror  X'
+            OnClick = mirror_x_menu_entryClick
+          end
+          object mirror_y_menu_entry: TMenuItem
+            Caption = 'mirr&or  Y'
+            OnClick = mirror_y_menu_entryClick
+          end
+        end
+        object reorigination1: TMenuItem
+          Caption = 're - &origination'
+          GroupIndex = 12
+          object cancel_re_org_menu_entry: TMenuItem
+            Caption = '&cancel  re - origination'
+            OnClick = cancel_re_org_menu_entryClick
+          end
+          object N24: TMenuItem
+            Caption = '-'
+          end
+          object re_org_menu_entry: TMenuItem
+            Caption = 'r&e - originate ... '
+            OnClick = re_org_menu_entryClick
+          end
+        end
+        object BGS3readable1: TMenuItem
+          Caption = 'BGS3  format'
+          GroupIndex = 12
+          object bgs3_compact_menu_entry: TMenuItem
+            Caption = 'compact'
+            GroupIndex = 10
+            RadioItem = True
+            OnClick = bgs3_compact_menu_entryClick
+          end
+          object bgs3_readable_menu_entry: TMenuItem
+            Caption = 'readable'
+            Checked = True
+            GroupIndex = 10
+            RadioItem = True
+            OnClick = bgs3_readable_menu_entryClick
+          end
+        end
+        object N8: TMenuItem
+          Caption = '-'
+          GroupIndex = 12
+        end
+        object run_slow_menu_entry: TMenuItem
+          Caption = 'run  &slow ...'
+          GroupIndex = 12
+          OnClick = run_slow_menu_entryClick
+        end
+        object step_size_menu_entry: TMenuItem
+          Caption = 'step  si&ze ...'
+          GroupIndex = 12
+          OnClick = step_size_menu_entryClick
+        end
+        object enableDXFexportedfillerbelowkey1: TMenuItem
+          Caption = 'enable  DXF  exported  filler  below  key'
+          GroupIndex = 12
+          OnClick = enableDXFexportedfillerbelowkey1Click
+        end
+        object N12: TMenuItem
+          Caption = '-'
+          GroupIndex = 12
+        end
+        object test_menu_entry: TMenuItem
+          Caption = '( test )'
+          GroupIndex = 12
+          OnClick = test_menu_entryClick
+        end
+      end
+    end
+    object help_menu: TMenuItem
+      Caption = '&help'
+      Enabled = False
+      GroupIndex = 12
+      OnClick = session_menuClick
+      object please_read_first_menu_entry: TMenuItem
+        Caption = 'please  read  this  &first'
+        OnClick = please_read_first_menu_entryClick
+      end
+      object search_site_for_menu_entry: TMenuItem
+        Caption = 'search  for  ...'
+        OnClick = search_site_for_menu_entryClick
+      end
+      object TemplotCompanionUserGuide1: TMenuItem
+        Caption = 'Templot  Companion  User  Guide'
+        object pleaseclickthehelpmenuonthetrackpadwindow1: TMenuItem
+          Caption = 'please click the help menu on the trackpad window'
+          Enabled = False
+        end
+      end
+      object watchavideo1: TMenuItem
+        Caption = 'watch  a  video'
+        object video1: TMenuItem
+          Caption = 'please click the help menu on the trackpad window'
+          Enabled = False
+        end
+      end
+      object N20: TMenuItem
+        Caption = '-'
+      end
+      object program_panel_help_menu_entry: TMenuItem
+        Caption = '? program  p&anel  help '
+        OnClick = how_panelClick
+      end
+      object N16: TMenuItem
+        Caption = '-'
+      end
+      object make_donation_menu_entry: TMenuItem
+        Caption = 'make  a  &donation  >>>'
+        OnClick = make_donation_menu_entryClick
+      end
+      object N25: TMenuItem
+        Caption = '-'
+      end
+      object about_templot_version_menu_entry: TMenuItem
+        Caption = 'about  &Templot'
+        OnClick = about_templot_version_menu_entryClick
+      end
+    end
+  end
+end

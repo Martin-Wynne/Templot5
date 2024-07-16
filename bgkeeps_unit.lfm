@@ -1,0 +1,526 @@
+object bgkeeps_form: Tbgkeeps_form
+  Left = 51
+  Height = 347
+  Top = 127
+  Width = 818
+  HorzScrollBar.Tracking = True
+  VertScrollBar.Tracking = True
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '      detail  on  background  templates ...'
+  ClientHeight = 347
+  ClientWidth = 818
+  Color = 15792383
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  KeyPreview = True
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  OnKeyDown = FormKeyDown
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 296
+    Width = 800
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object help_shape: TShape
+    Left = 711
+    Height = 31
+    Top = 11
+    Width = 66
+    Pen.Color = clWhite
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 73
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 73
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+    object how_panel: TPanel
+      Left = 2
+      Height = 20
+      Top = 50
+      Width = 16
+      Caption = '?'
+      Color = clBlack
+      Font.Color = clLime
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      TabOrder = 0
+      OnClick = how_panelClick
+    end
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      Position = 4
+      TabOrder = 1
+    end
+    object colour_panel: TPanel
+      Left = 2
+      Height = 16
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 2
+      OnClick = colour_panelClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_panelClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object help_button: TButton
+    Left = 714
+    Height = 25
+    Top = 14
+    Width = 60
+    Caption = '? &help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = how_panelClick
+  end
+  object close_panel: TPanel
+    Left = 698
+    Height = 30
+    Top = 258
+    Width = 96
+    Alignment = taLeftJustify
+    Caption = '  continue'
+    ClientHeight = 30
+    ClientWidth = 96
+    Color = clLime
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    OnClick = close_buttonClick
+    object close_button: TButton
+      Left = 76
+      Height = 16
+      Top = 10
+      Width = 16
+      Cancel = True
+      Caption = '  '
+      Default = True
+      TabOrder = 0
+      OnClick = close_buttonClick
+    end
+  end
+  object show_groupbox: TGroupBox
+    Left = 28
+    Height = 282
+    Top = 6
+    Width = 658
+    Caption = '  show  ( for  all ) :  '
+    ClientHeight = 258
+    ClientWidth = 654
+    ParentBackground = False
+    TabOrder = 1
+    object Label1: TLabel
+      Left = 136
+      Height = 16
+      Top = 0
+      Width = 244
+      AutoSize = False
+      Caption = ' these are screen settings, not for printing'
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 458
+      Height = 16
+      Top = 180
+      Width = 177
+      AutoSize = False
+      Caption = 'template name labels include:'
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object timber_outlines_checkbox: TCheckBox
+      Left = 188
+      Height = 23
+      Top = 24
+      Width = 138
+      Caption = '&timber  outlines'
+      Checked = True
+      State = cbChecked
+      TabOrder = 8
+    end
+    object timber_centres_checkbox: TCheckBox
+      Left = 240
+      Height = 23
+      Top = 180
+      Width = 166
+      Caption = 'timber  centre-&lines'
+      TabOrder = 12
+    end
+    object gauge_faces_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 60
+      Width = 192
+      Caption = 'rail  gauge-&face  edges'
+      Checked = True
+      State = cbChecked
+      TabOrder = 1
+    end
+    object guide_marks_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 204
+      Width = 119
+      Caption = 'guide  mar&ks'
+      Checked = True
+      State = cbChecked
+      TabOrder = 4
+    end
+    object joints_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 108
+      Width = 94
+      Caption = 'rail  &joints'
+      Checked = True
+      State = cbChecked
+      TabOrder = 3
+    end
+    object centres_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 36
+      Width = 147
+      Caption = 'track  &centre-line'
+      Checked = True
+      State = cbChecked
+      TabOrder = 0
+    end
+    object peg_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 132
+      Width = 100
+      Caption = 'fixing  &peg'
+      Checked = True
+      State = cbChecked
+      TabOrder = 5
+    end
+    object outer_edges_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 84
+      Width = 248
+      Caption = 'rail  &outer  edges / centre-lines'
+      Checked = True
+      State = cbChecked
+      TabOrder = 2
+    end
+    object template_number_checkbox: TCheckBox
+      Left = 472
+      Height = 23
+      Top = 200
+      Width = 153
+      Caption = 'template  num&ber'
+      Checked = True
+      State = cbChecked
+      TabOrder = 14
+    end
+    object template_name_checkbox: TCheckBox
+      Left = 472
+      Height = 23
+      Top = 224
+      Width = 136
+      Caption = 'template  &name'
+      Checked = True
+      State = cbChecked
+      TabOrder = 15
+    end
+    object reduced_ends_checkbox: TCheckBox
+      Left = 240
+      Height = 23
+      Top = 156
+      Width = 178
+      Caption = '8ft-6in  &sleeper  ends'
+      TabOrder = 11
+    end
+    object timber_infill_checkbox: TCheckBox
+      Left = 240
+      Height = 23
+      Top = 132
+      Width = 108
+      Caption = 'timber  &infill'
+      Checked = True
+      State = cbChecked
+      TabOrder = 10
+      OnClick = timber_infill_checkboxClick
+    end
+    object timber_numbering_checkbox: TCheckBox
+      Left = 240
+      Height = 23
+      Top = 108
+      Width = 160
+      Caption = 'timber  n&umbering'
+      TabOrder = 13
+      OnClick = timber_numbering_checkboxClick
+    end
+    object platforms_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 156
+      Width = 93
+      Caption = 'platfor&ms'
+      Checked = True
+      State = cbChecked
+      TabOrder = 6
+    end
+    object trackbed_edges_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 180
+      Width = 143
+      Caption = 'trackbed  &edges'
+      Checked = True
+      State = cbChecked
+      TabOrder = 7
+    end
+    object template_id_checkbox: TCheckBox
+      Left = 472
+      Height = 23
+      Top = 248
+      Width = 177
+      Caption = 'template  I&D  number'
+      Checked = True
+      State = cbChecked
+      TabOrder = 16
+    end
+    object bold_timber_outlines_checkbox: TCheckBox
+      Left = 200
+      Height = 23
+      Top = 44
+      Width = 327
+      Caption = 'bold  outlines  on  most  &recent  template'
+      Checked = True
+      State = cbChecked
+      TabOrder = 9
+    end
+    object chair_outlines_checkbox: TCheckBox
+      Left = 508
+      Height = 23
+      Top = 18
+      Width = 162
+      Caption = '3-D  chair  outlines'
+      TabOrder = 17
+      OnMouseUp = chair_outlines_checkboxMouseUp
+    end
+    object feed_droppers_checkbox: TCheckBox
+      Left = 276
+      Height = 23
+      Top = 204
+      Width = 132
+      Caption = 'feed  droppers'
+      Checked = True
+      State = cbChecked
+      TabOrder = 18
+    end
+    object isolation_gaps_checkbox: TCheckBox
+      Left = 276
+      Height = 23
+      Top = 228
+      Width = 132
+      Caption = 'isolation  gaps'
+      Checked = True
+      State = cbChecked
+      TabOrder = 19
+    end
+    object stickers_checkbox: TCheckBox
+      Left = 276
+      Height = 23
+      Top = 252
+      Width = 81
+      Caption = 'stickers'
+      Checked = True
+      State = cbChecked
+      TabOrder = 20
+    end
+    object chair_sockets_checkbox: TCheckBox
+      Left = 508
+      Height = 23
+      Top = 40
+      Width = 161
+      Caption = '3-D  chair  sockets'
+      Checked = True
+      State = cbChecked
+      TabOrder = 21
+    end
+    object chair_sockets_kerf_checkbox: TCheckBox
+      Left = 470
+      Height = 20
+      Top = 70
+      Width = 165
+      Caption = 'sockets  3-D  kerf  lines'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 22
+    end
+    object timber_outlines_kerf_checkbox: TCheckBox
+      Left = 470
+      Height = 20
+      Top = 92
+      Width = 166
+      Caption = 'timbers  3-D  kerf  lines'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 23
+    end
+    object timber_outlines_flanges_checkbox: TCheckBox
+      Left = 420
+      Height = 23
+      Top = 124
+      Width = 253
+      Caption = 'timber  3-D  flanges  and  webs'
+      Checked = True
+      State = cbChecked
+      TabOrder = 24
+    end
+    object bricks_only_timber_outlines_flanges_checkbox: TCheckBox
+      Left = 432
+      Height = 23
+      Top = 144
+      Width = 210
+      Caption = 'on  brick  templates  only'
+      Checked = True
+      State = cbChecked
+      TabOrder = 25
+    end
+    object radial_centre_marks_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 228
+      Width = 174
+      Caption = 'radial  centre  marks'
+      Checked = True
+      State = cbChecked
+      TabOrder = 26
+    end
+    object dropper_ridge_marks_checkbox: TCheckBox
+      Left = 16
+      Height = 23
+      Top = 252
+      Width = 209
+      Caption = '3-D  dropper-wire  ridges'
+      TabOrder = 27
+    end
+  end
+  object apply_button: TButton
+    Left = 704
+    Height = 25
+    Hint = ' redraw  pad  with  changes  applied '
+    Top = 220
+    Width = 90
+    Caption = '&apply  now'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+    OnClick = apply_buttonClick
+  end
+end

@@ -1,0 +1,5218 @@
+object dxf_form: Tdxf_form
+  Left = 430
+  Height = 790
+  Top = 342
+  Width = 1160
+  BorderIcons = [biSystemMenu]
+  Caption = '     export  DXF / STL  file ...'
+  ClientHeight = 790
+  ClientWidth = 1160
+  Color = 16051416
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -25
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label31: TLabel
+    Left = 38
+    Height = 30
+    Top = 52
+    Width = 247
+    AutoSize = False
+    Caption = 'export  DXF / STL  file'
+    Font.Color = 16711808
+    Font.Height = -22
+    Font.Name = 'Arial'
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 786
+    Width = 1160
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Shape1: TShape
+    Left = 31
+    Height = 30
+    Top = 7
+    Width = 64
+    Pen.Color = clWhite
+  end
+  object show_settings_button: TButton
+    Left = 148
+    Height = 28
+    Top = 8
+    Width = 158
+    Caption = 'show  settings'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 9
+    OnClick = show_settings_buttonClick
+  end
+  object ok_panel: TPanel
+    Left = 112
+    Height = 32
+    Top = 418
+    Width = 198
+    Alignment = taLeftJustify
+    Caption = '   export  DXF / STL  file'
+    ClientHeight = 32
+    ClientWidth = 198
+    Color = 8453984
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    OnClick = ok_panelClick
+    object ok_button: TButton
+      Left = 178
+      Height = 14
+      Top = 13
+      Width = 14
+      Caption = '  '
+      Default = True
+      TabOrder = 0
+      OnClick = ok_panelClick
+    end
+  end
+  object dxf_memo: TMemo
+    Left = -490
+    Height = 25
+    Top = 360
+    Width = 500
+    Enabled = False
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Lines.Strings = (
+      '  0'
+      'SECTION'
+      '  2'
+      'TABLES'
+      '  0'
+      'TABLE'
+      '  2'
+      'LTYPE'
+      ' 70'
+      '10'
+      '  0'
+      'LTYPE'
+      '  2'
+      'CONTINUOUS'
+      ' 70'
+      '64'
+      '  3'
+      'solid line'
+      ' 72'
+      '65'
+      ' 73'
+      '0'
+      ' 40'
+      '0.0'
+      '  0'
+      'LTYPE'
+      '  2'
+      'DASHED'
+      ' 70'
+      '0'
+      '  3'
+      '__ __ __ __ __ __ __ __ __ __ __ __ __ __ __'
+      ' 72'
+      '65'
+      ' 73'
+      '2'
+      ' 40'
+      '0.75'
+      ' 49'
+      '0.5'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'HIDDEN'
+      ' 70'
+      '0'
+      '  3'
+      '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _'
+      ' 72'
+      '65'
+      ' 73'
+      '2'
+      ' 40'
+      '0.375'
+      ' 49'
+      '0.25'
+      ' 49'
+      '-0.125'
+      '  0'
+      'LTYPE'
+      '  2'
+      'CENTER'
+      ' 70'
+      '0'
+      '  3'
+      '____ _ ____ _ ____ _ ____ _ ____ _ ____ _ __'
+      ' 72'
+      '65'
+      ' 73'
+      '4'
+      ' 40'
+      '2.0'
+      ' 49'
+      '1.25'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.25'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'PHANTOM'
+      ' 70'
+      '0'
+      '  3'
+      '_____ _ _ _____ _ _ _____ _ _ _____ _ _ ____'
+      ' 72'
+      '65'
+      ' 73'
+      '6'
+      ' 40'
+      '2.5'
+      ' 49'
+      '1.25'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.25'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.25'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'DOT'
+      ' 70'
+      '0'
+      '  3'
+      '............................................'
+      ' 72'
+      '65'
+      ' 73'
+      '2'
+      ' 40'
+      '0.25'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'DASHDOT'
+      ' 70'
+      '0'
+      '  3'
+      '__ . __ . __ . __ . __ . __ . __ . __ . __ .'
+      ' 72'
+      '65'
+      ' 73'
+      '4'
+      ' 40'
+      '1.0'
+      ' 49'
+      '0.5'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'BORDER'
+      ' 70'
+      '0'
+      '  3'
+      '__ __ . __ __ . __ __ . __ __ . __ __ . __ _'
+      ' 72'
+      '65'
+      ' 73'
+      '6'
+      ' 40'
+      '1.75'
+      ' 49'
+      '0.5'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.5'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'DIVIDE'
+      ' 70'
+      '0'
+      '  3'
+      '__ . . __ . . __ . . __ . . __ . . __ . . __'
+      ' 72'
+      '65'
+      ' 73'
+      '6'
+      ' 40'
+      '1.25'
+      ' 49'
+      '0.5'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.25'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.25'
+      '  0'
+      'LTYPE'
+      '  2'
+      'DIVIDE2'
+      ' 70'
+      '0'
+      '  3'
+      '__..__..__..__..__..__..__..__..__..__..__..__.'
+      ' 72'
+      '65'
+      ' 73'
+      '8'
+      ' 40'
+      '0.9'
+      ' 49'
+      '0.25'
+      ' 49'
+      '-0.1'
+      ' 49'
+      '0.25'
+      ' 49'
+      '-0.1'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.1'
+      ' 49'
+      '0.0'
+      ' 49'
+      '-0.1'
+      '  0'
+      'ENDTAB'
+    )
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 4
+    Visible = False
+  end
+  object cancel_panel: TPanel
+    Left = 12
+    Height = 24
+    Top = 424
+    Width = 86
+    Alignment = taLeftJustify
+    Caption = '  cancel'
+    ClientHeight = 24
+    ClientWidth = 86
+    Color = 6356991
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+    OnClick = cancel_panelClick
+    object cancel_button: TButton
+      Left = 68
+      Height = 14
+      Top = 5
+      Width = 14
+      Cancel = True
+      Caption = '  '
+      ModalResult = 2
+      TabOrder = 0
+    end
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      Position = 4
+      TabOrder = 0
+    end
+    object colour_panel: TPanel
+      Left = 2
+      Height = 16
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 1
+      OnClick = colour_panelClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_panelClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object help_button: TButton
+    Left = 34
+    Height = 24
+    Top = 10
+    Width = 58
+    Caption = '? &help'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    OnClick = help_buttonClick
+  end
+  object preview_panel: TPanel
+    Left = 120
+    Height = 26
+    Top = 382
+    Width = 188
+    Alignment = taLeftJustify
+    Caption = '   preview  2-D  export'
+    ClientHeight = 26
+    ClientWidth = 188
+    Color = 9490687
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+    OnClick = ok_panelClick
+    object preview_button: TButton
+      Left = 170
+      Height = 14
+      Top = 8
+      Width = 14
+      Caption = '  '
+      TabOrder = 0
+      OnClick = ok_panelClick
+    end
+  end
+  object edit_preview_button: TButton
+    Left = 74
+    Height = 16
+    Hint = ' set preview options '
+    Top = 388
+    Width = 42
+    Caption = 'edit ...'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 6
+    OnClick = edit_preview_buttonClick
+  end
+  object dxf_3d_page_control: TPageControl
+    Left = 316
+    Height = 782
+    Top = 2
+    Width = 840
+    ActivePage = plugs_tabsheet
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    MultiLine = True
+    ParentFont = False
+    TabIndex = 2
+    TabOrder = 7
+    Visible = False
+    Options = [nboMultiLine]
+    object export_tabsheet: TTabSheet
+      Caption = '  export    '
+      ClientHeight = 751
+      ClientWidth = 832
+      ImageIndex = 6
+      object options_panel: TPanel
+        Left = 16
+        Height = 169
+        Top = 60
+        Width = 248
+        BevelOuter = bvNone
+        BorderStyle = bsSingle
+        ClientHeight = 165
+        ClientWidth = 244
+        Color = 15794175
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 0
+        object Label61: TLabel
+          Left = 24
+          Height = 20
+          Top = 110
+          Width = 97
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = 'brick  colour :'
+          Layout = tlCenter
+        end
+        object all_option_radio: TRadioButton
+          Left = 12
+          Height = 20
+          Top = 12
+          Width = 190
+          Caption = '&all  background  templates'
+          Checked = True
+          TabOrder = 0
+          TabStop = True
+        end
+        object group_option_radio: TRadioButton
+          Left = 12
+          Height = 20
+          Top = 50
+          Width = 163
+          Caption = 'gro&up  templates  only'
+          TabOrder = 1
+        end
+        object marker_colour_panel: TPanel
+          Left = 124
+          Height = 20
+          Hint = ' click to change colour '
+          Top = 110
+          Width = 40
+          BevelOuter = bvNone
+          BorderWidth = 1
+          BorderStyle = bsSingle
+          Color = 65488
+          ParentBackground = False
+          ParentColor = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
+          OnClick = marker_colour_panelClick
+        end
+        object brick_option_radio: TRadioButton
+          Left = 12
+          Height = 20
+          Top = 88
+          Width = 156
+          Caption = 'timbering  brick  only'
+          TabOrder = 3
+        end
+        object brick_label_text_checkbox: TCheckBox
+          Left = 36
+          Height = 20
+          Top = 136
+          Width = 156
+          Caption = 'add  brick  label  text'
+          Checked = True
+          State = cbChecked
+          TabOrder = 4
+        end
+        object zoom_brick_button: TButton
+          Left = 168
+          Height = 20
+          Hint = ' zoom trackpad to this brick '
+          Top = 110
+          Width = 70
+          Caption = 'zoom  to'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 5
+          OnClick = zoom_brick_buttonClick
+        end
+      end
+      object function_groupbox: TGroupBox
+        Left = 16
+        Height = 176
+        Top = 282
+        Width = 248
+        Caption = ' export :  '
+        ClientHeight = 155
+        ClientWidth = 244
+        Color = 14741759
+        Font.Color = clMaroon
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 1
+        object track_radio: TRadioButton
+          Left = 72
+          Height = 22
+          Top = 28
+          Width = 56
+          Caption = 'track'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          TabStop = True
+        end
+        object filing_jig_radio: TRadioButton
+          Left = 72
+          Height = 22
+          Top = 64
+          Width = 111
+          Caption = 'rail  filing  jig'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+          OnMouseUp = filing_jig_radioMouseUp
+        end
+        object tweezer_tips_radio: TRadioButton
+          Left = 72
+          Height = 22
+          Top = 136
+          Width = 112
+          Caption = 'tweezer  tips'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+          OnMouseUp = tweezer_tips_radioMouseUp
+        end
+        object bending_jig_radio: TRadioButton
+          Left = 72
+          Height = 22
+          Top = 100
+          Width = 134
+          Caption = 'rail  bending  jig'
+          Enabled = False
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 3
+        end
+      end
+      object export_groupbox: TGroupBox
+        Left = 330
+        Height = 401
+        Top = 60
+        Width = 235
+        Caption = ' export  format :  '
+        ClientHeight = 380
+        ClientWidth = 231
+        Color = 14745599
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 2
+        object Label37: TLabel
+          Left = 12
+          Height = 18
+          Top = 378
+          Width = 217
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = 'colours and styles do not apply for STL'
+          Font.Color = clBlue
+          Font.Height = -12
+          Font.Name = 'Arial'
+          ParentFont = False
+          WordWrap = True
+        end
+        object Shape3: TShape
+          Left = 12
+          Height = 1
+          Top = 100
+          Width = 197
+          Brush.Color = clBlack
+        end
+        object Label46: TLabel
+          Left = 56
+          Height = 20
+          Top = 48
+          Width = 165
+          AutoSize = False
+          Caption = 'for  CAD  CNC  and  laser'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          WordWrap = True
+        end
+        object _2d_radiobutton: TRadioButton
+          Left = 32
+          Height = 22
+          Top = 28
+          Width = 83
+          Caption = '2-D  DXF'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          TabStop = True
+          OnClick = _2d_radiobuttonClick
+        end
+        object emf_checkbox: TCheckBox
+          Left = 122
+          Height = 20
+          Top = 70
+          Width = 91
+          Caption = 'also EMF file'
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+        end
+        object _3d_resin_radiobutton: TRadioButton
+          Left = 16
+          Height = 22
+          Hint = ' size / shrinkage  adjustment  for  resin  printer '
+          Top = 222
+          Width = 173
+          Caption = '3-D  for  resin  printer'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
+          OnClick = _3d_resin_radiobuttonClick
+        end
+        object _3d_cad_radiobutton: TRadioButton
+          Left = 16
+          Height = 22
+          Hint = ' no  size  adjustment '
+          Top = 294
+          Width = 112
+          Caption = '3-D  for  CAD'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          OnClick = _3d_cad_radiobuttonClick
+        end
+        object resin_shrinkage_button: TButton
+          Left = 64
+          Height = 24
+          Hint = ' set  size / shrinkage  adjustments  for  3-D '
+          Top = 246
+          Width = 158
+          Caption = 'shrinkage  ( resin ) ...'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 4
+          OnClick = resin_shrinkage_buttonClick
+        end
+        object _3d_fdm_radiobutton: TRadioButton
+          Left = 16
+          Height = 22
+          Hint = ' size / shrinkage  adjustment  for  FDM  ( filament  printer )  using  heated  build  plate '
+          Top = 118
+          Width = 170
+          Caption = '3-D  for  FDM  printer'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 5
+          OnClick = _3d_fdm_radiobuttonClick
+        end
+        object file_type_groupbox: TGroupBox
+          Left = 40
+          Height = 47
+          Top = 326
+          Width = 186
+          Caption = ' 3-D  file  type :  '
+          ClientHeight = 26
+          ClientWidth = 182
+          Enabled = False
+          ParentBackground = False
+          TabOrder = 6
+          object dxf_radio: TRadioButton
+            Left = 10
+            Height = 20
+            Top = 22
+            Width = 47
+            Caption = 'DXF'
+            Enabled = False
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 0
+          end
+          object stl_radio: TRadioButton
+            Left = 68
+            Height = 20
+            Top = 22
+            Width = 46
+            Caption = 'STL'
+            Checked = True
+            Enabled = False
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 1
+            TabStop = True
+          end
+          object dxf_stl_both_radio: TRadioButton
+            Left = 124
+            Height = 20
+            Top = 22
+            Width = 49
+            Caption = 'both'
+            Enabled = False
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 2
+          end
+        end
+        object fdm_shrinkage_button: TButton
+          Left = 64
+          Height = 24
+          Hint = ' set  size / shrinkage  adjustments  for  3-D '
+          Top = 168
+          Width = 158
+          Caption = 'shrinkage  ( FDM  ) ...'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 7
+          OnClick = fdm_shrinkage_buttonClick
+        end
+        object heated_bed_checkbox: TCheckBox
+          Left = 70
+          Height = 20
+          Top = 142
+          Width = 128
+          Caption = 'heated  workbed'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 8
+          OnClick = heated_bed_checkboxClick
+        end
+      end
+    end
+    object rails_tab_sheet: TTabSheet
+      Caption = '    rail    '
+      ClientHeight = 751
+      ClientWidth = 832
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      object Label41: TLabel
+        Left = 428
+        Height = 20
+        Top = 48
+        Width = 186
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'rail fit - fine adjust  (+/- % ) :'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label45: TLabel
+        Left = 328
+        Height = 20
+        Top = 78
+        Width = 286
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'crossing flangeway - fine adjust  (+/- mm) :'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label21: TLabel
+        Left = 328
+        Height = 20
+        Top = 108
+        Width = 286
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'check-rail flangeway - fine adjust  (+/- mm) :'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label72: TLabel
+        Left = 332
+        Height = 26
+        Top = 20
+        Width = 180
+        AutoSize = False
+        Caption = '3-D  rail  adjustments :'
+        Font.Color = 16711808
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object rail_fit_groupbox: TGroupBox
+        Left = 7
+        Height = 700
+        Top = 12
+        Width = 300
+        Caption = ' model  rail  sections :  '
+        ClientHeight = 679
+        ClientWidth = 296
+        Color = 15794175
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 1
+        object Label29: TLabel
+          Left = 16
+          Height = 53
+          Top = 260
+          Width = 250
+          AutoSize = False
+          Caption = 'these model settings are based on limited experimental testing -- your feedback is welcome'
+          Font.Color = clBlue
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsItalic]
+          ParentFont = False
+          WordWrap = True
+        end
+        object Label32: TLabel
+          Left = 16
+          Height = 25
+          Top = 24
+          Width = 245
+          AutoSize = False
+          Caption = '3-D  chairs  fit  bullhead  rail :'
+          Font.Color = clBlue
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label30: TLabel
+          Left = 16
+          Height = 52
+          Top = 590
+          Width = 250
+          AutoSize = False
+          Caption = 'if the rails layer is included in the 3-D file, the generated rails will match the selected rail section, rescaled if necessary'
+          Font.Color = clBlue
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsItalic]
+          ParentFont = False
+          WordWrap = True
+        end
+        object Label33: TLabel
+          Left = 16
+          Height = 34
+          Top = 650
+          Width = 250
+          AutoSize = False
+          Caption = '• the rails and chair fits will be vertical, any rail inclination is ignored in 3-D exports'
+          Font.Color = clMaroon
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsItalic]
+          ParentFont = False
+          WordWrap = True
+        end
+        object Label75: TLabel
+          Left = 16
+          Height = 53
+          Top = 320
+          Width = 244
+          AutoSize = False
+          Caption = 'if necessary the selected rail section will be rescaled to match the current model scale in the control template'
+          Font.Color = clBlue
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsItalic]
+          ParentFont = False
+          WordWrap = True
+        end
+        object bs95r_radiobutton: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 548
+          Width = 207
+          Caption = 'BS-95R Bullhead  exact scale'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object peco_124_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 22
+          Top = 204
+          Width = 154
+          Caption = 'Peco code 124  BH'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object emgs_75_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 22
+          Top = 54
+          Width = 229
+          Caption = 'C&&L / EMGS / S4Soc  code 75'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+          TabStop = True
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object smp_75_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 22
+          Top = 84
+          Width = 117
+          Caption = 'SMP  code 75'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 3
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object custom_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 22
+          Top = 470
+          Width = 84
+          Caption = 'custom  :'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object cl_125_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 144
+          Width = 111
+          Caption = 'C&&L  code 125'
+          Enabled = False
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 5
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object cl_131_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 22
+          Top = 174
+          Width = 123
+          Caption = 'C&&L  code 131'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 6
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object peco_75_rail_radiobutton: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 114
+          Width = 136
+          Caption = 'Peco  code 75  BH'
+          Enabled = False
+          TabOrder = 7
+          OnClick = emgs_75_rail_radiobuttonClick
+        end
+        object set_custom_rail_button: TButton
+          Left = 100
+          Height = 24
+          Top = 498
+          Width = 170
+          Caption = 'set  custom  BH  rail ...'
+          TabOrder = 8
+          OnClick = set_custom_rail_buttonClick
+        end
+      end
+      object fw_widen_button: TButton
+        Left = 459
+        Height = 24
+        Top = 160
+        Width = 194
+        Caption = 'gap  for  gauge-widening ...'
+        TabOrder = 0
+        OnClick = fw_widen_buttonClick
+      end
+      object extra_switch_clearance_checkbox: TCheckBox
+        Left = 364
+        Height = 20
+        Hint = ' use one extra block slide chair for increased switch opening - for 00 / EM / 0-MF, etc. '
+        Top = 202
+        Width = 281
+        Caption = 'extra  clearance  at  open  switch  blade '
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
+      object rail_edges_groupbox: TGroupBox
+        Left = 368
+        Height = 98
+        Top = 510
+        Width = 248
+        Caption = ' 2-D  rails  layer  includes :  '
+        ClientHeight = 77
+        ClientWidth = 244
+        Color = 16777200
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 3
+        object Label34: TLabel
+          Left = 2
+          Height = 20
+          Top = 47
+          Width = 104
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = 'FB foot edges :'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Layout = tlCenter
+          ParentFont = False
+        end
+        object rail_head_checkbox: TCheckBox
+          Left = 12
+          Height = 20
+          Top = 22
+          Width = 78
+          Caption = 'rail head'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 0
+        end
+        object fb_inner_checkbox: TCheckBox
+          Left = 114
+          Height = 20
+          Top = 48
+          Width = 54
+          Caption = 'inner'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 1
+        end
+        object fb_outer_checkbox: TCheckBox
+          Left = 177
+          Height = 20
+          Top = 48
+          Width = 54
+          Caption = 'outer'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 2
+        end
+      end
+      object chair_adjust_edit: TEdit
+        Left = 616
+        Height = 24
+        Top = 46
+        Width = 41
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 4
+        Text = '0'
+      end
+      object xing_flangeway_tweak_edit: TEdit
+        Left = 616
+        Height = 24
+        Top = 76
+        Width = 41
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 5
+        Text = '0'
+      end
+      object check_flangeway_tweak_edit: TEdit
+        Left = 616
+        Height = 24
+        Top = 106
+        Width = 41
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 6
+        Text = '0'
+      end
+    end
+    object plugs_tabsheet: TTabSheet
+      Caption = '    chairs   plugs / sockets    '
+      ClientHeight = 751
+      ClientWidth = 832
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ImageIndex = 3
+      ParentFont = False
+      object Label22: TLabel
+        Left = 434
+        Height = 17
+        Top = 252
+        Width = 156
+        AutoSize = False
+        Caption = 'press-fit socket adjust :'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label23: TLabel
+        Left = 14
+        Height = 30
+        Top = 142
+        Width = 335
+        AutoSize = False
+        Caption = '3-D  plug  and  socket  options . . .'
+        Font.Color = 16711808
+        Font.Height = -18
+        Font.Name = 'Arial'
+        Font.Style = [fsBold, fsItalic]
+        ParentFont = False
+      end
+      object Label28: TLabel
+        Left = 12
+        Height = 86
+        Top = 252
+        Width = 170
+        AutoSize = False
+        Caption = 'Clip-fit plugs have resilient side tangs for an easy clip-fit into sockets having a matching undercut in the side walls.'
+        Font.Color = clBlue
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label38: TLabel
+        Left = 12
+        Height = 54
+        Top = 338
+        Width = 161
+        AutoSize = False
+        Caption = 'Suitable for use in 3D-printed timbering bases (FDM and resin).'
+        Font.Color = clBlue
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label40: TLabel
+        Left = 12
+        Height = 86
+        Top = 392
+        Width = 169
+        AutoSize = False
+        Caption = 'And also with card or thin plywood laser-cut timbers supported on battens or other means to clear the lower part of the plug.'
+        Font.Color = clBlue
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label59: TLabel
+        Left = 12
+        Height = 52
+        Top = 478
+        Width = 176
+        AutoSize = False
+        Caption = 'Testing needed for use in thick plywood or CNC-milled timbers.'
+        Font.Color = clBlue
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Shape4: TShape
+        Left = 206
+        Height = 510
+        Top = 180
+        Width = 1
+        Brush.Color = clBlack
+      end
+      object Shape5: TShape
+        Left = 12
+        Height = 1
+        Top = 56
+        Width = 596
+        Brush.Color = clBlack
+      end
+      object Shape6: TShape
+        Left = 418
+        Height = 492
+        Top = 180
+        Width = 1
+        Brush.Color = clBlack
+      end
+      object Label60: TLabel
+        Left = 220
+        Height = 89
+        Top = 252
+        Width = 174
+        AutoSize = False
+        Caption = 'Snap-fit plugs have solid side tangs for a firm snap-fit into sockets having a matching undercut in the side walls.'
+        Font.Color = clMaroon
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label62: TLabel
+        Left = 220
+        Height = 89
+        Top = 340
+        Width = 169
+        AutoSize = False
+        Caption = 'Suitable only for use with FDM-printed timbering bases having socket walls which can flex to allow the plug to be inserted.'
+        Font.Color = clMaroon
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label63: TLabel
+        Left = 220
+        Height = 37
+        Top = 432
+        Width = 161
+        AutoSize = False
+        Caption = 'Requires a suitable type of resilient FDM polymer.'
+        Font.Color = clMaroon
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label64: TLabel
+        Left = 220
+        Height = 53
+        Top = 472
+        Width = 180
+        AutoSize = False
+        Caption = 'Not for use with plywood, resin-printed or CNC-milled timbers.'
+        Font.Color = clMaroon
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label66: TLabel
+        Left = 432
+        Height = 73
+        Top = 328
+        Width = 202
+        AutoSize = False
+        Caption = 'Press-fit plugs have plain plugs for an interference press-fit into plain-walled sockets, with or without additional glue.'
+        Font.Color = clBlack
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label65: TLabel
+        Left = 432
+        Height = 77
+        Top = 400
+        Width = 197
+        AutoSize = False
+        Caption = 'Suitable for use with any type of timbering base including 3-D printed, laser-cut plywood and CNC-milled bases.'
+        Font.Color = clBlack
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label67: TLabel
+        Left = 432
+        Height = 69
+        Top = 472
+        Width = 189
+        AutoSize = False
+        Caption = 'Requires good control of plug and socket dimensions using the slider above and some trial and error.'
+        Font.Color = clBlack
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label68: TLabel
+        Left = 432
+        Height = 77
+        Top = 544
+        Width = 189
+        AutoSize = False
+        Caption = 'In FDM-printed bases the fit may loosen over time and require some additional sealant if not originally glued.   '
+        Font.Color = clBlack
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label69: TLabel
+        Left = 26
+        Height = 40
+        Top = 588
+        Width = 126
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Recommended for most users.'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        WordWrap = True
+      end
+      object firm_label: TLabel
+        Left = 514
+        Height = 15
+        Top = 298
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'firm'
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object glue_label: TLabel
+        Left = 438
+        Height = 15
+        Top = 298
+        Width = 32
+        AutoSize = False
+        Caption = 'glue'
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object bash_label: TLabel
+        Left = 578
+        Height = 15
+        Top = 298
+        Width = 30
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'bash'
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object fit_label: TLabel
+        Left = 596
+        Height = 15
+        Top = 260
+        Width = 26
+        AutoSize = False
+        Caption = '100'
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label70: TLabel
+        Left = 10
+        Height = 37
+        Top = 710
+        Width = 333
+        AutoSize = False
+        Caption = 'Clip-fit plugs can be exported without tangs if it is desired to arrange some other means of locking the plug in position.'
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label71: TLabel
+        Left = 14
+        Height = 30
+        Top = 14
+        Width = 159
+        AutoSize = False
+        Caption = '3-D  chairing . . .'
+        Font.Color = 16711808
+        Font.Height = -18
+        Font.Name = 'Arial'
+        Font.Style = [fsBold, fsItalic]
+        ParentFont = False
+      end
+      object Label73: TLabel
+        Left = 12
+        Height = 53
+        Top = 532
+        Width = 166
+        AutoSize = False
+        Caption = 'Requires a resilient type of 3D resin for the chairs such as ABS-Like resin.'
+        Font.Color = clBlue
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object normals_button: TButton
+        Left = 636
+        Height = 26
+        Top = 676
+        Width = 180
+        Caption = 'plug / socket  normals ...'
+        TabOrder = 1
+        OnClick = normals_buttonClick
+      end
+      object loose_jaws_button: TButton
+        Left = 192
+        Height = 26
+        Top = 14
+        Width = 153
+        Caption = 'chair  loose  jaws ...'
+        TabOrder = 2
+        OnClick = loose_jaws_buttonClick
+      end
+      object plugs_checkbox: TCheckBox
+        Left = 16
+        Height = 22
+        Top = 86
+        Width = 163
+        Caption = 'include  chair  plugs'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 3
+      end
+      object cnc_corners_checkbox: TCheckBox
+        Left = 38
+        Height = 20
+        Top = 106
+        Width = 146
+        Caption = 'with CNC corner relief'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 4
+      end
+      object locator_plugs_checkbox: TCheckBox
+        Left = 368
+        Height = 20
+        Top = 104
+        Width = 156
+        Caption = 'timber  locator  plugs'
+        TabOrder = 5
+      end
+      object press_fit_plug_depths_button: TButton
+        Left = 432
+        Height = 26
+        Top = 632
+        Width = 186
+        Caption = 'PRESS-fit  plug  depths ...'
+        TabOrder = 6
+        OnClick = press_fit_plug_depths_buttonClick
+      end
+      object clip_fit_radio: TRadioButton
+        Left = 14
+        Height = 22
+        Top = 180
+        Width = 82
+        Caption = 'CLIP - fit'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 7
+        TabStop = True
+      end
+      object omit_tangs_checkbox: TCheckBox
+        Left = 340
+        Height = 20
+        Top = 716
+        Width = 120
+        Caption = 'omit clip-fit tangs'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 8
+      end
+      object snap_fit_radio: TRadioButton
+        Left = 220
+        Height = 22
+        Top = 180
+        Width = 88
+        Caption = 'SNAP - fit'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 9
+      end
+      object press_fit_radio: TRadioButton
+        Left = 432
+        Height = 22
+        Top = 180
+        Width = 99
+        Caption = 'PRESS - fit'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 10
+      end
+      object chair_snap_fit_button: TButton
+        Left = 220
+        Height = 26
+        Top = 214
+        Width = 178
+        Caption = 'socket  size   SNAP-fit ...'
+        TabOrder = 11
+        OnClick = chair_snap_fit_buttonClick
+      end
+      object chair_clip_fit_button: TButton
+        Left = 12
+        Height = 26
+        Top = 214
+        Width = 176
+        Caption = 'socket  size   CLIP-fit ...'
+        TabOrder = 0
+        OnClick = chair_clip_fit_buttonClick
+      end
+      object chair_press_fit_button: TButton
+        Left = 432
+        Height = 26
+        Top = 214
+        Width = 188
+        Caption = 'socket  size   PRESS-fit ...'
+        TabOrder = 12
+        OnClick = chair_press_fit_buttonClick
+      end
+      object plug_fit_trackbar: TTrackBar
+        Cursor = crHandPoint
+        Left = 440
+        Height = 20
+        Hint = ' adjust  press-fit '
+        Top = 276
+        Width = 174
+        Max = 200
+        OnChange = plug_fit_trackbarChange
+        Position = 100
+        TickStyle = tsNone
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 13
+      end
+      object snap_fit_plug_depths_button: TButton
+        Left = 220
+        Height = 26
+        Top = 632
+        Width = 176
+        Caption = 'SNAP-fit  plug  depths ...'
+        TabOrder = 14
+        OnClick = snap_fit_plug_depths_buttonClick
+      end
+      object clip_fit_plug_depths_button: TButton
+        Left = 12
+        Height = 26
+        Top = 632
+        Width = 172
+        Caption = 'CLIP-fit  plug  depths ...'
+        TabOrder = 15
+        OnClick = clip_fit_plug_depths_buttonClick
+      end
+      object extend_plug_button: TButton
+        Left = 12
+        Height = 24
+        Top = 668
+        Width = 172
+        Caption = 'extend  tang  depth  to ...'
+        TabOrder = 16
+        OnClick = extend_plug_buttonClick
+      end
+      object control_settings_button: TButton
+        Left = 364
+        Height = 26
+        Top = 14
+        Width = 245
+        Caption = 'control  template  chair  settings ...'
+        TabOrder = 17
+        OnClick = control_settings_buttonClick
+      end
+      object end_flaps_checkbox: TCheckBox
+        Left = 700
+        Height = 20
+        Top = 724
+        Width = 116
+        Caption = 'socket end flaps'
+        Enabled = False
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 18
+      end
+      object fdm_filament_button: TButton
+        Left = 608
+        Height = 24
+        Top = 102
+        Width = 209
+        Caption = '3-D  filament  dia.  ( FDM ) ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ParentShowHint = False
+        TabOrder = 19
+        OnClick = fdm_filament_buttonClick
+      end
+      object filament_checkbox: TCheckBox
+        Left = 622
+        Height = 20
+        Hint = ' adjust chair sockets for filament diameter '
+        Top = 132
+        Width = 176
+        Caption = 'adjust  for  filament  dia.'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 20
+        OnMouseDown = filament_checkboxMouseDown
+      end
+      object blind_sockets_checkbox: TCheckBox
+        Left = 368
+        Height = 20
+        Top = 131
+        Width = 107
+        Caption = 'blind  sockets'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 21
+      end
+      object increase_plug_size_checkbox: TCheckBox
+        Left = 272
+        Height = 20
+        Top = 72
+        Width = 522
+        Caption = 'increase  plug / socket  size  in  larger  scales  for  reliable  chair-base  printing'
+        Checked = True
+        State = cbChecked
+        TabOrder = 22
+      end
+    end
+    object bricks_tabsheet: TTabSheet
+      Caption = '    timbers    '
+      ClientHeight = 751
+      ClientWidth = 832
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ImageIndex = 2
+      ParentFont = False
+      object Label74: TLabel
+        Left = 358
+        Height = 20
+        Top = 424
+        Width = 61
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'factor %:'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object Label77: TLabel
+        Left = 32
+        Height = 20
+        Top = 448
+        Width = 300
+        AutoSize = False
+        Caption = 'this option has no effect at 4mm/ft scale'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object Label76: TLabel
+        Left = 32
+        Height = 20
+        Top = 528
+        Width = 700
+        AutoSize = False
+        Caption = 'if this option is used with loose outer jaws at scales below 4mm/ft, set the loose-jaw pin-depth accordingly as required'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object Label78: TLabel
+        Left = 32
+        Height = 40
+        Top = 488
+        Width = 681
+        AutoSize = False
+        Caption = 'if this option is used with loose outer jaws at scales above 4mm/ft, the loose-jaw pins will need trimming flush with the underside of the track after assembly'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Layout = tlCenter
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label79: TLabel
+        Left = 32
+        Height = 20
+        Top = 550
+        Width = 700
+        AutoSize = False
+        Caption = 'if this option is used with switch drive slider ribs, the slider component will need to be modified accordingly'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object Label80: TLabel
+        Left = 32
+        Height = 20
+        Top = 468
+        Width = 769
+        AutoSize = False
+        Caption = 'this option causes the plug depth and timber thickness in other scales to match the dimensions used in 4mm/ft scale'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Layout = tlCenter
+        ParentFont = False
+      end
+      object splints_button: TButton
+        Left = 36
+        Height = 24
+        Top = 272
+        Width = 167
+        Caption = 'brick  splints  /  slabs ...'
+        TabOrder = 1
+        OnClick = splints_buttonClick
+      end
+      object clips_button: TButton
+        Left = 36
+        Height = 24
+        Top = 304
+        Width = 172
+        Caption = 'brick  connector  clips ...'
+        TabOrder = 2
+        OnClick = clips_buttonClick
+      end
+      object webs_sprues_button: TButton
+        Left = 18
+        Height = 24
+        Top = 72
+        Width = 200
+        Caption = 'timbering  webs  /  sprues ...'
+        TabOrder = 3
+        OnClick = webs_sprues_buttonClick
+      end
+      object exp_checkbox: TCheckBox
+        Left = 509
+        Height = 20
+        Top = 16
+        Width = 96
+        Caption = 'exp both clips'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 4
+      end
+      object fret_button: TButton
+        Left = 536
+        Height = 24
+        Top = 80
+        Width = 127
+        Caption = 'timbering  fret ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 5
+        OnClick = fret_buttonClick
+      end
+      object timber_depth_button: TButton
+        Left = 18
+        Height = 24
+        Top = 28
+        Width = 140
+        Caption = 'timbering  sizes ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = timber_depth_buttonClick
+      end
+      object soleplate_size_button: TButton
+        Left = 286
+        Height = 24
+        Top = 28
+        Width = 131
+        Caption = 'soleplate  size ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 6
+        OnClick = soleplate_size_buttonClick
+      end
+      object switch_drive_checkbox: TCheckBox
+        Left = 244
+        Height = 20
+        Top = 116
+        Width = 175
+        Caption = 'switch  drive  sllder  ribs'
+        Checked = True
+        State = cbChecked
+        TabOrder = 7
+      end
+      object dropper_ridge_checkbox: TCheckBox
+        Left = 244
+        Height = 20
+        Top = 150
+        Width = 215
+        Caption = 'dropper-wire  retaining  ridges'
+        Checked = True
+        State = cbChecked
+        TabOrder = 8
+      end
+      object flexi_checkbox: TCheckBox
+        Left = 456
+        Height = 20
+        Top = 212
+        Width = 122
+        Caption = 'flexi-track  base'
+        TabOrder = 9
+      end
+      object GroupBox1: TGroupBox
+        Left = 472
+        Height = 144
+        Top = 240
+        Width = 129
+        Caption = ' flexi  spacing :  '
+        ClientHeight = 123
+        ClientWidth = 125
+        ParentBackground = False
+        TabOrder = 10
+        object flexi_1_radio: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 16
+          Width = 28
+          Caption = '1'
+          Checked = True
+          TabOrder = 0
+          TabStop = True
+        end
+        object flexi_2_radio: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 40
+          Width = 28
+          Caption = '2'
+          TabOrder = 1
+        end
+        object flexi_3_radio: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 64
+          Width = 28
+          Caption = '3'
+          TabOrder = 2
+        end
+        object flexi_random_radio: TRadioButton
+          Left = 24
+          Height = 20
+          Top = 88
+          Width = 70
+          Caption = 'random'
+          TabOrder = 3
+        end
+      end
+      object dropper_ridge_button: TButton
+        Left = 16
+        Height = 24
+        Top = 148
+        Width = 173
+        Caption = 'dropper-wire  ridges ...'
+        TabOrder = 11
+        OnClick = dropper_ridge_buttonClick
+      end
+      object drive_ribs_button: TButton
+        Left = 16
+        Height = 24
+        Top = 116
+        Width = 192
+        Caption = 'switch  drive  slider  ribs ...'
+        TabOrder = 12
+        OnClick = drive_ribs_buttonClick
+      end
+      object omit_flanges_conflict_checkbox: TCheckBox
+        Left = 32
+        Height = 20
+        Top = 368
+        Width = 270
+        Caption = 'omit  timber  flanges  if  socket  conflict'
+        Checked = True
+        State = cbChecked
+        TabOrder = 13
+      end
+      object mod_timbers_for_scale_checkbox: TCheckBox
+        Left = 32
+        Height = 20
+        Top = 424
+        Width = 325
+        Caption = 'modify  plug / timber  depths  for  model  scale :'
+        TabOrder = 14
+      end
+      object mod_depths_edit: TEdit
+        Left = 422
+        Height = 24
+        Top = 422
+        Width = 41
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 15
+        Text = '100'
+      end
+      object assemblers_checkbox: TCheckBox
+        Left = 20
+        Height = 20
+        Top = 248
+        Width = 337
+        Caption = 'include  brick  assemblers  ( background  shapes )'
+        Checked = True
+        State = cbChecked
+        TabOrder = 16
+      end
+    end
+    object support_tabsheet: TTabSheet
+      Caption = '    supports    '
+      ClientHeight = 751
+      ClientWidth = 832
+      ImageIndex = 5
+      object rafts_button: TButton
+        Left = 161
+        Height = 24
+        Top = 130
+        Width = 116
+        Caption = 'support  rafts ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = rafts_buttonClick
+      end
+      object supports_button: TButton
+        Left = 18
+        Height = 24
+        Top = 130
+        Width = 123
+        Caption = 'chair  supports ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        OnClick = supports_buttonClick
+      end
+      object pyramids_checkbox: TCheckBox
+        Left = 20
+        Height = 22
+        Top = 25
+        Width = 187
+        Caption = 'include  chair  supports'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 2
+      end
+      object loose_jaw_pyramids_checkbox: TCheckBox
+        Left = 20
+        Height = 22
+        Top = 61
+        Width = 286
+        Caption = 'include  pin  supports  on  loose  jaws'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 3
+      end
+      object rectangles_groupbox: TGroupBox
+        Left = 12
+        Height = 124
+        Top = 195
+        Width = 793
+        Caption = ' 3D  rectangle  shapes  as :  '
+        ClientHeight = 103
+        ClientWidth = 789
+        Color = 15269887
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 4
+        object Label42: TLabel
+          Left = 412
+          Height = 20
+          Top = 62
+          Width = 298
+          AutoSize = False
+          Caption = 'for  laser-cut  and  CNC-milled  track  bases'
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Arial'
+          ParentFont = False
+        end
+        object Shape7: TShape
+          Left = 390
+          Height = 65
+          Top = 48
+          Width = 1
+          Brush.Color = clBlack
+        end
+        object brick_slabs_radio: TRadioButton
+          Left = 26
+          Height = 20
+          Top = 34
+          Width = 88
+          Caption = 'brick slabs'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+        end
+        object plain_rafts_radio: TRadioButton
+          Left = 148
+          Height = 20
+          Top = 34
+          Width = 84
+          Caption = 'chair rafts'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+          TabStop = True
+        end
+        object nails_rafts_radio: TRadioButton
+          Left = 268
+          Height = 20
+          Top = 34
+          Width = 95
+          Caption = 'bed of nails'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+        end
+        object raft_match_brick_colour_checkbox: TCheckBox
+          Left = 28
+          Height = 20
+          Top = 80
+          Width = 306
+          Caption = 'match colour when exporting by brick colour'
+          Checked = True
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          State = cbChecked
+          TabOrder = 3
+        end
+        object alignment_plates_radio: TRadioButton
+          Left = 420
+          Height = 20
+          Top = 34
+          Width = 131
+          Caption = 'alignment  plates'
+          TabOrder = 4
+        end
+        object plate_thickness_button: TButton
+          Left = 612
+          Height = 24
+          Top = 30
+          Width = 136
+          Caption = 'plate  thickness ...'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 5
+          OnClick = plate_thickness_buttonClick
+        end
+        object plates_settings_button: TButton
+          Left = 410
+          Height = 24
+          Hint = ' change 3D settings to export alignment plates '
+          Top = 88
+          Width = 174
+          Caption = 'change  3D  settings  for'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 6
+          OnClick = plates_settings_buttonClick
+        end
+        object change_to_press_fit_button: TButton
+          Left = 592
+          Height = 24
+          Top = 88
+          Width = 190
+          Caption = 'change  to  press-fit  plugs'
+          TabOrder = 7
+          OnClick = change_to_press_fit_buttonClick
+        end
+      end
+    end
+    object combos_tabsheet: TTabSheet
+      Caption = '    layers    '
+      ClientHeight = 751
+      ClientWidth = 832
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ImageIndex = 7
+      ParentFont = False
+      object Label18: TLabel
+        Left = 20
+        Height = 18
+        Top = 472
+        Width = 213
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'chair  base  outlines  and  jaws'
+      end
+      object Label1: TLabel
+        Left = 8
+        Height = 18
+        Top = 48
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'rails'
+      end
+      object adjacent_lines_label: TLabel
+        Left = 8
+        Height = 18
+        Top = 72
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'platform  and  trackbed  edges'
+      end
+      object Label3: TLabel
+        Left = 8
+        Height = 18
+        Top = 96
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'track  centre-lines'
+      end
+      object Label4: TLabel
+        Left = 8
+        Height = 18
+        Top = 120
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  outlines'
+      end
+      object Label5: TLabel
+        Left = 8
+        Height = 18
+        Top = 168
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = '8'' 6"  sleeper  ends'
+      end
+      object Label6: TLabel
+        Left = 8
+        Height = 18
+        Top = 216
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  centre-lines'
+      end
+      object Label7: TLabel
+        Left = 112
+        Height = 18
+        Top = 360
+        Width = 121
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'guide  marks'
+      end
+      object Label8: TLabel
+        Left = 100
+        Height = 18
+        Top = 312
+        Width = 133
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'radial  end  marks'
+      end
+      object Label10: TLabel
+        Left = 8
+        Height = 18
+        Top = 336
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'rail  joints'
+      end
+      object Label11: TLabel
+        Left = 76
+        Height = 18
+        Top = 264
+        Width = 161
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'background  shapes'
+      end
+      object Label9: TLabel
+        Left = 112
+        Height = 18
+        Top = 384
+        Width = 121
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'radial  centres'
+      end
+      object Label12: TLabel
+        Left = 4
+        Height = 18
+        Top = 672
+        Width = 230
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'template  names + sticker  symbols'
+      end
+      object Label13: TLabel
+        Left = 242
+        Height = 20
+        Top = 22
+        Width = 110
+        AutoSize = False
+        Caption = '2-D  colour :'
+        Font.Color = clBlue
+        Font.Height = -17
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label14: TLabel
+        Left = 368
+        Height = 20
+        Top = 22
+        Width = 136
+        AutoSize = False
+        Caption = '2-D  line  style :'
+        Font.Color = clBlue
+        Font.Height = -17
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label15: TLabel
+        Left = 88
+        Height = 20
+        Top = 22
+        Width = 80
+        AutoSize = False
+        Caption = 'layer :'
+        Font.Color = clBlue
+        Font.Height = -17
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label16: TLabel
+        Left = 8
+        Height = 18
+        Top = 288
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'dotted  lines + picture  shapes'
+      end
+      object Label17: TLabel
+        Left = 8
+        Height = 18
+        Top = 240
+        Width = 225
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  numbering'
+      end
+      object Label2: TLabel
+        Left = 2
+        Height = 16
+        Top = 4
+        Width = 655
+        AutoSize = False
+        Caption = 'to omit a layer from the file, right-click on the colour, or set the colour to blank (top line of the drop-down list)'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+      end
+      object Label20: TLabel
+        Left = 96
+        Height = 18
+        Top = 496
+        Width = 137
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'chair  bolts / screws'
+      end
+      object Label47: TLabel
+        Left = 140
+        Height = 18
+        Top = 424
+        Width = 93
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'chair  sockets'
+      end
+      object Label48: TLabel
+        Left = 124
+        Height = 18
+        Top = 536
+        Width = 109
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  webs'
+      end
+      object Label49: TLabel
+        Left = 112
+        Height = 18
+        Top = 584
+        Width = 121
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  flanges'
+      end
+      object Label50: TLabel
+        Left = 116
+        Height = 18
+        Top = 560
+        Width = 117
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  sprues'
+      end
+      object Label51: TLabel
+        Left = 100
+        Height = 18
+        Top = 608
+        Width = 133
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'brick  splints / slabs'
+      end
+      object Label52: TLabel
+        Left = 88
+        Height = 18
+        Top = 632
+        Width = 145
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'brick  connector  clips'
+      end
+      object Label54: TLabel
+        Left = 92
+        Height = 18
+        Top = 192
+        Width = 141
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'switch  soleplates'
+      end
+      object Label55: TLabel
+        Left = 124
+        Height = 18
+        Top = 720
+        Width = 109
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'dropper  ID'
+      end
+      object Label56: TLabel
+        Left = 108
+        Height = 18
+        Top = 696
+        Width = 125
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'dropper  symbols'
+      end
+      object Label57: TLabel
+        Left = 68
+        Height = 18
+        Top = 144
+        Width = 165
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'timber  outlines  ( kerf )'
+      end
+      object Label39: TLabel
+        Left = 56
+        Height = 18
+        Top = 448
+        Width = 177
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'chair  sockets  ( kerf )'
+      end
+      object rails_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 44
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 1
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object adjrails_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 68
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 2
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object tkclines_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 92
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 3
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object timbout_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 116
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 4
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sleeperend_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 164
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 5
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object timbcent_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 212
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 6
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object gmarks_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 356
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 7
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object radmarks_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 308
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 8
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object joints_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 332
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 9
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object shapes_bgnd_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 260
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 10
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object radcentres_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 380
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 11
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object text_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 668
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 12
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object rails_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 44
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 13
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object adjrails_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 68
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 14
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object tkclines_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 92
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 15
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object timbout_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 116
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 16
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object timbcent_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 212
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 17
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object gmarks_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 356
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 18
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object radmarks_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 308
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 19
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object joints_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 332
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 20
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object solid_bgnd_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 260
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 21
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sleeperend_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 164
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 22
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object radcentres_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 380
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 23
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object dot_bgnd_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 284
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 24
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object dot_bgnd_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 284
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 25
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object tbnum_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 236
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 26
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object chairs_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 468
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 27
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object chairs_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 468
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 28
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object chair_bolts_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 492
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 29
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object chair_bolts_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 492
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 30
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sockets_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 420
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 31
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sockets_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 420
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 32
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object flanges_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 580
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 33
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sprues_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 556
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 34
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sprues_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 556
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 35
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object webs_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 532
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 36
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object webs_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 532
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 37
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object splints_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 604
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 38
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object splints_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 604
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 39
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object clips_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 628
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 40
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object clips_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 628
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 41
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object flanges_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 580
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 42
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sole_plates_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 188
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 43
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object soleplates_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 188
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 44
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object dropper_id_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 716
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 45
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object symbols_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 692
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 46
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object end_flanges_checkbox: TCheckBox
+        Left = 510
+        Height = 20
+        Top = 582
+        Width = 99
+        Caption = 'end  flanges'
+        Checked = True
+        State = cbChecked
+        TabOrder = 47
+      end
+      object omit_all_button: TButton
+        Left = 450
+        Height = 24
+        Top = 664
+        Width = 68
+        Caption = 'omit all'
+        TabOrder = 48
+        OnClick = omit_all_buttonClick
+      end
+      object all_black_button: TButton
+        Left = 366
+        Height = 24
+        Top = 664
+        Width = 68
+        Caption = 'all black'
+        TabOrder = 49
+        OnClick = all_black_buttonClick
+      end
+      object all_red_button: TButton
+        Left = 368
+        Height = 24
+        Top = 692
+        Width = 54
+        Caption = 'all red'
+        TabOrder = 50
+        OnClick = all_red_buttonClick
+      end
+      object all_blue_button: TButton
+        Left = 368
+        Height = 24
+        Top = 720
+        Width = 60
+        Caption = 'all blue'
+        TabOrder = 51
+        OnClick = all_blue_buttonClick
+      end
+      object combo_colour_defaults_button: TButton
+        Left = 538
+        Height = 24
+        Top = 664
+        Width = 64
+        Caption = 'defaults'
+        TabOrder = 0
+        OnClick = combo_colour_defaults_buttonClick
+      end
+      object timbout_kerf_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 140
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 52
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object timbout_kerf_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 140
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 53
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sockets_kerf_style_combo: TComboBox
+        Left = 361
+        Height = 24
+        Top = 444
+        Width = 144
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          'solid'
+          'long-dashed'
+          'short-dashed'
+          'centre-line'
+          'dotted'
+          'dash-dotted'
+        )
+        ParentFont = False
+        Style = csDropDownList
+        TabOrder = 54
+        OnChange = rails_comboChange
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object sockets_kerf_combo: TComboBox
+        Left = 241
+        Height = 24
+        Hint = 'left-click to select the DXF colour for this layer, right-click to omit this layer from the file'
+        Top = 444
+        Width = 112
+        DropDownCount = 10
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ItemHeight = 16
+        Items.Strings = (
+          '    '
+          'red'
+          'yellow'
+          'green'
+          'cyan'
+          'blue'
+          'magenta'
+          'black'
+          'grey'
+          'silver'
+          'cherry'
+          'orange'
+          'maroon'
+          'earth'
+          'brown'
+          'wood'
+        )
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 55
+        OnChange = rails_comboChange
+        OnContextPopup = rails_comboContextPopup
+        OnDropDown = rails_comboDropDown
+        OnExit = rails_comboChange
+      end
+      object brim_fence_checkbox: TCheckBox
+        Left = 510
+        Height = 20
+        Top = 630
+        Width = 93
+        Caption = 'brim  fence'
+        TabOrder = 56
+      end
+      object sprue_kerf_checkbox: TCheckBox
+        Left = 510
+        Height = 20
+        Top = 558
+        Width = 69
+        Caption = 'on  kerf'
+        Checked = True
+        State = cbChecked
+        TabOrder = 57
+      end
+      object _3d_colours_button: TButton
+        Left = 642
+        Height = 24
+        Top = 44
+        Width = 144
+        Caption = '3-D  chair  c&olours ...'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 58
+        OnClick = _3d_colours_buttonClick
+      end
+      object kerf_plus_undercut_checkbox: TCheckBox
+        Left = 510
+        Height = 20
+        Top = 446
+        Width = 107
+        Caption = 'plus undercut'
+        TabOrder = 59
+      end
+    end
+    object kerf_tabsheet: TTabSheet
+      Caption = '  2D  kerf  '
+      ClientHeight = 751
+      ClientWidth = 832
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ImageIndex = 6
+      ParentFont = False
+      object snibs_button: TButton
+        Left = 240
+        Height = 24
+        Top = 62
+        Width = 70
+        Caption = 'snibs ...'
+        TabOrder = 1
+        OnClick = snibs_buttonClick
+      end
+      object kerf_button: TButton
+        Left = 16
+        Height = 22
+        Top = 24
+        Width = 136
+        Caption = '2-D  cutter  kerf ...'
+        TabOrder = 0
+        OnClick = kerf_buttonClick
+      end
+      object kerfs_only_checkbox: TCheckBox
+        Left = 20
+        Height = 20
+        Top = 164
+        Width = 341
+        Caption = 'export  only  kerf  lines  for  timbers-only  laser  2D'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 2
+      end
+      object unchaired_kerf_checkbox: TCheckBox
+        Left = 20
+        Height = 20
+        Top = 196
+        Width = 304
+        Caption = 'include  kerf  lines  on  unchaired  templates'
+        TabOrder = 3
+      end
+      object nibs_checkbox: TCheckBox
+        Left = 20
+        Height = 20
+        Top = 66
+        Width = 123
+        Caption = 'add  nibs / snibs'
+        Checked = True
+        State = cbChecked
+        TabOrder = 4
+      end
+      object snib_space_checkbox: TCheckBox
+        Left = 20
+        Height = 20
+        Top = 100
+        Width = 286
+        Caption = 'leave  space  between  1st  and  2nd  snib'
+        Checked = True
+        State = cbChecked
+        TabOrder = 5
+      end
+      object nibs_button: TButton
+        Left = 160
+        Height = 24
+        Top = 62
+        Width = 62
+        Caption = 'nibs ...'
+        TabOrder = 6
+        OnClick = nibs_buttonClick
+      end
+      object socket_indent_button: TButton
+        Left = 400
+        Height = 24
+        Top = 98
+        Width = 200
+        Caption = 'socket  ends  indented  by ...'
+        TabOrder = 7
+        OnClick = socket_indent_buttonClick
+      end
+      object indented_socket_checkbox: TCheckBox
+        Left = 400
+        Height = 20
+        Top = 68
+        Width = 275
+        Caption = 'indented  socket  ends  on  kerf  outline '
+        Checked = True
+        State = cbChecked
+        TabOrder = 8
+      end
+    end
+    object custom_tabsheet: TTabSheet
+      Caption = '  custom  '
+      ClientHeight = 751
+      ClientWidth = 832
+      ImageIndex = 7
+      object Label44: TLabel
+        Left = 22
+        Height = 15
+        Top = 556
+        Width = 94
+        Caption = 'DO NOT CHANGE'
+        Font.Color = clRed
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Shape2: TShape
+        Left = 20
+        Height = 121
+        Top = 571
+        Width = 149
+        Brush.Color = 8433919
+        Pen.Color = 8433919
+      end
+      object Label24: TLabel
+        Left = 82
+        Height = 16
+        Top = 578
+        Width = 80
+        AutoSize = False
+        Caption = 'X  shift (mm) :'
+        Color = 8433919
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label25: TLabel
+        Left = 80
+        Height = 16
+        Top = 624
+        Width = 20
+        AutoSize = False
+        Caption = 'Y'
+        Color = 8433919
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label26: TLabel
+        Left = 80
+        Height = 16
+        Top = 660
+        Width = 20
+        AutoSize = False
+        Caption = 'Z'
+        Color = 8433919
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label43: TLabel
+        Left = 22
+        Height = 16
+        Top = 578
+        Width = 60
+        AutoSize = False
+        Caption = 'scale by :'
+        Color = 8433919
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label58: TLabel
+        Left = 23
+        Height = 36
+        Top = 330
+        Width = 122
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'templates will be rebuilt before export'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+        WordWrap = True
+      end
+      object x_shift_edit: TEdit
+        Left = 92
+        Height = 26
+        Top = 596
+        Width = 68
+        TabOrder = 0
+        Text = '0'
+      end
+      object y_shift_edit: TEdit
+        Left = 92
+        Height = 26
+        Top = 632
+        Width = 68
+        TabOrder = 1
+        Text = '0'
+      end
+      object z_shift_edit: TEdit
+        Left = 92
+        Height = 26
+        Top = 668
+        Width = 68
+        TabOrder = 2
+        Text = '0'
+      end
+      object z_datum_underside_checkbox: TCheckBox
+        Left = 20
+        Height = 20
+        Hint = ' 3-D  files  to  contain  only  rails,  timbers,  chairs/baseplates '
+        Top = 708
+        Width = 223
+        Caption = 'Z-datum  on  underside  of  timbers'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        State = cbChecked
+        TabOrder = 3
+      end
+      object stl_repair_button: TButton
+        Left = 366
+        Height = 24
+        Hint = ' go online to finalize the STL file for 3D printing '
+        Top = 50
+        Width = 210
+        Caption = 'STL  mesh  fix  online  >>>'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 4
+        OnClick = stl_repair_buttonClick
+      end
+      object x_scale_edit: TEdit
+        Left = 28
+        Height = 26
+        Top = 596
+        Width = 48
+        TabOrder = 5
+        Text = '1'
+      end
+      object y_scale_edit: TEdit
+        Left = 28
+        Height = 26
+        Top = 632
+        Width = 48
+        TabOrder = 6
+        Text = '1'
+      end
+      object z_scale_edit: TEdit
+        Left = 28
+        Height = 26
+        Top = 668
+        Width = 48
+        TabOrder = 7
+        Text = '1'
+      end
+      object grbl_button: TButton
+        Left = 486
+        Height = 22
+        Top = 664
+        Width = 194
+        Caption = 'modify G-code for GRBL CNC ...'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 8
+        OnClick = grbl_buttonClick
+      end
+      object minibo_button: TButton
+        Left = 220
+        Height = 16
+        Top = 668
+        Width = 120
+        Caption = 'G-code for MINIBO ...'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 9
+        OnClick = minibo_buttonClick
+      end
+      object minibo_backlash_button: TButton
+        Left = 352
+        Height = 16
+        Top = 668
+        Width = 120
+        Caption = 'MINIBO backlash ...'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 10
+        OnClick = minibo_backlash_buttonClick
+      end
+      object fill_below_key_checkbox: TCheckBox
+        Left = 278
+        Height = 20
+        Top = 708
+        Width = 96
+        Caption = 'fill  below  key'
+        Enabled = False
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 11
+        OnClick = fill_below_key_checkboxClick
+      end
+      object save_custom_button: TButton
+        Left = 24
+        Height = 24
+        Hint = ' save custom data to file  '
+        Top = 216
+        Width = 174
+        Caption = 'save  custom  data ...'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 12
+        OnClick = save_custom_buttonClick
+      end
+      object load_custom_button: TButton
+        Left = 24
+        Height = 24
+        Hint = ' load custom data from file '
+        Top = 180
+        Width = 174
+        Caption = 'load  custom  data ...'
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 13
+        OnClick = load_custom_buttonClick
+      end
+      object rebuild_now_button: TButton
+        Left = 152
+        Height = 24
+        Top = 334
+        Width = 105
+        Caption = 'rebuild  now'
+        TabOrder = 14
+        OnClick = rebuild_now_buttonClick
+      end
+      object units_panel: TPanel
+        Left = 12
+        Height = 81
+        Top = 30
+        Width = 248
+        BevelOuter = bvNone
+        BorderStyle = bsSingle
+        ClientHeight = 77
+        ClientWidth = 244
+        Color = 14745568
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 15
+        object Label35: TLabel
+          Left = 8
+          Height = 15
+          Top = 22
+          Width = 76
+          AutoSize = False
+          Caption = 'for DXF / STL'
+          Font.Color = clBlue
+          Font.Height = -12
+          Font.Name = 'Arial'
+          ParentFont = False
+        end
+        object Label36: TLabel
+          Left = 8
+          Height = 15
+          Top = 62
+          Width = 76
+          AutoSize = False
+          Caption = 'for DXF only'
+          Font.Color = clBlue
+          Font.Height = -12
+          Font.Name = 'Arial'
+          ParentFont = False
+        end
+        object mm_radio_button: TRadioButton
+          Left = 8
+          Height = 20
+          Top = 2
+          Width = 45
+          Caption = '&mm'
+          Checked = True
+          TabOrder = 0
+          TabStop = True
+        end
+        object inches_radio_button: TRadioButton
+          Left = 8
+          Height = 20
+          Top = 42
+          Width = 62
+          Caption = '&inches'
+          TabOrder = 1
+        end
+        object limits_checkbox: TCheckBox
+          Left = 108
+          Height = 20
+          Top = 4
+          Width = 115
+          Caption = 'drawing  &limits'
+          TabOrder = 2
+        end
+        object scaled_checkbox: TCheckBox
+          Left = 108
+          Height = 20
+          Hint = ' the % scaling setting is on the output menu '
+          Top = 28
+          Width = 123
+          Caption = 's&caled  999.99 %'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          OnClick = scaled_checkboxClick
+        end
+        object rotate_stl_by_button: TButton
+          Left = 128
+          Height = 20
+          Top = 52
+          Width = 108
+          Caption = 'rotate STL by ...'
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = rotate_stl_by_buttonClick
+        end
+      end
+    end
+  end
+  object quick_groupbox: TGroupBox
+    Left = 32
+    Height = 272
+    Top = 94
+    Width = 248
+    Caption = ' quick change settings to :  '
+    ClientHeight = 249
+    ClientWidth = 244
+    Color = 15269887
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 8
+    object Label19: TLabel
+      Left = 12
+      Height = 20
+      Top = 248
+      Width = 229
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'on experimental chairing templates'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object timbers_fdm_bullet_shape: TShape
+      Left = 224
+      Height = 11
+      Top = 135
+      Width = 11
+      Brush.Color = clAqua
+      Shape = stCircle
+      Visible = False
+    end
+    object chairs_bullet_shape: TShape
+      Left = 224
+      Height = 11
+      Top = 39
+      Width = 11
+      Brush.Color = clAqua
+      Shape = stCircle
+      Visible = False
+    end
+    object reset_both_bullet_shape: TShape
+      Left = 224
+      Height = 11
+      Top = 221
+      Width = 11
+      Brush.Color = clYellow
+      Shape = stCircle
+    end
+    object timbers_laser_bullet_shape: TShape
+      Left = 224
+      Height = 11
+      Top = 171
+      Width = 11
+      Brush.Color = 8433919
+      Shape = stCircle
+      Visible = False
+    end
+    object rail_label: TLabel
+      Left = 1
+      Height = 20
+      Top = 60
+      Width = 246
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'rail_label  '
+      Color = 16777200
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      Visible = False
+      OnClick = rail_labelClick
+    end
+    object timbers_only_fdm_button: TButton
+      Left = 16
+      Height = 24
+      Top = 128
+      Width = 200
+      Caption = 'timbers  only  -  FDM  3D'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = timbers_only_fdm_buttonClick
+    end
+    object chairs_only_button: TButton
+      Left = 24
+      Height = 24
+      Top = 32
+      Width = 192
+      Caption = 'chairs  only  -  resin  3D'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = chairs_only_buttonClick
+    end
+    object reset_both_button: TButton
+      Left = 36
+      Height = 24
+      Top = 214
+      Width = 180
+      Caption = 'reset  all  -  CAD  2D / 3D'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = reset_both_buttonClick
+    end
+    object timbers_only_laser_button: TButton
+      Left = 16
+      Height = 24
+      Top = 164
+      Width = 200
+      Caption = 'timbers  only  - laser  2D'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = timbers_only_laser_buttonClick
+    end
+    object rail_section_button: TButton
+      Left = 68
+      Height = 22
+      Top = 84
+      Width = 170
+      Caption = 'change  rail  section ...'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnClick = rail_section_buttonClick
+    end
+  end
+  object hide_settings_button: TButton
+    Left = 192
+    Height = 22
+    Top = 8
+    Width = 116
+    Caption = 'hide  settings'
+    TabOrder = 10
+    Visible = False
+    OnClick = hide_settings_buttonClick
+  end
+  object exp_panel: TPanel
+    Left = 36
+    Height = 157
+    Top = 544
+    Width = 249
+    BevelOuter = bvNone
+    ClientHeight = 157
+    ClientWidth = 249
+    ParentBackground = False
+    TabOrder = 11
+    object Label53: TLabel
+      Left = 4
+      Height = 70
+      Top = 4
+      Width = 233
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'v.244 experimental work in progress :  all DXF / STL functions affected '
+      Color = clYellow
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label27: TLabel
+      Left = 4
+      Height = 78
+      Top = 71
+      Width = 233
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'ask on Templot Club forum for help in using these settings'
+      Color = clYellow
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object club_button: TButton
+      Left = 122
+      Height = 22
+      Hint = ' visit the Templot Club user forum '
+      Top = 118
+      Width = 109
+      Caption = 'Templot  Club'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = club_buttonClick
+    end
+  end
+  object save_dialog: TSaveDialog
+    Title = '      export  DXF  file  as ...'
+    DefaultExt = '.dxf'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofEnableSizing]
+    Left = 1024
+    Top = 680
+  end
+  object custom_load_dialog: TOpenDialog
+    Title = 'reload  custom  data  from ...'
+    DefaultExt = '.sk4'
+    Options = [ofHideReadOnly, ofShowHelp, ofPathMustExist, ofFileMustExist, ofEnableSizing]
+    Left = 408
+    Top = 688
+  end
+  object custom_save_dialog: TSaveDialog
+    Title = 'save  custom  data  as ...'
+    DefaultExt = '.sk4'
+    FileName = 'custom_data.sk4'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofEnableSizing]
+    Left = 648
+    Top = 672
+  end
+  object grbl_file_dialog: TOpenDialog
+    Title = 'modify  G  code  for  GRBL ...'
+    DefaultExt = '.nc'
+    Options = [ofHideReadOnly, ofShowHelp, ofPathMustExist, ofFileMustExist, ofEnableSizing]
+    Left = 864
+    Top = 680
+  end
+end

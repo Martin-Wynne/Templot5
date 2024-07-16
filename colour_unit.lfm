@@ -1,0 +1,67 @@
+object colour_form: Tcolour_form
+  Left = 5
+  Top = 5
+  Width = 918
+  Height = 104
+  BorderIcons = []
+  BorderStyle = bsSizeToolWin
+  Caption = '      Templot  colours ... '
+  Color = 5636095
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Scaled = False
+  OnCreate = FormCreate
+  PixelsPerInch = 120
+  object colour_label: TLabel
+    Left = 0
+    Top = 0
+    Width = 900
+    Height = 36
+    AutoSize = False
+    Caption = '    select  colour ...'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Layout = tlCenter
+    WordWrap = True
+  end
+  object font_dialog: TFontDialog
+    OnShow = font_dialogShow
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    MinFontSize = 0
+    MaxFontSize = 0
+    Left = 368
+  end
+  object colour_dialog: TColorDialog
+    OnShow = colour_dialogShow
+    CustomColors.Strings = (
+      'ColorA=EEAA55'
+      'ColorB=55AAEE'
+      'ColorC=55EEAA'
+      'ColorD=DD77BB'
+      'ColorE=DDDDDD'
+      'ColorF=AADD55'
+      'ColorG=6688AA'
+      'ColorH=BBBBBB'
+      'ColorI=00FFD0'
+      'ColorJ=40C840'
+      'ColorK=C0A080'
+      'ColorL=A0D8C8'
+      'ColorM=70A0FF'
+      'ColorN=A0E8E8'
+      'ColorO=E0C0A0'
+      'ColorP=FFFFFF')
+    Left = 208
+    Top = 4
+  end
+end

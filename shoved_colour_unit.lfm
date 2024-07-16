@@ -1,0 +1,377 @@
+object shoved_colour_form: Tshoved_colour_form
+  Left = 345
+  Height = 415
+  Top = 181
+  Width = 469
+  BorderStyle = bsSizeToolWin
+  Caption = '      modify  infill  colour  on   timber  A1 ...'
+  ClientHeight = 415
+  ClientWidth = 469
+  Color = 16775408
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label8: TLabel
+    Left = 6
+    Height = 47
+    Top = 2
+    Width = 422
+    AutoSize = False
+    Caption = 'Handy hints: Use hatched infill to preserve the visibility of timber centre-lines. Use pale colours or hatched infill on print output to avoid excess ink causing the paper to cockle.'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object replace_fill_colour_label: TLabel
+    Left = 38
+    Height = 16
+    Top = 120
+    Width = 130
+    AutoSize = False
+    Caption = 'infill colour :'
+  end
+  object replace_style_label: TLabel
+    Left = 24
+    Height = 18
+    Top = 190
+    Width = 110
+    AutoSize = False
+    Caption = 'infill style :'
+  end
+  object Label1: TLabel
+    Left = 254
+    Height = 16
+    Top = 120
+    Width = 113
+    AutoSize = False
+    Caption = 'infill colour :'
+  end
+  object Label2: TLabel
+    Left = 240
+    Height = 18
+    Top = 190
+    Width = 110
+    AutoSize = False
+    Caption = 'infill style :'
+  end
+  object Label5: TLabel
+    Left = 24
+    Height = 25
+    Top = 86
+    Width = 149
+    AutoSize = False
+    Caption = 'on  the  trackpad :'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 228
+    Height = 25
+    Top = 86
+    Width = 200
+    AutoSize = False
+    Caption = 'in  print  and  PDF  output :'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 364
+    Width = 430
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Shape2: TShape
+    Left = 208
+    Height = 230
+    Top = 84
+    Width = 5
+    Brush.Color = clGray
+    Pen.Color = clGray
+  end
+  object Label4: TLabel
+    Left = 16
+    Height = 21
+    Top = 294
+    Width = 186
+    AutoSize = False
+    Caption = 'untick to show in normal colours'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 232
+    Height = 21
+    Top = 294
+    Width = 194
+    AutoSize = False
+    Caption = 'untick to output in normal colours'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object top_label: TLabel
+    Left = 12
+    Height = 20
+    Top = 54
+    Width = 308
+    AutoSize = False
+    Caption = 'show  timber  A1  in  these  colours :'
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object shoved_trackpad_style_combo: TComboBox
+    Left = 22
+    Height = 27
+    Top = 210
+    Width = 164
+    ItemHeight = 19
+    Items.Strings = (
+      'solid colour'
+      'blank'
+      'horizontal lines'
+      'vertical lines'
+      'forward diagonals'
+      'backward diagonals'
+      'cross hatched'
+      'diagonal hatched'
+    )
+    Style = csDropDownList
+    TabOrder = 2
+  end
+  object shoved_trackpad_colour_panel: TPanel
+    Left = 36
+    Height = 36
+    Top = 140
+    Width = 130
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    ClientHeight = 36
+    ClientWidth = 130
+    Color = 5267648
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 1
+    object shoved_trackpad_colour_button: TButton
+      Left = 50
+      Height = 24
+      Top = 8
+      Width = 76
+      Caption = 'change ...'
+      TabOrder = 0
+      OnClick = shoved_trackpad_colour_buttonClick
+    end
+  end
+  object shoved_output_style_combo: TComboBox
+    Left = 238
+    Height = 27
+    Top = 210
+    Width = 164
+    ItemHeight = 19
+    Items.Strings = (
+      'solid colour'
+      'blank'
+      'horizontal lines'
+      'vertical lines'
+      'forward diagonals'
+      'backward diagonals'
+      'cross hatched'
+      'diagonal hatched'
+    )
+    Style = csDropDownList
+    TabOrder = 6
+  end
+  object shoved_output_colour_panel: TPanel
+    Left = 252
+    Height = 36
+    Top = 140
+    Width = 130
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    ClientHeight = 36
+    ClientWidth = 130
+    Color = 11583696
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 5
+    object shoved_output_colour_button: TButton
+      Left = 50
+      Height = 24
+      Top = 8
+      Width = 76
+      Caption = 'change ...'
+      TabOrder = 0
+      OnClick = shoved_output_colour_buttonClick
+    end
+  end
+  object ok_panel: TPanel
+    Left = 348
+    Height = 26
+    Top = 332
+    Width = 74
+    Alignment = taLeftJustify
+    Caption = '     OK'
+    ClientHeight = 26
+    ClientWidth = 74
+    Color = 10551200
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    OnClick = ok_buttonClick
+    object ok_button: TButton
+      Left = 57
+      Height = 14
+      Top = 9
+      Width = 14
+      Caption = '  '
+      Default = True
+      TabOrder = 0
+      OnClick = ok_buttonClick
+    end
+  end
+  object use_on_trackpad_checkbox: TCheckBox
+    Left = 16
+    Height = 22
+    Top = 244
+    Width = 170
+    Caption = ' show  in  this  colour'
+    Checked = True
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 3
+  end
+  object use_on_output_checkbox: TCheckBox
+    Left = 232
+    Height = 22
+    Top = 244
+    Width = 179
+    Caption = ' output  in  this  colour'
+    Checked = True
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 7
+  end
+  object cancel_panel: TPanel
+    Left = 8
+    Height = 25
+    Top = 332
+    Width = 74
+    Alignment = taLeftJustify
+    Caption = '  cancel'
+    ClientHeight = 25
+    ClientWidth = 74
+    Color = 10551295
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 9
+    OnClick = cancel_buttonClick
+    object cancel_button: TButton
+      Left = 57
+      Height = 14
+      Top = 8
+      Width = 14
+      Cancel = True
+      Caption = ' '
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 0
+      OnClick = cancel_buttonClick
+    end
+  end
+  object also_export_checkbox: TCheckBox
+    Left = 256
+    Height = 20
+    Top = 268
+    Width = 156
+    Caption = 'and in exported images'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    TabOrder = 8
+  end
+  object colour_defaults_button: TButton
+    Left = 116
+    Height = 25
+    Hint = ' use these settings again unless previously set for the timber '
+    Top = 332
+    Width = 190
+    Caption = 'remember  these  settings'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+    OnClick = colour_defaults_buttonClick
+  end
+  object also_bgnd_checkbox: TCheckBox
+    Left = 24
+    Height = 20
+    Top = 268
+    Width = 174
+    Caption = 'and background templates'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    TabOrder = 4
+  end
+end

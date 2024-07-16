@@ -1,0 +1,762 @@
+object gaps_form: Tgaps_form
+  Left = 40
+  Height = 424
+  Top = 220
+  Width = 660
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '            feed  droppers   -   isolation  gaps   -   stickers'
+  ClientHeight = 424
+  ClientWidth = 660
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -13
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  OnHide = FormHide
+  OnShow = FormShow
+  LCLVersion = '3.4.0.0'
+  object Label3: TLabel
+    Left = 246
+    Height = 18
+    Top = 186
+    Width = 120
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = '(max 12 characters)'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object help_shape: TShape
+    Left = 592
+    Height = 31
+    Top = 3
+    Width = 66
+    Pen.Color = clWhite
+  end
+  object Label1: TLabel
+    Left = 360
+    Height = 20
+    Top = 34
+    Width = 165
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'slide  locator  along :'
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 170
+    Height = 20
+    Top = 160
+    Width = 29
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'ID :'
+    Layout = tlCenter
+  end
+  object replace_fill_colour_label: TLabel
+    Left = 180
+    Height = 16
+    Top = 276
+    Width = 112
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'gap colour :'
+  end
+  object Label6: TLabel
+    Left = 192
+    Height = 68
+    Top = 80
+    Width = 184
+    AutoSize = False
+    Caption = 'Use the mouse action to slide the blue locator to the required position on the selected rail.'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object radio_shape: TShape
+    Left = 646
+    Height = 11
+    Top = 150
+    Width = 11
+    Brush.Color = clBlue
+    Pen.Color = clBlue
+    Shape = stSquare
+    Visible = False
+  end
+  object Label5: TLabel
+    Left = 34
+    Height = 22
+    Top = 4
+    Width = 205
+    AutoSize = False
+    Caption = 'construction  symbols'
+    Font.Color = clBlack
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 180
+    Height = 16
+    Top = 244
+    Width = 112
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'dropper colour :'
+  end
+  object Label7: TLabel
+    Left = 184
+    Height = 16
+    Top = 308
+    Width = 112
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'sticker colour :'
+  end
+  object Label8: TLabel
+    Left = 436
+    Height = 18
+    Top = 212
+    Width = 69
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'symbol :'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object Label9: TLabel
+    Left = 474
+    Height = 22
+    Top = 240
+    Width = 20
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '>'
+    Font.Color = clBlack
+    Font.Height = -20
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 474
+    Height = 22
+    Top = 271
+    Width = 20
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '|'
+    Font.Color = clBlack
+    Font.Height = -20
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object Label11: TLabel
+    Left = 474
+    Height = 22
+    Top = 304
+    Width = 20
+    Alignment = taCenter
+    AutoSize = False
+    Caption = '#'
+    Font.Color = clBlack
+    Font.Height = -20
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object hide_panel: TPanel
+    Left = 590
+    Height = 26
+    Top = 398
+    Width = 70
+    Alignment = taLeftJustify
+    Caption = '  hide'
+    ClientHeight = 26
+    ClientWidth = 70
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 12
+    OnClick = hide_buttonClick
+    object hide_button: TButton
+      Left = 50
+      Height = 16
+      Top = 6
+      Width = 16
+      Cancel = True
+      Caption = '  '
+      TabOrder = 0
+      OnClick = hide_buttonClick
+    end
+  end
+  object help_button: TButton
+    Left = 595
+    Height = 25
+    Top = 6
+    Width = 60
+    Caption = '? help'
+    TabOrder = 3
+    OnClick = help_buttonClick
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 13
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Hint = ' shrink  or  enlarge  this  dialog  window '
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      ParentShowHint = False
+      Position = 4
+      ShowHint = True
+      TabOrder = 0
+    end
+    object colour_panel: TPanel
+      Left = 2
+      Height = 16
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 1
+      OnClick = colour_panelClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_panelClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object symbol_on_check_rail_checkbox: TCheckBox
+    Left = 186
+    Height = 20
+    Top = 208
+    Width = 225
+    Caption = 'symbol is on adjacent check rail'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+  end
+  object add_symbol_button: TButton
+    Left = 460
+    Height = 32
+    Top = 344
+    Width = 189
+    Caption = 'add  symbol  at  locator'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    OnClick = add_symbol_buttonClick
+  end
+  object delete_symbol_button: TButton
+    Left = 300
+    Height = 23
+    Hint = ' delete the selected symbol '
+    Top = 394
+    Width = 110
+    Caption = 'delete  symbol'
+    Enabled = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+    OnClick = delete_symbol_buttonClick
+  end
+  object modify_symbol_button: TButton
+    Left = 180
+    Height = 23
+    Hint = ' modify the selected symbol to these settings '
+    Top = 394
+    Width = 114
+    Caption = 'modify  symbol'
+    Enabled = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 9
+    OnClick = modify_symbol_buttonClick
+  end
+  object delete_all_symbols_button: TButton
+    Left = 428
+    Height = 23
+    Hint = ' delete all symbols from this template '
+    Top = 394
+    Width = 140
+    Caption = 'delete  all  symbols'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 11
+    OnClick = delete_all_symbols_buttonClick
+  end
+  object symbol_id_edit: TEdit
+    Left = 202
+    Height = 30
+    Top = 156
+    Width = 164
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -20
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    Text = 'DN01'
+    OnClick = symbol_id_editClick
+    OnExit = symbol_id_editExit
+  end
+  object gap_colour_panel: TPanel
+    Left = 300
+    Height = 26
+    Top = 270
+    Width = 110
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    ClientHeight = 26
+    ClientWidth = 110
+    Color = clRed
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 4
+    object gap_colour_button: TButton
+      Left = 28
+      Height = 20
+      Top = 3
+      Width = 77
+      Caption = 'change ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = gap_colour_buttonClick
+    end
+  end
+  object symbols_retain_on_mint_checkbox: TCheckBox
+    Left = 434
+    Height = 20
+    Hint = ' retain symbols when minting a new template '
+    Top = 6
+    Width = 141
+    Caption = 'retain on new mint'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+  end
+  object symbols_retain_on_make_checkbox: TCheckBox
+    Left = 256
+    Height = 20
+    Hint = ' retain symbols when using the tools > make --- functions '
+    Top = 6
+    Width = 151
+    Caption = 'retain on tools:make'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+  end
+  object symbols_visible_listbox: TListBox
+    Left = 0
+    Height = 342
+    Top = 80
+    Width = 164
+    Color = 15263976
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    IntegralHeight = True
+    ItemHeight = 20
+    ParentFont = False
+    Style = lbOwnerDrawFixed
+    TabOrder = 8
+    OnClick = symbols_visible_listboxClick
+    OnDrawItem = symbols_visible_listboxDrawItem
+    OnExit = symbols_visible_listboxExit
+  end
+  object size_groupbox: TGroupBox
+    Left = 172
+    Height = 44
+    Top = 336
+    Width = 262
+    Caption = ' symbol  size :  '
+    ClientHeight = 23
+    ClientWidth = 258
+    Color = 16774376
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 14
+    object small_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 20
+      Width = 52
+      Caption = 'small'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object medium_radio: TRadioButton
+      Left = 68
+      Height = 20
+      Top = 20
+      Width = 67
+      Caption = 'medium'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      TabStop = True
+    end
+    object large_radio: TRadioButton
+      Left = 144
+      Height = 20
+      Top = 20
+      Width = 50
+      Caption = 'large'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+    end
+    object giant_radio: TRadioButton
+      Left = 202
+      Height = 20
+      Top = 20
+      Width = 49
+      Caption = 'giant'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+  end
+  object sticker_radio: TRadioButton
+    Left = 504
+    Height = 22
+    Hint = ' add a sticker '
+    Top = 304
+    Width = 73
+    Caption = ' sticker'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 15
+  end
+  object gap_radio: TRadioButton
+    Left = 504
+    Height = 22
+    Hint = ' add an isolation gap symbol '
+    Top = 272
+    Width = 51
+    Caption = ' gap'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 16
+  end
+  object dropper_radio: TRadioButton
+    Left = 504
+    Height = 22
+    Hint = ' add a feed dropper symbol '
+    Top = 240
+    Width = 82
+    Caption = ' dropper'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 17
+    TabStop = True
+  end
+  object dropper_colour_panel: TPanel
+    Left = 300
+    Height = 26
+    Top = 238
+    Width = 110
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    ClientHeight = 26
+    ClientWidth = 110
+    Color = 16711808
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 18
+    object dropper_colour_button: TButton
+      Left = 28
+      Height = 20
+      Top = 3
+      Width = 77
+      Caption = 'change ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = dropper_colour_buttonClick
+    end
+  end
+  object sticker_colour_panel: TPanel
+    Left = 300
+    Height = 26
+    Top = 302
+    Width = 110
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    ClientHeight = 26
+    ClientWidth = 110
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 19
+    object sticker_colour_button: TButton
+      Left = 28
+      Height = 20
+      Top = 3
+      Width = 77
+      Caption = 'change ...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = sticker_colour_buttonClick
+    end
+  end
+  object show_hide_button: TButton
+    Left = 54
+    Height = 28
+    Top = 38
+    Width = 242
+    Caption = 'show / hide  symbols  on  trackpad'
+    TabOrder = 20
+    OnClick = show_hide_buttonClick
+  end
+  object rail_panel: TPanel
+    Left = 384
+    Height = 110
+    Top = 56
+    Width = 260
+    BevelOuter = bvNone
+    ClientHeight = 110
+    ClientWidth = 260
+    ParentBackground = False
+    TabOrder = 21
+    object rail_4_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 4
+      Width = 214
+      Caption = '4.  turnout-road    stock  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = rail_4_radioClick
+    end
+    object rail_3_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 32
+      Width = 238
+      Caption = '3.  main-road         crossing  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = rail_3_radioClick
+    end
+    object rail_2_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 60
+      Width = 237
+      Caption = '2.  turnout-road    crossing  rail'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = rail_2_radioClick
+    end
+    object rail_1_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 88
+      Width = 215
+      Caption = '1.  main-road         stock  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      TabStop = True
+      OnClick = rail_1_radioClick
+    end
+  end
+  object slide_button: TButton
+    Left = 540
+    Height = 32
+    Top = 172
+    Width = 113
+    Caption = 'slide  locator'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    OnClick = slide_buttonClick
+  end
+end

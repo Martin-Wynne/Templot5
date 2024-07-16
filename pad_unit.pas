@@ -12633,7 +12633,7 @@ begin
   xing_indicator_panel.DoubleBuffered:=True;
   colour_panel.DoubleBuffered:=True;
 
-  ClientWidth:=1260;     // can be changed on program panel / control room  216a
+  ClientWidth:=1300;     // can be changed on program panel / control room  216a
   ClientHeight:=720;
 
   Font.Size:=8;    // for lo-res screens.  n.b. can't write  "pad_form.Font"  until after pad_form is created.

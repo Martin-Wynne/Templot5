@@ -1,0 +1,741 @@
+object map_clarity_form: Tmap_clarity_form
+  Left = 279
+  Height = 455
+  Top = 268
+  Width = 878
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '    map  clarity  improvement ...'
+  ClientHeight = 455
+  ClientWidth = 878
+  Color = 16774380
+  DesignTimePPI = 120
+  Font.Color = clGreen
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Shape1: TShape
+    Left = 664
+    Height = 81
+    Top = 252
+    Width = 186
+    Brush.Color = 15794175
+    Pen.Color = clSilver
+  end
+  object Label1: TLabel
+    Left = 32
+    Height = 25
+    Top = 6
+    Width = 365
+    AutoSize = False
+    Caption = 'historic  maps  -  clarity  improvements'
+    Font.Color = 16711808
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object map_list_label: TLabel
+    Left = 446
+    Height = 19
+    Top = 240
+    Width = 119
+    AutoSize = False
+    Caption = 'tiled maps :'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 404
+    Width = 860
+    AutoSize = False
+  end
+  object Label2: TLabel
+    Left = 696
+    Height = 16
+    Top = 288
+    Width = 249
+    Caption = 'the selected tile, or other picture shape'
+    Color = 15794175
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+    OnClick = Label2Click
+  end
+  object Label5: TLabel
+    Left = 704
+    Height = 73
+    Top = 92
+    Width = 145
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'this function is experimental - feedback welcome'
+    Color = clWhite
+    Font.Color = clRed
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label6: TLabel
+    Left = 512
+    Height = 22
+    Top = 218
+    Width = 225
+    AutoSize = False
+    Caption = 'select  for  conversion :'
+    Font.Color = 16711808
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object help_shape: TShape
+    Left = 785
+    Height = 29
+    Top = 5
+    Width = 68
+    Pen.Color = clWhite
+  end
+  object go_button: TButton
+    Left = 792
+    Height = 28
+    Top = 372
+    Width = 60
+    Caption = 'GO'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    OnClick = go_buttonClick
+  end
+  object interpolation_groupbox: TGroupBox
+    Left = 10
+    Height = 162
+    Top = 44
+    Width = 412
+    Caption = ' interpolation :  '
+    ClientHeight = 141
+    ClientWidth = 408
+    Color = 16772829
+    Font.Color = 10485760
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    object Label3: TLabel
+      Left = 12
+      Height = 20
+      Top = 24
+      Width = 388
+      AutoSize = False
+      Caption = 'interpolation is available for tiled maps only, on original tiles only'
+      Font.Color = 10485760
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object GroupBox4: TGroupBox
+      Left = 16
+      Height = 104
+      Top = 48
+      Width = 133
+      Caption = ' resolution :  '
+      ClientHeight = 83
+      ClientWidth = 129
+      Font.Color = 10485760
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 0
+      object res_x2_radio: TRadioButton
+        Left = 16
+        Height = 20
+        Top = 24
+        Width = 40
+        Caption = 'x 2'
+        TabOrder = 0
+      end
+      object res_x3_radio: TRadioButton
+        Left = 16
+        Height = 20
+        Top = 50
+        Width = 40
+        Caption = 'x 3'
+        Checked = True
+        TabOrder = 1
+        TabStop = True
+      end
+      object res_x4_radio: TRadioButton
+        Left = 16
+        Height = 20
+        Top = 76
+        Width = 85
+        Caption = 'x 4  (slow)'
+        TabOrder = 2
+      end
+    end
+    object GroupBox5: TGroupBox
+      Left = 180
+      Height = 104
+      Top = 48
+      Width = 200
+      Caption = ' filter :  '
+      ClientHeight = 83
+      ClientWidth = 196
+      Font.Color = 10485760
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 1
+      object triangle_radio: TRadioButton
+        Left = 16
+        Height = 20
+        Top = 24
+        Width = 67
+        Caption = 'smooth'
+        Checked = True
+        TabOrder = 0
+        TabStop = True
+      end
+      object mitchell_radio: TRadioButton
+        Left = 16
+        Height = 20
+        Top = 50
+        Width = 98
+        Caption = 'very smooth'
+        TabOrder = 1
+      end
+      object spline_radio: TRadioButton
+        Left = 16
+        Height = 20
+        Top = 76
+        Width = 149
+        Caption = 'extra smooth  (slow)'
+        TabOrder = 2
+      end
+    end
+  end
+  object two_tone_groupbox: TGroupBox
+    Left = 434
+    Height = 198
+    Top = 8
+    Width = 260
+    Caption = ' 2-tone reduction :  '
+    ClientHeight = 177
+    ClientWidth = 256
+    Color = 16777198
+    Font.Color = clGreen
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+    object threshold_label: TLabel
+      Left = 34
+      Height = 20
+      Top = 28
+      Width = 75
+      AutoSize = False
+      Caption = 'threshold :'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object colour1_label: TLabel
+      Left = 8
+      Height = 20
+      Top = 92
+      Width = 84
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'high colour:'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object colour2_label: TLabel
+      Left = 8
+      Height = 20
+      Top = 150
+      Width = 84
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'low colour:'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object threshold_position_label: TLabel
+      Left = 114
+      Height = 20
+      Top = 28
+      Width = 30
+      AutoSize = False
+      Caption = '160'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object threshold_trackbar: TTrackBar
+      Left = 4
+      Height = 20
+      Top = 52
+      Width = 252
+      Max = 255
+      OnChange = threshold_trackbarChange
+      Position = 160
+      TickMarks = tmTopLeft
+      TickStyle = tsNone
+      OnEnter = threshold_trackbarEnter
+      TabOrder = 0
+    end
+    object threshold_panel: TPanel
+      Left = 168
+      Height = 21
+      Top = 26
+      Width = 61
+      BevelOuter = bvNone
+      Color = 10526880
+      ParentBackground = False
+      ParentColor = False
+      TabOrder = 1
+    end
+    object high_colour_panel: TPanel
+      Left = 100
+      Height = 50
+      Top = 82
+      Width = 146
+      Alignment = taLeftJustify
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 146
+      Color = 13695208
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      TabOrder = 2
+      object high_colour_button: TButton
+        Left = 74
+        Height = 19
+        Top = 4
+        Width = 68
+        Caption = 'change ...'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = high_colour_buttonClick
+      end
+      object match_trackpad_colour_button: TButton
+        Left = 6
+        Height = 20
+        Top = 26
+        Width = 136
+        Caption = 'match trackpad colour'
+        Font.Color = clGreen
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 1
+        OnClick = match_trackpad_colour_buttonClick
+      end
+    end
+    object low_colour_panel: TPanel
+      Left = 100
+      Height = 50
+      Top = 140
+      Width = 146
+      Alignment = taLeftJustify
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 146
+      Color = 7381128
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      TabOrder = 3
+      object low_colour_button: TButton
+        Left = 74
+        Height = 19
+        Top = 4
+        Width = 68
+        Caption = 'change ...'
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = low_colour_buttonClick
+      end
+      object match_trackpad_grid_button: TButton
+        Left = 14
+        Height = 20
+        Top = 26
+        Width = 128
+        Caption = 'match trackpad grid'
+        Font.Color = clGreen
+        Font.Height = -12
+        Font.Name = 'Arial'
+        ParentFont = False
+        TabOrder = 1
+        OnClick = match_trackpad_grid_buttonClick
+      end
+    end
+  end
+  object map_name_listbox: TListBox
+    Left = 444
+    Height = 100
+    Hint = ' your current tiled maps - select one '
+    Top = 260
+    Width = 200
+    Color = clWhite
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ItemHeight = 0
+    ParentShowHint = False
+    ParentFont = False
+    ShowHint = True
+    TabOrder = 5
+    OnClick = map_name_listboxClick
+  end
+  object function_groupbox: TGroupBox
+    Left = 166
+    Height = 180
+    Top = 218
+    Width = 256
+    Caption = ' function :  '
+    ClientHeight = 159
+    ClientWidth = 252
+    Color = 15794175
+    Font.Color = clMaroon
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+    object interpolation_only_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 24
+      Width = 137
+      Caption = 'interpolation  only'
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object two_tone_only_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 50
+      Width = 163
+      Caption = '2-tone  reduction  only'
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object interpolation_first_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 76
+      Width = 216
+      Caption = 'interpolation  first - then 2-tone'
+      Checked = True
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      TabStop = True
+    end
+    object two_tone_first_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 102
+      Width = 220
+      Caption = '2-tone  first - then  interpolation'
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+    object low_contrast_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 128
+      Width = 133
+      Caption = 'low-contrast  only'
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+    end
+    object negative_radio: TRadioButton
+      Left = 16
+      Height = 20
+      Top = 154
+      Width = 155
+      Caption = 'negative-image  only'
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+    end
+  end
+  object undo_button: TButton
+    Left = 700
+    Height = 23
+    Top = 376
+    Width = 56
+    Caption = 'undo'
+    TabOrder = 11
+    OnClick = undo_buttonClick
+  end
+  object reset_button: TButton
+    Left = 740
+    Height = 23
+    Top = 44
+    Width = 112
+    Caption = 'reset  defaults'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    OnClick = reset_buttonClick
+  end
+  object selected_image_radio: TRadioButton
+    Left = 674
+    Height = 20
+    Hint = ' apply selected function to picture shape selected in background shapes  '
+    Top = 294
+    Width = 21
+    Color = 15794175
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 9
+  end
+  object all_tiled_map_radio: TRadioButton
+    Left = 456
+    Height = 20
+    Hint = ' apply selected function to tiled map selected in list '
+    Top = 366
+    Width = 172
+    Caption = 'all tiles of selected map'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+    TabStop = True
+  end
+  object bgnd_shapes_button: TButton
+    Left = 672
+    Height = 23
+    Top = 260
+    Width = 166
+    Caption = 'background  shapes ...'
+    TabOrder = 8
+    OnClick = bgnd_shapes_buttonClick
+  end
+  object help_button: TButton
+    Left = 788
+    Height = 23
+    Top = 8
+    Width = 62
+    Caption = '?  help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+    OnClick = help_buttonClick
+  end
+  object low_contrast_groupbox: TGroupBox
+    Left = 10
+    Height = 180
+    Top = 218
+    Width = 136
+    Caption = ' low-contrast  '
+    ClientHeight = 159
+    ClientWidth = 132
+    Color = 16777198
+    Font.Color = clGreen
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    object Label4: TLabel
+      Left = 12
+      Height = 20
+      Top = 16
+      Width = 100
+      AutoSize = False
+      Caption = 'base shade :'
+      Font.Color = clGreen
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object black_radio: TRadioButton
+      Left = 12
+      Height = 20
+      Top = 44
+      Width = 55
+      Caption = 'black'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object dark_grey_radio: TRadioButton
+      Left = 12
+      Height = 20
+      Top = 70
+      Width = 81
+      Caption = 'dark grey'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object medium_grey_radio: TRadioButton
+      Left = 12
+      Height = 20
+      Top = 96
+      Width = 105
+      Caption = 'medium grey'
+      Checked = True
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      TabStop = True
+    end
+    object light_grey_radio: TRadioButton
+      Left = 12
+      Height = 20
+      Top = 122
+      Width = 81
+      Caption = 'light grey'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+    end
+    object white_radio: TRadioButton
+      Left = 12
+      Height = 20
+      Top = 148
+      Width = 56
+      Caption = 'white'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+    end
+  end
+  object progress_bar: TProgressBar
+    Left = 660
+    Height = 12
+    Top = 348
+    Width = 192
+    Max = 256
+    Step = 1
+    TabOrder = 12
+  end
+end

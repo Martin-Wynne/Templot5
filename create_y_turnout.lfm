@@ -1,0 +1,177 @@
+object create_y_form: Tcreate_y_form
+  Left = 682
+  Height = 671
+  Top = 418
+  Width = 1018
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '    make  improvised  Y-turnout'
+  ClientHeight = 671
+  ClientWidth = 1018
+  Color = 16771272
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -25
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 620
+    Width = 1000
+    AutoSize = False
+    Font.Color = clWindowText
+    Font.Height = -2
+    Font.Name = 'MS Sans Serif'
+    ParentFont = False
+  end
+  object y_html_viewer2: THtmlViewer
+    Left = 562
+    Height = 505
+    Top = 0
+    Width = 436
+    BorderStyle = htNone
+    DefBackground = 15663103
+    DefFontColor = clBlack
+    DefFontName = 'Trebuchet MS'
+    DefFontSize = 9
+    DefOverLinkColor = clRed
+    DefPreFontName = 'Courier New'
+    DefVisitedLinkColor = clBlue
+    HistoryMaxCount = 0
+    HtOptions = [htOverLinksActive, htNoLinkUnderline, htPrintTableBackground, htPrintMonochromeBlack]
+    ImageCacheCount = 0
+    MarginHeight = 0
+    MarginWidth = 12
+    NoSelect = False
+    PrintMarginBottom = 1
+    PrintMarginLeft = 1
+    PrintMarginRight = 1
+    PrintMarginTop = 1
+    PrintScale = 1
+    ScrollBars = ssVertical
+    OnHotSpotClick = HotSpotClick
+    TabOrder = 8
+  end
+  object y_html_viewer1: THtmlViewer
+    Left = 0
+    Height = 618
+    Top = 0
+    Width = 560
+    BorderStyle = htNone
+    DefBackground = 15663103
+    DefFontColor = clBlack
+    DefFontName = 'Trebuchet MS'
+    DefFontSize = 9
+    DefOverLinkColor = clRed
+    DefPreFontName = 'Courier New'
+    DefVisitedLinkColor = clBlue
+    HistoryMaxCount = 0
+    HtOptions = [htOverLinksActive, htNoLinkUnderline, htPrintTableBackground, htPrintMonochromeBlack]
+    ImageCacheCount = 0
+    MarginHeight = 0
+    MarginWidth = 12
+    NoSelect = False
+    PrintMarginBottom = 1
+    PrintMarginLeft = 1
+    PrintMarginRight = 1
+    PrintMarginTop = 1
+    PrintScale = 1
+    ScrollBars = ssVertical
+    OnHotSpotClick = HotSpotClick
+    TabOrder = 7
+  end
+  object make_y_button: TButton
+    Left = 830
+    Height = 35
+    Top = 576
+    Width = 157
+    Caption = 'make  Y-turnout'
+    Default = True
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ModalResult = 1
+    ParentFont = False
+    TabOrder = 0
+  end
+  object more_info_button: TButton
+    Left = 572
+    Height = 25
+    Top = 496
+    Width = 180
+    Caption = 'more  information  online'
+    TabOrder = 6
+    OnClick = more_info_buttonClick
+  end
+  object cancel_button: TButton
+    Left = 600
+    Height = 25
+    Top = 584
+    Width = 70
+    Cancel = True
+    Caption = 'cancel'
+    ModalResult = 2
+    TabOrder = 1
+  end
+  object very_short_radio: TRadioButton
+    Left = 580
+    Height = 22
+    Top = 540
+    Width = 97
+    Caption = 'very  short'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+  end
+  object short_radio: TRadioButton
+    Left = 710
+    Height = 22
+    Top = 540
+    Width = 58
+    Caption = 'short'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object normal_radio: TRadioButton
+    Left = 810
+    Height = 22
+    Top = 540
+    Width = 69
+    Caption = 'normal'
+    Checked = True
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    TabStop = True
+  end
+  object long_radio: TRadioButton
+    Left = 910
+    Height = 22
+    Top = 540
+    Width = 52
+    Caption = 'long'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+  end
+end

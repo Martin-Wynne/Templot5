@@ -1,0 +1,752 @@
+object rail_options_form: Trail_options_form
+  Left = 201
+  Height = 487
+  Top = 200
+  Width = 798
+  HorzScrollBar.Tracking = True
+  VertScrollBar.Tracking = True
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '            omit  rails  /  set  joint  marks  ...'
+  ClientHeight = 487
+  ClientWidth = 798
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnHide = FormHide
+  OnShow = FormShow
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object top_label: TLabel
+    Left = 236
+    Height = 48
+    Top = 4
+    Width = 540
+    AutoSize = False
+    Caption = 'Untick these boxes to omit individual rails and/or rail-joint marks from the control template. These functions are used when overlaying partial templates to create complex formations.'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object help_shape: TShape
+    Left = 66
+    Height = 31
+    Top = 7
+    Width = 66
+    Pen.Color = clWhite
+  end
+  object joints_top_label: TLabel
+    Left = 6
+    Height = 20
+    Top = 68
+    Width = 206
+    AutoSize = False
+    Caption = 'V-crossing  exit  rail  joints :'
+    Font.Color = 16711808
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 16
+    Height = 45
+    Top = 90
+    Width = 205
+    AutoSize = False
+    Caption = 'Use the functions below to modify the location of the rail joint in the selected exit rail.'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object xing_joints_groupbox: TGroupBox
+    Left = 234
+    Height = 122
+    Top = 284
+    Width = 236
+    Caption = ' V-crossing  joint  marks :  '
+    ClientHeight = 101
+    ClientWidth = 232
+    Color = 16574700
+    Font.Color = 16711808
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 12
+    object wing_rail_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 22
+      Width = 119
+      Caption = 'wing-rail  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 0
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object vee_rail_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 44
+      Width = 143
+      Caption = 'vee-rail  exit  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 1
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object ts_exit_stock_rail_joint_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 74
+      Width = 171
+      Caption = 'TS  exit  stock-rail  joint'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 2
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object ms_exit_stock_rail_joint_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 96
+      Width = 174
+      Caption = 'MS  exit  stock-rail  joint'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 3
+      OnClick = switch_front_joints_checkboxClick
+    end
+  end
+  object plain_track_groupbox: TGroupBox
+    Left = 234
+    Height = 122
+    Top = 50
+    Width = 236
+    Caption = ' plain-track rails and joint marks :  '
+    ClientHeight = 101
+    ClientWidth = 232
+    Color = 15269856
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 10
+    object Label2: TLabel
+      Left = 134
+      Height = 34
+      Top = 76
+      Width = 96
+      AutoSize = False
+      Caption = 'also in turnout approach / exit'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentFont = False
+      WordWrap = True
+    end
+    object plain_track_ts_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 22
+      Width = 124
+      Caption = 'TS  running  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 0
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object plain_track_ms_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 44
+      Width = 127
+      Caption = 'MS  running  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 1
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object plain_track_ts_rail_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 74
+      Width = 109
+      Caption = 'TS  rail  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 2
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object plain_track_ms_rail_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 96
+      Width = 112
+      Caption = 'MS  rail  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 3
+      OnClick = switch_front_joints_checkboxClick
+    end
+  end
+  object help_button: TButton
+    Left = 69
+    Height = 25
+    Top = 10
+    Width = 60
+    Caption = '? help'
+    TabOrder = 0
+    OnClick = help_buttonClick
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 18
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Hint = ' shrink  or  enlarge  this  dialog  window '
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      ParentShowHint = False
+      Position = 4
+      ShowHint = True
+      TabOrder = 0
+    end
+    object colour_panel: TPanel
+      Left = 2
+      Height = 16
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 1
+      OnClick = colour_panelClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_panelClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object hide_panel: TPanel
+    Left = 710
+    Height = 26
+    Top = 414
+    Width = 70
+    Alignment = taLeftJustify
+    Caption = '  hide'
+    ClientHeight = 26
+    ClientWidth = 70
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 17
+    OnClick = hide_buttonClick
+    object hide_button: TButton
+      Left = 50
+      Height = 16
+      Top = 6
+      Width = 16
+      Cancel = True
+      Caption = '  '
+      TabOrder = 0
+      OnClick = hide_buttonClick
+    end
+  end
+  object set_all_exit_joints_button: TButton
+    Left = 0
+    Height = 23
+    Top = 384
+    Width = 214
+    Caption = 'set  all  modified  exit  joints ...'
+    TabOrder = 8
+    OnClick = set_all_exit_joints_buttonClick
+  end
+  object ts_stock_radio: TRadioButton
+    Left = 12
+    Height = 20
+    Top = 148
+    Width = 107
+    Caption = 'TS  stock  rail'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    TabStop = True
+    OnClick = ts_stock_radioClick
+  end
+  object ts_vee_radio: TRadioButton
+    Left = 12
+    Height = 20
+    Top = 176
+    Width = 188
+    Caption = 'TS  vee-splice  rail    TVJP'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    OnClick = ts_vee_radioClick
+  end
+  object ms_vee_radio: TRadioButton
+    Left = 12
+    Height = 20
+    Top = 204
+    Width = 189
+    Caption = 'MS  vee-point  rail    MVJP'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = ms_vee_radioClick
+  end
+  object ms_stock_radio: TRadioButton
+    Left = 12
+    Height = 20
+    Top = 232
+    Width = 110
+    Caption = 'MS  stock  rail'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    OnClick = ms_stock_radioClick
+  end
+  object slide_button: TButton
+    Left = 20
+    Height = 23
+    Top = 266
+    Width = 194
+    Caption = 'slide  locator  along  rail ...'
+    TabOrder = 5
+    OnClick = slide_buttonClick
+  end
+  object set_at_marker_button: TButton
+    Left = 30
+    Height = 23
+    Top = 294
+    Width = 184
+    Caption = 'set  rail  joint  at  locator'
+    Enabled = False
+    TabOrder = 6
+    OnClick = set_at_marker_buttonClick
+  end
+  object reset_joint_button: TButton
+    Left = 12
+    Height = 23
+    Top = 334
+    Width = 202
+    Caption = 'reset  normal  joint  location'
+    TabOrder = 7
+    OnClick = reset_joint_buttonClick
+  end
+  object switch_joints_groupbox: TGroupBox
+    Left = 234
+    Height = 92
+    Top = 182
+    Width = 236
+    Caption = ' switch  joint  marks :  '
+    ClientHeight = 71
+    ClientWidth = 232
+    Color = 15268088
+    Font.Color = clMaroon
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 11
+    object switch_front_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 22
+      Width = 140
+      Caption = 'switch  front  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 0
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object switch_rail_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 44
+      Width = 128
+      Caption = 'switch-rail  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 1
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object switch_stock_rail_joints_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 66
+      Width = 168
+      Caption = 'switch  stock-rail  joints'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 2
+      OnClick = switch_front_joints_checkboxClick
+    end
+  end
+  object k_crossing_joints_checkbox: TCheckBox
+    Left = 244
+    Height = 20
+    Top = 414
+    Width = 193
+    Caption = 'K-crossing  stock-rail  joints'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 13
+    OnClick = switch_front_joints_checkboxClick
+  end
+  object reset_all_exit_joints_button: TButton
+    Left = 58
+    Height = 23
+    Top = 412
+    Width = 156
+    Caption = 'reset  all  exit  joints'
+    TabOrder = 9
+    OnClick = reset_all_exit_joints_buttonClick
+  end
+  object turnout_groupbox: TGroupBox
+    Left = 486
+    Height = 269
+    Top = 50
+    Width = 290
+    Caption = ' turnout  rails :  '
+    ClientHeight = 248
+    ClientWidth = 286
+    Color = 16310472
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 14
+    object turnout_road_stock_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 26
+      Width = 168
+      Caption = 'turnout-road  stock  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 0
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object turnout_road_check_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 48
+      Width = 173
+      Caption = 'turnout-road  check  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 1
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object turnout_road_crossing_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 70
+      Width = 188
+      Caption = 'turnout-road  crossing  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 2
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object crossing_vee_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 104
+      Width = 117
+      Caption = 'V-crossing  vee'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 3
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object main_road_crossing_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 138
+      Width = 175
+      Caption = 'main-road  crossing  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 4
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object main_road_check_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 160
+      Width = 160
+      Caption = 'main-road  check  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 5
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object main_road_stock_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 182
+      Width = 155
+      Caption = 'main-road  stock  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 6
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object k_ms_check_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 238
+      Width = 230
+      Caption = 'K-crossing  main-side  check  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 8
+      OnClick = switch_front_joints_checkboxClick
+    end
+    object k_ds_check_rail_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 216
+      Width = 254
+      Caption = 'K-crossing  diagonal-side  check  rail'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 7
+      OnClick = switch_front_joints_checkboxClick
+    end
+  end
+  object restore_all_button: TButton
+    Left = 492
+    Height = 23
+    Hint = ' restore all omitted joints and rails '
+    Top = 382
+    Width = 95
+    Caption = 'restore  all'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 16
+    OnClick = restore_all_buttonClick
+  end
+  object invert_rails_button: TButton
+    Left = 604
+    Height = 23
+    Top = 332
+    Width = 170
+    Caption = 'invert  all  rail  settings'
+    TabOrder = 15
+    OnClick = invert_rails_buttonClick
+  end
+end

@@ -1,0 +1,116 @@
+object search_form: Tsearch_form
+  Left = 753
+  Height = 373
+  Top = 298
+  Width = 834
+  BorderStyle = bsSizeToolWin
+  Caption = '    search  for ...'
+  ClientHeight = 373
+  ClientWidth = 834
+  Color = 16056319
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -19
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label1: TLabel
+    Left = 40
+    Height = 29
+    Top = 28
+    Width = 505
+    AutoSize = False
+    Caption = 'enter  something  to  search  for  on  the  Templot  web  site :'
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 29
+    Top = 192
+    Width = 789
+    AutoSize = False
+    Caption = 'The above buttons will each return different results in your browser. If you can''t find what you are looking for, try them all.'
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label3: TLabel
+    Left = 152
+    Height = 33
+    Top = 236
+    Width = 425
+    AutoSize = False
+    Caption = 'If still no joy, please ask for help on the Templot Club user forum: '
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object search_terms_edit: TEdit
+    Left = 32
+    Height = 29
+    Top = 72
+    Width = 765
+    Font.Color = clBlue
+    Font.Height = -18
+    Font.Name = 'Arial'
+    ParentFont = False
+    TabOrder = 0
+  end
+  object google_button: TButton
+    Left = 612
+    Height = 29
+    Top = 132
+    Width = 172
+    Caption = 'search  via  Google'
+    TabOrder = 1
+    OnClick = google_buttonClick
+  end
+  object full_button: TButton
+    Left = 44
+    Height = 29
+    Top = 132
+    Width = 153
+    Caption = 'full  site  search'
+    TabOrder = 2
+    OnClick = full_buttonClick
+  end
+  object club_database_button: TButton
+    Left = 274
+    Height = 29
+    Top = 132
+    Width = 269
+    Caption = 'search  Templot  Club  database'
+    TabOrder = 3
+    OnClick = club_database_buttonClick
+  end
+  object go_to_club_button: TButton
+    Left = 576
+    Height = 25
+    Top = 232
+    Width = 213
+    Caption = 'go  to  Templot  Club  >>>'
+    TabOrder = 4
+    OnClick = go_to_club_buttonClick
+  end
+  object companion_button: TButton
+    Left = 476
+    Height = 25
+    Top = 284
+    Width = 317
+    Caption = 'go  to  Templot  Companion  A-Z  index  >>>'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    OnClick = companion_buttonClick
+  end
+end

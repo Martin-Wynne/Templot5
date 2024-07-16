@@ -1,0 +1,112 @@
+object image_viewer_form: Timage_viewer_form
+  Left = 47
+  Top = 165
+  HorzScrollBar.Tracking = True
+  VertScrollBar.Tracking = True
+  AutoScroll = False
+  Caption = '        image'
+  ClientHeight = 650
+  ClientWidth = 1000
+  Color = 12110008
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clBlack
+  Font.Height = -13
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  KeyPreview = True
+  Menu = menu_bar
+  Position = poScreenCenter
+  Scaled = False
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
+  PixelsPerInch = 120
+  object viewer_image: TImage
+    Left = 0
+    Top = 0
+    Width = 500
+    Height = 300
+    AutoSize = True
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Top = 646
+    Width = 1000
+    Height = 4
+    AutoSize = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clSilver
+    Font.Height = -7
+    Font.Name = 'Arial'
+    Font.Style = []
+    ParentFont = False
+  end
+  object menu_bar: TMainMenu
+    Left = 488
+    Top = 348
+    object ok_menu: TMenuItem
+      Caption = '         OK        '
+      OnClick = ok_menuClick
+    end
+    object cancel_menu: TMenuItem
+      Caption = '    cancel    '
+      OnClick = cancel_menuClick
+    end
+    object options_menu: TMenuItem
+      Caption = '    options    '
+      OnClick = options_menuClick
+      object image_size_menu_entry: TMenuItem
+        Caption = 'image  size :'
+        OnClick = image_size_menu_entryClick
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object copy_image_menu_entry: TMenuItem
+        Caption = 'copy  image'
+        ShortCut = 16451
+        OnClick = copy_image_menu_entryClick
+      end
+      object N2: TMenuItem
+        Caption = '-'
+      end
+      object copy_file_name_menu_entry: TMenuItem
+        Caption = 'copy  file  name'
+        ShortCut = 16462
+        OnClick = copy_file_name_menu_entryClick
+      end
+      object copy_file_location_menu_entry: TMenuItem
+        Caption = 'copy  file  location'
+        ShortCut = 16460
+        OnClick = copy_file_location_menu_entryClick
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object open_containing_folder_menu_entry: TMenuItem
+        Caption = 'open  containing  folder'
+        ShortCut = 16463
+        OnClick = open_containing_folder_menu_entryClick
+      end
+      object use_your_viewer_menu_entry: TMenuItem
+        Caption = 'use  your  viewer  instead'
+        ShortCut = 16473
+        OnClick = use_your_viewer_menu_entryClick
+      end
+      object N3: TMenuItem
+        Caption = '-'
+      end
+      object delete_image_menu_entry: TMenuItem
+        Caption = 'delete  image  and  close'
+        ShortCut = 46
+        OnClick = delete_image_menu_entryClick
+      end
+      object N4: TMenuItem
+        Caption = '-'
+      end
+      object close_menu_entry: TMenuItem
+        Caption = 'close                      Esc'
+        OnClick = close_menu_entryClick
+      end
+    end
+  end
+end

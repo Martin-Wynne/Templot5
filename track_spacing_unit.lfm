@@ -1,0 +1,880 @@
+object track_spacing_form: Ttrack_spacing_form
+  Left = 593
+  Height = 811
+  Top = 298
+  Width = 578
+  BorderStyle = bsSizeToolWin
+  Caption = '      spacing  for  adjacent  track . . .'
+  ClientHeight = 811
+  ClientWidth = 578
+  Color = 16577768
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -25
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  KeyPreview = True
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnMouseMove = updown_panelMouseMove
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 760
+    Width = 560
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object header_label: TLabel
+    Left = 0
+    Height = 32
+    Top = 60
+    Width = 560
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'set  adjacent  track  spacing  -  Turnout - Side  ( TS ) '
+    Font.Color = clBlack
+    Font.Height = -20
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object top_label: TLabel
+    Left = 0
+    Height = 56
+    Top = 0
+    Width = 560
+    AutoSize = False
+    Caption = '    make  ordinary  crossover'
+    Color = clWhite
+    Font.Color = 28912
+    Font.Height = -20
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 334
+    Height = 50
+    Top = 4
+    Width = 224
+    AutoSize = False
+    Caption = 'press or hold the keyboard arrow keys, click the blue numbers, drag the marker, or click or hold down the arrow buttons'
+    Color = clWhite
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label4: TLabel
+    Left = 12
+    Height = 37
+    Top = 554
+    Width = 513
+    AutoSize = False
+    Caption = 'use the buttons below to set the adjacent track centres if you are not modelling UK Standard Gauge tracks with whole-inch WAY dimensions '
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label5: TLabel
+    Left = 20
+    Height = 40
+    Top = 94
+    Width = 530
+    AutoSize = False
+    Caption = 'if you want to set the track centres in mm without regard to the prototype, use the button at the bottom of this dialog'
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
+  object prefs_checkbox: TCheckBox
+    Left = 8
+    Height = 20
+    Top = 738
+    Width = 268
+    Caption = 'don''t show this dialog again in this session'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    TabOrder = 0
+    OnClick = prefs_checkboxClick
+  end
+  object uk_panel: TPanel
+    Left = 4
+    Height = 406
+    Top = 136
+    Width = 552
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 402
+    ClientWidth = 548
+    Color = 16056319
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 1
+    object Label1: TLabel
+      Left = 4
+      Height = 25
+      Top = 12
+      Width = 552
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'UK  Standard  Gauge  Tracks    [  4ft-8.5in   1435mm  ]'
+      Font.Color = clBlack
+      Font.Height = -20
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object html_pane: THtmlViewer
+      Left = 0
+      Height = 120
+      Top = 230
+      Width = 550
+      BorderStyle = htNone
+      DefBackground = 16056319
+      DefFontColor = clBlack
+      DefFontName = 'Arial'
+      DefFontSize = 10
+      DefOverLinkColor = clRed
+      DefPreFontName = 'Courier New'
+      DefVisitedLinkColor = clBlue
+      HistoryMaxCount = 0
+      HtOptions = [htOverLinksActive, htNoLinkUnderline, htPrintTableBackground, htPrintMonochromeBlack]
+      MarginHeight = 0
+      NoSelect = False
+      PrintMarginBottom = 2
+      PrintMarginLeft = 2
+      PrintMarginRight = 2
+      PrintMarginTop = 2
+      PrintScale = 1
+      ScrollBars = ssNone
+      OnHotSpotClick = HotSpotClick
+      TabOrder = 0
+    end
+    object updown_panel: TPanel
+      Left = 24
+      Height = 118
+      Top = 98
+      Width = 510
+      BevelOuter = bvNone
+      ClientHeight = 118
+      ClientWidth = 510
+      ParentBackground = False
+      TabOrder = 1
+      OnMouseMove = updown_panelMouseMove
+      object less_toolbutton: TSpeedButton
+        Left = 183
+        Height = 25
+        Top = 90
+        Width = 71
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          0400000000000001000084120000841200001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333330
+          3333333333333333333333333333330033333333333333333333333333333000
+          333333333333333333333333333300003333333333333FF37733333333300000
+          33333333333FF377F333333333000000333333333FF3773F3733333330000000
+          3333333FF377333F733333330000000033333333773333F37333333300000000
+          33333333FFFFFFF7FF3333333000000033333333777777777733333333000000
+          33333333F333333733333333333000003333333377F3333F7333333333330000
+          333333333377F333733333333333300033333333333377F33733333333333300
+          3333333333333377FF3333333333333033333333333333337733
+        }
+        NumGlyphs = 2
+        OnMouseDown = less_toolbuttonMouseDown
+        OnMouseUp = less_toolbuttonMouseUp
+      end
+      object more_toolbutton: TSpeedButton
+        Left = 255
+        Height = 25
+        Top = 90
+        Width = 71
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          0400000000000001000084120000841200001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333330333333
+          333333F3333333333333333330033333333333FFF33333333333333330003333
+          333333773FF3333333333333300003333333333F773FF3333333333330000033
+          33333373F3773FF3333333333000000333333337F333773FF333333330000000
+          333333373F3333773FF3333330000000033333FF7FFFFFFF77FF333330000000
+          03333377777777773377333330000000333333337333333F7733333330000003
+          33333337F3333F77333333333000003333333337333F77333333333330000333
+          333333733F7733333333333330003333333333FF773333333333333330033333
+          3333337733333333333333333033333333333333333333333333
+        }
+        NumGlyphs = 2
+        OnMouseDown = more_toolbuttonMouseDown
+        OnMouseUp = more_toolbuttonMouseUp
+      end
+      object bottom_button: TSpeedButton
+        Left = 156
+        Height = 25
+        Top = 90
+        Width = 27
+        Glyph.Data = {
+          76010000424D7601000000000000760000002800000020000000100000000100
+          0400000000000001000084120000841200001000000000000000000000000000
+          800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+          FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00330003333333
+          0333333333333333333333000333333003333333333333333333330003333300
+          033333333333333333333300033330000333333333333FF37733330003330000
+          03333333333FF377F333330003300000033333333FF3773F3733330003000000
+          0333333FF377333F733333000000000003333333773333F37333330000000000
+          03333333FFFFFFF7FF3333000300000003333333777777777733330003300000
+          03333333F333333733333300033300000333333377F3333F7333330003333000
+          033333333377F333733333000333330003333333333377F33733330003333330
+          0333333333333377FF3333000333333303333333333333337733
+        }
+        NumGlyphs = 2
+        OnClick = bottom_buttonClick
+      end
+      object slider_bar_shape: TShape
+        Left = 0
+        Height = 3
+        Top = 13
+        Width = 510
+        Brush.Color = clBlack
+        Visible = False
+      end
+      object _6ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 0
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '6ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _6ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object Shape13: TShape
+        Left = 34
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape1: TShape
+        Left = 14
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape2: TShape
+        Left = 54
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape3: TShape
+        Left = 74
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape8: TShape
+        Left = 114
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape9: TShape
+        Left = 94
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape10: TShape
+        Left = 134
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape11: TShape
+        Left = 154
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object _7ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 80
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '7ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _7ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object _8ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 160
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '8ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _8ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object Shape4: TShape
+        Left = 194
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape5: TShape
+        Left = 174
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape6: TShape
+        Left = 214
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape7: TShape
+        Left = 234
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape12: TShape
+        Left = 274
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape14: TShape
+        Left = 254
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape15: TShape
+        Left = 294
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape16: TShape
+        Left = 314
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object _9ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 240
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '9ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _9ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object _10ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 320
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '10ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _10ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object Shape17: TShape
+        Left = 354
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape18: TShape
+        Left = 334
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape19: TShape
+        Left = 374
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape20: TShape
+        Left = 394
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape21: TShape
+        Left = 434
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape22: TShape
+        Left = 414
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape23: TShape
+        Left = 454
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object Shape24: TShape
+        Left = 474
+        Height = 10
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object _11ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 400
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '11ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _11ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object Shape25: TShape
+        Left = 494
+        Height = 25
+        Top = 30
+        Width = 2
+        Brush.Color = clBlue
+        Pen.Color = clBlue
+      end
+      object _12ft_label: TLabel
+        Cursor = crHandPoint
+        Left = 480
+        Height = 20
+        Top = 60
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '12ft'
+        Font.Color = clBlue
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = _12ft_labelClick
+        OnMouseMove = _6ft_labelMouseMove
+      end
+      object slider_pointer: TLabel
+        Cursor = crHandPoint
+        Left = 0
+        Height = 24
+        Top = 4
+        Width = 30
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '  ê  '
+        DragCursor = crDefault
+        Font.Color = clRed
+        Font.Height = -20
+        Font.Name = 'Wingdings'
+        Layout = tlBottom
+        ParentFont = False
+        OnMouseDown = slider_pointerMouseDown
+        OnMouseMove = slider_pointerMouseMove
+      end
+      object other_way_button: TButton
+        Left = 394
+        Height = 25
+        Hint = ' set a WAY dimension outside these limits '
+        Top = 92
+        Width = 112
+        Caption = 'other  WAY ...'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = other_way_buttonClick
+      end
+    end
+    object info_panel: TPanel
+      Left = 12
+      Height = 42
+      Top = 52
+      Width = 493
+      BevelOuter = bvNone
+      ClientHeight = 42
+      ClientWidth = 493
+      ParentBackground = False
+      TabOrder = 2
+      object sub_label: TLabel
+        Left = 100
+        Height = 19
+        Top = 13
+        Width = 100
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = 'TS  tracks  at'
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Layout = tlCenter
+        ParentFont = False
+        WordWrap = True
+      end
+      object way_label: TLabel
+        Left = 426
+        Height = 19
+        Top = 13
+        Width = 40
+        AutoSize = False
+        Caption = 'way'
+        Font.Color = clBlack
+        Font.Height = -17
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        Layout = tlCenter
+        ParentFont = False
+        WordWrap = True
+      end
+      object Label9: TLabel
+        Left = 38
+        Height = 22
+        Top = 8
+        Width = 61
+        AutoSize = False
+        Caption = 'WAY :'
+        Font.Color = clBlack
+        Font.Height = -20
+        Font.Name = 'Trebuchet MS'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object way_panel: TPanel
+        Left = 206
+        Height = 32
+        Hint = ' set and continue '
+        Top = 4
+        Width = 210
+        Alignment = taLeftJustify
+        BevelOuter = bvLowered
+        Caption = '  10ft-10in  |  130 in'
+        Color = clWhite
+        Font.Color = 28912
+        Font.Height = -17
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = ok_buttonClick
+      end
+    end
+    object ok_panel: TPanel
+      Left = 336
+      Height = 31
+      Top = 360
+      Width = 206
+      Alignment = taLeftJustify
+      Caption = '   set  and  continue'
+      ClientHeight = 31
+      ClientWidth = 206
+      Color = 10551200
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 3
+      OnClick = ok_buttonClick
+      object ok_button: TButton
+        Left = 186
+        Height = 16
+        Top = 10
+        Width = 16
+        Caption = '  '
+        Default = True
+        TabOrder = 0
+        OnClick = ok_buttonClick
+      end
+    end
+    object cancel_panel: TPanel
+      Left = 12
+      Height = 25
+      Top = 368
+      Width = 194
+      Caption = 'cancel  crossover      '
+      ClientHeight = 25
+      ClientWidth = 194
+      Color = 9502719
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 4
+      OnClick = cancel_panelClick
+      object cancel_button: TButton
+        Left = 174
+        Height = 16
+        Top = 5
+        Width = 16
+        Caption = '  '
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ModalResult = 2
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+  end
+  object info_button: TButton
+    Left = 440
+    Height = 25
+    Top = 732
+    Width = 112
+    Caption = 'information'
+    TabOrder = 2
+    OnClick = info_buttonClick
+  end
+  object other_panel: TPanel
+    Left = 4
+    Height = 130
+    Top = 594
+    Width = 552
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 126
+    ClientWidth = 548
+    Color = 16056308
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    object Shape26: TShape
+      Left = 284
+      Height = 34
+      Top = 84
+      Width = 260
+      Brush.Color = 10551200
+      OnMouseDown = Shape26MouseDown
+    end
+    object Label2: TLabel
+      Left = 20
+      Height = 54
+      Top = 10
+      Width = 512
+      AutoSize = False
+      Caption = 'Narrow  Gauge   -   Broad  Gauge   -   Non - UK  Tracks  Commercial  Set-Track   -   Other  gauges  and  settings'
+      Font.Color = clBlack
+      Font.Height = -18
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      WordWrap = True
+    end
+    object no_change_label: TLabel
+      Left = 286
+      Height = 25
+      Top = 91
+      Width = 120
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'TS  no change :'
+      Color = 10551200
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      OnClick = no_change_labelClick
+    end
+    object Label3: TLabel
+      Left = 12
+      Height = 16
+      Top = 68
+      Width = 119
+      Caption = 'set  track  centres :'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object mm_button: TButton
+      Left = 160
+      Height = 25
+      Top = 90
+      Width = 117
+      Caption = 'in  model  mm'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = mm_buttonClick
+    end
+    object inches_button: TButton
+      Left = 8
+      Height = 25
+      Top = 90
+      Width = 145
+      Caption = 'in  prototype  inches'
+      TabOrder = 1
+      OnClick = inches_buttonClick
+    end
+    object no_change_button: TButton
+      Left = 410
+      Height = 22
+      Hint = ' no change - ignore the above setting, retain this existing centres setting and continue '
+      Top = 91
+      Width = 128
+      Caption = 'keep  150.5 mm'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ModalResult = 1
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+    end
+  end
+  object mouse_timer: TTimer
+    Enabled = False
+    Interval = 10
+    OnTimer = mouse_timerTimer
+    Left = 148
+    Top = 368
+  end
+end

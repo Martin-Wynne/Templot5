@@ -1,0 +1,548 @@
+object check_diffs_form: Tcheck_diffs_form
+  Left = 80
+  Height = 212
+  Top = 220
+  Width = 512
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '          adjust  check  rail  end  or  wing  rail  end'
+  ClientHeight = 212
+  ClientWidth = 512
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnResize = FormResize
+  OnShow = FormShow
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 208
+    Width = 512
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object help_shape: TShape
+    Left = 449
+    Height = 29
+    Top = 0
+    Width = 58
+    Pen.Color = clWhite
+  end
+  object readout_label: TLabel
+    Left = 36
+    Height = 16
+    Top = 28
+    Width = 156
+    AutoSize = False
+    Caption = 'click these read-outs to set'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 73
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 73
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 17
+    object how_panel: TPanel
+      Left = 2
+      Height = 20
+      Top = 50
+      Width = 16
+      Caption = '?'
+      Color = clBlack
+      Font.Color = clLime
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      ParentShowHint = False
+      TabOrder = 0
+      OnClick = help_buttonClick
+    end
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      Position = 4
+      TabOrder = 1
+    end
+    object colour_panel: TPanel
+      Left = 3
+      Height = 16
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 2
+      OnClick = colour_panelClick
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        OnClick = colour_panelClick
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object hide_panel: TPanel
+    Left = 452
+    Height = 23
+    Top = 184
+    Width = 57
+    Alignment = taLeftJustify
+    Caption = ' hide'
+    ClientHeight = 23
+    ClientWidth = 57
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 16
+    OnClick = hide_buttonClick
+    object hide_button: TButton
+      Left = 40
+      Height = 14
+      Top = 6
+      Width = 14
+      Caption = '  '
+      TabOrder = 0
+      OnClick = hide_buttonClick
+    end
+  end
+  object reset_button: TButton
+    Left = 214
+    Height = 23
+    Top = 184
+    Width = 156
+    Caption = 'R  &reset  this  rail  end'
+    Enabled = False
+    TabOrder = 14
+    OnClick = reset_buttonClick
+  end
+  object reset_all_button: TButton
+    Left = 318
+    Height = 23
+    Hint = ' reset all check rail ends to normal '
+    Top = 4
+    Width = 118
+    Caption = 'reset  all  ends'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+    OnClick = reset_all_buttonClick
+  end
+  object mouse_groupbox: TGroupBox
+    Left = 2
+    Height = 51
+    Top = 127
+    Width = 254
+    Caption = ' adjust by mouse  action :  '
+    ClientHeight = 30
+    ClientWidth = 250
+    Color = 14743800
+    Font.Color = 12582912
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 10
+    object mouse_length_button: TButton
+      Left = 6
+      Height = 23
+      Top = 20
+      Width = 82
+      Caption = 'rail length'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = mouse_length_buttonClick
+    end
+    object mouse_flare_button: TButton
+      Left = 90
+      Height = 23
+      Top = 20
+      Width = 90
+      Caption = 'flare length'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = mouse_flare_buttonClick
+    end
+    object mouse_gap_button: TButton
+      Left = 182
+      Height = 23
+      Top = 20
+      Width = 65
+      Caption = 'end gap'
+      Enabled = False
+      TabOrder = 2
+      OnClick = mouse_gap_buttonClick
+    end
+  end
+  object lengthen_button: TButton
+    Left = 120
+    Height = 23
+    Hint = ' lengthen check rail end by 30" scale '
+    Top = 184
+    Width = 88
+    Caption = 'L  &lengthen'
+    Enabled = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 13
+    OnClick = lengthen_buttonClick
+  end
+  object shorten_button: TButton
+    Left = 30
+    Height = 23
+    Hint = ' shorten check rail end by 30" scale '
+    Top = 184
+    Width = 84
+    Caption = 'S  &shorten'
+    Enabled = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 12
+    OnClick = shorten_buttonClick
+  end
+  object number_panel: TPanel
+    Left = 218
+    Height = 22
+    Top = 36
+    Width = 38
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Color = 10092543
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+  end
+  object data_button: TButton
+    Left = 376
+    Height = 23
+    Top = 184
+    Width = 58
+    Caption = 'data ...'
+    Enabled = False
+    TabOrder = 15
+    OnClick = data_buttonClick
+  end
+  object length_panel: TPanel
+    Left = 27
+    Height = 19
+    Hint = ' click to set '
+    Top = 46
+    Width = 174
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  length :  mm'
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    OnClick = length_panelClick
+  end
+  object flare_panel: TPanel
+    Left = 27
+    Height = 19
+    Hint = ' click to set '
+    Top = 71
+    Width = 174
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  flare length :  mm'
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 5
+    OnClick = flare_panelClick
+  end
+  object help_button: TButton
+    Left = 452
+    Height = 23
+    Top = 3
+    Width = 52
+    Caption = '? &help'
+    TabOrder = 3
+    OnClick = help_buttonClick
+  end
+  object gap_panel: TPanel
+    Left = 27
+    Height = 19
+    Hint = ' click to set '
+    Top = 96
+    Width = 174
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  end gap :  mm'
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 6
+    OnClick = gap_panelClick
+  end
+  object inches_radio_button: TRadioButton
+    Left = 212
+    Height = 23
+    Hint = ' show  or  set  dimensions  in  full-size  prototype  inches '
+    Top = 92
+    Width = 135
+    Caption = 'full-size inches'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 8
+    OnClick = inches_radio_buttonClick
+  end
+  object mm_radio_button: TRadioButton
+    Left = 212
+    Height = 23
+    Hint = ' show  or  set  dimensions  in  model  mm '
+    Top = 70
+    Width = 100
+    Caption = 'model mm'
+    Checked = True
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 7
+    TabStop = True
+    OnClick = mm_radio_buttonClick
+  end
+  object flare_groupbox: TGroupBox
+    Left = 266
+    Height = 51
+    Top = 127
+    Width = 244
+    Caption = ' change flare type :  '
+    ClientHeight = 30
+    ClientWidth = 240
+    Color = 13693152
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 11
+    object bent_button: TButton
+      Left = 6
+      Height = 23
+      Top = 20
+      Width = 46
+      Caption = 'bent'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = bent_buttonClick
+    end
+    object machined_button: TButton
+      Left = 54
+      Height = 23
+      Top = 20
+      Width = 80
+      Caption = 'machined'
+      Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = machined_buttonClick
+    end
+    object flare_restore_button: TButton
+      Left = 186
+      Height = 23
+      Top = 20
+      Width = 52
+      Caption = 'reset'
+      Enabled = False
+      TabOrder = 3
+      OnClick = flare_restore_buttonClick
+    end
+    object no_flare_button: TButton
+      Left = 136
+      Height = 23
+      Top = 20
+      Width = 48
+      Caption = 'none'
+      Enabled = False
+      TabOrder = 2
+      OnClick = no_flare_buttonClick
+    end
+  end
+  object omit_button: TButton
+    Left = 268
+    Height = 23
+    Top = 36
+    Width = 61
+    Caption = 'omit ...'
+    TabOrder = 1
+    OnClick = omit_buttonClick
+  end
+  object unadjusted_settings_button: TButton
+    Left = 342
+    Height = 23
+    Top = 37
+    Width = 165
+    Caption = 'unadjusted  settings ...'
+    TabOrder = 9
+    OnClick = unadjusted_settings_buttonClick
+  end
+  object retain_diffs_on_mint_checkbox: TCheckBox
+    Left = 348
+    Height = 23
+    Hint = ' retain adjustments when minting a new template '
+    Top = 66
+    Width = 161
+    Caption = 'retain on new mint'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 18
+    OnClick = retain_diffs_on_mint_checkboxClick
+  end
+  object retain_diffs_on_make_checkbox: TCheckBox
+    Left = 348
+    Height = 23
+    Hint = ' retain adjustments when using the tools > make --- functions   '
+    Top = 92
+    Width = 177
+    Caption = 'retain on tools:make'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 19
+    OnClick = retain_diffs_on_make_checkboxClick
+  end
+  object show_checking_extent_checkbox: TCheckBox
+    Left = 28
+    Height = 23
+    Top = 2
+    Width = 283
+    Caption = 'show  minimum  checking  extents'
+    TabOrder = 20
+    OnMouseUp = show_checking_extent_checkboxMouseUp
+  end
+end

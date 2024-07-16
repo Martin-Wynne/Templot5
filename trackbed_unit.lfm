@@ -1,0 +1,457 @@
+object trackbed_form: Ttrackbed_form
+  Left = 41
+  Height = 227
+  Top = 400
+  Width = 548
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '      trackbed  edges  /  ballast  /  cess  . . .'
+  ClientHeight = 227
+  ClientWidth = 548
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -25
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 20
+    BevelOuter = bvNone
+    ClientHeight = 50
+    ClientWidth = 20
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 2
+      Height = 24
+      Top = 3
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      Position = 4
+      TabOrder = 0
+    end
+    object colour_panel: TPanel
+      Left = 2
+      Height = 16
+      Top = 30
+      Width = 15
+      ClientHeight = 16
+      ClientWidth = 15
+      ParentBackground = False
+      TabOrder = 1
+      object colour_patch: TImage
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 13
+        Align = alClient
+        AutoSize = True
+        Picture.Data = {
+          07544269746D6170B6040000424DB60400000000000036000000280000001800
+          0000100000000100180000000000800400008412000084120000000000000000
+          0000008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF00008080008080008080008080008080008080008080008080FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF
+          0000FF0000FF0000FF0000808000808000808000808000808000808000808000
+          8080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF00FF0000FF00
+          00FF0000FF0000FF0000FF0000FF0000FF000080800080800080800080800080
+          80008080008080008080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00008080008080
+          008080008080008080008080008080008080FF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FF00FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+          FF000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          00000000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF00
+          00FF0000FF0000FF00000000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+          00FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFFFF0000FF0000
+          FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF0000FF0000FF0000
+          FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000000FF0000FF
+          0000FF0000FF0000FF0000FF0000FF0000FF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+          0000
+        }
+        Stretch = True
+      end
+    end
+  end
+  object hide_panel: TPanel
+    Left = 474
+    Height = 25
+    Top = 155
+    Width = 56
+    Alignment = taLeftJustify
+    Caption = ' hide'
+    ClientHeight = 25
+    ClientWidth = 56
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+    OnClick = hide_buttonClick
+    object hide_button: TButton
+      Left = 39
+      Height = 14
+      Top = 8
+      Width = 14
+      Caption = '  '
+      TabOrder = 0
+      OnClick = hide_buttonClick
+    end
+  end
+  object trackbed_pagecontrol: TPageControl
+    Left = 24
+    Height = 148
+    Top = 1
+    Width = 502
+    ActivePage = ms_trackbed_tabsheet
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabIndex = 1
+    TabOrder = 1
+    object ts_trackbed_tabsheet: TTabSheet
+      Caption = ' TS  turnout-side  trackbed  edge '
+      ClientHeight = 117
+      ClientWidth = 494
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      object ts_panel: TPanel
+        Left = 0
+        Height = 117
+        Top = 0
+        Width = 494
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 117
+        ClientWidth = 494
+        Color = 11599856
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 1
+        Visible = False
+        object ts_mouse_groupbox: TGroupBox
+          Left = 12
+          Height = 58
+          Top = 42
+          Width = 210
+          Caption = ' TS  mouse actions :  '
+          ClientHeight = 37
+          ClientWidth = 206
+          Font.Color = 22664
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 3
+          object mouse_ts_length_button: TButton
+            Left = 138
+            Height = 23
+            Top = 24
+            Width = 60
+            Caption = 'length'
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 1
+            OnClick = mouse_ts_length_buttonClick
+          end
+          object mouse_ts_start_button: TButton
+            Left = 18
+            Height = 23
+            Top = 24
+            Width = 106
+            Caption = 'start  position'
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 0
+            OnClick = mouse_ts_start_buttonClick
+          end
+        end
+        object ts_position_button: TButton
+          Left = 284
+          Height = 23
+          Top = 86
+          Width = 200
+          Caption = 'TS  position  and  length ...'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 5
+          OnClick = ts_position_buttonClick
+        end
+        object ts_cut_radio_button: TRadioButton
+          Left = 240
+          Height = 20
+          Top = 8
+          Width = 171
+          Caption = 'baseboard  cutting  line'
+          Checked = True
+          TabOrder = 0
+          TabStop = True
+          OnClick = ts_cut_radio_buttonClick
+        end
+        object ts_cess_radio_button: TRadioButton
+          Left = 240
+          Height = 20
+          Top = 32
+          Width = 106
+          Caption = 'ballast + cess'
+          TabOrder = 1
+          OnClick = ts_cess_radio_buttonClick
+        end
+        object ts_cess_width_button: TButton
+          Left = 340
+          Height = 23
+          Top = 58
+          Width = 144
+          Caption = 'TS  cess  width ...'
+          TabOrder = 4
+          OnClick = ts_cess_width_buttonClick
+        end
+        object ts_help_button: TButton
+          Left = 440
+          Height = 23
+          Top = 3
+          Width = 52
+          Caption = '? info'
+          TabOrder = 2
+          OnClick = ts_help_buttonClick
+        end
+      end
+      object ts_trackbed_checkbox: TCheckBox
+        Left = 12
+        Height = 20
+        Top = 5
+        Width = 193
+        Caption = 'add  TS  turnout-side  edge'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = ts_trackbed_checkboxClick
+      end
+    end
+    object ms_trackbed_tabsheet: TTabSheet
+      Caption = ' MS  main-side  trackbed  edge '
+      ClientHeight = 117
+      ClientWidth = 494
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ImageIndex = 1
+      ParentFont = False
+      object ms_panel: TPanel
+        Left = 0
+        Height = 117
+        Top = 0
+        Width = 494
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 117
+        ClientWidth = 494
+        Color = 16777168
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 1
+        object ms_mouse_groupbox: TGroupBox
+          Left = 12
+          Height = 58
+          Top = 42
+          Width = 210
+          Caption = ' MS  mouse actions :  '
+          ClientHeight = 37
+          ClientWidth = 206
+          Font.Color = 10485760
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 3
+          object mouse_ms_length_button: TButton
+            Left = 138
+            Height = 23
+            Top = 24
+            Width = 60
+            Caption = 'length'
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 1
+            OnClick = mouse_ms_length_buttonClick
+          end
+          object mouse_ms_start_button: TButton
+            Left = 18
+            Height = 23
+            Top = 24
+            Width = 106
+            Caption = 'start  position'
+            Font.Color = clBlack
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 0
+            OnClick = mouse_ms_start_buttonClick
+          end
+        end
+        object ms_position_button: TButton
+          Left = 284
+          Height = 23
+          Top = 86
+          Width = 200
+          Caption = 'MS  position  and  length ...'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 5
+          OnClick = ms_position_buttonClick
+        end
+        object ms_cut_radio_button: TRadioButton
+          Left = 240
+          Height = 20
+          Top = 8
+          Width = 171
+          Caption = 'baseboard  cutting  line'
+          Checked = True
+          TabOrder = 0
+          TabStop = True
+          OnClick = ms_cut_radio_buttonClick
+        end
+        object ms_cess_radio_button: TRadioButton
+          Left = 240
+          Height = 20
+          Top = 32
+          Width = 106
+          Caption = 'ballast + cess'
+          TabOrder = 1
+          OnClick = ms_cess_radio_buttonClick
+        end
+        object ms_cess_width_button: TButton
+          Left = 340
+          Height = 23
+          Top = 58
+          Width = 144
+          Caption = 'MS  cess  width ...'
+          TabOrder = 4
+          OnClick = ms_cess_width_buttonClick
+        end
+        object ms_help_button: TButton
+          Left = 440
+          Height = 23
+          Top = 3
+          Width = 52
+          Caption = '? info'
+          TabOrder = 2
+          OnClick = ms_help_buttonClick
+        end
+      end
+      object ms_trackbed_checkbox: TCheckBox
+        Left = 12
+        Height = 20
+        Top = 5
+        Width = 183
+        Caption = 'add  MS  main-side  edge'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = ts_trackbed_checkboxClick
+      end
+    end
+  end
+  object trackbed_widths_button: TButton
+    Left = 302
+    Height = 23
+    Top = 156
+    Width = 158
+    Caption = 'trackbed  widths ...'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    OnClick = trackbed_widths_buttonClick
+  end
+  object modify_group_button: TButton
+    Left = 24
+    Height = 23
+    Top = 156
+    Width = 184
+    Caption = 'modify  group  to  match'
+    TabOrder = 2
+    OnClick = modify_group_buttonClick
+  end
+  object help_button: TButton
+    Left = 224
+    Height = 23
+    Top = 156
+    Width = 62
+    Caption = '? help'
+    TabOrder = 3
+    OnClick = help_buttonClick
+  end
+end

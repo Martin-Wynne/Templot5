@@ -1,0 +1,147 @@
+object sliders_form: Tsliders_form
+  Left = 816
+  Height = 171
+  Top = 422
+  Width = 418
+  BorderIcons = []
+  BorderStyle = bsSizeToolWin
+  Caption = '        switch  drive  slider  ribs  . . .'
+  ClientHeight = 171
+  ClientWidth = 418
+  Color = 16054512
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label72: TLabel
+    Left = 20
+    Height = 26
+    Top = 16
+    Width = 370
+    AutoSize = False
+    Caption = '3-D  switch  drive  slider  ribs  on  these  timbers :'
+    Font.Color = 16711808
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 1
+    Top = 120
+    Width = 1
+    Visible = False
+  end
+  object Label1: TLabel
+    Left = 100
+    Height = 20
+    Top = 98
+    Width = 232
+    AutoSize = False
+    Caption = '( S1 is the timber number, not a chair )'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object slider2_edit: TEdit
+    Left = 100
+    Height = 22
+    Top = 54
+    Width = 40
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+  end
+  object slider3_edit: TEdit
+    Left = 180
+    Height = 22
+    Top = 54
+    Width = 40
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+  end
+  object slider4_edit: TEdit
+    Left = 260
+    Height = 22
+    Top = 54
+    Width = 40
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object slider5_edit: TEdit
+    Left = 340
+    Height = 22
+    Top = 54
+    Width = 40
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+  end
+  object slider1_edit: TEdit
+    Left = 20
+    Height = 22
+    Top = 54
+    Width = 40
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    Text = 'S1'
+  end
+  object ok_button: TButton
+    Left = 348
+    Height = 24
+    Top = 92
+    Width = 44
+    Caption = 'OK'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ModalResult = 1
+    ParentFont = False
+    TabOrder = 5
+  end
+  object cancel_button: TButton
+    Left = 16
+    Height = 20
+    Top = 92
+    Width = 60
+    Caption = 'cancel'
+    ModalResult = 2
+    TabOrder = 6
+  end
+end

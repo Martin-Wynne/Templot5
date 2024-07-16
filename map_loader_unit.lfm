@@ -1,0 +1,1433 @@
+object map_loader_form: Tmap_loader_form
+  Left = 222
+  Height = 752
+  Top = 174
+  Width = 956
+  HorzScrollBar.Tracking = True
+  VertScrollBar.Tracking = True
+  Caption = '    load  a  tiled  map  into  multiple  background  picture  shapes ...'
+  ClientHeight = 752
+  ClientWidth = 956
+  Color = 16775412
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -19
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  FormStyle = fsStayOnTop
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnMouseMove = FormMouseMove
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 748
+    Width = 956
+    AutoSize = False
+    Font.Color = clGray
+    Font.Height = -7
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label20: TLabel
+    Left = 24
+    Height = 24
+    Top = 38
+    Width = 92
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'map name :'
+    Layout = tlCenter
+  end
+  object Label21: TLabel
+    Left = 302
+    Height = 24
+    Top = 38
+    Width = 355
+    AutoSize = False
+    Caption = 'enter a short name to identify the map (max 15 characters)'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object list_label: TLabel
+    Left = 58
+    Height = 20
+    Top = 68
+    Width = 112
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'loaded maps :'
+    Layout = tlCenter
+    Visible = False
+  end
+  object Label26: TLabel
+    Left = 182
+    Height = 54
+    Top = 78
+    Width = 160
+    AutoSize = False
+    Caption = 'each map must have its own unique name'
+    Font.Color = 4210752
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
+  object info_label: TLabel
+    Cursor = crHandPoint
+    Left = 776
+    Height = 49
+    Top = 4
+    Width = 169
+    AutoSize = False
+    Caption = 'please click here for an explanation of this dialog'
+    Font.Color = clBlue
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    WordWrap = True
+    OnClick = info_labelClick
+    OnMouseMove = info_labelMouseMove
+  end
+  object current_map_label: TLabel
+    Left = 12
+    Height = 24
+    Top = 156
+    Width = 380
+    AutoSize = False
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold, fsItalic]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object t_55_label: TLabel
+    Left = 410
+    Height = 95
+    Top = 74
+    Width = 243
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'T-55 ?  Before using this dialog please set your required model gauge and scale.'
+    Color = clYellow
+    Font.Color = clRed
+    Font.Height = -15
+    Font.Name = 'Trebuchet MS'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+    WordWrap = True
+  end
+  object Label1: TLabel
+    Left = 20
+    Height = 20
+    Top = 630
+    Width = 360
+    AutoSize = False
+    Caption = 'above maps © OpenStreetMap contributors + Thunderforest'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Cursor = crHandPoint
+    Left = 216
+    Height = 20
+    Hint = ' visit OpenStreetMap web site '
+    Top = 596
+    Width = 106
+    AutoSize = False
+    Caption = 'OpenStreetMap'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    OnClick = Label5Click
+    OnMouseMove = Label5MouseMove
+  end
+  object Label6: TLabel
+    Cursor = crHandPoint
+    Left = 44
+    Height = 20
+    Top = 596
+    Width = 166
+    AutoSize = False
+    Caption = 'information about this map'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    OnClick = Label6Click
+    OnMouseMove = Label6MouseMove
+  end
+  object Label3: TLabel
+    Cursor = crHandPoint
+    Left = 208
+    Height = 20
+    Hint = ' visit Thunderforest web site '
+    Top = 520
+    Width = 89
+    AutoSize = False
+    Caption = 'Thunderforest'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    OnClick = Label3Click
+    OnMouseMove = Label3MouseMove
+  end
+  object Label4: TLabel
+    Cursor = crHandPoint
+    Left = 44
+    Height = 20
+    Top = 520
+    Width = 162
+    AutoSize = False
+    Caption = 'information about this map'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    OnClick = Label4Click
+    OnMouseMove = Label4MouseMove
+  end
+  object Label23: TLabel
+    Left = 676
+    Height = 36
+    Top = 284
+    Width = 253
+    AutoSize = False
+    Caption = 'NLS maps © National Library of Scotland   not for commercial use'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    ParentFont = False
+    WordWrap = True
+  end
+  object load_new_label1: TLabel
+    Left = 590
+    Height = 47
+    Top = 654
+    Width = 186
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'to get another map, first enter a new map name'
+    Font.Color = 192
+    Font.Height = -14
+    Font.Name = 'Trebuchet MS'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+    Visible = False
+    WordWrap = True
+  end
+  object Label17: TLabel
+    Left = 376
+    Height = 20
+    Top = 196
+    Width = 260
+    AutoSize = False
+    Caption = 'select for 25-inch County Series maps :'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label24: TLabel
+    Cursor = crHandPoint
+    Left = 676
+    Height = 20
+    Hint = ' visit National Library of Scotland web site '
+    Top = 262
+    Width = 185
+    AutoSize = False
+    Caption = 'National Library of Scotland'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsUnderline]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    OnClick = Label24Click
+    OnMouseMove = Label24MouseMove
+  end
+  object Shape4: TShape
+    Left = 254
+    Height = 1
+    Top = 504
+    Width = 50
+    Brush.Color = clBlack
+  end
+  object Label18: TLabel
+    Left = 24
+    Height = 25
+    Top = 4
+    Width = 365
+    AutoSize = False
+    Caption = 'get  a  tiled  background  map'
+    Font.Color = 16711808
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 20
+    Height = 20
+    Top = 188
+    Width = 161
+    AutoSize = False
+    Caption = 'select map series :'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label15: TLabel
+    Left = 8
+    Height = 20
+    Top = 668
+    Width = 269
+    Alignment = taRightJustify
+    AutoSize = False
+    Caption = 'map tiles are loaded as picture shapes :'
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    Layout = tlCenter
+    ParentFont = False
+  end
+  object location_groupbox: TGroupBox
+    Left = 412
+    Height = 207
+    Top = 434
+    Width = 534
+    Caption = ' real location :  '
+    ClientHeight = 184
+    ClientWidth = 530
+    Color = 14221304
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 18
+    OnMouseMove = location_groupboxMouseMove
+    object Label7: TLabel
+      Left = 336
+      Height = 16
+      Top = 120
+      Width = 49
+      AutoSize = False
+      Caption = 'letters:'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 388
+      Height = 16
+      Top = 120
+      Width = 60
+      AutoSize = False
+      Caption = 'easting:'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 460
+      Height = 16
+      Top = 120
+      Width = 60
+      AutoSize = False
+      Caption = 'northing:'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label11: TLabel
+      Left = 164
+      Height = 16
+      Top = 120
+      Width = 77
+      AutoSize = False
+      Caption = 'latitude:'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 16
+      Height = 16
+      Top = 120
+      Width = 73
+      AutoSize = False
+      Caption = 'longitude:'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 248
+      Height = 16
+      Top = 141
+      Width = 69
+      AutoSize = False
+      Caption = 'degrees'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label16: TLabel
+      Left = 124
+      Height = 20
+      Top = 26
+      Width = 196
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'GB locations can be found from:'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object Label14: TLabel
+      Cursor = crHandPoint
+      Left = 324
+      Height = 20
+      Hint = 'visit NLS 25K 1950s mapping, add marker, copy URL from address bar, paste into box below'
+      Top = 26
+      Width = 80
+      AutoSize = False
+      Caption = 'NLS maps'
+      Font.Color = clBlue
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsUnderline]
+      Layout = tlCenter
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = Label14Click
+      OnMouseMove = Label14MouseMove
+    end
+    object Label19: TLabel
+      Left = 176
+      Height = 22
+      Top = 92
+      Width = 108
+      AutoSize = False
+      Caption = '( entire world )'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object Label27: TLabel
+      Left = 8
+      Height = 32
+      Top = 168
+      Width = 153
+      AutoSize = False
+      Caption = 'enter longitude negative West of Greenwich UK'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label28: TLabel
+      Left = 164
+      Height = 32
+      Top = 168
+      Width = 145
+      AutoSize = False
+      Caption = 'enter latitude negative South of the Equator'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label25: TLabel
+      Left = 326
+      Height = 16
+      Top = 172
+      Width = 203
+      AutoSize = False
+      Caption = '3-figure or 5-figure references valid'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 100
+      Height = 16
+      Top = 141
+      Width = 61
+      AutoSize = False
+      Caption = 'degrees'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+    end
+    object Label22: TLabel
+      Left = 398
+      Height = 20
+      Top = 26
+      Width = 131
+      AutoSize = False
+      Caption = 'then enter URL below'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object os_grid_radio_button: TRadioButton
+      Left = 316
+      Height = 22
+      Top = 92
+      Width = 184
+      Caption = 'OS Grid Reference GB'
+      TabOrder = 5
+      OnClick = os_letters_editEnter
+    end
+    object lat_lon_radio_button: TRadioButton
+      Left = 12
+      Height = 22
+      Top = 92
+      Width = 153
+      Caption = 'longitude / latitude'
+      Checked = True
+      TabOrder = 2
+      TabStop = True
+      OnClick = lon_editEnter
+    end
+    object os_easting_edit: TEdit
+      Left = 388
+      Height = 24
+      Top = 138
+      Width = 64
+      AutoSize = False
+      AutoSelect = False
+      Color = clWhite
+      Font.Color = clGray
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
+      Text = '372'
+      OnClick = os_easting_editClick
+      OnEnter = os_letters_editEnter
+    end
+    object os_northing_edit: TEdit
+      Left = 460
+      Height = 24
+      Top = 138
+      Width = 64
+      AutoSize = False
+      AutoSelect = False
+      Color = clWhite
+      Font.Color = clGray
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      Text = '699'
+      OnClick = os_northing_editClick
+      OnEnter = os_letters_editEnter
+    end
+    object os_letters_edit: TEdit
+      Left = 336
+      Height = 24
+      Top = 138
+      Width = 36
+      AutoSize = False
+      AutoSelect = False
+      Color = clWhite
+      Font.Color = clGray
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      MaxLength = 2
+      ParentFont = False
+      TabOrder = 6
+      Text = 'TQ'
+      OnClick = os_letters_editClick
+      OnEnter = os_letters_editEnter
+    end
+    object lon_edit: TEdit
+      Left = 16
+      Height = 24
+      Top = 138
+      Width = 80
+      AutoSize = False
+      AutoSelect = False
+      Color = clWhite
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      Text = '-2.30712'
+      OnClick = lon_editClick
+      OnEnter = lon_editEnter
+    end
+    object lat_edit: TEdit
+      Left = 164
+      Height = 24
+      Top = 138
+      Width = 80
+      AutoSize = False
+      AutoSelect = False
+      Color = clWhite
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      Text = '52.37587'
+      OnClick = lat_editClick
+      OnEnter = lon_editEnter
+    end
+    object url_radio_button: TRadioButton
+      Left = 12
+      Height = 20
+      Top = 26
+      Width = 105
+      Caption = 'from a URL :'
+      Font.Color = clBlack
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = url_editEnter
+    end
+    object url_edit: TEdit
+      Left = 16
+      Height = 22
+      Hint = ' set location by entering the URL for an OpenStreetMap or NLS slippy map or Google Maps or OS Maps '
+      Top = 54
+      Width = 508
+      AutoSize = False
+      AutoSelect = False
+      Font.Color = clGray
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      Text = '  a URL entered here is used to set the location only  -  copy/paste from browser address'
+      OnClick = url_editClick
+      OnEnter = url_editEnter
+    end
+  end
+  object load_tiles_button: TButton
+    Left = 784
+    Height = 33
+    Top = 654
+    Width = 160
+    Caption = 'load  tiled  map'
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 17
+  end
+  object extend_area_groupbox: TGroupBox
+    Left = 398
+    Height = 116
+    Top = 70
+    Width = 266
+    Caption = ' extend tiled map :  '
+    ClientHeight = 93
+    ClientWidth = 262
+    Color = 14221311
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
+    Visible = False
+    object Shape2: TShape
+      Left = 100
+      Height = 24
+      Top = 54
+      Width = 66
+      Brush.Color = clSilver
+      Brush.Style = bsDiagCross
+      Pen.Color = 53248
+      Pen.Width = 2
+    end
+    object add_top_button: TButton
+      Left = 100
+      Height = 24
+      Hint = 'add a row of tiles at the top'
+      Top = 24
+      Width = 66
+      Caption = '+ 1 row'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = add_top_buttonClick
+    end
+    object add_left_button: TButton
+      Left = 8
+      Height = 24
+      Hint = 'add a column of tiles on the left'
+      Top = 54
+      Width = 86
+      Caption = '+ 1 column'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnClick = add_left_buttonClick
+    end
+    object add_right_button: TButton
+      Left = 172
+      Height = 24
+      Hint = 'add a column of tiles on the right'
+      Top = 54
+      Width = 86
+      Caption = '+ 1 column'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnClick = add_right_buttonClick
+    end
+    object add_bottom_button: TButton
+      Left = 100
+      Height = 24
+      Hint = 'add a row of tiles at the bottom'
+      Top = 84
+      Width = 66
+      Caption = '+ 1 row'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnClick = add_bottom_buttonClick
+    end
+  end
+  object crop_area_groupbox: TGroupBox
+    Left = 678
+    Height = 116
+    Top = 70
+    Width = 266
+    Caption = ' crop tiled map  :  '
+    ClientHeight = 93
+    ClientWidth = 262
+    Color = 14221288
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 6
+    Visible = False
+    object Shape3: TShape
+      Left = 100
+      Height = 24
+      Top = 54
+      Width = 66
+      Brush.Color = clSilver
+      Brush.Style = bsDiagCross
+      Pen.Color = clRed
+      Pen.Width = 2
+    end
+    object crop_top_button: TButton
+      Left = 100
+      Height = 24
+      Hint = 'remove a row of tiles at the top'
+      Top = 24
+      Width = 66
+      Caption = '- 1 row'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = crop_top_buttonClick
+    end
+    object crop_left_button: TButton
+      Left = 8
+      Height = 24
+      Hint = 'remove a column of tiles on the left'
+      Top = 54
+      Width = 86
+      Caption = '- 1 column'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnClick = crop_left_buttonClick
+    end
+    object crop_right_button: TButton
+      Left = 172
+      Height = 24
+      Hint = 'remove a column of tiles on the right'
+      Top = 54
+      Width = 86
+      Caption = '- 1 column'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnClick = crop_right_buttonClick
+    end
+    object crop_bottom_button: TButton
+      Left = 100
+      Height = 24
+      Hint = 'remove a row of tiles at the bottom'
+      Top = 84
+      Width = 66
+      Caption = '- 1 row'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnClick = crop_bottom_buttonClick
+    end
+  end
+  object background_shapes_button: TButton
+    Left = 38
+    Height = 24
+    Hint = 'show background shapes dialog'
+    Top = 712
+    Width = 161
+    Caption = 'background  shapes ...'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    OnClick = background_shapes_buttonClick
+  end
+  object delete_button: TButton
+    Left = 480
+    Height = 24
+    Top = 712
+    Width = 92
+    Caption = 'delete map'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    OnClick = delete_buttonClick
+  end
+  object name_edit: TEdit
+    Left = 124
+    Height = 24
+    Top = 38
+    Width = 173
+    AutoSize = False
+    AutoSelect = False
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    MaxLength = 15
+    ParentFont = False
+    TabOrder = 0
+    OnChange = name_editChange
+    OnClick = name_editClick
+  end
+  object name_listbox: TListBox
+    Left = 176
+    Height = 80
+    Hint = ' your current maps - select one to edit or delete '
+    Top = 74
+    Width = 201
+    Color = clWhite
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ItemHeight = 0
+    ParentShowHint = False
+    ParentFont = False
+    ShowHint = True
+    TabOrder = 2
+    Visible = False
+    OnClick = name_listboxClick
+  end
+  object stop_button: TButton
+    Left = 664
+    Height = 28
+    Hint = 'stop loading map tiles'
+    Top = 656
+    Width = 109
+    Caption = 'stop  loading'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 16
+    Visible = False
+    OnClick = stop_buttonClick
+  end
+  object close_panel: TPanel
+    Left = 888
+    Height = 25
+    Top = 720
+    Width = 64
+    Alignment = taLeftJustify
+    Caption = '  hide'
+    ClientHeight = 25
+    ClientWidth = 64
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 20
+    OnClick = close_buttonClick
+    object close_button: TButton
+      Left = 45
+      Height = 15
+      Top = 5
+      Width = 15
+      Cancel = True
+      Caption = '  '
+      TabOrder = 0
+      OnClick = close_buttonClick
+    end
+  end
+  object pause_button: TButton
+    Left = 596
+    Height = 28
+    Top = 656
+    Width = 65
+    Caption = 'pause'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 15
+    Visible = False
+    OnClick = pause_buttonClick
+  end
+  object osm_radio_button: TRadioButton
+    Left = 20
+    Height = 26
+    Hint = 'a colourful modern map of the entire world'
+    Top = 568
+    Width = 280
+    Caption = 'OpenStreetMap  World  Map'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 14
+    OnClick = osm_radio_buttonClick
+  end
+  object tf_radio_button: TRadioButton
+    Left = 20
+    Height = 26
+    Hint = ' a simplified railway map '
+    Top = 492
+    Width = 286
+    Caption = 'Thunderforest  Railway  Map'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 12
+    OnClick = tf_radio_buttonClick
+  end
+  object nls_county_radio_button: TRadioButton
+    Left = 20
+    Height = 22
+    Hint = ' a large-scale historic map of most of Great Britain '
+    Top = 218
+    Width = 325
+    Caption = 'NLS  OS  25-inch  County Series  1892-1950'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 7
+    TabStop = True
+    OnClick = nls_county_radio_buttonClick
+  end
+  object nls_natgrid50_radio_button: TRadioButton
+    Left = 20
+    Height = 22
+    Hint = ' a very detailed large-scale map of south-east England and central Scotland, plus Aberdeen, Inverness '
+    Top = 306
+    Width = 512
+    Caption = 'NLS  OS  50-inch  National Grid Series  1944-1970  ( limited coverage )'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 10
+    OnClick = nls_natgrid50_radio_buttonClick
+  end
+  object county_combo: TComboBox
+    Left = 372
+    Height = 24
+    Hint = ' select the county containing your location set below '
+    Top = 218
+    Width = 188
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ItemHeight = 16
+    Items.Strings = (
+      'Scotland'
+      'Anglesey'
+      'Bedfordshire'
+      'Berkshire'
+      'Brecknockshire'
+      'Buckinghamshire'
+      'Caernarvonshire'
+      'Cambridgeshire'
+      'Cardiganshire'
+      'Carmarthenshire'
+      'Cheshire'
+      'Cornwall'
+      'Cumberland'
+      'Denbighshire'
+      'Derbyshire'
+      'Devon early'
+      'Devon later'
+      'Dorset'
+      'Durham'
+      'Essex'
+      'Flintshire'
+      'Glamorgan'
+      'Gloucestershire early'
+      'Gloucestershire later'
+      'Gloucestershire 1920s'
+      'Hampshire'
+      'Herefordshire'
+      'Hertfordshire'
+      'Huntingdonshire'
+      'Kent'
+      'Lancashire'
+      'Leicestershire'
+      'Lincolnshire'
+      'Isle of Man'
+      'London'
+      'Merionethshire'
+      'Middlesex'
+      'Monmouthshire'
+      'Montgomeryshire'
+      'Norfolk'
+      'Northamptonshire'
+      'Northumberland'
+      'Nottinghamshire'
+      'Oxfordshire'
+      'Pembrokeshire'
+      'Radnorshire'
+      'Rutland'
+      'Shropshire'
+      'Somerset early'
+      'Somerset later'
+      'Staffordshire'
+      'Suffolk'
+      'Surrey'
+      'Sussex'
+      'Warwickshire'
+      'Westmorland'
+      'Wiltshire early'
+      'Wiltshire later'
+      'Worcestershire'
+      'Yorkshire'
+      'Wales'
+    )
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 8
+    Text = ' county'
+  end
+  object next_county_combo: TComboBox
+    Left = 568
+    Height = 24
+    Hint = ' if your map crosses a county boundary '
+    Top = 218
+    Width = 188
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ItemHeight = 16
+    Items.Strings = (
+      'Scotland'
+      'Anglesey'
+      'Bedfordshire'
+      'Berkshire'
+      'Brecknockshire'
+      'Buckinghamshire'
+      'Caernarvonshire'
+      'Cambridgeshire'
+      'Cardiganshire'
+      'Carmarthenshire'
+      'Cheshire'
+      'Cornwall'
+      'Cumberland'
+      'Denbighshire'
+      'Derbyshire'
+      'Devon early'
+      'Devon later'
+      'Dorset'
+      'Durham'
+      'Essex'
+      'Flintshire'
+      'Glamorgan'
+      'Gloucestershire early'
+      'Gloucestershire later'
+      'Gloucestershire 1920s'
+      'Hampshire'
+      'Herefordshire'
+      'Hertfordshire'
+      'Huntingdonshire'
+      'Kent'
+      'Lancashire'
+      'Leicestershire'
+      'Lincolnshire'
+      'Isle of Man'
+      'London'
+      'Merionethshire'
+      'Middlesex'
+      'Monmouthshire'
+      'Montgomeryshire'
+      'Norfolk'
+      'Northamptonshire'
+      'Northumberland'
+      'Nottinghamshire'
+      'Oxfordshire'
+      'Pembrokeshire'
+      'Radnorshire'
+      'Rutland'
+      'Shropshire'
+      'Somerset early'
+      'Somerset later'
+      'Staffordshire'
+      'Suffolk'
+      'Surrey'
+      'Sussex'
+      'Warwickshire'
+      'Westmorland'
+      'Wiltshire early'
+      'Wiltshire later'
+      'Worcestershire'
+      'Yorkshire'
+      'Wales'
+    )
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 9
+    Text = ' next county  ( optional )'
+  end
+  object zoom_to_map_button: TButton
+    Left = 206
+    Height = 24
+    Top = 712
+    Width = 114
+    Caption = 'zoom  to  map'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 19
+    OnClick = zoom_to_map_buttonClick
+  end
+  object nls_london_radio_button: TRadioButton
+    Left = 20
+    Height = 22
+    Hint = ' a very detailed large-scale historic map of the London area in the 1890s '
+    Top = 426
+    Width = 359
+    Caption = 'NLS  OS  60-inch  Historic London Series  1890s'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 11
+    OnClick = nls_london_radio_buttonClick
+  end
+  object tf_style_groupbox: TGroupBox
+    Left = 304
+    Height = 86
+    Top = 478
+    Width = 97
+    Caption = ' style :  '
+    ClientHeight = 65
+    ClientWidth = 93
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 13
+    object tfm_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 18
+      Width = 58
+      Caption = 'bright'
+      Checked = True
+      Enabled = False
+      TabOrder = 0
+      TabStop = True
+    end
+    object tfp_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 40
+      Width = 70
+      Caption = 'pioneer'
+      Enabled = False
+      TabOrder = 1
+    end
+    object tfo_radio: TRadioButton
+      Left = 8
+      Height = 20
+      Top = 62
+      Width = 76
+      Caption = 'outdoors'
+      Enabled = False
+      TabOrder = 2
+    end
+  end
+  object clarity_button: TButton
+    Left = 616
+    Height = 33
+    Hint = 'make improvements to the claruty of the map image '
+    Top = 708
+    Width = 197
+    Caption = 'improve map clarity ...'
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 3
+  end
+  object os_coverage_button: TButton
+    Left = 12
+    Height = 22
+    Hint = ' Ordnance Survey map coverage - not all available from NLS  (slow loading)  '
+    Top = 124
+    Width = 100
+    Caption = 'OS  coverage'
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 21
+    OnClick = os_coverage_buttonClick
+  end
+  object nls_coverage_button: TButton
+    Left = 12
+    Height = 22
+    Hint = ' explore NLS map series  (slow loading) '
+    Top = 100
+    Width = 100
+    Caption = 'NLS  coverage'
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 22
+    OnClick = nls_coverage_buttonClick
+  end
+  object nls_natgrid25_radio_button: TRadioButton
+    Left = 20
+    Height = 22
+    Hint = ' a large-scale more recent map of parts of Great Britain  '
+    Top = 266
+    Width = 512
+    Caption = 'NLS  OS  25-inch  National Grid Series  1944-1970  ( limited coverage )'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 23
+    OnClick = nls_natgrid25_radio_buttonClick
+  end
+  object tiles_button: TButton
+    Left = 894
+    Height = 18
+    Top = 192
+    Width = 45
+    Caption = 'tiles ...'
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+    TabOrder = 24
+    OnClick = tiles_buttonClick
+  end
+  object nls_town125_radio_button: TRadioButton
+    Left = 20
+    Height = 22
+    Hint = ' very detailed historic large-scale maps of the larger towns and cities in England and Wales '
+    Top = 386
+    Width = 792
+    Caption = 'NLS  OS  125-inch  England and Wales  Very-Large-Scale Town Plans Series  1840s-1890s  ( limited coverage )'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 25
+    OnClick = nls_town125_radio_buttonClick
+  end
+  object nls_town60_radio_button: TRadioButton
+    Left = 20
+    Height = 22
+    Hint = ' detailed historic large-scale maps of the larger towns and cities in England and Wales '
+    Top = 346
+    Width = 783
+    Caption = 'NLS  OS  60-inch  England and Wales  Large-Scale Town Plans Series  1840s-1860s  ( very limited coverage )'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 26
+    OnClick = nls_town60_radio_buttonClick
+  end
+  object remove_borders_checkbox: TCheckBox
+    Left = 282
+    Height = 20
+    Top = 668
+    Width = 230
+    Caption = 'remove tile borders after loading'
+    Checked = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 27
+  end
+end

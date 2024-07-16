@@ -1,0 +1,196 @@
+object brick_form: Tbrick_form
+  Left = 6
+  Height = 171
+  Top = 450
+  Width = 588
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '  experimental  3D'
+  ClientHeight = 171
+  ClientWidth = 588
+  Color = 15852503
+  DesignTimePPI = 120
+  Font.Color = clWindowText
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object datestamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 120
+    Width = 570
+    AutoSize = False
+  end
+  object store_marker_colour_panel: TPanel
+    Left = 2
+    Height = 22
+    Hint = ' click to change active colour '
+    Top = 38
+    Width = 96
+    BevelOuter = bvNone
+    BorderWidth = 1
+    BorderStyle = bsSingle
+    ClientHeight = 18
+    ClientWidth = 92
+    Color = 65488
+    ParentBackground = False
+    ParentColor = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
+    OnClick = store_marker_colour_panelClick
+    object store_using_marker_colour_checkbox: TCheckBox
+      Left = 2
+      Height = 20
+      Hint = ' store using this active marker colour '
+      Top = 0
+      Width = 21
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+  end
+  object zoom_to_brick_button: TButton
+    Left = 2
+    Height = 20
+    Hint = ' zoom to brick matching this colour '
+    Top = 68
+    Width = 112
+    Caption = 'zoom  to  brick'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    OnClick = zoom_to_brick_buttonClick
+  end
+  object bricklaying_checkbox: TCheckBox
+    Left = 4
+    Height = 23
+    Hint = ' store  templates  as  members  of  a  timbering  brick '
+    Top = 8
+    Width = 105
+    Caption = 'bricklaying'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+    OnMouseUp = bricklaying_checkboxMouseUp
+  end
+  object bgnd_chairs_checkbox: TCheckBox
+    Left = 100
+    Height = 23
+    Hint = ' show  experimental  chairing  on  background  templates  ( slow ) '
+    Top = 100
+    Width = 169
+    Caption = 'background  chairs'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 3
+    OnMouseUp = bgnd_chairs_checkboxMouseUp
+  end
+  object do_dxf_button: TButton
+    Left = 360
+    Height = 26
+    Top = 94
+    Width = 200
+    Caption = 'DXF / STL  file  export ...'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    OnClick = do_dxf_buttonClick
+  end
+  object store_shift_multi_button: TButton
+    Left = 132
+    Height = 24
+    Top = 70
+    Width = 156
+    Caption = 'store  and  shift  multi'
+    TabOrder = 5
+    OnClick = store_shift_multi_buttonClick
+  end
+  object shrink_gauge_checkbox: TCheckBox
+    Left = 128
+    Height = 23
+    Top = 2
+    Width = 170
+    Caption = 'shrink  gauge  multi'
+    Checked = True
+    State = cbChecked
+    TabOrder = 6
+  end
+  object blanking_button: TButton
+    Left = 0
+    Height = 23
+    Hint = ' mouse  action :  adjust  blanking  length  -  CTRL+F3  keys '
+    Top = 98
+    Width = 88
+    Caption = 'BLANKING'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 7
+    OnClick = blanking_buttonClick
+  end
+  object multi_settings_button: TButton
+    Left = 132
+    Height = 20
+    Top = 44
+    Width = 131
+    Caption = 'multi  settings ...'
+    TabOrder = 8
+    OnClick = multi_settings_buttonClick
+  end
+  object shrink_switch_button: TButton
+    Left = 360
+    Height = 24
+    Top = 12
+    Width = 142
+    Caption = 'shrink  switch  heel'
+    TabOrder = 9
+    OnClick = shrink_switch_buttonClick
+  end
+  object isolate_v_xing_button: TButton
+    Left = 302
+    Height = 24
+    Top = 48
+    Width = 132
+    Caption = 'isolate  V-crossing'
+    TabOrder = 10
+    OnClick = isolate_v_xing_buttonClick
+  end
+  object isolate_k_xing_button: TButton
+    Left = 436
+    Height = 24
+    Top = 48
+    Width = 132
+    Caption = 'isolate  K-crossing'
+    TabOrder = 11
+    OnClick = isolate_k_xing_buttonClick
+  end
+  object l1_fill_checkbox: TCheckBox
+    Left = 506
+    Height = 23
+    Top = 14
+    Width = 61
+    Caption = 'L1 fill'
+    Checked = True
+    State = cbChecked
+    TabOrder = 12
+  end
+  object shrink_more_checkbox: TCheckBox
+    Left = 136
+    Height = 23
+    Top = 22
+    Width = 238
+    Caption = 'shrink  more  for  loose  jaws'
+    TabOrder = 13
+  end
+end

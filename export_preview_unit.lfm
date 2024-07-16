@@ -1,0 +1,160 @@
+object export_preview_form: Texport_preview_form
+  Left = 445
+  Height = 697
+  Top = 221
+  Width = 1019
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSizeToolWin
+  Caption = '        edit  export  preview  applications'
+  ClientHeight = 697
+  ClientWidth = 1019
+  Color = 15790312
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OnCreate = FormCreate
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object Label1: TLabel
+    Left = 20
+    Height = 20
+    Top = 520
+    Width = 90
+    AutoSize = False
+    Caption = '3-D viewer:'
+  end
+  object Label2: TLabel
+    Left = 20
+    Height = 20
+    Top = 580
+    Width = 90
+    AutoSize = False
+    Caption = '2-D viewer :'
+  end
+  object date_stamp_label: TLabel
+    Left = 0
+    Height = 4
+    Top = 646
+    Width = 980
+    AutoSize = False
+  end
+  object Label3: TLabel
+    Left = 40
+    Height = 21
+    Top = 8
+    Width = 500
+    AutoSize = False
+    Caption = 'viewer  applications  for  DXF / STL  export  preview'
+    Font.Color = 16711808
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object preview_3d_edit: TEdit
+    Left = 44
+    Height = 26
+    Top = 540
+    Width = 589
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    Text = '3D-Tool-Free.exe'
+  end
+  object preview_2d_edit: TEdit
+    Left = 44
+    Height = 26
+    Top = 600
+    Width = 589
+    AutoSize = False
+    AutoSelect = False
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    Text = 'inkscape.exe'
+  end
+  object ok_button: TButton
+    Left = 892
+    Height = 25
+    Top = 604
+    Width = 57
+    Caption = 'OK'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ModalResult = 1
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Left = 16
+    Height = 467
+    Top = 46
+    Width = 945
+    BorderStyle = bsNone
+    Lines.Strings = (
+      'Enter the name or location of the viewer application programs which you want Templot to use when previewing DXF/STL exports.'
+      ''
+      'These programs need to be installed on your system. This is beyond Templot''s control, you need to download and install them yourself.'
+      ''
+      'The recommended applications (free) are:'
+      ''
+      '3D-Tool Free Viewer  -  for 3-D exports for 3D printing (STL files).'
+      '                  Inkscape  -  for 2-D exports for laser-cutting and CNC milling (DXF files).'
+      ' '
+      'You can use the buttons below to visit their respective web sites and download them. If you are interested only in 3D printing you won''t need '
+      'Inkscape.'
+      ''
+      'Or you can use any other applications of your choice.'
+      ''
+      'Templot needs to know the name of these application programs, or the location where the application is installed on your system.'
+      ''
+      'In most cases it will be sufficient to enter just the program file name, for example:'
+      ''
+      '  inkscape.exe'
+      ''
+      'On some Windows systems you may need to enter the full program file location, for example:'
+      ''
+      '  C:\Program Files\Inkscape\bin\inkscape.exe'
+      ''
+      'You can find this information (after downloading and installing them) by RIGHT-clicking on their desktop icon and then clicking "Properties".'
+      'The information can be copied from the "Target" box.'
+      ''
+      'It is important to enter the information exactly without any mistakes. You may need to edit these details after installing upgrades to these programs.'
+      ' '
+      ' '
+    )
+    ParentColor = True
+    ReadOnly = True
+    TabOrder = 3
+  end
+  object download_3d_button: TButton
+    Left = 664
+    Height = 24
+    Top = 540
+    Width = 184
+    Caption = 'download  3D-Tool   >>>'
+    TabOrder = 4
+    OnClick = download_3d_buttonClick
+  end
+  object download_2d_button: TButton
+    Left = 664
+    Height = 24
+    Top = 600
+    Width = 184
+    Caption = 'download  Inkscape   >>>'
+    TabOrder = 5
+    OnClick = download_2d_buttonClick
+  end
+end
