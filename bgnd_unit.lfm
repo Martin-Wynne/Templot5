@@ -10,7 +10,7 @@ object bgnd_form: Tbgnd_form
   Color = 14211272
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -13
+  Font.Height = -20
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -3369,10 +3369,10 @@ object bgnd_form: Tbgnd_form
         GroupIndex = 60
         OnClick = clip_colour_menu_entryClick
       end
-      object N56: TMenuItem
-        Caption = ' '
-        Enabled = False
+      object clip_dims_menu_entry: TMenuItem
+        Caption = 'clip  dimensions ...'
         GroupIndex = 60
+        OnClick = clip_dims_menu_entryClick
       end
     end
     object bgnd_help_menu: TMenuItem

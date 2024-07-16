@@ -41,6 +41,9 @@ uses
   ExtCtrls, ComCtrls, Menus, ExtDlgs, Buttons, pad_unit;
 
 type
+
+  { Tbgnd_form }
+
   Tbgnd_form = class(TForm)
     datestamp_label: TLabel;
     blue_corner_panel: TPanel;
@@ -322,7 +325,7 @@ type
     N54: TMenuItem;
     N55: TMenuItem;
     clip_colour_menu_entry: TMenuItem;
-    N56: TMenuItem;
+    clip_dims_menu_entry: TMenuItem;
     clip_colour_as_marker_menu_entry: TMenuItem;
     tommy_bar_menu_entry: TMenuItem;
     tommy_claws_menu_entry: TMenuItem;
@@ -424,6 +427,7 @@ type
     create_array_menu_entry: TMenuItem;
     doclips1: TMenuItem;
     add_kerf_lines_checkbox: TCheckBox;
+    procedure clip_dims_menu_entryClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
     procedure colour_panelClick(Sender: TObject);
     procedure close_buttonClick(Sender: TObject);
@@ -11907,6 +11911,15 @@ procedure Tbgnd_form.add_kerf_lines_checkboxMouseUp(Sender: TObject; Button: TMo
 
 begin
   if add_kerf_lines_checkbox.Checked=True then add_brick_checkbox.Checked:=False;
+end;
+//______________________________________________________________________________
+
+procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   // 555b
+
+begin
+  // set dimensions for connector clip
+
+
 end;
 //______________________________________________________________________________
 
