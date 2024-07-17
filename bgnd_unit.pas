@@ -704,7 +704,10 @@ uses
   entry_sheet, math_unit, wait_message, image_viewer_unit, export_unit, xml_unit,  // 227a
 
   map_loader_unit, action_unit, map_clarity_unit,
-  brick_unit;
+// 555b  brick_unit;
+  brick_unit, dxf_unit;           // 555b
+// 555b
+
 
 //______________________________________________________________________________
 
@@ -11914,11 +11917,52 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   // 555b
+procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   //
+
+  // ----
+  // 555b
+var
+  n:integer;
+  od:Toutdim;
+  // 555b
+  // ----
+
 
 begin
   // set dimensions for connector clip
 
+  // ----
+  // 555b
+       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  shaft  width',clip_shaft_width*inscale,True,True,True,False);     // no negative, no preset, no zero, don't terminate on zero.
+       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  width',clip_top_width*inscale,True,True,True,False);         // no negative, no preset, no zero, don't terminate on zero.
+       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  length',clip_top_length*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
+
+       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  arms  width',clip_arms_width*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
+
+       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers  width',clip_outers_width*inscale,True,True,True,False);   // no negative, no preset, no zero, don't terminate on zero.
+       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers length',clip_outers_length*inscale,True,True,True,False);  // no negative, no preset, no zero, don't terminate on zero.
+
+    n:=putdim('please refer to Templot Club forum',1,'3-D  connector  clip  hole  size',clip_hole_mm,True,True,True,False);           // no negative, no preset, no zero, don't terminate on zero.
+
+    if n<>6 then EXIT;
+
+    if getdims('3-D  brick  connector  clip sizes ...','',bgnd_form,n,od)=True
+       then begin
+              clip_shaft_width:=od[0]/inscale;
+              clip_top_width:=od[1]/inscale;
+              clip_top_length:=od[2]/inscale;
+
+              clip_arms_width:=od[3]/inscale;
+
+              clip_outers_width:=od[4]/inscale;
+              clip_outers_length:=od[5]/inscale;
+
+              clip_hole_mm:=od[6];
+            end;
+
+    redraw(True);     // show target marks as clips
+  // 555b
+  // ----
 
 end;
 //______________________________________________________________________________
