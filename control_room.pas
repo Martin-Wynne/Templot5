@@ -742,7 +742,7 @@ uses
   data_memo_unit, check_diffs_unit, rail_options_unit,
   export_unit, { OT2024 file_viewer,} wait_message, trackbed_unit, make_slip_unit, create_tandem,
   map_loader_unit, gaps_unit, lib_unit, intersect_unit, brick_unit,
-  heave_chairs;
+  heave_chairs, custom_3d_unit;
 
 {$R *.lfm}
 
@@ -1955,7 +1955,7 @@ begin
                else begin
                       if ExtractFileExt(param_str)='.sk4'
                          then begin
-                                if FileExists(param_str)=True then load_custom_3d_dxf_data(param_str);
+                                if FileExists(param_str)=True then load_custom_3d_data(param_str);
                               end
                          else begin
                                 if ExtractFileExt(param_str)='.bgs'

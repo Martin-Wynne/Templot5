@@ -11917,52 +11917,49 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   //
+procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   // 555b  SC 17-JULY-2024
 
-  // ----
-  // 555b
+const
+  clip_str:string='      `0Connector  Clip  Dimensions`9'
+                 +'||Set the size of the timbering brick connector clips by entering the dimensions here.'
+                 +'||The dimension should be entered in mm unless you apply conversion factors.'
+                 +'||For more information about using conversion factors click the `0? help`1 button.';
+
 var
   n:integer;
   od:Toutdim;
-  // 555b
-  // ----
-
 
 begin
   // set dimensions for connector clip
 
-  // ----
-  // 555b
-       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  shaft  width',clip_shaft_width*inscale,True,True,True,False);     // no negative, no preset, no zero, don't terminate on zero.
-       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  width',clip_top_width*inscale,True,True,True,False);         // no negative, no preset, no zero, don't terminate on zero.
-       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  length',clip_top_length*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
+     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  shaft  width',clip_shaft_width*inscale,True,True,True,False);     // no negative, no preset, no zero, don't terminate on zero.
+     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  width',clip_top_width*inscale,True,True,True,False);         // no negative, no preset, no zero, don't terminate on zero.
+     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  length',clip_top_length*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
 
-       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  arms  width',clip_arms_width*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
+     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  arms  width',clip_arms_width*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
 
-       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers  width',clip_outers_width*inscale,True,True,True,False);   // no negative, no preset, no zero, don't terminate on zero.
-       putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers length',clip_outers_length*inscale,True,True,True,False);  // no negative, no preset, no zero, don't terminate on zero.
+     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers  width',clip_outers_width*inscale,True,True,True,False);   // no negative, no preset, no zero, don't terminate on zero.
+     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers length',clip_outers_length*inscale,True,True,True,False);  // no negative, no preset, no zero, don't terminate on zero.
 
-    n:=putdim('please refer to Templot Club forum',1,'3-D  connector  clip  hole  size',clip_hole_mm,True,True,True,False);           // no negative, no preset, no zero, don't terminate on zero.
+  n:=putdim('please refer to Templot Club forum',1,'3-D  connector  clip  hole  size',clip_hole_mm,True,True,True,False);           // no negative, no preset, no zero, don't terminate on zero.
 
-    if n<>6 then EXIT;
+  if n<>6 then EXIT;
 
-    if getdims('3-D  brick  connector  clip sizes ...','',bgnd_form,n,od)=True
-       then begin
-              clip_shaft_width:=od[0]/inscale;
-              clip_top_width:=od[1]/inscale;
-              clip_top_length:=od[2]/inscale;
+  if getdims('3-D  brick  connector  clip sizes ...',clip_str,bgnd_form,n,od)=True
+     then begin
+            clip_shaft_width:=od[0]/inscale;
+            clip_top_width:=od[1]/inscale;
+            clip_top_length:=od[2]/inscale;
 
-              clip_arms_width:=od[3]/inscale;
+            clip_arms_width:=od[3]/inscale;
 
-              clip_outers_width:=od[4]/inscale;
-              clip_outers_length:=od[5]/inscale;
+            clip_outers_width:=od[4]/inscale;
+            clip_outers_length:=od[5]/inscale;
 
-              clip_hole_mm:=od[6];
-            end;
+            clip_hole_mm:=od[6];
+          end;
 
-    redraw(True);     // show target marks as clips
-  // 555b
-  // ----
+  redraw(True);     // show target marks as clips
 
 end;
 //______________________________________________________________________________

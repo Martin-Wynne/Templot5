@@ -213,10 +213,10 @@ end;
 procedure Tprint_settings_form.FormCreate(Sender: TObject);
 
 begin
-  ClientWidth:=520;                               // SC 19/07/2024 was 480;
-  ClientHeight:=640;                              // SC 19/07/2024 was 632;
+  ClientWidth:=480;
+  ClientHeight:=632;
 
-  AutoScroll:=True;                               // SC 19/07/2024 was False;
+  AutoScroll:=False;
 end;
 //______________________________________________________________________________
 

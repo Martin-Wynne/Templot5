@@ -2064,8 +2064,8 @@ end;
 procedure Tbgkeeps_form.FormCreate(Sender: TObject);
 
 begin
-  ClientWidth:=900;                        // SC 19/07/2024 - was 800
-  ClientHeight:=360;                       // SC 19/07/2024 - was 300
+  ClientWidth:=800;
+  ClientHeight:=300;
   AutoScroll:=True;
 end;
 //______________________________________________________________________________

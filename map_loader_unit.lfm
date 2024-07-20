@@ -11,7 +11,7 @@ object map_loader_form: Tmap_loader_form
   Color = 16775412
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -19
+  Font.Height = -24
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -1007,10 +1007,10 @@ object map_loader_form: Tmap_loader_form
   end
   object osm_radio_button: TRadioButton
     Left = 20
-    Height = 26
+    Height = 33
     Hint = 'a colourful modern map of the entire world'
     Top = 568
-    Width = 280
+    Width = 344
     Caption = 'OpenStreetMap  World  Map'
     ParentShowHint = False
     ShowHint = True
@@ -1019,10 +1019,10 @@ object map_loader_form: Tmap_loader_form
   end
   object tf_radio_button: TRadioButton
     Left = 20
-    Height = 26
+    Height = 33
     Hint = ' a simplified railway map '
     Top = 492
-    Width = 286
+    Width = 350
     Caption = 'Thunderforest  Railway  Map'
     ParentShowHint = False
     ShowHint = True

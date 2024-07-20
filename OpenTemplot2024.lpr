@@ -116,7 +116,7 @@ uses
   export_draw_unit in 'export_draw_unit.pas',
   FrameViewer09 {date_form},
 
-  printer4lazarus, trial_unit;
+  printer4lazarus, trial_unit, custom_3d_unit;
 
 {$R *.res}
 
@@ -226,6 +226,8 @@ begin
   Application.CreateForm(Tsliders_form, sliders_form);
   Application.CreateForm(Tdate_form, date_form);
   Application.CreateForm(Tpdf_laz_form, pdf_laz_form);
+  Application.CreateForm(Ttrial_form, trial_form);
+  Application.CreateForm(Tcustom_3d_form, custom_3d_form);
 
   detect_wine;   // 205a in startup unit
 
@@ -237,7 +239,6 @@ begin
 
   do_dpi_aware_scaling(0);   // 211b
 
-  Application.CreateForm(Ttrial_form, trial_form);
 
   Application.Run;
 

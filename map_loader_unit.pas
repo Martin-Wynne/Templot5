@@ -43,6 +43,9 @@ uses
 // OT2024  HTTPSend;
 
 type
+
+  { Tmap_loader_form }
+
   Tmap_loader_form = class(TForm)
     datestamp_label: TLabel;
     location_groupbox: TGroupBox;
