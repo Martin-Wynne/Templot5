@@ -8,7 +8,6 @@ object pdf_laz_form: Tpdf_laz_form
   ClientHeight = 252
   ClientWidth = 648
   Color = 16314592
-  DesignTimePPI = 120
   Font.Color = clBlack
   Font.Height = -39
   Font.Name = 'Arial'
@@ -41,6 +40,10 @@ object pdf_laz_form: Tpdf_laz_form
     Width = 441
     AutoSize = False
     Caption = 'header_label'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     WordWrap = True
   end
   object page_label: TLabel
@@ -64,6 +67,10 @@ object pdf_laz_form: Tpdf_laz_form
     Width = 512
     AutoSize = False
     Caption = 'origin_label'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     WordWrap = True
   end
   object printer_label: TLabel
@@ -107,7 +114,11 @@ object pdf_laz_form: Tpdf_laz_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'prefix :'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
   end
   object Label2: TLabel
     Left = 564
@@ -117,7 +128,11 @@ object pdf_laz_form: Tpdf_laz_form
     Alignment = taCenter
     AutoSize = False
     Caption = 'next page:'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
   end
   object page_panel: TPanel
     Left = 296
@@ -341,8 +356,12 @@ object pdf_laz_form: Tpdf_laz_form
     ClientHeight = 30
     ClientWidth = 120
     Color = 9502719
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 2
     object omit_page_button: TButton
       Left = 1
@@ -369,8 +388,12 @@ object pdf_laz_form: Tpdf_laz_form
     ClientHeight = 30
     ClientWidth = 139
     Color = 10551200
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 1
     object ok_button: TButton
       Left = 1
@@ -426,34 +449,46 @@ object pdf_laz_form: Tpdf_laz_form
   end
   object black_edges_checkbox: TCheckBox
     Left = 12
-    Height = 49
+    Height = 22
     Top = 188
-    Width = 319
+    Width = 130
     Caption = 'blac&k rail-edges'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 15
     OnClick = black_edges_checkboxClick
   end
   object picture_borders_checkbox: TCheckBox
     Left = 34
-    Height = 49
+    Height = 22
     Top = 144
-    Width = 257
+    Width = 107
     Caption = 'with &borders'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 14
   end
   object include_pictures_checkbox: TCheckBox
     Left = 12
-    Height = 49
+    Height = 22
     Top = 124
-    Width = 684
+    Width = 267
     Caption = 'include background pict&ure shapes'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 13
   end
   object detail_mode_radiobutton: TRadioButton
     Left = 296
     Height = 22
     Top = 76
-    Width = 107
+    Width = 104
     Caption = 'detail  mode'
     Checked = True
     Font.Color = clBlack
@@ -469,7 +504,7 @@ object pdf_laz_form: Tpdf_laz_form
     Left = 422
     Height = 22
     Top = 76
-    Width = 124
+    Width = 121
     Caption = 'diagram  mode'
     Font.Color = clBlack
     Font.Height = -15
@@ -481,21 +516,29 @@ object pdf_laz_form: Tpdf_laz_form
   end
   object include_sketchboard_items_checkbox: TCheckBox
     Left = 12
-    Height = 49
+    Height = 22
     Top = 102
-    Width = 518
+    Width = 204
     Caption = 'include sketchboard items'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 12
     Visible = False
   end
   object page_ident_checkbox: TCheckBox
     Left = 12
-    Height = 49
+    Height = 22
     Hint = 'add page-number watermark if more than 3 pages'
     Top = 80
-    Width = 439
+    Width = 177
     Caption = 'include page identifier'
     Checked = True
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     State = cbChecked
@@ -534,12 +577,16 @@ object pdf_laz_form: Tpdf_laz_form
   end
   object symbols_checkbox: TCheckBox
     Left = 12
-    Height = 49
+    Height = 22
     Hint = ' include template symbols - feed droppers and isolation gaps '
     Top = 166
-    Width = 329
+    Width = 131
     Caption = 'include symbols'
     Checked = True
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     State = cbChecked
