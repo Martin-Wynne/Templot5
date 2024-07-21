@@ -10,6 +10,7 @@ object gauge_form: Tgauge_form
   ClientHeight = 620
   ClientWidth = 730
   Color = 14215392
+  DesignTimePPI = 120
   Font.Color = clBlack
   Font.Height = -21
   Font.Name = 'Courier New'
@@ -300,10 +301,10 @@ object gauge_form: Tgauge_form
     ParentFont = False
     TabOrder = 2
     object custom_a_button: TButton
-      Left = 0
+      Left = 7
       Height = 23
-      Top = 0
-      Width = 27
+      Top = 22
+      Width = 25
       Caption = '&a'
       Font.Color = clBlack
       Font.Height = -17
@@ -314,10 +315,10 @@ object gauge_form: Tgauge_form
       OnClick = custom_a_buttonClick
     end
     object custom_b_button: TButton
-      Left = 32
+      Left = 37
       Height = 23
-      Top = 0
-      Width = 27
+      Top = 22
+      Width = 25
       Caption = '&b'
       Font.Color = clBlack
       Font.Height = -17
@@ -328,10 +329,10 @@ object gauge_form: Tgauge_form
       OnClick = custom_b_buttonClick
     end
     object custom_c_button: TButton
-      Left = 63
+      Left = 66
       Height = 23
-      Top = 0
-      Width = 27
+      Top = 22
+      Width = 25
       Caption = '&c'
       Font.Color = clBlack
       Font.Height = -17
@@ -342,10 +343,10 @@ object gauge_form: Tgauge_form
       OnClick = custom_c_buttonClick
     end
     object custom_d_button: TButton
-      Left = 94
+      Left = 95
       Height = 23
-      Top = 0
-      Width = 27
+      Top = 22
+      Width = 25
       Caption = '&d'
       Font.Color = clBlack
       Font.Height = -17
@@ -425,7 +426,7 @@ object gauge_form: Tgauge_form
     Height = 20
     Hint = ' match  original  template '
     Top = 10
-    Width = 114
+    Width = 117
     Caption = 'match  o&riginal'
     Font.Color = clBlack
     Font.Height = -13
@@ -442,7 +443,7 @@ object gauge_form: Tgauge_form
     Height = 20
     Hint = ' mint  new  control  template '
     Top = 10
-    Width = 81
+    Width = 84
     Caption = 'mint  &new'
     Checked = True
     Font.Color = clBlack
@@ -458,9 +459,9 @@ object gauge_form: Tgauge_form
   end
   object retain_length_checkbox: TCheckBox
     Left = 200
-    Height = 19
+    Height = 20
     Top = 32
-    Width = 181
+    Width = 184
     Caption = 'retain template length on mint'
     Checked = True
     Font.Color = clBlack
@@ -544,13 +545,13 @@ object gauge_form: Tgauge_form
     Height = 178
     Top = 398
     Width = 618
-    HorzScrollBar.Page = 601
+    HorzScrollBar.Page = 597
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 161
+    VertScrollBar.Page = 157
     VertScrollBar.Tracking = True
     BorderStyle = bsNone
-    ClientHeight = 161
-    ClientWidth = 601
+    ClientHeight = 157
+    ClientWidth = 597
     ParentBackground = False
     TabOrder = 9
     TabStop = True
