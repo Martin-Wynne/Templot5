@@ -43,9 +43,13 @@ uses
   pad_unit;
 
 type
+
+  { Tbgkeeps_form }
+
   Tbgkeeps_form = class(TForm)
     blue_corner_panel: TPanel;
     how_panel: TPanel;
+    Label3: TLabel;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
@@ -2007,9 +2011,9 @@ begin
   if size_updown.Position<size_updown.Tag
      then ScaleBy(10,9);                                           // scale the form contents up.
 
-  ClientHeight:=VertScrollBar.Range;                               // allow 4 pixel right margin.
-  ClientWidth:=HorzScrollBar.Range+4;                              // don't need bottom margin - datestamp label provides this.
-  ClientHeight:=VertScrollBar.Range;                               // do this twice, as each affects the other.
+  //ClientHeight:=VertScrollBar.Range;                               // allow 4 pixel right margin.
+  //ClientWidth:=HorzScrollBar.Range+4;                              // don't need bottom margin - datestamp label provides this.
+  //ClientHeight:=VertScrollBar.Range;                               // do this twice, as each affects the other.
 
   size_updown.Tag:=size_updown.Position;                           // and save for the next click.
 end;

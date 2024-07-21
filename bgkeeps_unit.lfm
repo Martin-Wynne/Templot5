@@ -1,19 +1,19 @@
 object bgkeeps_form: Tbgkeeps_form
   Left = 51
-  Height = 347
+  Height = 300
   Top = 127
-  Width = 818
+  Width = 800
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '      detail  on  background  templates ...'
-  ClientHeight = 347
-  ClientWidth = 818
+  ClientHeight = 300
+  ClientWidth = 800
   Color = 15792383
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -20
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -191,25 +191,35 @@ object bgkeeps_form: Tbgkeeps_form
       Cancel = True
       Caption = '  '
       Default = True
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = close_buttonClick
     end
   end
   object show_groupbox: TGroupBox
     Left = 28
-    Height = 282
-    Top = 6
-    Width = 658
+    Height = 294
+    Top = 0
+    Width = 660
     Caption = '  show  ( for  all ) :  '
-    ClientHeight = 258
-    ClientWidth = 654
+    ClientHeight = 273
+    ClientWidth = 656
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
+    ParentFont = False
     TabOrder = 1
     object Label1: TLabel
-      Left = 136
-      Height = 16
-      Top = 0
-      Width = 244
+      Left = 212
+      Height = 15
+      Top = -6
+      Width = 260
       AutoSize = False
       Caption = ' these are screen settings, not for printing'
       Font.Color = clBlue
@@ -219,12 +229,12 @@ object bgkeeps_form: Tbgkeeps_form
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 458
-      Height = 16
-      Top = 180
-      Width = 177
+      Left = 439
+      Height = 15
+      Top = 174
+      Width = 180
       AutoSize = False
-      Caption = 'template name labels include:'
+      Caption = 'template name labels include :'
       Font.Color = clBlue
       Font.Height = -12
       Font.Name = 'Arial'
@@ -232,226 +242,359 @@ object bgkeeps_form: Tbgkeeps_form
       ParentFont = False
     end
     object timber_outlines_checkbox: TCheckBox
-      Left = 188
-      Height = 23
-      Top = 24
+      Left = 179
+      Height = 20
+      Top = 18
       Width = 138
+      AutoSize = False
       Caption = '&timber  outlines'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 8
     end
     object timber_centres_checkbox: TCheckBox
-      Left = 240
-      Height = 23
-      Top = 180
+      Left = 236
+      Height = 20
+      Top = 248
       Width = 166
+      AutoSize = False
       Caption = 'timber  centre-&lines'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 12
     end
     object gauge_faces_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 60
+      Left = 8
+      Height = 20
+      Top = 56
       Width = 192
+      AutoSize = False
       Caption = 'rail  gauge-&face  edges'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 1
     end
     object guide_marks_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 204
+      Left = 8
+      Height = 20
+      Top = 200
       Width = 119
+      AutoSize = False
       Caption = 'guide  mar&ks'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 4
     end
     object joints_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 108
+      Left = 8
+      Height = 20
+      Top = 104
       Width = 94
+      AutoSize = False
       Caption = 'rail  &joints'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 3
     end
     object centres_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 36
+      Left = 8
+      Height = 20
+      Top = 32
       Width = 147
+      AutoSize = False
       Caption = 'track  &centre-line'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 0
     end
     object peg_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 132
+      Left = 8
+      Height = 20
+      Top = 128
       Width = 100
+      AutoSize = False
       Caption = 'fixing  &peg'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 5
     end
     object outer_edges_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 84
-      Width = 248
+      Left = 8
+      Height = 20
+      Top = 80
+      Width = 228
+      AutoSize = False
       Caption = 'rail  &outer  edges / centre-lines'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 2
     end
     object template_number_checkbox: TCheckBox
-      Left = 472
-      Height = 23
-      Top = 200
+      Left = 453
+      Height = 20
+      Top = 194
       Width = 153
+      AutoSize = False
       Caption = 'template  num&ber'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 14
     end
     object template_name_checkbox: TCheckBox
-      Left = 472
-      Height = 23
-      Top = 224
+      Left = 453
+      Height = 20
+      Top = 218
       Width = 136
+      AutoSize = False
       Caption = 'template  &name'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 15
     end
     object reduced_ends_checkbox: TCheckBox
-      Left = 240
-      Height = 23
-      Top = 156
+      Left = 236
+      Height = 20
+      Top = 224
       Width = 178
+      AutoSize = False
       Caption = '8ft-6in  &sleeper  ends'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 11
     end
     object timber_infill_checkbox: TCheckBox
-      Left = 240
-      Height = 23
-      Top = 132
+      Left = 236
+      Height = 20
+      Top = 200
       Width = 108
+      AutoSize = False
       Caption = 'timber  &infill'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 10
       OnClick = timber_infill_checkboxClick
     end
     object timber_numbering_checkbox: TCheckBox
-      Left = 240
-      Height = 23
-      Top = 108
+      Left = 236
+      Height = 20
+      Top = 176
       Width = 160
+      AutoSize = False
       Caption = 'timber  n&umbering'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 13
       OnClick = timber_numbering_checkboxClick
     end
     object platforms_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 156
+      Left = 8
+      Height = 20
+      Top = 152
       Width = 93
+      AutoSize = False
       Caption = 'platfor&ms'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 6
     end
     object trackbed_edges_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 180
+      Left = 8
+      Height = 20
+      Top = 176
       Width = 143
+      AutoSize = False
       Caption = 'trackbed  &edges'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 7
     end
     object template_id_checkbox: TCheckBox
-      Left = 472
-      Height = 23
-      Top = 248
+      Left = 453
+      Height = 20
+      Top = 242
       Width = 177
+      AutoSize = False
       Caption = 'template  I&D  number'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 16
     end
     object bold_timber_outlines_checkbox: TCheckBox
-      Left = 200
-      Height = 23
-      Top = 44
-      Width = 327
+      Left = 191
+      Height = 20
+      Top = 38
+      Width = 289
+      AutoSize = False
       Caption = 'bold  outlines  on  most  &recent  template'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 9
     end
     object chair_outlines_checkbox: TCheckBox
-      Left = 508
-      Height = 23
-      Top = 18
+      Left = 489
+      Height = 20
+      Top = 12
       Width = 162
+      AutoSize = False
       Caption = '3-D  chair  outlines'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 17
       OnMouseUp = chair_outlines_checkboxMouseUp
     end
     object feed_droppers_checkbox: TCheckBox
-      Left = 276
-      Height = 23
-      Top = 204
+      Left = 256
+      Height = 20
+      Top = 90
       Width = 132
+      AutoSize = False
       Caption = 'feed  droppers'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 18
     end
     object isolation_gaps_checkbox: TCheckBox
-      Left = 276
-      Height = 23
-      Top = 228
+      Left = 256
+      Height = 20
+      Top = 114
       Width = 132
+      AutoSize = False
       Caption = 'isolation  gaps'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 19
     end
     object stickers_checkbox: TCheckBox
-      Left = 276
-      Height = 23
-      Top = 252
+      Left = 256
+      Height = 20
+      Top = 138
       Width = 81
+      AutoSize = False
       Caption = 'stickers'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 20
     end
     object chair_sockets_checkbox: TCheckBox
-      Left = 508
-      Height = 23
-      Top = 40
+      Left = 489
+      Height = 20
+      Top = 34
       Width = 161
+      AutoSize = False
       Caption = '3-D  chair  sockets'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 21
     end
     object chair_sockets_kerf_checkbox: TCheckBox
-      Left = 470
+      Left = 451
       Height = 20
-      Top = 70
-      Width = 165
-      Caption = 'sockets  3-D  kerf  lines'
+      Top = 64
+      Width = 196
+      AutoSize = False
+      Caption = 'sockets  2-D  kerf  lines'
       Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Arial'
@@ -460,11 +603,12 @@ object bgkeeps_form: Tbgkeeps_form
       TabOrder = 22
     end
     object timber_outlines_kerf_checkbox: TCheckBox
-      Left = 470
+      Left = 451
       Height = 20
-      Top = 92
-      Width = 166
-      Caption = 'timbers  3-D  kerf  lines'
+      Top = 86
+      Width = 193
+      AutoSize = False
+      Caption = 'timbers  2-D  kerf  lines'
       Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Arial'
@@ -473,42 +617,79 @@ object bgkeeps_form: Tbgkeeps_form
       TabOrder = 23
     end
     object timber_outlines_flanges_checkbox: TCheckBox
-      Left = 420
-      Height = 23
-      Top = 124
-      Width = 253
+      Left = 416
+      Height = 20
+      Top = 116
+      Width = 232
+      AutoSize = False
       Caption = 'timber  3-D  flanges  and  webs'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 24
     end
     object bricks_only_timber_outlines_flanges_checkbox: TCheckBox
-      Left = 432
-      Height = 23
-      Top = 144
+      Left = 428
+      Height = 20
+      Top = 136
       Width = 210
+      AutoSize = False
       Caption = 'on  brick  templates  only'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 25
     end
     object radial_centre_marks_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 228
+      Left = 8
+      Height = 20
+      Top = 224
       Width = 174
+      AutoSize = False
       Caption = 'radial  centre  marks'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 26
     end
     object dropper_ridge_marks_checkbox: TCheckBox
-      Left = 16
-      Height = 23
-      Top = 252
+      Left = 8
+      Height = 20
+      Top = 248
       Width = 209
+      AutoSize = False
       Caption = '3-D  dropper-wire  ridges'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 27
+    end
+    object Label3: TLabel
+      Left = 248
+      Height = 15
+      Top = 72
+      Width = 64
+      AutoSize = False
+      Caption = 'symbols :'
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object apply_button: TButton
@@ -518,6 +699,11 @@ object bgkeeps_form: Tbgkeeps_form
     Top = 220
     Width = 90
     Caption = '&apply  now'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
