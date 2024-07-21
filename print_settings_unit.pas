@@ -202,10 +202,9 @@ begin
   if size_updown.Position<size_updown.Tag
      then ScaleBy(10,9);                                           // scale the form contents up.
 
-  // sc 21/07/2024 no longer needed
-  // ClientHeight:=VertScrollBar.Range;                               // allow 4 pixel right margin.
-  // ClientWidth:=HorzScrollBar.Range+4;                              // don't need bottom margin - datestamp label provides this.
-  // ClientHeight:=VertScrollBar.Range;                               // do this twice, as each affects the other.
+  ClientHeight:=VertScrollBar.Range;                               // allow 4 pixel right margin.
+  ClientWidth:=HorzScrollBar.Range+4;                              // don't need bottom margin - datestamp label provides this.
+  ClientHeight:=VertScrollBar.Range;                               // do this twice, as each affects the other.
 
   size_updown.Tag:=size_updown.Position;                           // and save for the next click.
 end;
@@ -214,11 +213,10 @@ end;
 procedure Tprint_settings_form.FormCreate(Sender: TObject);
 
 begin
-  ClientWidth:=520;                               // SC 19/07/2024 was 480;
-  ClientHeight:=640;                              // SC 19/07/2024 was 632;
-  // datestamp_label complies                     // sc 21/07/2024
+  ClientWidth:=480;
+  ClientHeight:=632;
 
-  AutoScroll:=True;                               // SC 19/07/2024 was False;
+  AutoScroll:=False;
 end;
 //______________________________________________________________________________
 
