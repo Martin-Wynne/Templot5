@@ -1,15 +1,14 @@
 object chairs_form: Tchairs_form
-  Left = 540
-  Height = 751
-  Top = 399
+  Left = 37
+  Height = 749
+  Top = 75
   Width = 982
   BorderIcons = []
   BorderStyle = bsSizeToolWin
   Caption = ':             experimental  chairing'
-  ClientHeight = 751
+  ClientHeight = 749
   ClientWidth = 982
   Color = 15791344
-  DesignTimePPI = 120
   Font.Color = 16711808
   Font.Height = -16
   Font.Name = 'Arial'
@@ -499,21 +498,20 @@ object chairs_form: Tchairs_form
   end
   inline chair_frame_all: Tchair_frame
     Left = 241
-    Height = 27
+    Height = 26
     Top = 220
-    Width = 680
-    ClientHeight = 27
-    ClientWidth = 680
+    Width = 654
+    ClientHeight = 26
+    ClientWidth = 654
     Color = 15001828
     ParentBackground = False
     ParentColor = False
     TabOrder = 10
     inherited frame_label: TLabel
-      Left = 24
       Height = 26
       Caption = 'change  all  to :'
       Font.Color = clBlack
-      Font.Height = -20
+      Font.Height = -13
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
@@ -557,11 +555,11 @@ object chairs_form: Tchairs_form
     Height = 320
     Top = 306
     Width = 948
-    HorzScrollBar.Page = 912
+    HorzScrollBar.Page = 886
     VertScrollBar.Page = 316
     VertScrollBar.Tracking = True
     ClientHeight = 316
-    ClientWidth = 923
+    ClientWidth = 927
     ParentBackground = False
     TabOrder = 9
     object Label4: TLabel
@@ -1319,13 +1317,13 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 5
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       inherited frame_label: TLabel
         Font.Color = 45056
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
     end
@@ -1333,15 +1331,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 81
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 1
       inherited frame_label: TLabel
         Color = 15791344
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -1353,15 +1351,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 158
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 2
       inherited frame_label: TLabel
         Caption = 'stock  rail'
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1370,25 +1368,23 @@ object chairs_form: Tchairs_form
     end
     inline frame_P: Tchair_frame
       Left = 232
-      Height = 22
       Top = 120
-      Width = 680
-      ClientHeight = 22
-      ClientWidth = 680
+      Width = 654
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 3
       inherited frame_label: TLabel
         Caption = 'stock  rail'
         Font.Color = 16752640
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
         Caption = '3'
       end
       inherited include_checkbox1: TCheckBox
-        Height = 20
-        Width = 21
+        Height = 17
+        Width = 18
         Caption = ''
       end
       inherited include_checkbox0: TCheckBox
@@ -1400,17 +1396,15 @@ object chairs_form: Tchairs_form
     end
     inline frame_1P_switch: Tchair_frame
       Left = 232
-      Height = 22
       Top = 182
-      Width = 680
-      ClientHeight = 22
-      ClientWidth = 680
+      Width = 654
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 4
       inherited frame_label: TLabel
         Caption = 'switch  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1423,8 +1417,8 @@ object chairs_form: Tchairs_form
         Visible = False
       end
       inherited include_checkbox1: TCheckBox
-        Height = 20
-        Width = 21
+        Height = 17
+        Width = 18
         Caption = ''
       end
       inherited include_checkbox0: TCheckBox
@@ -1438,14 +1432,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 286
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 5
       inherited frame_label: TLabel
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1460,15 +1454,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 222
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 6
       inherited frame_label: TLabel
         Caption = 'stock  rail'
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1479,15 +1473,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 246
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 7
       inherited frame_label: TLabel
         Caption = 'switch  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1498,15 +1492,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 310
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 8
       inherited frame_label: TLabel
         Caption = 'check  rail'
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1517,14 +1511,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 350
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 9
       inherited frame_label: TLabel
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1535,15 +1529,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 374
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 10
       inherited frame_label: TLabel
         Caption = 'check  rail *'
         Font.Color = 13684736
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1554,14 +1548,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 414
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 11
       inherited frame_label: TLabel
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1572,15 +1566,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 460
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 12
       inherited frame_label: TLabel
         Caption = 'main-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1591,17 +1585,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 484
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 13
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1612,17 +1605,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 524
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 14
       inherited frame_label: TLabel
-        Left = 10
         Width = 110
         Caption = 'main-road  rail *'
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1633,17 +1625,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 548
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 15
       inherited frame_label: TLabel
-        Left = 0
         Width = 120
         Caption = 'turnout-road  rail *'
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1654,15 +1645,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 588
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 16
       inherited frame_label: TLabel
         Caption = 'main-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1673,17 +1664,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 612
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 17
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1694,15 +1684,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 652
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 18
       inherited frame_label: TLabel
         Caption = 'main-side'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1713,17 +1703,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 676
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 19
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-side'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1734,15 +1723,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 908
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 20
       inherited frame_label: TLabel
         Caption = 'main-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1753,17 +1742,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 932
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 21
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1773,7 +1761,11 @@ object chairs_form: Tchairs_form
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Left = 364
         Visible = False
+      end
+      inherited export_checkbox2: TCheckBox
+        Left = 588
       end
       inherited include_checkbox1: TCheckBox
         Visible = False
@@ -1786,15 +1778,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 972
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 22
       inherited frame_label: TLabel
         Caption = 'main-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1805,17 +1797,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 996
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 23
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1826,15 +1817,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 780
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 24
       inherited frame_label: TLabel
         Caption = 'main-side'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1845,17 +1836,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 804
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 25
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-side'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1866,15 +1856,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 716
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 26
       inherited frame_label: TLabel
         Caption = 'main-side'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1885,17 +1875,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 740
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 27
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-side'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1906,14 +1895,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 43
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 30
       inherited frame_label: TLabel
         Font.Color = 45056
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1924,15 +1913,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 844
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 31
       inherited frame_label: TLabel
         Caption = 'main-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1955,17 +1944,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 868
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 32
       inherited frame_label: TLabel
-        Left = 2
         Width = 118
         Caption = 'turnout-road  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -1988,14 +1976,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1029
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 33
       inherited frame_label: TLabel
         Font.Color = clFuchsia
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2006,15 +1994,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1101
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 34
       inherited frame_label: TLabel
         Color = 15791344
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2032,14 +2020,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1136
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 35
       inherited frame_label: TLabel
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2048,24 +2036,22 @@ object chairs_form: Tchairs_form
     end
     inline frame_S1O: Tchair_frame
       Left = 232
-      Height = 22
       Top = 1065
-      Width = 680
-      ClientHeight = 22
-      ClientWidth = 680
+      Width = 654
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 36
       inherited frame_label: TLabel
         Font.Color = 16752640
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
         Caption = '32'
       end
       inherited include_checkbox1: TCheckBox
-        Height = 20
-        Width = 21
+        Height = 17
+        Width = 18
         Caption = ''
       end
       inherited include_checkbox0: TCheckBox
@@ -2079,15 +2065,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1303
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 37
       inherited frame_label: TLabel
         Caption = 'check  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2098,16 +2084,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1375
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 38
       inherited frame_label: TLabel
         Caption = 'wing  rail'
         Color = 15791344
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2119,14 +2105,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1423
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 39
       inherited frame_label: TLabel
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2137,14 +2123,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1351
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 40
       inherited frame_label: TLabel
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2155,15 +2141,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1447
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 41
       inherited frame_label: TLabel
         Caption = 'wing  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2174,16 +2160,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1518
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 42
       inherited frame_label: TLabel
         Caption = 'wing  rail'
         Color = 15791344
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2195,14 +2181,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1566
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 43
       inherited frame_label: TLabel
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2228,14 +2214,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1494
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 44
       inherited frame_label: TLabel
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2246,14 +2232,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1602
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 45
       inherited frame_label: TLabel
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2277,17 +2263,15 @@ object chairs_form: Tchairs_form
     end
     inline frame_SDS: Tchair_frame
       Left = 232
-      Height = 22
       Top = 1673
-      Width = 680
-      ClientHeight = 22
-      ClientWidth = 680
+      Width = 654
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 46
       inherited frame_label: TLabel
         Color = 15791344
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2295,8 +2279,8 @@ object chairs_form: Tchairs_form
         Caption = '49'
       end
       inherited include_checkbox1: TCheckBox
-        Height = 20
-        Width = 21
+        Height = 17
+        Width = 18
         Caption = ''
       end
       inherited include_checkbox0: TCheckBox
@@ -2310,16 +2294,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1709
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 47
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 16752640
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2328,24 +2312,22 @@ object chairs_form: Tchairs_form
     end
     inline frame_SDP: Tchair_frame
       Left = 232
-      Height = 22
       Top = 1637
-      Width = 680
-      ClientHeight = 22
-      ClientWidth = 680
+      Width = 654
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 48
       inherited frame_label: TLabel
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
         Caption = '48'
       end
       inherited include_checkbox1: TCheckBox
-        Height = 20
-        Width = 21
+        Height = 17
+        Width = 18
         Caption = ''
       end
       inherited include_checkbox0: TCheckBox
@@ -2359,16 +2341,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1745
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 49
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 45056
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2379,9 +2361,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1816
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 50
@@ -2389,7 +2371,7 @@ object chairs_form: Tchairs_form
         Caption = ''
         Color = 15791344
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2401,16 +2383,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1852
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 51
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 16752640
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2421,16 +2403,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1780
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 52
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 45056
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2441,15 +2423,15 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1160
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 53
       inherited frame_label: TLabel
         Caption = 'check  rail'
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2460,16 +2442,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1232
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 54
       inherited frame_label: TLabel
         Caption = 'check  rail'
         Color = 15791344
         Font.Color = clBlack
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2481,14 +2463,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1279
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 55
       inherited frame_label: TLabel
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2499,14 +2481,14 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1208
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       ParentBackground = False
       TabOrder = 56
       inherited frame_label: TLabel
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2517,16 +2499,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1888
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 57
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 45056
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2537,9 +2519,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1960
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 58
@@ -2547,7 +2529,7 @@ object chairs_form: Tchairs_form
         Caption = ''
         Color = 15791344
         Font.Color = 16711808
-        Font.Height = -20
+        Font.Height = -13
         ParentColor = False
         ParentFont = False
       end
@@ -2559,16 +2541,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1996
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 59
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 16752640
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
@@ -2579,16 +2561,16 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 22
       Top = 1924
-      Width = 680
+      Width = 654
       ClientHeight = 22
-      ClientWidth = 680
+      ClientWidth = 654
       Enabled = False
       ParentBackground = False
       TabOrder = 60
       inherited frame_label: TLabel
         Caption = ''
         Font.Color = 45056
-        Font.Height = -20
+        Font.Height = -13
         ParentFont = False
       end
       inherited Label1: TLabel
