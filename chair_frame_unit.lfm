@@ -1,13 +1,13 @@
 object chair_frame: Tchair_frame
   Left = 0
-  Height = 20
+  Height = 27
   Top = 0
-  Width = 678
+  Width = 658
   AutoSize = True
-  ClientHeight = 20
-  ClientWidth = 678
+  ClientHeight = 27
+  ClientWidth = 658
   Font.Color = clWindowText
-  Font.Height = -16
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   ParentFont = False
@@ -16,16 +16,21 @@ object chair_frame: Tchair_frame
     Left = 0
     Height = 20
     Top = 0
-    Width = 100
+    Width = 120
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'running  rail'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
   end
   object Label1: TLabel
     Left = 636
     Height = 15
-    Top = 2
+    Top = 4
     Width = 18
     Alignment = taRightJustify
     AutoSize = False
@@ -36,37 +41,55 @@ object chair_frame: Tchair_frame
     ParentFont = False
   end
   object loose_checkbox0: TCheckBox
-    Left = 364
-    Height = 17
+    Left = 384
+    Height = 22
     Top = 0
-    Width = 18
+    Width = 22
+    Caption = ' '
     Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 0
     OnMouseDown = include_checkbox0MouseDown
   end
   object export_checkbox1: TCheckBox
-    Left = 440
-    Height = 17
+    Left = 460
+    Height = 22
     Top = 0
-    Width = 18
+    Width = 22
+    Caption = ' '
     Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 1
     OnMouseDown = include_checkbox0MouseDown
   end
   object export_checkbox2: TCheckBox
     Left = 590
-    Height = 17
+    Height = 22
     Top = 0
-    Width = 18
+    Width = 22
+    Caption = ' '
     Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 2
     OnMouseDown = include_checkbox0MouseDown
   end
   object include_checkbox1: TCheckBox
-    Left = 232
+    Left = 252
     Height = 22
     Top = 0
     Width = 31
@@ -82,21 +105,33 @@ object chair_frame: Tchair_frame
     OnMouseDown = include_checkbox0MouseDown
   end
   object include_checkbox0: TCheckBox
-    Left = 146
-    Height = 17
+    Left = 166
+    Height = 22
     Top = 0
-    Width = 18
+    Width = 22
+    Caption = ' '
     Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 4
     OnMouseDown = include_checkbox0MouseDown
   end
   object include_checkbox2: TCheckBox
-    Left = 274
-    Height = 17
+    Left = 294
+    Height = 22
     Top = 0
-    Width = 18
+    Width = 22
+    Caption = ' '
     Checked = True
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 5
     OnMouseDown = include_checkbox0MouseDown
