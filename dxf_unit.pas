@@ -45,10 +45,16 @@ type
   { Tdxf_form }
 
   Tdxf_form = class(TForm)
+    all_slots_button: TButton;
+    all_loose_jaws_button: TButton;
+    all_solid_jaws_button: TButton;
+    Label81: TLabel;
+    Label82: TLabel;
     ok_panel: TPanel;
     ok_button: TButton;
     datestamp_label: TLabel;
     blue_corner_panel: TPanel;
+    jaws_panel: TPanel;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
@@ -368,6 +374,9 @@ type
     Label79: TLabel;
     Label80: TLabel;
     assemblers_checkbox: TCheckBox;
+    procedure all_loose_jaws_buttonClick(Sender: TObject);
+    procedure all_slots_buttonClick(Sender: TObject);
+    procedure all_solid_jaws_buttonClick(Sender: TObject);
     procedure ok_panelClick(Sender: TObject);
     procedure help_buttonClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
@@ -5972,7 +5981,7 @@ begin
                 dxf_3d_page_control.Visible:=False;
                 exp_panel.Visible:=False;
                 ClientWidth:=320;
-                ClientHeight:=460;
+                ClientHeight:=612;
               end;
 
 
@@ -7428,6 +7437,43 @@ begin
   if (Sender=preview_button) or (Sender=preview_panel)
      then ModalResult:=mrYes
      else ModalResult:=mrOK;
+end;
+//______________________________________________________________________________
+
+procedure Tdxf_form.all_slots_buttonClick(Sender: TObject);    // MW 29-07-2024  555a
+
+begin
+  chairs_form.export_slots_button.Click;
+
+  chairs_form.modify_button.Tag:=1;           // no alerts
+  chairs_form.modify_button.Click;
+  chairs_form.modify_button.Tag:=0;           // reset
+
+  show_modal_message('All chairs on all background templates'+#13+'have been changed to outer jaw slots.');
+end;
+//______________________________________________________________________________
+
+procedure Tdxf_form.all_loose_jaws_buttonClick(Sender: TObject);  // MW 29-07-2024  555a
+
+begin
+  chairs_form.export_loose_only_button.Click;
+
+  chairs_form.modify_button.Tag:=1;           // no alerts
+  chairs_form.modify_button.Click;
+  chairs_form.modify_button.Tag:=0;           // reset
+  show_modal_message('All chairs on all background templates'+#13+'have been changed to export loose jaws only.');
+end;
+//______________________________________________________________________________
+
+procedure Tdxf_form.all_solid_jaws_buttonClick(Sender: TObject);  // MW 29-07-2024  555a
+
+begin
+  chairs_form.export_solid_button.Click;
+
+  chairs_form.modify_button.Tag:=1;           // no alerts
+  chairs_form.modify_button.Click;
+  chairs_form.modify_button.Tag:=0;           // reset
+  show_modal_message('All chairs on all background templates'+#13+'have been changed to solid outer jaws.');
 end;
 //______________________________________________________________________________
 
@@ -12744,6 +12790,8 @@ begin
   chairs_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=False;
 
+  jaws_panel.Visible:=False;
+
   _3d_fdm_radiobutton.Checked:=True;    // assume FDM
   _3d_options_click(False);
 
@@ -12788,6 +12836,8 @@ begin
   stl_radio.Enabled:=False;
   dxf_stl_both_radio.Enabled:=False;
 
+  jaws_panel.Visible:=False;
+
   preview_panel.Color:=$0090D0FF;                    // sand
   preview_panel.Caption:='   preview  2-D  export';
 
@@ -12828,6 +12878,8 @@ begin
 
   rail_label.Visible:=True;
 
+  jaws_panel.Visible:=True;
+
   _3d_resin_radiobutton.Checked:=True;    // assume resin
   _3d_options_click(False);
 
@@ -12852,6 +12904,8 @@ begin
   timbers_laser_bullet_shape.Visible:=False;
   chairs_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=True;
+
+  jaws_panel.Visible:=False;
 
 end;
 //______________________________________________________________________________
@@ -14589,6 +14643,8 @@ begin
   rail_section_button.Click;
 end;
 //______________________________________________________________________________
+
+
 
 initialization
 

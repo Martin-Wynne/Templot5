@@ -1,16 +1,17 @@
 object chairs_form: Tchairs_form
-  Left = 27
-  Height = 749
-  Top = 20
-  Width = 982
-  BorderIcons = []
+  Left = 428
+  Height = 704
+  Top = 423
+  Width = 964
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = ':             experimental  chairing'
-  ClientHeight = 749
-  ClientWidth = 982
+  ClientHeight = 704
+  ClientWidth = 964
   Color = 15791344
+  DesignTimePPI = 120
   Font.Color = 16711808
-  Font.Height = -13
+  Font.Height = -455
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -21,13 +22,13 @@ object chairs_form: Tchairs_form
     Left = 0
     Height = 4
     Top = 700
-    Width = 982
+    Width = 964
     AutoSize = False
   end
   object Label3: TLabel
-    Left = 446
+    Left = 664
     Height = 18
-    Top = 678
+    Top = 634
     Width = 279
     AutoSize = False
     Caption = 'experimental dialog under construction'
@@ -387,9 +388,9 @@ object chairs_form: Tchairs_form
     OnClick = export_loose_only_buttonClick
   end
   object cancel_button: TButton
-    Left = 692
+    Left = 558
     Height = 23
-    Top = 642
+    Top = 669
     Width = 85
     Caption = 'cancel'
     Font.Height = -15
@@ -399,29 +400,15 @@ object chairs_form: Tchairs_form
     ParentFont = False
     TabOrder = 3
   end
-  object group_match_button: TButton
-    Left = 754
-    Height = 26
-    Top = 132
-    Width = 192
-    Caption = 'modify  group  to  match'
-    Font.Color = 16711808
-    Font.Height = -15
-    Font.Name = 'Arial'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 4
-    OnClick = group_match_buttonClick
-  end
   object ok_panel: TPanel
-    Left = 796
+    Left = 654
     Height = 30
-    Top = 656
-    Width = 150
+    Top = 663
+    Width = 300
     Alignment = taLeftJustify
-    Caption = '   apply  changes'
+    Caption = '   apply  changes  to  control  template'
     ClientHeight = 30
-    ClientWidth = 150
+    ClientWidth = 300
     Color = 8454016
     Font.Color = clBlack
     Font.Height = -15
@@ -430,10 +417,12 @@ object chairs_form: Tchairs_form
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     OnClick = ok_panelClick
+    OnMouseEnter = ok_panelMouseEnter
+    OnMouseLeave = ok_panelMouseLeave
     object ok_button: TButton
-      Left = 132
+      Left = 280
       Height = 14
       Top = 12
       Width = 14
@@ -447,14 +436,14 @@ object chairs_form: Tchairs_form
     end
   end
   object ok_panel_2: TPanel
-    Left = 796
+    Left = 640
     Height = 30
-    Top = 170
-    Width = 150
+    Top = 177
+    Width = 300
     Alignment = taLeftJustify
-    Caption = '   apply  changes'
+    Caption = '   apply  changes  to  control  template'
     ClientHeight = 30
-    ClientWidth = 150
+    ClientWidth = 300
     Color = 8454016
     Font.Color = clBlack
     Font.Height = -15
@@ -463,10 +452,12 @@ object chairs_form: Tchairs_form
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     OnClick = ok_panelClick
+    OnMouseEnter = ok_panel_2MouseEnter
+    OnMouseLeave = ok_panel_2MouseLeave
     object ok_button_2: TButton
-      Left = 132
+      Left = 280
       Height = 14
       Top = 12
       Width = 14
@@ -491,7 +482,7 @@ object chairs_form: Tchairs_form
     Font.Style = [fsBold]
     ModalResult = 2
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 6
   end
   object help_button: TButton
     Left = 892
@@ -499,19 +490,25 @@ object chairs_form: Tchairs_form
     Top = 6
     Width = 60
     Caption = '? help'
-    TabOrder = 8
+    Font.Color = 16711808
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    OnClick = help_buttonClick
   end
   inline chair_frame_all: Tchair_frame
     Left = 241
-    Height = 22
+    Height = 25
     Top = 220
-    Width = 654
-    ClientHeight = 22
-    ClientWidth = 654
+    Width = 817
+    ClientHeight = 25
+    ClientWidth = 817
     Color = 15001828
     ParentBackground = False
     ParentColor = False
-    TabOrder = 10
+    TabOrder = 9
     inherited frame_label: TLabel
       Caption = 'change  all  to :'
     end
@@ -519,32 +516,38 @@ object chairs_form: Tchairs_form
       Caption = ''
     end
     inherited loose_checkbox0: TCheckBox
+      Width = 25
       Checked = False
       State = cbUnchecked
       OnClick = chair_frame_allloose_checkbox0Click
     end
     inherited export_checkbox1: TCheckBox
+      Width = 25
       Checked = False
       State = cbUnchecked
       OnClick = chair_frame_allexport_checkbox1Click
     end
     inherited export_checkbox2: TCheckBox
+      Width = 25
       Checked = False
       State = cbUnchecked
       OnClick = chair_frame_allexport_checkbox2Click
     end
     inherited include_checkbox1: TCheckBox
+      Width = 34
       Checked = False
       State = cbUnchecked
       OnClick = chair_frame_allinclude_checkbox1Click
     end
     inherited include_checkbox0: TCheckBox
+      Width = 25
       Checked = False
       State = cbUnchecked
       OnClick = chair_frame_allinclude_checkbox0Click
       OnMouseDown = nil
     end
     inherited include_checkbox2: TCheckBox
+      Width = 25
       Checked = False
       State = cbUnchecked
       OnClick = chair_frame_allinclude_checkbox2Click
@@ -555,13 +558,19 @@ object chairs_form: Tchairs_form
     Height = 320
     Top = 306
     Width = 948
-    HorzScrollBar.Page = 886
+    HorzScrollBar.Page = 1
+    HorzScrollBar.Visible = False
     VertScrollBar.Page = 316
     VertScrollBar.Tracking = True
     ClientHeight = 316
-    ClientWidth = 927
+    ClientWidth = 923
+    Font.Color = 16711808
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
-    TabOrder = 9
+    ParentFont = False
+    TabOrder = 8
     object Label4: TLabel
       Left = 64
       Height = 22
@@ -1315,23 +1324,41 @@ object chairs_form: Tchairs_form
     end
     inline frame_S1: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 5
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       inherited frame_label: TLabel
         Font.Color = 45056
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_L1: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 81
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 1
       inherited frame_label: TLabel
@@ -1342,14 +1369,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '2'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_1P_stock: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 158
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 2
       inherited frame_label: TLabel
@@ -1359,14 +1404,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '4'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_P: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 120
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 3
       inherited frame_label: TLabel
@@ -1376,20 +1439,34 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '3'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_1P_switch: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 182
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 4
       inherited frame_label: TLabel
@@ -1399,25 +1476,35 @@ object chairs_form: Tchairs_form
         Caption = '5'
       end
       inherited loose_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Width = 25
         Visible = False
       end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_CC_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 39
       Top = 286
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 39
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 5
       inherited frame_label: TLabel
@@ -1426,14 +1513,34 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '8'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Left = 423
+        Top = 17
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_3P_stock: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 222
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 6
       inherited frame_label: TLabel
@@ -1443,14 +1550,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '6'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_3P_switch: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 246
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 7
       inherited frame_label: TLabel
@@ -1459,14 +1584,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '7'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_CC_check: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 310
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 8
       inherited frame_label: TLabel
@@ -1476,14 +1619,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '9'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_CCLR_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 350
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 9
       inherited frame_label: TLabel
@@ -1492,14 +1653,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '10'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_CCLR_check: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 374
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 10
       inherited frame_label: TLabel
@@ -1509,14 +1688,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '11'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_M1: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 414
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 11
       inherited frame_label: TLabel
@@ -1525,14 +1722,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '12'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_ZY_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 460
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 12
       inherited frame_label: TLabel
@@ -1541,14 +1756,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '13'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_ZY_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 484
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 13
       inherited frame_label: TLabel
@@ -1557,14 +1790,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '14'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_XN_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 524
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 14
       inherited frame_label: TLabel
@@ -1574,14 +1825,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '15'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_XN_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 548
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 15
       inherited frame_label: TLabel
@@ -1591,14 +1860,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '16'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_XA_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 588
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 16
       inherited frame_label: TLabel
@@ -1607,14 +1894,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '17'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_XA_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 612
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 17
       inherited frame_label: TLabel
@@ -1623,14 +1928,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '18'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_AA_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 652
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 18
       inherited frame_label: TLabel
@@ -1639,14 +1962,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '19'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_AA_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 676
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 19
       inherited frame_label: TLabel
@@ -1655,14 +1996,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '20'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_DD_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 908
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 20
       inherited frame_label: TLabel
@@ -1671,14 +2030,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '27'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_DD_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 932
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 21
       inherited frame_label: TLabel
@@ -1688,25 +2065,35 @@ object chairs_form: Tchairs_form
         Caption = '28'
       end
       inherited loose_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Width = 25
         Visible = False
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
       end
       inherited include_checkbox1: TCheckBox
+        Width = 34
         Visible = False
       end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_EF_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 972
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 22
       inherited frame_label: TLabel
@@ -1715,14 +2102,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '29'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_EF_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 996
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 23
       inherited frame_label: TLabel
@@ -1731,14 +2136,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '30'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_BB_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 780
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 24
       inherited frame_label: TLabel
@@ -1747,14 +2170,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '23'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_BB_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 804
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 25
       inherited frame_label: TLabel
@@ -1763,14 +2204,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '24'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_AB_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 716
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 26
       inherited frame_label: TLabel
@@ -1779,14 +2238,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '21'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_AB_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 740
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 27
       inherited frame_label: TLabel
@@ -1795,14 +2272,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '22'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_S1J: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 43
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 30
       inherited frame_label: TLabel
@@ -1811,14 +2306,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '1'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_CD_ms: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 844
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 31
       inherited frame_label: TLabel
@@ -1828,25 +2341,35 @@ object chairs_form: Tchairs_form
         Caption = '25'
       end
       inherited loose_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Width = 25
         Visible = False
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
       end
       inherited include_checkbox1: TCheckBox
+        Width = 34
         Visible = False
       end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_CD_ts: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 868
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 32
       inherited frame_label: TLabel
@@ -1856,25 +2379,35 @@ object chairs_form: Tchairs_form
         Caption = '26'
       end
       inherited loose_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Width = 25
         Visible = False
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
       end
       inherited include_checkbox1: TCheckBox
+        Width = 34
         Visible = False
       end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_SC: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1029
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 33
       inherited frame_label: TLabel
@@ -1883,14 +2416,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '31'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_S1N: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1101
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 34
       inherited frame_label: TLabel
@@ -1900,20 +2451,34 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '33'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox1: TCheckBox
+        Width = 34
         Visible = False
       end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_L1CCLR_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1136
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 35
       inherited frame_label: TLabel
@@ -1922,14 +2487,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '34'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_S1O: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1065
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 36
       inherited frame_label: TLabel
@@ -1938,20 +2521,34 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '32'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_L1CCRL_check: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1303
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 37
       inherited frame_label: TLabel
@@ -1960,14 +2557,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '39'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_PW_wing: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1375
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 38
       inherited frame_label: TLabel
@@ -1978,40 +2593,94 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '41'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_PWL_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1423
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 39
       inherited Label1: TLabel
         Caption = '42'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_PW_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1351
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 40
       inherited Label1: TLabel
         Caption = '40'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_PWL_wing: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1447
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 41
       inherited frame_label: TLabel
@@ -2020,14 +2689,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '43'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_PWR_wing: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1518
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 42
       inherited frame_label: TLabel
@@ -2038,83 +2725,135 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '45'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_SS: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1566
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 43
       inherited Label1: TLabel
         Caption = '46'
       end
       inherited loose_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Width = 25
         Visible = False
       end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox1: TCheckBox
+        Width = 34
         Visible = False
       end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_PWR_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1494
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 44
       inherited Label1: TLabel
         Caption = '44'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_MS: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1602
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 45
       inherited Label1: TLabel
         Caption = '47'
       end
       inherited loose_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited export_checkbox1: TCheckBox
+        Width = 25
         Visible = False
       end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
       inherited include_checkbox1: TCheckBox
+        Width = 34
         Visible = False
       end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline frame_SDS: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1673
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 46
       inherited frame_label: TLabel
@@ -2124,20 +2863,34 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '49'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline chair_frame19: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1709
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 47
@@ -2148,33 +2901,65 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '50'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_SDP: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1637
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 48
       inherited Label1: TLabel
         Caption = '48'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
       inherited include_checkbox0: TCheckBox
+        Width = 25
         Visible = False
       end
       inherited include_checkbox2: TCheckBox
+        Width = 25
         Visible = False
       end
     end
     inline chair_frame21: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1745
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 49
@@ -2185,14 +2970,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '51'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame22: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1816
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 50
@@ -2205,14 +3008,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '53'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame23: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1852
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 51
@@ -2223,14 +3044,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '54'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame24: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1780
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 52
@@ -2241,14 +3080,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '52'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_L1CCLR_check: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1160
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 53
       inherited frame_label: TLabel
@@ -2257,14 +3114,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '35'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_L1CC_check: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1232
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 54
       inherited frame_label: TLabel
@@ -2275,14 +3150,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '37'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_L1CCRL_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1279
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 55
       inherited frame_label: TLabel
@@ -2291,14 +3184,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '38'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline frame_L1CC_run: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1208
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       ParentBackground = False
       TabOrder = 56
       inherited frame_label: TLabel
@@ -2307,14 +3218,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '36'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame25: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1888
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 57
@@ -2325,14 +3254,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '55'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame26: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1960
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 58
@@ -2345,14 +3292,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '57'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame27: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1996
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 59
@@ -2363,14 +3328,32 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '58'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     inline chair_frame28: Tchair_frame
       Left = 232
-      Height = 22
+      Height = 25
       Top = 1924
-      Width = 654
-      ClientHeight = 22
-      ClientWidth = 654
+      Width = 817
+      ClientHeight = 25
+      ClientWidth = 817
       Enabled = False
       ParentBackground = False
       TabOrder = 60
@@ -2381,10 +3364,28 @@ object chairs_form: Tchairs_form
       inherited Label1: TLabel
         Caption = '56'
       end
+      inherited loose_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox1: TCheckBox
+        Width = 25
+      end
+      inherited export_checkbox2: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox1: TCheckBox
+        Width = 34
+      end
+      inherited include_checkbox0: TCheckBox
+        Width = 25
+      end
+      inherited include_checkbox2: TCheckBox
+        Width = 25
+      end
     end
     object Panel2: TPanel
       Left = 770
-      Height = 2100
+      Height = 2050
       Top = 6
       Width = 3
       BevelOuter = bvNone
@@ -2394,8 +3395,8 @@ object chairs_form: Tchairs_form
       TabOrder = 29
     end
     object Panel1: TPanel
-      Left = 570
-      Height = 2100
+      Left = 574
+      Height = 2050
       Top = 6
       Width = 3
       BevelOuter = bvNone
@@ -2403,6 +3404,41 @@ object chairs_form: Tchairs_form
       ParentBackground = False
       ParentColor = False
       TabOrder = 28
+    end
+  end
+  object modify_match_panel: TPanel
+    Left = 640
+    Height = 30
+    Top = 134
+    Width = 300
+    Alignment = taLeftJustify
+    Caption = '      modify  group  to  match  changes'
+    ClientHeight = 30
+    ClientWidth = 300
+    Color = 16767128
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 10
+    OnClick = modify_match_panelClick
+    OnMouseEnter = modify_match_panelMouseEnter
+    OnMouseLeave = modify_match_panelMouseLeave
+    object modify_button: TButton
+      Left = 280
+      Height = 14
+      Top = 12
+      Width = 14
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = modify_match_panelClick
     end
   end
 end

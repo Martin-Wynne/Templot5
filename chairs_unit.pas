@@ -39,8 +39,8 @@ unit chairs_unit;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls,
-  chair_frame_unit;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, ExtCtrls, Buttons, chair_frame_unit;
 
 type
 
@@ -59,11 +59,11 @@ type
     export_loose_only_button: TButton;
     Label18: TLabel;
     cancel_button: TButton;
-    group_match_button: TButton;
     Label19: TLabel;
     Label20: TLabel;
     Label21: TLabel;
     loose_checkbox0: TCheckBox;
+    modify_button: TButton;
     ok_panel: TPanel;
     ok_button: TButton;
     ok_panel_2: TPanel;
@@ -73,6 +73,7 @@ type
     Label33: TLabel;
     Label34: TLabel;
     Label35: TLabel;
+    modify_match_panel: TPanel;
     Shape1: TShape;
     help_button: TButton;
     Label36: TLabel;
@@ -204,7 +205,10 @@ type
     procedure export_solid_buttonClick(Sender: TObject);
     procedure export_slots_buttonClick(Sender: TObject);
     procedure export_loose_only_buttonClick(Sender: TObject);
-    procedure group_match_buttonClick(Sender: TObject);
+    procedure help_buttonClick(Sender: TObject);
+    procedure modify_match_panelClick(Sender: TObject);
+    procedure modify_match_panelMouseEnter(Sender: TObject);
+    procedure modify_match_panelMouseLeave(Sender: TObject);
     procedure ok_panelClick(Sender: TObject);
     procedure chair_frame_allinclude_checkbox0Click(Sender: TObject);
     procedure chair_frame_allinclude_checkbox1Click(Sender: TObject);
@@ -212,6 +216,10 @@ type
     procedure chair_frame_allexport_checkbox1Click(Sender: TObject);
     procedure chair_frame_allexport_checkbox2Click(Sender: TObject);
     procedure chair_frame_allinclude_checkbox2Click(Sender: TObject);
+    procedure ok_panelMouseEnter(Sender: TObject);
+    procedure ok_panelMouseLeave(Sender: TObject);
+    procedure ok_panel_2MouseEnter(Sender: TObject);
+    procedure ok_panel_2MouseLeave(Sender: TObject);
   private
     { Private declarations }
   public
@@ -896,7 +904,7 @@ implementation
 {$R *.lfm}
 
 uses
-  control_room, pad_unit, math_unit, keep_select, dxf_unit, alert_unit, bgkeeps_unit;
+  control_room, pad_unit, math_unit, keep_select, dxf_unit, alert_unit, bgkeeps_unit, help_sheet;
 
 //______________________________________________________________________________
 
@@ -1798,7 +1806,7 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tchairs_form.group_match_buttonClick(Sender: TObject);
+procedure Tchairs_form.modify_match_panelClick(Sender: TObject);
 
 var
   n,m:integer;
@@ -1810,17 +1818,19 @@ begin
             EXIT;
           end;
 
-  if any_selected=0
+  if (modify_button.Tag<>1) and (any_selected=0)  // not called from dxf_unit  MW 29-07-2024  555a
      then begin
             if alert_no_group=True    // alert him, and does he want all?
                then EXIT;
           end;
 
-  if alert(7,'    modify  group  to  match',
-             'You are about to modify all the currently selected group templates to match these settings.'
-            +'||This will not change the control template until you click the `0apply changes`1 button.',
-             '','','','','cancel','continue  -  modify  group  to  match',0)=5 then EXIT;
-
+  if modify_button.Tag<>1   // not called from dxf_unit  MW 29-07-2024  555a
+     then begin
+            if alert(7,'    modify  group  to  match',
+                       'You are about to modify all the currently selected group templates to match these settings.'
+                      +'||This will not change the control template until you click the `0apply changes to control template`1 button.',
+                       '','','','','cancel','continue  -  modify  group  to  match',0)=5 then EXIT;
+          end;
 
   for n:=0 to (keeps_list.Count-1) do begin
 
@@ -1828,7 +1838,7 @@ begin
 
       if bg_copied=False then CONTINUE;       // unused, nothing to export
 
-      if group_selected=False then CONTINUE;  // ignore if not in group
+      if (modify_button.Tag<>1) and (group_selected=False) then CONTINUE;  // ignore if not in group and not called from dxf_unit  MW 29-07-2024  555a
 
       for m:=0 to HIGH(chair_frames) do begin    // update from checkboxes ...
 
@@ -1856,10 +1866,59 @@ begin
 end;
 //______________________________________________________________________________
 
+procedure Tchairs_form.help_buttonClick(Sender: TObject);
+
+begin
+  help(0,'please refer to the Templot Club forum','');   // MW temporary
+end;
+//______________________________________________________________________________
+
 procedure Tchairs_form.ok_panelClick(Sender: TObject);
 
 begin
   ModalResult:=mrOk;
+end;
+//______________________________________________________________________________
+
+procedure Tchairs_form.ok_panelMouseEnter(Sender: TObject);    // MW 29-07-2024  555a
+
+begin
+  ok_panel.Color:=$00D0FFD0;
+end;
+//______________________________________________________________________________
+
+procedure Tchairs_form.ok_panelMouseLeave(Sender: TObject);     // MW 29-07-2024  555a
+
+begin
+  ok_panel.Color:=$0080FF80;
+end;
+//______________________________________________________________________________
+
+procedure Tchairs_form.ok_panel_2MouseEnter(Sender: TObject);    // MW 29-07-2024  555a
+
+begin
+   ok_panel_2.Color:=$00D0FFD0;
+end;
+//______________________________________________________________________________
+
+procedure Tchairs_form.ok_panel_2MouseLeave(Sender: TObject);   // MW 29-07-2024  555a
+
+begin
+  ok_panel_2.Color:=$0080FF80;
+end;
+//______________________________________________________________________________
+
+procedure Tchairs_form.modify_match_panelMouseEnter(Sender: TObject);   // MW 29-07-2024  555a
+
+begin
+  modify_match_panel.Color:=$00FFFFD0;
+end;
+//______________________________________________________________________________
+
+procedure Tchairs_form.modify_match_panelMouseLeave(Sender: TObject);  // MW 29-07-2024  555a
+
+begin
+  modify_match_panel.Color:=$00FFD898;
 end;
 //______________________________________________________________________________
 
