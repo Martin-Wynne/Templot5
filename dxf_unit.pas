@@ -50,6 +50,8 @@ type
     all_solid_jaws_button: TButton;
     Label81: TLabel;
     Label82: TLabel;
+    Label84: TLabel;
+    Label85: TLabel;
     ok_panel: TPanel;
     ok_button: TButton;
     datestamp_label: TLabel;
