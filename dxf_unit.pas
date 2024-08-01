@@ -7184,7 +7184,7 @@ begin
                                         +'||Refer to the Templot Club user forum for more information.';                          // 241b
 
                   get_builder_str:='get  3D Builder';
-                  continue_str:='open  STL  file  in  3D  Buider  for  mesh  fixing';
+                  continue_str:='open  STL  file  in  3D  Builder  for  mesh  fixing';
                   repair_str:='continue  without  mesh  fixing';
                   online_str:='visit  free  online  mesh-fixing  service';
                 end
