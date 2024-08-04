@@ -1,43 +1,41 @@
 object brick_form: Tbrick_form
   Left = 6
-  Height = 171
+  Height = 212
   Top = 450
-  Width = 588
+  Width = 572
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '  experimental  3D'
-  ClientHeight = 171
-  ClientWidth = 588
+  ClientHeight = 212
+  ClientWidth = 572
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -16
+  Font.Height = -61
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
   LCLVersion = '3.4.0.0'
   Scaled = False
-  object datestamp_label: TLabel
-    Left = 0
-    Height = 4
-    Top = 120
-    Width = 570
-    AutoSize = False
-  end
   object store_marker_colour_panel: TPanel
     Left = 2
-    Height = 22
+    Height = 24
     Hint = ' click to change active colour '
-    Top = 38
+    Top = 36
     Width = 96
     BevelOuter = bvNone
     BorderWidth = 1
     BorderStyle = bsSingle
-    ClientHeight = 18
+    ClientHeight = 20
     ClientWidth = 92
     Color = 65488
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
@@ -48,6 +46,11 @@ object brick_form: Tbrick_form
       Hint = ' store using this active marker colour '
       Top = 0
       Width = 21
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
@@ -55,11 +58,16 @@ object brick_form: Tbrick_form
   end
   object zoom_to_brick_button: TButton
     Left = 2
-    Height = 20
+    Height = 24
     Hint = ' zoom to brick matching this colour '
     Top = 68
     Width = 112
     Caption = 'zoom  to  brick'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
@@ -67,32 +75,43 @@ object brick_form: Tbrick_form
   end
   object bricklaying_checkbox: TCheckBox
     Left = 4
-    Height = 23
+    Height = 20
     Hint = ' store  templates  as  members  of  a  timbering  brick '
     Top = 8
-    Width = 105
+    Width = 91
     Caption = 'bricklaying'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
     OnMouseUp = bricklaying_checkboxMouseUp
   end
   object bgnd_chairs_checkbox: TCheckBox
-    Left = 100
-    Height = 23
+    Left = 152
+    Height = 20
     Hint = ' show  experimental  chairing  on  background  templates  ( slow ) '
-    Top = 100
-    Width = 169
-    Caption = 'background  chairs'
+    Top = 182
+    Width = 186
+    AutoSize = False
+    Caption = 'show  background  chairs'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 3
     OnMouseUp = bgnd_chairs_checkboxMouseUp
   end
   object do_dxf_button: TButton
-    Left = 360
-    Height = 26
-    Top = 94
+    Left = 372
+    Height = 28
+    Top = 184
     Width = 200
     Caption = 'DXF / STL  file  export ...'
     Font.Color = clWindowText
@@ -109,16 +128,26 @@ object brick_form: Tbrick_form
     Top = 70
     Width = 156
     Caption = 'store  and  shift  multi'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 5
     OnClick = store_shift_multi_buttonClick
   end
   object shrink_gauge_checkbox: TCheckBox
     Left = 128
-    Height = 23
+    Height = 20
     Top = 2
-    Width = 170
+    Width = 147
     Caption = 'shrink  gauge  multi'
     Checked = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 6
   end
@@ -126,12 +155,12 @@ object brick_form: Tbrick_form
     Left = 0
     Height = 23
     Hint = ' mouse  action :  adjust  blanking  length  -  CTRL+F3  keys '
-    Top = 98
+    Top = 102
     Width = 88
     Caption = 'BLANKING'
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Verdana'
+    Font.Color = clWindowText
+    Font.Height = -14
+    Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
     ParentShowHint = False
@@ -145,6 +174,11 @@ object brick_form: Tbrick_form
     Top = 44
     Width = 131
     Caption = 'multi  settings ...'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 8
     OnClick = multi_settings_buttonClick
   end
@@ -154,6 +188,11 @@ object brick_form: Tbrick_form
     Top = 12
     Width = 142
     Caption = 'shrink  switch  heel'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 9
     OnClick = shrink_switch_buttonClick
   end
@@ -163,6 +202,11 @@ object brick_form: Tbrick_form
     Top = 48
     Width = 132
     Caption = 'isolate  V-crossing'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 10
     OnClick = isolate_v_xing_buttonClick
   end
@@ -172,25 +216,166 @@ object brick_form: Tbrick_form
     Top = 48
     Width = 132
     Caption = 'isolate  K-crossing'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 11
     OnClick = isolate_k_xing_buttonClick
   end
   object l1_fill_checkbox: TCheckBox
-    Left = 506
-    Height = 23
+    Left = 508
+    Height = 20
     Top = 14
-    Width = 61
+    Width = 56
     Caption = 'L1 fill'
     Checked = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     State = cbChecked
     TabOrder = 12
   end
   object shrink_more_checkbox: TCheckBox
     Left = 136
-    Height = 23
+    Height = 20
     Top = 22
-    Width = 238
+    Width = 204
     Caption = 'shrink  more  for  loose  jaws'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 13
+  end
+  object Panel1: TPanel
+    Left = 148
+    Height = 74
+    Top = 102
+    Width = 418
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 70
+    ClientWidth = 414
+    Color = 15794175
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 14
+    object chair_label_interch_checkbox: TCheckBox
+      Left = 7
+      Height = 20
+      Top = 21
+      Width = 128
+      AutoSize = False
+      Caption = 'interchangeable'
+      Checked = True
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 0
+      OnClick = chair_label_interch_checkboxClick
+    end
+    object chair_label_switch_block_checkbox: TCheckBox
+      Left = 7
+      Height = 20
+      Top = 45
+      Width = 103
+      AutoSize = False
+      Caption = 'switch  block'
+      Checked = True
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 1
+      OnClick = chair_label_interch_checkboxClick
+    end
+    object chair_label_vxing_checkbox: TCheckBox
+      Left = 144
+      Height = 20
+      Top = 21
+      Width = 90
+      AutoSize = False
+      Caption = 'V-crossing'
+      Checked = True
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 2
+      OnClick = chair_label_interch_checkboxClick
+    end
+    object chair_label_kxing_checkbox: TCheckBox
+      Left = 144
+      Height = 20
+      Top = 45
+      Width = 90
+      AutoSize = False
+      Caption = 'K-crossing'
+      Enabled = False
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = chair_label_interch_checkboxClick
+    end
+    object chair_label_other_checkbox: TCheckBox
+      Left = 254
+      Height = 20
+      Top = 21
+      Width = 156
+      AutoSize = False
+      Caption = 'other  special  chairs'
+      Enabled = False
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnClick = chair_label_interch_checkboxClick
+    end
+    object chair_label_sc_checkbox: TCheckBox
+      Left = 254
+      Height = 20
+      Top = 45
+      Width = 122
+      AutoSize = False
+      Caption = 'SC  customized'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      OnClick = chair_label_interch_checkboxClick
+    end
+    object Label1: TLabel
+      Left = 4
+      Height = 16
+      Top = 0
+      Width = 212
+      AutoSize = False
+      Caption = 'create  and  show  chair  labels : '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      Layout = tlCenter
+      ParentFont = False
+    end
   end
 end

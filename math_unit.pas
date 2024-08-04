@@ -1171,6 +1171,9 @@ var
   procedure set_plain_track(pt,clear_blanking:boolean);
 
   function shove_number_clicked(X,Y:integer):boolean;  // screen co-ords of a click, is it on a timber number?
+
+  function chair_label_clicked(X,Y:integer):boolean;  // screen co-ords of a click, is it on a chair label?  MW 03-08-2024  555a
+
   procedure mouse_on_timber_number(X,Y:integer);       // highlight timber number if mouse currently over it.
 
   function symbol_clicked(X,Y:integer):boolean;  // 227a is it on a symbol?
@@ -1755,6 +1758,8 @@ var
 
     ts_wingx1:extended=0;
     ts_wingx2:extended=0;
+
+    pad_chair_labels:boolean=True;     // MW 03-08-2024  555a
 
 
     function f28000(aq:integer; xs,ys:extended):integer;forward;
@@ -14303,7 +14308,7 @@ begin
   prev_pad_click_X:=pad_click_X;  // save the previous clicked position.
   prev_pad_click_Y:=pad_click_Y;
 
-  pad_click_X:=X;                 // and this one, used for mouse_action grab, shove timbers.
+  pad_click_X:=X;                 // and this one, used for mouse_action grab, shove timbers, chair labels
   pad_click_Y:=Y;                 // (and bgnd shapes - in bgnd_unit)
                                   // (X,Y may be changed for opposite way).
 
@@ -14540,6 +14545,11 @@ begin
 
   if mouse_modify=-1               // no mouse action selected.
      then begin
+            if (brick_form.Showing=True) and (hide_current_flag=False)     // MW 03-08-2024  555a
+               then begin
+                      if chair_label_clicked(pad_click_X,pad_click_Y)=True then EXIT; // clicked on a chair label
+                    end;
+
             if (shove_timber_form.Showing=True) and (hide_current_flag=False)
                then begin
                       if shove_number_clicked(pad_click_X,pad_click_Y)=True then EXIT; // clicked on a timber number
@@ -16659,6 +16669,7 @@ begin
 }
 
       // OT2024 colour_depth_bits:=GetDeviceCaps(Printer.Canvas.Handle,BITSPIXEL)*GetDeviceCaps(Printer.Canvas.Handle,PLANES);
+
       colour_depth_bits:=24;  // OT2024  kludge
 
       if (colour_depth_bits>1) and (black_white=True)
@@ -20458,6 +20469,17 @@ begin
 
                  //  if code= 7, this is transition mark.
 
+                 {
+                 main road, turnout road chair labels:
+                 461,471 = interchangeable chair labels
+                 462,472 = switch block chair labels
+                 463,473 = V-crossing chair labels
+                 464,474 = K-crossing chair labels
+                 ... ... other specials
+                 468,478 = SC customizable chair labels
+                 }
+
+
                  // code 479   dropper wire ridge marks   // 243b
 
                  // code 480   normal chair key right-hand rail
@@ -20585,6 +20607,16 @@ procedure enter_mark(track:boolean; p1,p2:Tpex; code:integer; num_str:string);  
 
                  //  if code= 7, this is transition mark.
 
+                    {
+                    main road, turnout road chair labels:
+                    461,471 = interchangeable chair labels
+                    462,472 = switch block chair labels
+                    463,473 = V-crossing chair labels
+                    464,474 = K-crossing chair labels
+                    ... ... other specials
+                    468,478 = SC customizable chair labels
+                    }
+
                  // code 480   normal chair key right-hand rail
                  // code 481   normal chair key left-hand rail (rotate 180 degs)
 
@@ -20668,7 +20700,7 @@ begin
                     if (p1.x<(startx-minfp_big)) and (p2.x<(startx-minfp_big)) and (track=True)  // not timbering, these are joint marks, etc.
                        then begin
                               case code of
-                                   1,2,3,4,5,6,14,33,44,54,55,93,95,203,233,293,480..499,501..508,600..605,700..703,1000..4999: EXIT;    // blank nearly everything.
+                                   1,2,3,4,5,6,14,33,44,54,55,93,95,203,233,293,460..499,501..508,600..605,700..703,1000..4999: EXIT;    // blank nearly everything.
                               end;//case
                             end;
 
@@ -20679,7 +20711,7 @@ begin
                     if ( (p1.x>(turnoutx+scale)) or (p2.x>(turnoutx+scale)) ) and (track=True)
                        then begin
                               case code of
-                                   1,2,6,101,480..499,501,504,507,508,{501..508,}600..605,700..703,1000..4999: EXIT;    // no guide marks or joints.     227a   501,504,507,508 check rail labels, working ends and K-crossing
+                                   1,2,6,101,460..499,501,504,507,508,{501..508,}600..605,700..703,1000..4999: EXIT;    // no guide marks or joints.     227a   501,504,507,508 check rail labels, working ends and K-crossing
                               end;//case
                             end;
 
@@ -22064,6 +22096,9 @@ var
   pad_timber_centres:boolean;
   pad_timber_numbers:boolean;
 
+  list_chair_code:integer;   // MW 03-08-2024  555a
+  chair_label_str:string;
+
 begin
   RESULT:=False;  // default init.
 
@@ -22091,10 +22126,9 @@ begin
 
 	code:=ptr_1st^.code;
 
-        if code=0 then CONTINUE;     // ignore mark entries with code zero (might be the second or third of a multi-mark entry, e.g. for timber infill or chair outlines).
+        list_chair_code:=ptr_1st^.dxf_chair_code;    // MW 03-08-2024  555a
 
-        //if code=-123 then CONTINUE;  // 235b  offsets for 3-D DXF ..
-        //if code=-124 then CONTINUE;
+        if code=0 then CONTINUE;     // ignore mark entries with code zero (might be the second or third of a multi-mark entry, e.g. for timber infill or chair outlines).
 
         if (code>599) and (code<9996) then CONTINUE;  // 206b 211b ignore long marks and switch/xing labels for control template on trackpad  600,601-605, 700,701-703      9996-9999 is DXF exports
 
@@ -22141,8 +22175,6 @@ begin
                   if ink=True            // not erasing ?
                      then begin
                             case code of
-                                          //-124,-123: CONTINUE;     // 235b  offsets for 3-D DXF
-
                                    -5: CONTINUE;                                        // ignore label position.
 
                                 -3,-2: if pad_guide_marks=True then Pen.Color:=guide_colour  // curving rad centres.
@@ -22197,13 +22229,12 @@ begin
                                           then Pen.Color:=timber_infill_colour                        // timber infilling. n.b. gets changed to paper colour later, but NOT yet !
                                           else CONTINUE;
 
+                             461..478: Pen.Color:=clBlack;   // MW 03-08-2024  555a    chair labels
+
                      480..483,488,489: begin
                                          Pen.Color:=clBlue;  // 233d  chair key marks
                                          Pen.Width:=2;
                                        end;
-
-
-                            //484,485: Pen.Color:=clred;    // 237a  X, CC chair outline
 
                                   486: Pen.Color:=$00B0FFFF;  // clip-fit tangs
 
@@ -22255,8 +22286,7 @@ begin
                                                                        // This routine is in the grid unit (notch already drawn underneath timbers).
                                                                        // Draw before the peg so that the peg overwrites.
 
-
-                                      pad_pegx:=Round(check_int1x);         // save peg co-ords for drawing after rails, and rotate action.
+                                      pad_pegx:=Round(check_int1x);    // save peg co-ords for drawing after rails, and rotate action.
                                       pad_pegy:=Round(check_int1y);
 
                                     end;//peg
@@ -22388,7 +22418,56 @@ begin
                                                    else Polygon(Slice(infill_points,4));      // timber infill, chair with square corners
                                               end;
                                     end;
-                          end;
+
+                            if (code>=461) and (code<=478) and (pad_chair_labels=True)    // MW 03-08-2024  555a
+                               then begin
+                                      chair_label_str:=get_chair_str(list_chair_code);
+
+                                      if list_chair_code=14      // over-ride check flare-in from "CCL/R"
+                                         then case code of
+                                                461: chair_label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                                471: chair_label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
+                                              end;
+
+                                      if list_chair_code=16      // over-ride check flare-out from "CCR/L"
+                                         then case code of
+                                                461: chair_label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                                471: chair_label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
+                                              end;
+
+                                      move_to.X:=Round(check_int1x);
+                                      move_to.Y:=Round(check_int1y);
+
+                                      if check_limit(True,True,move_to)=True
+                                         then begin
+                                                Font.Assign(pad_form.pad_timber_font_label.Font);     // for font name
+
+                                                Font.Style:=[fsBold];
+
+                                                Font.Height:=Round(0-4.5*inscale/ffx);     // scale 4.5" arbitrary    ffx mm per screen dot
+
+                                                half_stringwidth:=TextWidth(chair_label_str) div 2;
+                                                half_stringheight:=TextHeight(chair_label_str) div 2;
+
+                                                Brush.Style:=bsSolid;
+
+                                                Brush.Color:=$00E0FFD8;   // pale green
+                                                Font.Color:=clBlack;
+
+                                                Pen.Width:=1;       // draw the rectangle first...
+                                                Pen.Mode:=pmCopy;
+                                                Pen.Style:=psSolid;
+                                                Pen.Color:=Font.Color;
+                                                RoundRect(move_to.X-half_stringwidth-Round(ABS(Font.Height/2)), move_to.Y-half_stringheight-2, move_to.X+half_stringwidth+Round(ABS(Font.Height/2)), move_to.Y+half_stringheight+2, Round(ABS(Font.Height/2.5)), Round(ABS(Font.Height/2.5)) );   // font/2 padding, font/2.5 corner rads, arbitrary
+
+                                                TextOut(move_to.X-half_stringwidth, move_to.Y-half_stringheight, chair_label_str);
+
+                                                Font.Assign(pad_form.Font);      // reset..
+                                                Brush.Color:=paper_colour;
+                                              end;
+
+                                    end;
+                     end;
                 end
           else begin   // 99 or 501+  0.94.a
 
@@ -23981,7 +24060,7 @@ var
 
   xdiff,ydiff:extended;
 
-  socket_code:integer;
+  socket_code,label_code,label_code_mod:integer;       // MW 03-08-2024  555a
 
   xnso,xfso,ynso,yfso:extended;
 
@@ -24043,6 +24122,8 @@ var
   curvi_mod,curvi_k,curvi_k_mod:extended;      // 239b
 
   plug_extended_depth,plug_taper_depth,plug_inset_depth,plug_total_depth:extended;   // 241b
+
+  rail_code:integer;
 
 
                   //////////////////////////////////////////////////////////////
@@ -24306,7 +24387,7 @@ var
                                         pp2.x:=ponpad.x+xshift;
                                         pp2.y:=ponpad.y+yshift;
 
-                                        fill_mark(convert_point(pp1),convert_point(pp2),code,'');  // into marks list.
+                                        fill_mark(convert_point(pp1),convert_point(pp2),code,'');          // into marks list.
                                       end;
                                       //========================================
 
@@ -24327,9 +24408,97 @@ var
                     curvi_k:=0;
                     curvi_k_mod:=0;
 
-
-
                     with chairing_dims do begin
+
+                      if brick_form.Showing=True   // chair labels ...  MW 03-08-2024   555a
+                         then begin
+                                  {
+                                  chair labels:
+                                  461,471 = interchangeable chair labels
+                                  462,472 = switch block chair labels
+                                  463,473 = V-crossing chair labels
+                                  464,474 = K-crossing chair labels
+                                  ... ... other specials
+                                  468,478 = SC customizable chair labels
+                                  }
+
+                                label_code:=0;       // init..
+                                label_code_mod:=0;
+
+                                if (((rail_code=2) or (rail_code=4)) and (hand_i=1))  // turnout road LH TEMPLATE
+                                or (((rail_code=1) or (rail_code=3)) and (hand_i=-1)) // main road    RH TEMPLATE
+                                   then label_code_mod:=10;
+
+                                case chair_code of
+                                  1..3,                                                            // interchangeable S1, P, L1CC,
+                                  5..9,                                                            // L1, M1, S1J, S1O, S1N,
+                                  14..20: if brick_form.chair_label_interch_checkbox.Checked=True  // CCL/R, CC, CCR/L, SS, MS, L1CCL/R, L1CCR/L
+                                             then label_code:=461+label_code_mod;
+
+                                      10: if brick_form.chair_label_sc_checkbox.Checked=True       // customizable SC
+                                             then label_code:=469+label_code_mod;
+
+                                   11,12: if brick_form.chair_label_switch_block_checkbox.Checked=True   // switch block 1P..2P, 3P..11P
+                                             then label_code:=462+label_code_mod;
+
+                                  21..28: if brick_form.chair_label_vxing_checkbox.Checked=True   // V-crossing ZY, XN, XA, AA, AB, BB/BC, CD/DD, EF
+                                             then label_code:=463+label_code_mod;
+                                  {nyi
+                                      40: 'SDP';
+                                      41: 'SDS';
+                                      50: 'PW';
+                                      51: 'PWL';
+                                      52: 'PWR';
+                                      98: 'FG'; //dummy chair  rail foot groove
+                                      99: 'RG'; //dummy chair  rail head groove
+                                  }
+
+                                end;//case
+
+                                tempex.x:=xtimbcl;     // timber centre
+
+                                  // label positions...
+
+                                case chair_code of
+
+                                     5: begin                           // L1
+                                          tempex.y:=0-13*inscale*side;  // init  labels in six-foot  L1  13" arbitrary
+                                          if (xtimbcl>toex)
+                                         and ((xtimbcl<(ipx-30*inscale)) or ((xtimbcl>fpx) and (xtimbcl<mvjpx)))   // labels in four-foot,  beyond switch up to mid (IP-30" arbitrary), or beyond xing up to joint
+                                             then begin
+                                                    if rail_code=2 then tempex.y:=9*inscale;         // over-rides   L1 9" arbitrary..
+                                                    if rail_code=3 then tempex.y:=9*inscale*side;
+                                                  end;
+                                        end;
+
+                                        // xing labels ...
+
+                                    22: tempex.y:=16*inscale;    // XN  16" arbitrary
+
+                                    23: tempex.y:=aq2offset(xtimbcl,dummy)-g+19*inscale;   // XA  19" arbitrary
+
+                                 24,25: tempex.y:=aq2offset(xtimbcl,dummy)-g+18.5*inscale; // AA, AB  18.5" arbitrary
+
+                                    26: tempex.y:=aq2offset(xtimbcl,dummy)-g+20*inscale;   // BB/BC  20" arbitrary
+
+                                 27,28: tempex.y:=aq2offset(xtimbcl,dummy)-g+12*inscale;   // CD/DD, EF  12" arbitrary
+
+                                   else begin
+                                          tempex.y:=0-15*inscale*side;  // init  labels in six-foot    15" arbitrary
+
+                                          if (xtimbcl>toex)
+                                         and ((xtimbcl<(ipx-30*inscale)) or ((xtimbcl>fpx) and (xtimbcl<mvjpx)))   // labels in four-foot,  beyond switch up to mid (IP-30" arbitrary), or beyond xing up to joint
+                                             then begin
+                                                    if rail_code=2 then tempex.y:=11*inscale;         // over-rides  not L1 11" arbitrary..
+                                                    if rail_code=3 then tempex.y:=0-11*inscale;
+                                                  end;
+                                        end;
+
+                                end;//case
+
+                                if label_code<>0 then do_chair_mark(tempex,tempex,label_code);       // chair label
+
+                              end;
 
                       if (scale>4.05) and (dxf_form.increase_plug_size_checkbox.Checked=True)    // 244d  larger scales,  reduce overhang
                          then begin
@@ -26539,8 +26708,6 @@ var
 
                     save_yret:extended;
 
-                    rail_code:integer;
-
                     aq_y:extended;     // for current rail
                     aq_k:extended;     // an angle
                     aq_f:extended;     // check rail flare
@@ -27628,8 +27795,6 @@ var
                                 end;//with
 
                                     // put 2D chair outlines in file ...
-
-                                //if (dxf_code=21) or (dxf_code=22) or (dxf_code=23) or (dxf_code=28)     // ZY, XN, XA, EF crossing chairs
 
                                 if (dxf_code>20) and (dxf_code<29)   //  21..28   ZY, XN, XA, AA, AB, BB, CD, EF crossing chairs
                                    then begin
@@ -37722,6 +37887,96 @@ begin
         end;
 end;
 //______________________________________________________________________________
+
+function chair_label_clicked(X,Y:integer):boolean;  // screen co-ords of a click, is it on a chair label?  MW 03-08-2024  555a
+
+var
+  i,n:integer;
+  code:integer;
+  ptr_1st:^Tmark;         // pointer to a Tmark record..
+  markmax:integer;
+  label_str:string;
+  label_X,label_Y,half_width,half_height:integer;
+
+  tb_encoded:double;
+  tb_id:integer;
+  tb_str,timber_str:string;
+
+
+begin
+
+  RESULT:=False;     //  init..
+
+      // find label string clicked on...
+
+  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+
+  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+
+  if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
+
+  for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
+    try
+      ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
+      if ptr_1st=nil then EXIT;
+
+      code:=ptr_1st^.code;
+
+      case code of
+
+        461..478: do_nothing;
+
+             else CONTINUE;
+
+      end;//case
+
+      tb_encoded:=ptr_1st^.tb_code/10000;
+
+      tb_str:=Chr(Trunc(tb_encoded));        // 237a
+      tb_id:=Round(Frac(tb_encoded)*10000);
+
+      timber_str:=tb_str+IntToStr(tb_id);  // 241f
+
+      label_str:=get_chair_str(ptr_1st^.dxf_chair_code);
+
+      with pad_form.Canvas do begin
+
+        Font.Assign(pad_form.pad_timber_font_label.Font);     // for font name
+
+        Font.Style:=[fsBold];
+
+        Font.Height:=Round(0-4.5*inscale/ffx);     // scale 4.5" arbitrary    ffx mm per screen dot
+
+        half_width:=Round((TextWidth(label_str)+ABS(Font.Height))/2);
+        half_height:=Round(TextHeight(label_str)/2)+2;
+
+        Font.Assign(pad_form.Font);      // reset..
+      end;//with
+
+      label_X:=Round(ptr_1st^.p1.X*sx+ex-gx);       // and the centre co-ords for it.
+      label_Y:=Round((ptr_1st^.p1.Y+yd)*sy+by-gy);
+
+      if (X>=(label_X-half_width)) and
+         (X<=(label_X+half_width)) and
+         (Y>=(label_Y-half_height)) and
+         (Y<=(label_Y+half_height))
+         then begin
+
+                RESULT:=True;   // clicked on a chair label
+
+                showmessage(timber_str+'  '+label_str);  // debug
+
+
+                redraw(True);
+                EXIT;
+              end;
+    except
+      CONTINUE;
+    end;//try
+
+  end;//next i
+end;
+//____________________________________________________________________________________________
 
 function shape_clicked(X,Y:integer):boolean;  // 229a is it on a background shape?
 

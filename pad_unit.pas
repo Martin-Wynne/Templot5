@@ -30514,6 +30514,7 @@ procedure Tpad_form.brick_buttonClick(Sender: TObject);    // 235b
 
 begin
   brick_form.Show;
+  redraw(True);     // show chair labels
 end;
 //______________________________________________________________________________
 

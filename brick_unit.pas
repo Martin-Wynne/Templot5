@@ -41,13 +41,23 @@ uses
   Buttons, StdCtrls, ExtCtrls;
 
 type
+
+  { Tbrick_form }
+
   Tbrick_form = class(TForm)
+    chair_label_interch_checkbox: TCheckBox;
+    chair_label_switch_block_checkbox: TCheckBox;
+    chair_label_vxing_checkbox: TCheckBox;
+    chair_label_kxing_checkbox: TCheckBox;
+    chair_label_other_checkbox: TCheckBox;
+    chair_label_sc_checkbox: TCheckBox;
+    Label1: TLabel;
+    Panel1: TPanel;
     store_marker_colour_panel: TPanel;
     store_using_marker_colour_checkbox: TCheckBox;
     zoom_to_brick_button: TButton;
     bricklaying_checkbox: TCheckBox;
     bgnd_chairs_checkbox: TCheckBox;
-    datestamp_label: TLabel;
     do_dxf_button: TButton;
     store_shift_multi_button: TButton;
     shrink_gauge_checkbox: TCheckBox;
@@ -58,6 +68,7 @@ type
     isolate_k_xing_button: TButton;
     l1_fill_checkbox: TCheckBox;
     shrink_more_checkbox: TCheckBox;
+    procedure chair_label_interch_checkboxClick(Sender: TObject);
     procedure zoom_to_brick_buttonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure do_dxf_buttonClick(Sender: TObject);
@@ -100,10 +111,10 @@ procedure Tbrick_form.FormCreate(Sender: TObject);    // 235b
 begin
   pad_form.InsertControl(brick_form);
 
-  AutoScroll:=False;
+  ClientWidth:=572;
+  ClientHeight:=212;
 
-  ClientWidth:=570;
-  ClientHeight:=124;
+  AutoScroll:=True;
 end;
 //______________________________________________________________________________
 
@@ -114,6 +125,13 @@ begin
 
   pad_view_fit_bgnd(2,store_marker_colour_panel.Color);   // 2=brick only
 end;
+
+procedure Tbrick_form.chair_label_interch_checkboxClick(Sender: TObject);    // all label checkboxes come here
+
+begin
+  redraw(True);
+end;
+
 //______________________________________________________________________________
 
 procedure Tbrick_form.bgnd_chairs_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
