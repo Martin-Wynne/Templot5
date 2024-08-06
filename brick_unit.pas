@@ -51,6 +51,7 @@ type
     chair_label_kxing_checkbox: TCheckBox;
     chair_label_other_checkbox: TCheckBox;
     chair_label_sc_checkbox: TCheckBox;
+    show_labels_checkbox: TCheckBox;
     Label1: TLabel;
     Panel1: TPanel;
     store_marker_colour_panel: TPanel;

@@ -131,6 +131,7 @@ var
   t_00XF_i:integer=0;    // 239a
   t_00SF_i:integer=0;
   t_00MF_i:integer=0;
+  t_003D_i:integer=0;    // 555a
   t_00IF_i:integer=0;    // 234a
   t_00BF_i:integer=0;
   t_00H0_i:integer=0;
@@ -725,10 +726,9 @@ begin
   if size_updown.Position<size_updown.Tag
      then ScaleBy(10,9);                                         // scale the form contents up.
 
-  // remove as datestamp_label compliant SC 21/07/2024
-  // ClientHeight:=VertScrollBar.Range;                               // allow 4 pixel right margin.
-  // ClientWidth:=HorzScrollBar.Range+4;                              // don't need bottom margin - datestamp label provides this.
-  // ClientHeight:=VertScrollBar.Range;                               // do this twice, as each affects the other.
+  //ClientHeight:=VertScrollBar.Range;                               // allow 4 pixel right margin.
+  //ClientWidth:=HorzScrollBar.Range+4;                              // don't need bottom margin - datestamp label provides this.
+  //ClientHeight:=VertScrollBar.Range;                               // do this twice, as each affects the other.
 
   size_updown.Tag:=size_updown.Position;                           // and save for the next click.
 
@@ -1150,12 +1150,28 @@ begin
            old_fwe_glist:=1.8;        // mm flangeway end (flangeway+flare).
            trtscent_glist:=47;        // mm track centres, turnout side.
            trmscent_glist:=47;        // mm ditto, main side.
-           min_radius_glist:=700;     // mm minimum radius for check (27" approx).
+           min_radius_glist:=700;     // mm minimum radius for check (27.5" approx).
                    end;{with}
 
            t_00MF_i:=i;            // for gauge checks and sleeper size.
 
                    gauge_form.gauge_listbox.Items.Add(listbox_str);    Inc(i);if i>gauge_indexmax_c then run_error(39);
+
+
+  with gauge[i] do begin
+           listbox_str:=' 00-3D    16.35 mm    4 mm/ft     1:76.2    00 3D-printed UK        ';  // added 555a   6/8/2024
+           scale_glist:=4;            // mm per ft.
+           gauge_glist:=16.35;        // mm.
+           fw_glist:=1.15;            // mm flangeway.
+           old_fwe_glist:=1.85;       // mm flangeway end (flangeway+flare).
+           trtscent_glist:=48;        // mm track centres, turnout side.
+           trmscent_glist:=48;        // mm ditto, main side.
+           min_radius_glist:=700;     // mm minimum radius for check (27.5" approx).
+
+           t_003D_i:=i;         // for sleeper sizes.
+
+                    end;{with}   gauge_form.gauge_listbox.Items.Add(listbox_str);    Inc(i);if i>gauge_indexmax_c then run_error(39);
+
 
 
   with gauge[i] do begin

@@ -11,7 +11,7 @@ object brick_form: Tbrick_form
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -61
+  Font.Height = -16
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -91,10 +91,10 @@ object brick_form: Tbrick_form
     OnMouseUp = bricklaying_checkboxMouseUp
   end
   object bgnd_chairs_checkbox: TCheckBox
-    Left = 152
+    Left = 4
     Height = 20
     Hint = ' show  experimental  chairing  on  background  templates  ( slow ) '
-    Top = 182
+    Top = 184
     Width = 186
     AutoSize = False
     Caption = 'show  background  chairs'
@@ -369,7 +369,7 @@ object brick_form: Tbrick_form
       Top = 0
       Width = 212
       AutoSize = False
-      Caption = 'create  and  show  chair  labels : '
+      Caption = 'create  chair  labels : '
       Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Arial'
@@ -377,5 +377,22 @@ object brick_form: Tbrick_form
       Layout = tlCenter
       ParentFont = False
     end
+  end
+  object show_labels_checkbox: TCheckBox
+    Left = 212
+    Height = 20
+    Top = 184
+    Width = 148
+    AutoSize = False
+    Caption = 'show  chair  labels'
+    Checked = True
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 15
+    OnClick = chair_label_interch_checkboxClick
   end
 end

@@ -2277,7 +2277,7 @@ begin
             EXIT;
           end;
 
-  heave_chairs_form.Left:=shove_timber_form.Left+shove_timber_form.Width;
+  heave_chairs_form.Left:=shove_timber_form.Left+shove_timber_form.Width+60;      // 60 arbitrary
   heave_chairs_form.Top:=shove_timber_form.Top;
 
   heave_chairs_form.Show;

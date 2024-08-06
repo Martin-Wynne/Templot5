@@ -51,6 +51,13 @@ type
     include_checkbox0: TCheckBox;
     include_checkbox1: TCheckBox;
     include_checkbox2: TCheckBox;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
     loose_checkbox0: TCheckBox;
     rail_numbers_image: TImage;
     Label1: TLabel;
@@ -67,8 +74,8 @@ type
     rail1_groupbox: TGroupBox;
     rail1_combo: TComboBox;
     flip_key1_checkbox: TCheckBox;
+    rail_highlight_shape: TShape;
     top_label: TLabel;
-    datestamp_label: TLabel;
     omit4_checkbox: TCheckBox;
     omit3_checkbox: TCheckBox;
     omit2_checkbox: TCheckBox;
@@ -83,10 +90,10 @@ type
     sc3_size_button: TButton;
     sc2_size_button: TButton;
     sc1_size_button: TButton;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
+    rail4_big_number_label: TLabel;
+    rail3_big_number_label: TLabel;
+    rail2_big_number_label: TLabel;
+    rail1_big_number_label: TLabel;
     customize_groupbox: TGroupBox;
     Label9: TLabel;
     Label13: TLabel;
@@ -135,6 +142,10 @@ type
     Label18: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure hide_buttonClick(Sender: TObject);
+    procedure rail1_comboChange(Sender: TObject);
+    procedure rail2_comboChange(Sender: TObject);
+    procedure rail3_comboChange(Sender: TObject);
+    procedure rail4_comboChange(Sender: TObject);
     
     procedure sc4_size_buttonClick(Sender: TObject);
     procedure sc3_size_buttonClick(Sender: TObject);
@@ -150,11 +161,6 @@ type
     procedure omit3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure omit2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure omit1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-
-    procedure rail4_comboClick(Sender: TObject);
-    procedure rail3_comboClick(Sender: TObject);
-    procedure rail2_comboClick(Sender: TObject);
-    procedure rail1_comboClick(Sender: TObject);
     
     procedure change4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure change3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -169,8 +175,6 @@ type
     procedure show_customized3_buttonClick(Sender: TObject);
     procedure show_customized2_buttonClick(Sender: TObject);
     procedure show_customized1_buttonClick(Sender: TObject);
-
-
     
   private
     { Private declarations }
@@ -181,10 +185,11 @@ type
 var
   heave_chairs_form: Theave_chairs_form;
 
-  function get_chair_str(chair_code:integer):string;        // 244a
-  procedure heave_form_reset_all(no_timber_selected:boolean);        // 244a
-  procedure heave_form_update(omit_code:integer);
+  function get_chair_str(chair_code:integer):string;                  // 244a
+  function get_cclr_chair_str(rail_code,chair_code:integer):string;   // 555a  // MW 04-08-2024
 
+  procedure heave_form_reset_all(no_timber_selected:boolean);         // 244a
+  procedure heave_form_update(omit_code:integer);
 
 //______________________________________________________________________________
 
@@ -204,8 +209,10 @@ procedure Theave_chairs_form.FormCreate(Sender: TObject);
 
 begin
   pad_form.InsertControl(heave_chairs_form);
-  ClientWidth:=1060;
-  ClientHeight:=644;
+
+  ClientWidth:=1052;
+  ClientHeight:=654;
+
   AutoScroll:=True;
 end;
 //______________________________________________________________________________
@@ -507,10 +514,10 @@ begin
     rail2_combo.ItemIndex:=-1;
     rail1_combo.ItemIndex:=-1;
 
-    rail4_groupbox.Color:=$00F9EBDF;
-    rail3_groupbox.Color:=$00F9EBDF;
-    rail2_groupbox.Color:=$00F9EBDF;
-    rail1_groupbox.Color:=$00F9EBDF;
+    rail4_groupbox.Color:=$00FFFCF0;
+    rail3_groupbox.Color:=$00FFFCF0;
+    rail2_groupbox.Color:=$00FFFCF0;
+    rail1_groupbox.Color:=$00FFFCF0;
 
     customized4_checkbox.Checked:=False;
     customized3_checkbox.Checked:=False;
@@ -843,7 +850,7 @@ begin
                    then rail4_groupbox.Color:=$0099FFFF
                    else if heave_rail_chairs[4].hv_ch<>0
                            then rail4_groupbox.Color:=$00B8FFB8
-                           else rail4_groupbox.Color:=$00F9EBDF;
+                           else rail4_groupbox.Color:=$00FFFCF0;
 
                 omit3_checkbox.Checked:=heave_rail_chairs[3].hv_omit;
 
@@ -851,7 +858,7 @@ begin
                    then rail3_groupbox.Color:=$0099FFFF
                    else if heave_rail_chairs[3].hv_ch<>0
                            then rail3_groupbox.Color:=$00B8FFB8
-                           else rail3_groupbox.Color:=$00F9EBDF;
+                           else rail3_groupbox.Color:=$00FFFCF0;
 
                 omit2_checkbox.Checked:=heave_rail_chairs[2].hv_omit;
 
@@ -859,7 +866,7 @@ begin
                    then rail2_groupbox.Color:=$0099FFFF
                    else if heave_rail_chairs[2].hv_ch<>0
                            then rail2_groupbox.Color:=$00B8FFB8
-                           else rail2_groupbox.Color:=$00F9EBDF;
+                           else rail2_groupbox.Color:=$00FFFCF0;
 
                 omit1_checkbox.Checked:=heave_rail_chairs[1].hv_omit;
 
@@ -867,57 +874,30 @@ begin
                    then rail1_groupbox.Color:=$0099FFFF
                    else if heave_rail_chairs[1].hv_ch<>0
                            then rail1_groupbox.Color:=$00B8FFB8
-                           else rail1_groupbox.Color:=$00F9EBDF;
+                           else rail1_groupbox.Color:=$00FFFCF0;
 
 
                 change4_checkbox.Checked:=(heave_rail_chairs[4].hv_ch<>0) and (heave_rail_chairs[4].hv_omit=False);
-                change4_checkbox.Enabled:=change4_checkbox.Checked;
-
                 change3_checkbox.Checked:=(heave_rail_chairs[3].hv_ch<>0) and (heave_rail_chairs[3].hv_omit=False);
-                change3_checkbox.Enabled:=change3_checkbox.Checked;
-
                 change2_checkbox.Checked:=(heave_rail_chairs[2].hv_ch<>0) and (heave_rail_chairs[2].hv_omit=False);
-                change2_checkbox.Enabled:=change2_checkbox.Checked;
-
                 change1_checkbox.Checked:=(heave_rail_chairs[1].hv_ch<>0) and (heave_rail_chairs[1].hv_omit=False);
-                change1_checkbox.Enabled:=change1_checkbox.Checked;
 
-                // ---
 
                 if heave_rail_chairs[4].hv_omit=True
-                   then begin
-                          rail4_combo.ItemIndex:=-1;
-                        end
-                   else begin
-                          rail4_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[4].hv_ch);
-                        end;
+                   then rail4_combo.ItemIndex:=-1
+                   else rail4_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[4].hv_ch);
 
                 if heave_rail_chairs[3].hv_omit=True
-                   then begin
-                          rail3_combo.ItemIndex:=-1;
-                        end
-                   else begin
-                          rail3_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[3].hv_ch);
-                        end;
-
+                   then rail3_combo.ItemIndex:=-1
+                   else rail3_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[3].hv_ch);
 
                 if heave_rail_chairs[2].hv_omit=True
-                   then begin
-                          rail2_combo.ItemIndex:=-1;
-                        end
-                   else begin
-                          rail2_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[2].hv_ch);
-                        end;
-
+                   then rail2_combo.ItemIndex:=-1
+                   else rail2_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[2].hv_ch);
 
                 if heave_rail_chairs[1].hv_omit=True
-                   then begin
-                          rail1_combo.ItemIndex:=-1;
-                        end
-                   else begin
-                          rail1_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[1].hv_ch);
-                        end;
-
+                   then rail1_combo.ItemIndex:=-1
+                   else rail1_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[1].hv_ch);
 
 
                 customized4_checkbox.Checked:=heave_rail_chairs[4].hv_customized;
@@ -939,19 +919,19 @@ begin
 
             change4_checkbox.Checked:=False;
             omit4_checkbox.Checked:=False;
-            rail4_groupbox.Color:=$00F9EBDF;
+            rail4_groupbox.Color:=$00FFFCF0;
 
             change3_checkbox.Checked:=False;
             omit3_checkbox.Checked:=False;
-            rail3_groupbox.Color:=$00F9EBDF;
+            rail3_groupbox.Color:=$00FFFCF0;
 
             change2_checkbox.Checked:=False;
             omit2_checkbox.Checked:=False;
-            rail2_groupbox.Color:=$00F9EBDF;
+            rail2_groupbox.Color:=$00FFFCF0;
 
             change1_checkbox.Checked:=False;
             omit1_checkbox.Checked:=False;
-            rail1_groupbox.Color:=$00F9EBDF;
+            rail1_groupbox.Color:=$00FFFCF0;
 
             rail4_combo.ItemIndex:=-1;
             rail3_combo.ItemIndex:=-1;
@@ -976,113 +956,67 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.rail4_comboClick(Sender: TObject);
+procedure Theave_chairs_form.rail4_comboChange(Sender: TObject);
 
 begin
   if rail4_combo.ItemIndex<>-1
-     then begin
-            change4_checkbox.Enabled:=True;
-            change4_checkbox.Checked:=True;
-
-            set_changed_chair_code_for_rail(4);
-          end;
+     then set_changed_chair_code_for_rail(4);
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.rail3_comboClick(Sender: TObject);
+procedure Theave_chairs_form.rail3_comboChange(Sender: TObject);
 
 begin
   if rail3_combo.ItemIndex<>-1
-     then begin
-            change3_checkbox.Enabled:=True;
-            change3_checkbox.Checked:=True;
-
-            set_changed_chair_code_for_rail(3);
-          end;
+     then set_changed_chair_code_for_rail(3);
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.rail2_comboClick(Sender: TObject);
+procedure Theave_chairs_form.rail2_comboChange(Sender: TObject);
 
 begin
   if rail2_combo.ItemIndex<>-1
-     then begin
-            change2_checkbox.Enabled:=True;
-            change2_checkbox.Checked:=True;
-
-            set_changed_chair_code_for_rail(2);
-          end;
+     then set_changed_chair_code_for_rail(2);
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.rail1_comboClick(Sender: TObject);
+procedure Theave_chairs_form.rail1_comboChange(Sender: TObject);
 
 begin
   if rail1_combo.ItemIndex<>-1
-     then begin
-            change1_checkbox.Enabled:=True;
-            change1_checkbox.Checked:=True;
-
-            set_changed_chair_code_for_rail(1);
-          end;
+     then set_changed_chair_code_for_rail(1);
 end;
 //______________________________________________________________________________
 
-
-
 procedure Theave_chairs_form.change4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
-  // deselect only  (selected by clicking the combo)
-
 begin
-  rail4_combo.ItemIndex:=-1;
-
-  change4_checkbox.Checked:=False;
-  change4_checkbox.Enabled:=False;
-
-  reset_normal_chair_code_for_rail(4);
+  if change4_checkbox.Checked=False
+     then reset_normal_chair_code_for_rail(4);
 end;
 //______________________________________________________________________________
 
 procedure Theave_chairs_form.change3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
-  // deselect only  (selected by clicking the combo)
-
 begin
-  rail3_combo.ItemIndex:=-1;
-
-  change3_checkbox.Checked:=False;
-  change3_checkbox.Enabled:=False;
-
-  reset_normal_chair_code_for_rail(3);
+  if change3_checkbox.Checked=False
+     then reset_normal_chair_code_for_rail(3);
 end;
 //______________________________________________________________________________
 
 procedure Theave_chairs_form.change2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
-  // deselect only  (selected by clicking the combo)
-
 begin
-  rail2_combo.ItemIndex:=-1;
-
-  change2_checkbox.Checked:=False;
-  change2_checkbox.Enabled:=False;
-
-  reset_normal_chair_code_for_rail(2);
+  if change2_checkbox.Checked=False
+     then reset_normal_chair_code_for_rail(2);
 end;
 //______________________________________________________________________________
 
 procedure Theave_chairs_form.change1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
-  // deselect only  (selected by clicking the combo)
-
 begin
-  rail1_combo.ItemIndex:=-1;
-
-  change1_checkbox.Checked:=False;
-  change1_checkbox.Enabled:=False;
-
-  reset_normal_chair_code_for_rail(1);
+  if change1_checkbox.Checked=False
+     then reset_normal_chair_code_for_rail(1);
 end;
 //______________________________________________________________________________
 
@@ -1333,6 +1267,43 @@ begin
 end;
 //______________________________________________________________________________
 
+function get_cclr_chair_str(rail_code,chair_code:integer):string;   // 555a  // MW 04-08-2024
+
+       // modify CCL/CCR strings
+
+begin
+  RESULT:=get_chair_str(chair_code);
+
+
+  if (rail_code=1) or (rail_code=2)
+     then begin
+            if chair_code=14          // over-ride check flare-in from "CCL/R"
+               then case hand_i of
+                      1: RESULT:='CCL';
+                     -1: RESULT:='CCR';
+                    end;
+
+            if chair_code=16          // over-ride check flare-out from "CCR/L"
+               then case hand_i of
+                      1: RESULT:='CCR';
+                     -1: RESULT:='CCL';
+                    end;
+          end
+     else begin                       // rails 3, 4
+            if chair_code=14          // over-ride check flare-in from "CCL/R"
+               then case hand_i of
+                      1: RESULT:='CCR';
+                     -1: RESULT:='CCL';
+                    end;
+
+            if chair_code=16          // over-ride check flare-out from "CCR/L"
+               then case hand_i of
+                      1: RESULT:='CCL';
+                     -1: RESULT:='CCR';
+                    end;
+          end;
+end;
+//______________________________________________________________________________
 
 end.
 

@@ -60,11 +60,13 @@ type
 var
   enter_timber_form: Tenter_timber_form;
 
-//---------------
+  function select_entered_timber:boolean;   // returns true if entered timber exists in template.
 
   function timb_num_strip(in_str:string):string;   // remove extraneous characters from a timber number string.
 
 //______________________________________________________________________________
+
+// THIS FORM'S CANVAS ALSO USED AS A DUMMY CANVAS FOR TEXT SIZE CALCS
 
 implementation
 
@@ -110,7 +112,7 @@ begin
 end;
 //______________________________________________________________________________
 
-function select_entered:boolean;   // returns true if entered timber exists in template.
+function select_entered_timber:boolean;   // returns true if entered timber exists in template.
 
 var
   i,n:integer;
@@ -208,7 +210,7 @@ begin
             EXIT;
           end;
 
-  if select_entered=True         // warn him if invalid.
+  if select_entered_timber=True         // warn him if invalid.
     then begin
            Close;
            show_and_redraw(True,False);    // show it selected, no rollback to this.

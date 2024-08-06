@@ -49,6 +49,7 @@ type
   { Tpad_form }
 
   Tpad_form = class(TForm)
+    OO3D_menu_entry: TMenuItem;
     trial_button: TButton;
     pad_menu_bar: TMainMenu;
     main_menu: TMenuItem;
@@ -2379,6 +2380,7 @@ type
     N725: TMenuItem;
 
 
+    procedure OO3D_menu_entryClick(Sender: TObject);
     procedure trial_buttonClick(Sender: TObject);
     procedure get_file_from_code_menu_entryClick(Sender: TObject);
     procedure pad_file_viewer_menu_entryClick(Sender: TObject);
@@ -3803,6 +3805,7 @@ type
           code:integer;
 	  tb_code:integer;          // 235b  timber number string converted to character and number
           dxf_chair_code:integer;   // 237a  chairing data for 3D exports
+          options_bits:integer;     // 555a  32 bit settings
         end;
 
   Tpex=record                      // x,y point floats (TPoint is integer).
@@ -4269,7 +4272,7 @@ type
 
                timber_numbers_string:string;    // the complete numbers sequence, separated by ESC ($1B) characters.
 
-               list_bgnd_marks:array[0..6] of Pointer;               // pointers only, so can't save this data in a file (of Tbgnd_keep).   235b 6 was 4
+               list_bgnd_marks:array[0..7] of Pointer;               // pointers only, so can't save this data in a file (of Tbgnd_keep). 555a 7 was 6  235b 6 was 4
                list_bgnd_rails:array[0..aq_max_c, 0..1] of Pointer;
 
                bgnd_endmarks:array[0..aq_max_c, 0..1] of TPoint;     // rail end mark points. 1/100th mm , curved ready for drawing.
@@ -9129,6 +9132,13 @@ procedure Tpad_form.OOSF_menu_entryClick(Sender: TObject);
 
 begin
   quick_gauge_click(t_00SF_i);
+end;
+//______________________________________________________________________________
+
+procedure Tpad_form.OO3D_menu_entryClick(Sender: TObject);
+
+begin
+  quick_gauge_click(t_003D_i);
 end;
 //______________________________________________________________________________
 
@@ -14334,6 +14344,7 @@ begin      // this handler is called by all the menus.
             else if gauge_i=t_S2_i      then S2_menu_entry.Checked:=True      // radio item.
             else if gauge_i=t_S3p5_i    then S_3p5_menu_entry.Checked:=True   // radio item.
             else if gauge_i=t_00SF_i    then OOSF_menu_entry.Checked:=True    // radio item.
+            else if gauge_i=t_003D_i    then OO3D_menu_entry.Checked:=True    // radio item.   // 555a
             else if gauge_i=t_S_gauge_i then S_gauge_menu_entry.Checked:=True // radio item.
             else if gauge_i=t_0MF_i     then OMF_menu_entry.Checked:=True     // radio item.
             else if gauge_i=t_1F_i      then gauge1F_menu_entry.Checked:=True // radio item.

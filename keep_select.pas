@@ -961,7 +961,7 @@ begin
     tagged_hidden:=False;  // 237a
 
     with template_info.bgnd_keep do begin
-      for i:=0 to 6 do list_bgnd_marks[i]:=nil;     // init all background data array pointers to nil.    235b 6 was 4
+      for i:=0 to 7 do list_bgnd_marks[i]:=nil;     // init all background data array pointers to nil.    235b 6 was 4
       for aq:=0 to aq_max_c do begin
         list_bgnd_rails[aq,0]:=nil;
         list_bgnd_rails[aq,1]:=nil;
@@ -8290,7 +8290,7 @@ var
 
                      begin
                        with new_bgk do begin
-                         for n:=0 to 6 do if list_bgnd_marks[n]<>nil then intarray_free(list_bgnd_marks[n]);    // 235b  6 was 4
+                         for n:=0 to 7 do if list_bgnd_marks[n]<>nil then intarray_free(list_bgnd_marks[n]);    // 235b  7 was 4
 
                          for n:=0 to aq_max_c do begin
                            if list_bgnd_rails[n,0]<>nil then intarray_free(list_bgnd_rails[n,0]);
@@ -8312,7 +8312,7 @@ begin
        then begin
 
               with new_bgk do begin
-                for i:=0 to 6 do list_bgnd_marks[i]:=nil;          // init all array pointers to nil in case of error exit check.      235b  6 was 4
+                for i:=0 to 7 do list_bgnd_marks[i]:=nil;          // init all array pointers to nil in case of error exit check.      235b  7 was 4
 
                 for aq:=0 to aq_max_c do begin
                   list_bgnd_rails[aq,0]:=nil;
@@ -8370,7 +8370,7 @@ begin
                     markmax:=intarray_max(marks_list_ptr);           // max index for the present list.
                     if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
-                    for i:=0 to 6 do begin                           // 235b 6 was 4
+                    for i:=0 to 7 do begin                           // 235b 7 was 4
                       p:=intarray_create(mark_index,True);
                       if p=nil then begin abort_new_bgk; EXIT; end;   // array_create does the error message.
 
@@ -8397,6 +8397,7 @@ begin
 
                       intarray_set(list_bgnd_marks[5],i,ptr^.tb_code);        // 237a ..
                       intarray_set(list_bgnd_marks[6],i,ptr^.dxf_chair_code);
+                      intarray_set(list_bgnd_marks[7],i,ptr^.options_bits);   // 555a
 
                       if ptr^.code=99 then timber_numbers_string:=timb_numbers_str;  // copy from control template
                     end;//for

@@ -958,6 +958,9 @@ var
   slide_adust_nomrad_start:extended=0;   // 244d
   slide_adust_trtscent_start:extended=0; // 244d
 
+  bit_settings:integer=0;   // MW 04-08-2024    global for Tmark...
+
+
   function xy_to_dwg100(pin:Tpex):TPex;        // this function and next prepare x,y data for lists.
   function xy_to_list(pin:Tpex):TPoint;        // prepare x,y data for list.
   function blank_start(x:extended):extended;   // 17-10-02 0,76.a  blanking mods.
@@ -1174,11 +1177,14 @@ var
 
   function chair_label_clicked(X,Y:integer):boolean;  // screen co-ords of a click, is it on a chair label?  MW 03-08-2024  555a
 
-  procedure mouse_on_timber_number(X,Y:integer);       // highlight timber number if mouse currently over it.
+  procedure mouse_on_chair_label(X,Y:integer);        // flag mark if mouse currently over it   MW 05-08-2024  555a
+
+  procedure mouse_on_timber_number(X,Y:integer);      // highlight timber number if mouse currently over it.
 
   function symbol_clicked(X,Y:integer):boolean;  // 227a is it on a symbol?
 
   function checkrail_label_clicked(X,Y:integer):boolean;  // 0.94.a screen co-ords of a click, is it on a check-rail label?
+
   procedure mouse_on_check_label(X,Y:integer);            // 0.94.a highlight check-rail label if mouse currently over it.
 
 
@@ -1657,9 +1663,8 @@ var
   highlighted_round_rect_x2:integer=0;
   highlighted_round_rect_y2:integer=0;
 
-  timb_str:string='';
-
-  dxf_code:integer=0;  // 237a
+  timb_str:string='';  // globals for Tmark...
+  dxf_code:integer=0;
 
   current_switch_name:string='';
 
@@ -1759,7 +1764,7 @@ var
     ts_wingx1:extended=0;
     ts_wingx2:extended=0;
 
-    pad_chair_labels:boolean=True;     // MW 03-08-2024  555a
+    mouse_is_over_chair_label_mark:integer=-1;     // MW 05-08-2024  555a
 
 
     function f28000(aq:integer; xs,ys:extended):integer;forward;
@@ -2051,6 +2056,7 @@ begin
               if gauge_i=t_00XF_i    then tb_pi:=32;   // 239a
               if gauge_i=t_00SF_i    then tb_pi:=32;
               if gauge_i=t_00MF_i    then tb_pi:=32;
+              if gauge_i=t_003D_i    then tb_pi:=32;   // 555a
               if gauge_i=t_00IF_i    then tb_pi:=32;       // 234a
               if gauge_i=t_00BF_i    then tb_pi:=32;
               if gauge_i=t_00H0_i    then tb_pi:=32;
@@ -12909,6 +12915,9 @@ begin
 
   if (check_diffs_form.Showing=True) and (mouse_modify<0) and (hide_current_flag=False) then mouse_on_check_label(X,Y);  // see if it needs highlighting.
 
+  if (brick_form.Showing=True) and (mouse_modify<0) and (hide_current_flag=False) and (brick_form.show_labels_checkbox.Checked=True) and (exp_chairing=True)
+     then mouse_on_chair_label(X,Y);     // see if it needs highlighting   MW 05-08-2024  555a
+
              //   -----  mouse actions...
 
   if mouse_modify<1 then EXIT;   //  no mouse actions in progress.
@@ -18218,6 +18227,7 @@ begin
                    and (gauge_i<>t_00XF_i)    // 239a
                    and (gauge_i<>t_00SF_i)
                    and (gauge_i<>t_00MF_i)
+                   and (gauge_i<>t_003D_i)    // 555a
                    and (gauge_i<>t_00IF_i)    // 234a
                    and (gauge_i<>t_00BF_i)
                    and (gauge_i<>t_00H0_i)
@@ -20424,6 +20434,7 @@ procedure fill_mark(p1,p2:TPoint; code:integer; num_str:string);   // enter this
           code:integer;
 	  tb_code:integer;      // 235b for timber numbers converted to character and number
           dxf_code:integer;     // 237a  chairing data for 3D exports
+          options_bits:integer; // 555a
         end;
 }
 
@@ -20470,7 +20481,7 @@ begin
                  //  if code= 7, this is transition mark.
 
                  {
-                 main road, turnout road chair labels:
+                 chair labels:
                  461,471 = interchangeable chair labels
                  462,472 = switch block chair labels
                  463,473 = V-crossing chair labels
@@ -20525,7 +20536,7 @@ begin
                  // code 605  joggle return        // 206b
 
                  // code 701  FP mark label             // 211b
-                 // code 702  blunt nose label          // 211b
+                 // code 702  blunt nose label          // 211b                                     enter_mark(
                  // code 703  half-diamond tips label   // 211b
 
                  // code 600  long toe mark          // 206b
@@ -20556,10 +20567,11 @@ begin
   ptr^.p2.X:=p2.X;             // fill the LineTo data or other info.
   ptr^.p2.Y:=p2.Y;
 
-    // 237a fill timber number and DXF code ...
+    // 237a fill timber number, DXF chair code, option bits ...
 
   ptr^.tb_code:=Ord(timb_str[1])*10000+tbn;   // global   prefix for current timber number   +    // timber number
   ptr^.dxf_chair_code:=dxf_code;              // global   237a  chairing data for 3D exports
+  ptr^.options_bits:=bit_settings;            // global   MW 04-08-2024
 
   if code=99
      then timb_numbers_str:=timb_numbers_str+num_str+Chr($1B);  // add number string and separator to the accumulator string.
@@ -20608,7 +20620,7 @@ procedure enter_mark(track:boolean; p1,p2:Tpex; code:integer; num_str:string);  
                  //  if code= 7, this is transition mark.
 
                     {
-                    main road, turnout road chair labels:
+                    chair labels:
                     461,471 = interchangeable chair labels
                     462,472 = switch block chair labels
                     463,473 = V-crossing chair labels
@@ -22419,7 +22431,7 @@ begin
                                               end;
                                     end;
 
-                            if (code>=461) and (code<=478) and (pad_chair_labels=True)    // MW 03-08-2024  555a
+                            if (code>=461) and (code<=478) and (brick_form.show_labels_checkbox.Checked=True)    // MW 03-08-2024  555a
                                then begin
                                       chair_label_str:=get_chair_str(list_chair_code);
 
@@ -22440,7 +22452,9 @@ begin
 
                                       if check_limit(True,True,move_to)=True
                                          then begin
-                                                Font.Assign(pad_form.pad_timber_font_label.Font);     // for font name
+                                                enter_timber_form.Font.Assign(pad_form.Font);  // use to save pad font for reset
+
+                                                Font.Assign(pad_form.pad_timber_font_label.Font);    // for font name
 
                                                 Font.Style:=[fsBold];
 
@@ -22449,9 +22463,16 @@ begin
                                                 half_stringwidth:=TextWidth(chair_label_str) div 2;
                                                 half_stringheight:=TextHeight(chair_label_str) div 2;
 
-                                                Brush.Style:=bsSolid;
+                                                Brush.Style:=bsClear;  //bsSolid;
 
-                                                Brush.Color:=$00E0FFD8;   // pale green
+                                                if mouse_is_over_chair_label_mark=i
+                                                   then begin
+                                                          Brush.Style:=bsSolid;
+                                                          Brush.Color:=clYellow;       // mouse is over it
+                                                        end;
+
+                                                   //else Brush.Color:=$00E0FFD8;     // pale green
+
                                                 Font.Color:=clBlack;
 
                                                 Pen.Width:=1;       // draw the rectangle first...
@@ -22462,7 +22483,7 @@ begin
 
                                                 TextOut(move_to.X-half_stringwidth, move_to.Y-half_stringheight, chair_label_str);
 
-                                                Font.Assign(pad_form.Font);      // reset..
+                                                Font.Assign(enter_timber_form.Font);  // reset..
                                                 Brush.Color:=paper_colour;
                                               end;
 
@@ -24496,8 +24517,17 @@ var
 
                                 end;//case
 
-                                if label_code<>0 then do_chair_mark(tempex,tempex,label_code);       // chair label
+                                if label_code<>0
+                                   then begin
+                                          case rail_code of                                             // global  encode rail_code in 2 LSbits
+                                               1: begin bit_settings:=bit_settings AND $FFFFFFFC; end;
+                                               2: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000001; end;
+                                               3: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000002; end;
+                                               4: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000003; end;
+                                          end;//case
 
+                                          do_chair_mark(tempex,tempex,label_code);   // chair label
+                                        end;
                               end;
 
                       if (scale>4.05) and (dxf_form.increase_plug_size_checkbox.Checked=True)    // 244d  larger scales,  reduce overhang
@@ -27436,7 +27466,7 @@ var
                                 if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str)
                                    then begin
                                           heave_chairs_form.normal_ch_label1.Caption:='normal  chair :';
-                                          heave_chairs_form.chair1_type_label.Caption:=get_chair_str(now_chairing_dims1.chair_code);
+                                          heave_chairs_form.chair1_type_label.Caption:=get_cclr_chair_str(1,now_chairing_dims1.chair_code);
                                         end;
 
 
@@ -27733,7 +27763,7 @@ var
                                 if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str)
                                    then begin
                                           heave_chairs_form.normal_ch_label3.Caption:='normal  chair :';
-                                          heave_chairs_form.chair3_type_label.Caption:=get_chair_str(chairing_dims3.chair_code);
+                                          heave_chairs_form.chair3_type_label.Caption:=get_cclr_chair_str(3,chairing_dims3.chair_code);
                                         end;
 
                                 heaved_chairing_dims3:=chairing_dims3;   // init
@@ -28567,7 +28597,7 @@ var
                                 if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str)
                                    then begin
                                           heave_chairs_form.normal_ch_label2.Caption:='normal  chair :';
-                                          heave_chairs_form.chair2_type_label.Caption:=get_chair_str(chairing_dims2.chair_code);
+                                          heave_chairs_form.chair2_type_label.Caption:=get_cclr_chair_str(2,chairing_dims2.chair_code);
                                         end;
 
                                 heaved_chairing_dims2:=chairing_dims2;   // init
@@ -28766,7 +28796,7 @@ var
                                 if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str)
                                    then begin
                                           heave_chairs_form.normal_ch_label4.Caption:='normal  chair :';
-                                          heave_chairs_form.chair4_type_label.Caption:=get_chair_str(now_chairing_dims4.chair_code);
+                                          heave_chairs_form.chair4_type_label.Caption:=get_cclr_chair_str(4,now_chairing_dims4.chair_code);
                                         end;
 
                                 heaved_chairing_dims4:=now_chairing_dims4;   // init
@@ -37671,7 +37701,7 @@ begin
 
   RESULT:=False;   // 0.91.c  init.
 
-  with enter_timber_form.Canvas do begin
+  with enter_timber_form.Canvas do begin               // use as dummy canvas
     Font.Assign(pad_form.pad_timber_font_label.Font);
 
      // 0.91.b was Screen.Width ..
@@ -37902,10 +37932,14 @@ var
   tb_id:integer;
   tb_str,timber_str:string;
 
+  rail_number:integer;
+
 
 begin
 
   RESULT:=False;     //  init..
+
+  heave_chairs_form.rail_highlight_shape.Visible:=False;
 
       // find label string clicked on...
 
@@ -37923,11 +37957,8 @@ begin
       code:=ptr_1st^.code;
 
       case code of
-
         461..478: do_nothing;
-
              else CONTINUE;
-
       end;//case
 
       tb_encoded:=ptr_1st^.tb_code/10000;
@@ -37939,9 +37970,10 @@ begin
 
       label_str:=get_chair_str(ptr_1st^.dxf_chair_code);
 
-      with pad_form.Canvas do begin
+      rail_number:=(ptr_1st^.options_bits AND $00000003)+1; // in 2 ls bits
 
-        Font.Assign(pad_form.pad_timber_font_label.Font);     // for font name
+      with enter_timber_form.Canvas do begin               // use as dummy canvas
+        Font.Assign(pad_form.pad_timber_font_label.Font);  // for font name
 
         Font.Style:=[fsBold];
 
@@ -37949,8 +37981,6 @@ begin
 
         half_width:=Round((TextWidth(label_str)+ABS(Font.Height))/2);
         half_height:=Round(TextHeight(label_str)/2)+2;
-
-        Font.Assign(pad_form.Font);      // reset..
       end;//with
 
       label_X:=Round(ptr_1st^.p1.X*sx+ex-gx);       // and the centre co-ords for it.
@@ -37964,8 +37994,28 @@ begin
 
                 RESULT:=True;   // clicked on a chair label
 
-                showmessage(timber_str+'  '+label_str);  // debug
+                pad_form.shove_timbers_menu_entry.Click;
 
+                enter_timber_form.shove_combo.Text:=timber_str;
+
+                if select_entered_timber=False
+                   then begin
+                          show_modal_message('error - timber not found'+#13+#13+'rail: '+inttostr(rail_number)+'  '+timber_str+'  '+label_str);
+                          EXIT;
+                        end;
+
+                shove_timber_form.heave_chairs_button.Click;  // must do first - updates form
+
+                with heave_chairs_form do begin
+                  case rail_number of
+                    1: rail_highlight_shape.Top:=rail1_groupbox.Top+rail_highlight_shape.Left-rail1_groupbox.Left;  // default -8, allow for scaling..
+                    2: rail_highlight_shape.Top:=rail2_groupbox.Top+rail_highlight_shape.Left-rail2_groupbox.Left;
+                    3: rail_highlight_shape.Top:=rail3_groupbox.Top+rail_highlight_shape.Left-rail3_groupbox.Left;
+                    4: rail_highlight_shape.Top:=rail4_groupbox.Top+rail_highlight_shape.Left-rail4_groupbox.Left;
+                  end;//case
+
+                  rail_highlight_shape.Visible:=True;
+                end;//with
 
                 redraw(True);
                 EXIT;
@@ -38139,7 +38189,6 @@ var
 
 
 begin
-
   with enter_timber_form.Canvas do begin
     Font.Assign(pad_form.pad_timber_font_label.Font);
 
@@ -38148,7 +38197,6 @@ begin
 
     half_height:=TextHeight('A') div 2;
   end;//with
-
 
   if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
 
@@ -38165,8 +38213,6 @@ begin
 
       code:=ptr_1st^.code;
 
-      if code<501 then CONTINUE;   // we are only looking for check label entries.
-
       case code of
 
           501: num_str:='MS1';
@@ -38178,7 +38224,7 @@ begin
           507: num_str:='MS4';
           508: num_str:='DS4';
 
-          else num_str:='';
+          else CONTINUE; // we are looking only for check label entries
 
       end;//case
 
@@ -38284,6 +38330,93 @@ begin
             end;//with
           highlighted_timbnum_str:='';
         end;
+end;
+//______________________________________________________________________________
+
+procedure mouse_on_chair_label(X,Y:integer);    // flag mark index if mouse currently over it   MW 05-08-2024  555a
+
+var
+  i:integer;
+  code:integer;
+  ptr_1st:^Tmark;         // pointer to a Tmark record..
+  markmax:integer;
+  num_x,num_y:extended;
+  half_width,half_height:integer;
+  int_num_X,int_num_Y:integer;
+
+  label_str:string;
+
+  mouse_was_over:boolean;
+
+begin   // find if on chair label...
+
+  mouse_was_over:=(mouse_is_over_chair_label_mark>-1);  // to prevent flickering
+
+  mouse_is_over_chair_label_mark:=-1;   // init
+
+  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+
+  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+
+  if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
+
+  for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
+
+    ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
+    if ptr_1st=nil then EXIT;
+
+    code:=ptr_1st^.code;
+
+    case code of
+      461..478: do_nothing;
+           else CONTINUE;
+    end;//case
+
+    label_str:=get_chair_str(ptr_1st^.dxf_chair_code);
+
+     if ptr_1st^.dxf_chair_code=14      // over-ride check flare-in from "CCL/R"
+        then case code of
+               461: label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
+               471: label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
+             end;
+
+     if ptr_1st^.dxf_chair_code=16      // over-ride check flare-out from "CCR/L"
+        then case code of
+               461: label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
+               471: label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
+             end;
+
+    with enter_timber_form.Canvas do begin               // use as dummy canvas
+      Font.Assign(pad_form.pad_timber_font_label.Font);  // for font name
+
+      Font.Style:=[fsBold];
+
+      Font.Height:=Round(0-4.5*inscale/ffx);     // scale 4.5" arbitrary    ffx mm per screen dot
+
+      half_width:=Round((TextWidth(label_str)+ABS(Font.Height))/2);
+      half_height:=Round(TextHeight(label_str)/2)+2;
+    end;//with
+
+    num_x:=ptr_1st^.p1.X*sx+ex-gx;        // label centre
+    num_y:=(ptr_1st^.p1.Y+yd)*sy+by-gy;
+
+    int_num_X:=Round(num_x);
+    int_num_Y:=Round(num_y);
+
+    if (X>=(int_num_X-half_width)) and
+       (X<=(int_num_X+half_width)) and
+       (Y>=(int_num_Y-half_height)) and
+       (Y<=(int_num_Y+half_height))
+       then begin                                 // mouse is over the label
+              mouse_is_over_chair_label_mark:=i;  // which mark
+
+              redraw(True);
+              EXIT;
+          end;
+
+  end;//next i
+
+  if mouse_was_over=True then redraw(True);  // remove any previous highlight
 end;
 //______________________________________________________________________________
 

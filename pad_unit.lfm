@@ -11,7 +11,7 @@ object pad_form: Tpad_form
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -75
+  Font.Height = -118
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -3260,6 +3260,12 @@ object pad_form: Tpad_form
         GroupIndex = 230
         RadioItem = True
         OnClick = OOSF_menu_entryClick
+      end
+      object OO3D_menu_entry: TMenuItem
+        Caption = '16.35    00-3D'
+        GroupIndex = 230
+        RadioItem = True
+        OnClick = OO3D_menu_entryClick
       end
       object D0GA_menu_entry: TMenuItem
         Caption = '16.5      00-&D0GAI'
