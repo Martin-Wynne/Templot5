@@ -41,9 +41,14 @@ uses
   StdCtrls, Buttons, ExtCtrls, ComCtrls;
 
 type
+
+  { Tcheck_diffs_form }
+
   Tcheck_diffs_form = class(TForm)
     datestamp_label: TLabel;
     help_shape: TShape;
+    Label1: TLabel;
+    Label2: TLabel;
     readout_label: TLabel;
     blue_corner_panel: TPanel;
     how_panel: TPanel;
@@ -54,7 +59,7 @@ type
     hide_button: TButton;
     reset_button: TButton;
     reset_all_button: TButton;
-    mouse_groupbox: TGroupBox;
+    mouse_group: TPanel;
     mouse_length_button: TButton;
     mouse_flare_button: TButton;
     mouse_gap_button: TButton;
@@ -68,7 +73,7 @@ type
     gap_panel: TPanel;
     inches_radio_button: TRadioButton;
     mm_radio_button: TRadioButton;
-    flare_groupbox: TGroupBox;
+    flare_group: TPanel;
     bent_button: TButton;
     machined_button: TButton;
     flare_restore_button: TButton;
