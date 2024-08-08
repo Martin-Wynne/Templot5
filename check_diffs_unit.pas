@@ -45,7 +45,6 @@ type
   { Tcheck_diffs_form }
 
   Tcheck_diffs_form = class(TForm)
-    datestamp_label: TLabel;
     help_shape: TShape;
     Label1: TLabel;
     Label2: TLabel;

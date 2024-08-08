@@ -1,17 +1,17 @@
 object check_diffs_form: Tcheck_diffs_form
-  Left = 80
-  Height = 220
-  Top = 220
+  Left = 668
+  Height = 212
+  Top = 305
   Width = 512
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '          adjust  check  rail  end  or  wing  rail  end'
-  ClientHeight = 220
+  ClientHeight = 212
   ClientWidth = 512
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -20
+  Font.Height = -25
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnClose = FormClose
@@ -20,17 +20,6 @@ object check_diffs_form: Tcheck_diffs_form
   OnShow = FormShow
   LCLVersion = '3.4.0.0'
   Scaled = False
-  object datestamp_label: TLabel
-    Left = 0
-    Height = 4
-    Top = 216
-    Width = 512
-    AutoSize = False
-    Font.Color = clGray
-    Font.Height = -7
-    Font.Name = 'Arial'
-    ParentFont = False
-  end
   object help_shape: TShape
     Left = 449
     Height = 29
@@ -162,13 +151,13 @@ object check_diffs_form: Tcheck_diffs_form
   end
   object hide_panel: TPanel
     Left = 452
-    Height = 23
-    Top = 192
-    Width = 57
+    Height = 24
+    Top = 188
+    Width = 60
     Alignment = taLeftJustify
     Caption = ' hide'
-    ClientHeight = 23
-    ClientWidth = 57
+    ClientHeight = 24
+    ClientWidth = 60
     Color = clYellow
     Font.Color = clBlack
     Font.Height = -13
@@ -192,7 +181,7 @@ object check_diffs_form: Tcheck_diffs_form
   object reset_button: TButton
     Left = 214
     Height = 23
-    Top = 192
+    Top = 188
     Width = 156
     Caption = 'R  &reset  this  rail  end'
     Enabled = False
@@ -222,13 +211,14 @@ object check_diffs_form: Tcheck_diffs_form
     OnClick = reset_all_buttonClick
   end
   object mouse_group: TPanel
-    Left = 16
+    Left = 4
     Height = 55
     Top = 127
-    Width = 245
+    Width = 254
+    BevelOuter = bvNone
     BorderStyle = bsSingle
     ClientHeight = 51
-    ClientWidth = 241
+    ClientWidth = 250
     Color = 14743800
     Font.Color = 12582912
     Font.Height = -13
@@ -239,7 +229,7 @@ object check_diffs_form: Tcheck_diffs_form
     ParentFont = False
     TabOrder = 10
     object mouse_length_button: TButton
-      Left = 0
+      Left = 4
       Height = 23
       Top = 24
       Width = 82
@@ -254,7 +244,7 @@ object check_diffs_form: Tcheck_diffs_form
       OnClick = mouse_length_buttonClick
     end
     object mouse_flare_button: TButton
-      Left = 84
+      Left = 88
       Height = 23
       Top = 24
       Width = 90
@@ -269,7 +259,7 @@ object check_diffs_form: Tcheck_diffs_form
       OnClick = mouse_flare_buttonClick
     end
     object mouse_gap_button: TButton
-      Left = 176
+      Left = 180
       Height = 23
       Top = 24
       Width = 65
@@ -290,7 +280,7 @@ object check_diffs_form: Tcheck_diffs_form
     Left = 120
     Height = 23
     Hint = ' lengthen check rail end by 30" scale '
-    Top = 192
+    Top = 188
     Width = 88
     Caption = 'L  &lengthen'
     Enabled = False
@@ -308,7 +298,7 @@ object check_diffs_form: Tcheck_diffs_form
     Left = 30
     Height = 23
     Hint = ' shorten check rail end by 30" scale '
-    Top = 192
+    Top = 188
     Width = 84
     Caption = 'S  &shorten'
     Enabled = False
@@ -342,7 +332,7 @@ object check_diffs_form: Tcheck_diffs_form
   object data_button: TButton
     Left = 376
     Height = 23
-    Top = 192
+    Top = 188
     Width = 58
     Caption = 'data ...'
     Enabled = False
@@ -474,14 +464,15 @@ object check_diffs_form: Tcheck_diffs_form
     OnClick = mm_radio_buttonClick
   end
   object flare_group: TPanel
-    Left = 268
+    Left = 264
     Height = 55
     Top = 127
-    Width = 236
+    Width = 244
+    BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = ' '
     ClientHeight = 51
-    ClientWidth = 232
+    ClientWidth = 240
     Color = 13693152
     Font.Color = clGreen
     Font.Height = -13
@@ -492,7 +483,7 @@ object check_diffs_form: Tcheck_diffs_form
     ParentFont = False
     TabOrder = 11
     object bent_button: TButton
-      Left = 0
+      Left = 4
       Height = 23
       Top = 24
       Width = 46
@@ -507,7 +498,7 @@ object check_diffs_form: Tcheck_diffs_form
       OnClick = bent_buttonClick
     end
     object machined_button: TButton
-      Left = 48
+      Left = 52
       Height = 23
       Top = 24
       Width = 80
@@ -522,7 +513,7 @@ object check_diffs_form: Tcheck_diffs_form
       OnClick = machined_buttonClick
     end
     object flare_restore_button: TButton
-      Left = 180
+      Left = 184
       Height = 23
       Top = 24
       Width = 52
@@ -532,7 +523,7 @@ object check_diffs_form: Tcheck_diffs_form
       OnClick = flare_restore_buttonClick
     end
     object no_flare_button: TButton
-      Left = 130
+      Left = 134
       Height = 23
       Top = 24
       Width = 48
