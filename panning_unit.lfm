@@ -1,15 +1,15 @@
 object panning_form: Tpanning_form
-  Left = 215
-  Height = 141
-  Top = 70
-  Width = 478
+  Left = 303
+  Height = 100
+  Top = 167
+  Width = 490
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '   zoom  /  pan'
-  ClientHeight = 141
-  ClientWidth = 478
+  ClientHeight = 100
+  ClientWidth = 490
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
@@ -28,10 +28,15 @@ object panning_form: Tpanning_form
     Alignment = taCenter
     AutoSize = False
     Caption = 'panning speed'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     WordWrap = True
   end
   object zoom_out_toolbutton: TSpeedButton
-    Left = 0
+    Left = 2
     Height = 23
     Hint = ' zoom  out '
     Top = 25
@@ -63,7 +68,7 @@ object panning_form: Tpanning_form
     ParentShowHint = False
   end
   object zoom_in_toolbutton: TSpeedButton
-    Left = 0
+    Left = 2
     Height = 23
     Hint = ' zoom  in '
     Top = 50
@@ -95,12 +100,16 @@ object panning_form: Tpanning_form
     ParentShowHint = False
   end
   object zoom_rectangle_latching_toolbutton: TSpeedButton
-    Left = 0
+    Left = 2
     Height = 23
     Hint = ' click-drag  zoom  rectangle '
     Top = 0
     Width = 23
     AllowAllUp = True
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Glyph.Data = {
       C20D0000424DC20D000000000000360000002800000044000000110000000100
       1800000000008C0D000074120000741200000000000000000000808080808080
@@ -218,10 +227,11 @@ object panning_form: Tpanning_form
     NumGlyphs = 4
     OnClick = zoom_rectangle_latching_toolbuttonClick
     ShowHint = True
+    ParentFont = False
     ParentShowHint = False
   end
   object fit_extents_toolbutton: TSpeedButton
-    Left = 74
+    Left = 76
     Height = 23
     Hint = ' zoom  to  fit  all  -  Page Up  key '
     Top = 0
@@ -250,37 +260,64 @@ object panning_form: Tpanning_form
     ParentFont = False
     ParentShowHint = False
   end
-  object direction_groupbox: TGroupBox
-    Left = 26
-    Height = 51
+  object direction_panel: TPanel
+    Left = 30
+    Height = 59
     Top = 23
-    Width = 70
-    Caption = ' direction '
-    ClientHeight = 28
-    ClientWidth = 66
+    Width = 83
+    BevelOuter = bvNone
+    ClientHeight = 59
+    ClientWidth = 83
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
+    ParentFont = False
     TabOrder = 10
     TabStop = True
     object paper_option_button: TRadioButton
       Left = 8
-      Height = 22
+      Height = 20
       Top = 14
-      Width = 62
+      Width = 54
       Caption = 'paper'
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       TabStop = True
       OnClick = paper_option_buttonClick
     end
     object scroll_option_button: TRadioButton
       Left = 8
-      Height = 22
+      Height = 20
       Top = 32
-      Width = 60
+      Width = 53
       Caption = 'scroll'
       Checked = True
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       TabStop = True
       OnClick = paper_option_buttonClick
+    end
+    object Label2: TLabel
+      Left = 5
+      Height = 16
+      Top = 0
+      Width = 64
+      Caption = ' direction '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object coarse_trackbar: TTrackBar
@@ -289,10 +326,15 @@ object panning_form: Tpanning_form
     Top = 14
     Width = 100
     Position = 2
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 9
   end
   object blue_corner_panel: TPanel
-    Left = 440
+    Left = 460
     Height = 46
     Top = 0
     Width = 20
@@ -387,7 +429,7 @@ object panning_form: Tpanning_form
     end
   end
   object more_button: TButton
-    Left = 48
+    Left = 50
     Height = 16
     Hint = ' expand  -  click  twice  '
     Top = 2
@@ -404,7 +446,7 @@ object panning_form: Tpanning_form
     OnClick = more_buttonClick
   end
   object less_button: TButton
-    Left = 27
+    Left = 29
     Height = 16
     Hint = ' shrink  -  click  twice  '
     Top = 2
@@ -420,44 +462,76 @@ object panning_form: Tpanning_form
     TabOrder = 2
     OnClick = less_buttonClick
   end
-  object edge_panning_groupbox: TGroupBox
+  object edge_panning_panel: TPanel
     Left = 340
-    Height = 44
+    Height = 41
     Top = 0
-    Width = 98
-    Caption = ' edge-panning '
-    ClientHeight = 21
-    ClientWidth = 94
+    Width = 115
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 37
+    ClientWidth = 111
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
+    ParentFont = False
     TabOrder = 14
     TabStop = True
     object edge_on_radio_button: TRadioButton
-      Left = 4
-      Height = 22
-      Top = 18
-      Width = 39
+      Left = 12
+      Height = 20
+      Top = 16
+      Width = 37
       Caption = 'on'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       TabStop = True
       OnClick = edge_on_radio_buttonClick
     end
     object edge_off_radio_button: TRadioButton
-      Left = 50
-      Height = 22
-      Top = 18
-      Width = 40
+      Left = 60
+      Height = 20
+      Top = 16
+      Width = 37
       Caption = 'off'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       TabStop = True
       OnClick = edge_off_radio_buttonClick
     end
+    object Label3: TLabel
+      Left = 10
+      Height = 16
+      Top = 0
+      Width = 96
+      Caption = ' edge-panning '
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object up_panbutton: TBitBtn
-    Left = 100
+    Left = 102
     Height = 47
     Top = 0
     Width = 20
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Glyph.Data = {
       F6000000424DF600000000000000760000002800000010000000100000000100
       0400000000008000000084120000841200001000000000000000000000000000
@@ -468,16 +542,22 @@ object panning_form: Tpanning_form
       333333333CCCCC333333333333CCC33333333333333C33333333333333333333
       3333333333333333333333333333333333333333333333333333
     }
+    Layout = blGlyphTop
     OnClick = paper_option_buttonClick
     OnMouseDown = up_panbuttonMouseDown
     OnMouseUp = up_panbuttonMouseUp
+    ParentFont = False
     TabOrder = 6
   end
   object down_panbutton: TBitBtn
-    Left = 100
+    Left = 102
     Height = 47
     Top = 48
     Width = 20
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Glyph.Data = {
       F6000000424DF600000000000000760000002800000010000000100000000100
       0400000000008000000084120000841200001000000000000000000000000000
@@ -488,16 +568,22 @@ object panning_form: Tpanning_form
       333333CCCCCCCCCCC3333CCCCCCCCCCCCC333333333333333333333333333333
       3333333333333333333333333333333333333333333333333333
     }
+    Layout = blGlyphBottom
     OnClick = paper_option_buttonClick
     OnMouseDown = down_panbuttonMouseDown
     OnMouseUp = up_panbuttonMouseUp
+    ParentFont = False
     TabOrder = 7
   end
   object left_panbutton: TBitBtn
-    Left = 0
+    Left = 2
     Height = 20
     Top = 75
     Width = 49
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Glyph.Data = {
       F6000000424DF600000000000000760000002800000010000000100000000100
       0400000000008000000084120000841200001000000000000000000000000000
@@ -511,14 +597,19 @@ object panning_form: Tpanning_form
     OnClick = paper_option_buttonClick
     OnMouseDown = left_panbuttonMouseDown
     OnMouseUp = up_panbuttonMouseUp
+    ParentFont = False
     Spacing = 0
     TabOrder = 4
   end
   object right_panbutton: TBitBtn
-    Left = 50
+    Left = 52
     Height = 20
     Top = 75
     Width = 49
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Glyph.Data = {
       F6000000424DF600000000000000760000002800000010000000100000000100
       0400000000008000000084120000841200001000000000000000000000000000
@@ -532,16 +623,18 @@ object panning_form: Tpanning_form
     OnClick = paper_option_buttonClick
     OnMouseDown = right_panbuttonMouseDown
     OnMouseUp = up_panbuttonMouseUp
+    ParentFont = False
     TabOrder = 5
   end
-  object pad_view_groupbox: TGroupBox
+  object pad_view_panel: TPanel
     Left = 125
-    Height = 93
-    Top = 2
-    Width = 110
-    Caption = ' views :  '
-    ClientHeight = 73
-    ClientWidth = 106
+    Height = 98
+    Top = 0
+    Width = 114
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 94
+    ClientWidth = 110
     Color = 13430510
     Font.Color = clMaroon
     Font.Height = -12
@@ -556,7 +649,7 @@ object panning_form: Tpanning_form
       Left = 4
       Height = 19
       Hint = ' remember current view on button 1 '
-      Top = 72
+      Top = 73
       Width = 24
       Alignment = taCenter
       AutoSize = False
@@ -579,7 +672,7 @@ object panning_form: Tpanning_form
       Left = 30
       Height = 19
       Hint = ' remember current view on button 2 '
-      Top = 72
+      Top = 73
       Width = 24
       Alignment = taCenter
       AutoSize = False
@@ -602,7 +695,7 @@ object panning_form: Tpanning_form
       Left = 56
       Height = 19
       Hint = ' remember current view on button 3 '
-      Top = 72
+      Top = 73
       Width = 24
       Alignment = taCenter
       AutoSize = False
@@ -625,7 +718,7 @@ object panning_form: Tpanning_form
       Left = 82
       Height = 19
       Hint = ' remember current view on button 4 '
-      Top = 72
+      Top = 73
       Width = 24
       Alignment = taCenter
       AutoSize = False
@@ -647,14 +740,14 @@ object panning_form: Tpanning_form
     object mid_bar_shape: TShape
       Left = 0
       Height = 1
-      Top = 44
+      Top = 46
       Width = 110
     end
     object view1_button: TButton
       Left = 6
       Height = 20
       Hint = ' change to remembered view 1 '
-      Top = 52
+      Top = 53
       Width = 20
       Caption = '1'
       Enabled = False
@@ -672,7 +765,7 @@ object panning_form: Tpanning_form
       Left = 32
       Height = 20
       Hint = ' change to remembered view 2 '
-      Top = 52
+      Top = 53
       Width = 20
       Caption = '2'
       Enabled = False
@@ -690,7 +783,7 @@ object panning_form: Tpanning_form
       Left = 58
       Height = 20
       Hint = ' change to remembered view 3 '
-      Top = 52
+      Top = 53
       Width = 20
       Caption = '3'
       Enabled = False
@@ -708,7 +801,7 @@ object panning_form: Tpanning_form
       Left = 84
       Height = 20
       Hint = ' change to remembered view 4 '
-      Top = 52
+      Top = 53
       Width = 20
       Caption = '4'
       Enabled = False
@@ -725,14 +818,19 @@ object panning_form: Tpanning_form
     object rollback_panel: TPanel
       Left = 1
       Height = 31
-      Top = 13
+      Top = 14
       Width = 108
       BevelOuter = bvNone
       ClientHeight = 31
       ClientWidth = 108
       Color = 13430510
+      Font.Color = clMaroon
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
       ParentBackground = False
       ParentColor = False
+      ParentFont = False
       TabOrder = 4
       object roll_label: TLabel
         Left = 87
@@ -741,7 +839,12 @@ object panning_form: Tpanning_form
         Width = 20
         AutoSize = False
         Caption = 'roll'
+        Font.Color = clMaroon
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
         Layout = tlBottom
+        ParentFont = False
       end
       object previous_view_button: TButton
         Left = 4
@@ -783,17 +886,34 @@ object panning_form: Tpanning_form
         Top = 1
         Width = 21
         Checked = True
+        Font.Color = clMaroon
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         ParentShowHint = False
         ShowHint = True
         State = cbChecked
         TabOrder = 2
       end
     end
+    object Label1: TLabel
+      Left = 15
+      Height = 16
+      Top = 0
+      Width = 56
+      Caption = ' views :  '
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object close_panel: TPanel
-    Left = 302
+    Left = 322
     Height = 23
-    Top = 73
+    Top = 75
     Width = 158
     Alignment = taLeftJustify
     Caption = '  hide   Ctrl+F2  or  2'
@@ -826,9 +946,9 @@ object panning_form: Tpanning_form
     end
   end
   object help_button: TButton
-    Left = 240
+    Left = 248
     Height = 23
-    Top = 73
+    Top = 75
     Width = 56
     Caption = '? help'
     Font.Color = clBlack
@@ -858,11 +978,16 @@ object panning_form: Tpanning_form
   end
   object scale_zoom_checkbox: TCheckBox
     Left = 402
-    Height = 22
+    Height = 20
     Hint = ' scale zoom instead of spot zoom'
     Top = 48
-    Width = 61
+    Width = 57
     Caption = 'sc zm'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 12

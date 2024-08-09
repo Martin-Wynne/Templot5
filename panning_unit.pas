@@ -41,8 +41,14 @@ uses
   ExtCtrls, ComCtrls, StdCtrls, Buttons;
 
 type
+
+  { Tpanning_form }
+
   Tpanning_form = class(TForm)
     blue_corner_panel: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
@@ -50,12 +56,12 @@ type
     close_panel: TPanel;
     close_button: TButton;
     coarse_label: TLabel;
-    direction_groupbox: TGroupBox;
+    direction_panel: Tpanel;
     paper_option_button: TRadioButton;
     scroll_option_button: TRadioButton;
     more_button: TButton;
     less_button: TButton;
-    edge_panning_groupbox: TGroupBox;
+    edge_panning_panel: Tpanel;
     edge_on_radio_button: TRadioButton;
     edge_off_radio_button: TRadioButton;
     zoom_out_toolbutton: TSpeedButton;
@@ -65,7 +71,7 @@ type
     down_panbutton: TBitBtn;
     left_panbutton: TBitBtn;
     right_panbutton: TBitBtn;
-    pad_view_groupbox: TGroupBox;
+    pad_view_panel: Tpanel;
     view1_button: TButton;
     view2_button: TButton;
     view3_button: TButton;
@@ -270,8 +276,8 @@ begin
   pad_form.InsertControl(panning_form);
 
   AutoScroll:=False;
-  ClientWidth:=460;
-  ClientHeight:=96;
+  ClientWidth:=482;       // sc 09/08/24 was 460
+  ClientHeight:=98;      // sc 09/08/24 was 96
 end;
 //______________________________________________________________________________
 
@@ -289,7 +295,7 @@ procedure Tpanning_form.more_buttonClick(Sender: TObject);
 
 begin
   if ClientWidth=(up_panbutton.Left+up_panbutton.Width+2)
-     then ClientWidth:=pad_view_groupbox.Left+pad_view_groupbox.Width+2           // 0.91.c
+     then ClientWidth:=pad_view_panel.Left+pad_view_panel.Width+2           // 0.91.c
      else ClientWidth:=blue_corner_panel.Left+blue_corner_panel.Width;
 
 
@@ -305,7 +311,7 @@ procedure Tpanning_form.less_buttonClick(Sender: TObject);
 
 begin
   if ClientWidth=(blue_corner_panel.Left+blue_corner_panel.Width)
-     then ClientWidth:=pad_view_groupbox.Left+pad_view_groupbox.Width+2           // 0.91.c
+     then ClientWidth:=pad_view_panel.Left+pad_view_panel.Width+2           // 0.91.c
      else ClientWidth:=up_panbutton.Left+up_panbutton.Width+2;
 
   if (Left>pad_form.ClientWidth-Width-10) then Left:=pad_form.ClientWidth-Width-10;
@@ -462,7 +468,7 @@ end;
 procedure Tpanning_form.set_label4MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  set_label4.Color:=pad_view_groupbox.Color;
+  set_label4.Color:=pad_view_panel.Color;
   set_label4.Font.Color:=clBlue;
 end;
 //______________________________________________________________________________
@@ -478,7 +484,7 @@ end;
 procedure Tpanning_form.set_label3MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  set_label3.Color:=pad_view_groupbox.Color;
+  set_label3.Color:=pad_view_panel.Color;
   set_label3.Font.Color:=clBlue;
 end;
 //______________________________________________________________________________
@@ -494,7 +500,7 @@ end;
 procedure Tpanning_form.set_label2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  set_label2.Color:=pad_view_groupbox.Color;
+  set_label2.Color:=pad_view_panel.Color;
   set_label2.Font.Color:=clBlue;
 end;
 //______________________________________________________________________________
@@ -510,7 +516,7 @@ end;
 procedure Tpanning_form.set_label1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  set_label1.Color:=pad_view_groupbox.Color;
+  set_label1.Color:=pad_view_panel.Color;
   set_label1.Font.Color:=clBlue;
 end;
 //______________________________________________________________________________
