@@ -276,7 +276,7 @@ begin
   pad_form.InsertControl(panning_form);
 
   AutoScroll:=False;
-  ClientWidth:=482;       // sc 09/08/24 was 460
+  ClientWidth:=480;       // sc 09/08/24 was 460
   ClientHeight:=98;      // sc 09/08/24 was 96
 end;
 //______________________________________________________________________________
@@ -296,11 +296,13 @@ procedure Tpanning_form.more_buttonClick(Sender: TObject);
 begin
   if ClientWidth=(up_panbutton.Left+up_panbutton.Width+2)
      then ClientWidth:=pad_view_panel.Left+pad_view_panel.Width+2           // 0.91.c
-     else ClientWidth:=blue_corner_panel.Left+blue_corner_panel.Width;
-
+     else ClientWidth:=close_panel.Left+close_panel.Width;
 
   if (Left>pad_form.ClientWidth-Width-10) then Left:=pad_form.ClientWidth-Width-10;
   close_button.Cancel:=True;   // close on ESC.
+
+  ClientHeight:=close_panel.Top+close_panel.Height;
+
   if pad_form.arrow_button_dummy_trackbar.Showing=True then pad_form.arrow_button_dummy_trackbar.SetFocus;
 end;
 //_________________________________________________________________________________________
@@ -310,12 +312,15 @@ procedure Tpanning_form.less_buttonClick(Sender: TObject);
   // reduce window width in two stages. 0.91.c
 
 begin
-  if ClientWidth=(blue_corner_panel.Left+blue_corner_panel.Width)
+  if ClientWidth>(edge_panning_panel.Left+edge_panning_panel.Width)
      then ClientWidth:=pad_view_panel.Left+pad_view_panel.Width+2           // 0.91.c
      else ClientWidth:=up_panbutton.Left+up_panbutton.Width+2;
 
   if (Left>pad_form.ClientWidth-Width-10) then Left:=pad_form.ClientWidth-Width-10;
   close_button.Cancel:=False;  // no close on ESC if button not visible.
+
+  ClientHeight:=close_panel.Top+close_panel.Height;
+
   if pad_form.arrow_button_dummy_trackbar.Showing=True then pad_form.arrow_button_dummy_trackbar.SetFocus;
 end;
 //_________________________________________________________________________________________
