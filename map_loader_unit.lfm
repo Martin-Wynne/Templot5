@@ -1,17 +1,17 @@
 object map_loader_form: Tmap_loader_form
-  Left = 222
-  Height = 752
-  Top = 174
+  Left = 26
+  Height = 743
+  Top = 59
   Width = 956
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
   Caption = '    load  a  tiled  map  into  multiple  background  picture  shapes ...'
-  ClientHeight = 752
+  ClientHeight = 743
   ClientWidth = 956
   Color = 16775412
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -24
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -40,7 +40,12 @@ object map_loader_form: Tmap_loader_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'map name :'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
   end
   object Label21: TLabel
     Left = 302
@@ -63,7 +68,12 @@ object map_loader_form: Tmap_loader_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'loaded maps :'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
     Visible = False
   end
   object Label26: TLabel
@@ -321,13 +331,14 @@ object map_loader_form: Tmap_loader_form
     Layout = tlCenter
     ParentFont = False
   end
-  object location_groupbox: TGroupBox
+  object location_group: TPanel
     Left = 412
     Height = 207
     Top = 434
     Width = 534
-    Caption = ' real location :  '
-    ClientHeight = 184
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 203
     ClientWidth = 530
     Color = 14221304
     Font.Color = clBlack
@@ -527,6 +538,11 @@ object map_loader_form: Tmap_loader_form
       Top = 92
       Width = 184
       Caption = 'OS Grid Reference GB'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 5
       OnClick = os_letters_editEnter
     end
@@ -537,6 +553,11 @@ object map_loader_form: Tmap_loader_form
       Width = 153
       Caption = 'longitude / latitude'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       TabStop = True
       OnClick = lon_editEnter
@@ -666,6 +687,19 @@ object map_loader_form: Tmap_loader_form
       OnClick = url_editClick
       OnEnter = url_editEnter
     end
+    object location_group_caption: TLabel
+      Left = 4
+      Height = 18
+      Top = 0
+      Width = 107
+      Caption = ' real location :  '
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = False
+    end
   end
   object load_tiles_button: TButton
     Left = 784
@@ -680,13 +714,14 @@ object map_loader_form: Tmap_loader_form
     ParentFont = False
     TabOrder = 17
   end
-  object extend_area_groupbox: TGroupBox
+  object extend_area_group: TPanel
     Left = 398
     Height = 116
     Top = 70
     Width = 266
-    Caption = ' extend tiled map :  '
-    ClientHeight = 93
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 112
     ClientWidth = 262
     Color = 14221311
     Font.Color = clBlack
@@ -776,14 +811,23 @@ object map_loader_form: Tmap_loader_form
       TabOrder = 3
       OnClick = add_bottom_buttonClick
     end
+    object extend_group_caption: TLabel
+      Left = 4
+      Height = 18
+      Top = 0
+      Width = 137
+      Caption = ' extend tiled map :  '
+      Transparent = False
+    end
   end
-  object crop_area_groupbox: TGroupBox
+  object crop_area_group: TPanel
     Left = 678
     Height = 116
     Top = 70
     Width = 266
-    Caption = ' crop tiled map  :  '
-    ClientHeight = 93
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 112
     ClientWidth = 262
     Color = 14221288
     Font.Color = clBlack
@@ -872,6 +916,14 @@ object map_loader_form: Tmap_loader_form
       ShowHint = True
       TabOrder = 3
       OnClick = crop_bottom_buttonClick
+    end
+    object crop_group_caption: TLabel
+      Left = 4
+      Height = 18
+      Top = 0
+      Width = 124
+      Caption = ' crop tiled map  :  '
+      Transparent = False
     end
   end
   object background_shapes_button: TButton
@@ -986,6 +1038,11 @@ object map_loader_form: Tmap_loader_form
       Width = 15
       Cancel = True
       Caption = '  '
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = close_buttonClick
     end
@@ -1007,11 +1064,16 @@ object map_loader_form: Tmap_loader_form
   end
   object osm_radio_button: TRadioButton
     Left = 20
-    Height = 33
+    Height = 20
     Hint = 'a colourful modern map of the entire world'
     Top = 568
-    Width = 344
+    Width = 201
     Caption = 'OpenStreetMap  World  Map'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 14
@@ -1019,11 +1081,16 @@ object map_loader_form: Tmap_loader_form
   end
   object tf_radio_button: TRadioButton
     Left = 20
-    Height = 33
+    Height = 20
     Hint = ' a simplified railway map '
     Top = 492
-    Width = 350
+    Width = 203
     Caption = 'Thunderforest  Railway  Map'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 12
@@ -1258,12 +1325,12 @@ object map_loader_form: Tmap_loader_form
   end
   object tf_style_groupbox: TGroupBox
     Left = 304
-    Height = 86
+    Height = 85
     Top = 478
-    Width = 97
+    Width = 80
     Caption = ' style :  '
-    ClientHeight = 65
-    ClientWidth = 93
+    ClientHeight = 64
+    ClientWidth = 76
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
@@ -1272,32 +1339,47 @@ object map_loader_form: Tmap_loader_form
     ParentFont = False
     TabOrder = 13
     object tfm_radio: TRadioButton
-      Left = 8
+      Left = 0
       Height = 20
-      Top = 18
+      Top = 0
       Width = 58
       Caption = 'bright'
       Checked = True
       Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       TabStop = True
     end
     object tfp_radio: TRadioButton
-      Left = 8
+      Left = 0
       Height = 20
-      Top = 40
+      Top = 22
       Width = 70
       Caption = 'pioneer'
       Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
     end
     object tfo_radio: TRadioButton
-      Left = 8
+      Left = 0
       Height = 20
-      Top = 62
+      Top = 44
       Width = 76
       Caption = 'outdoors'
       Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
     end
   end
