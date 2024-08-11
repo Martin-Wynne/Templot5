@@ -41,12 +41,19 @@ uses
   ExtCtrls, StdCtrls, ComCtrls, PrintersDlgs;
 
 type
+
+  { Tinfo_form }
+
   Tinfo_form = class(TForm)
-    min_rad_box: TGroupBox;
+    Label1: TLabel;
+    min_rad_caption: TLabel;
+    limit_rad_caption: TLabel;
+    min_rad_box: Tpanel;
     min_rad_now_label: TLabel;
     min_rad_lamp_panel: TPanel;
-    pad_data_groupbox: TGroupBox;
+    pad_data_group: Tpanel;
     blue_corner_panel: TPanel;
+    pad_data_caption: TPanel;
     what_next_panel: TPanel;
     chat_panel: TPanel;
     colour_panel: TPanel;
@@ -55,7 +62,7 @@ type
     corner_dot_panel: TPanel;
     shrink_button: TButton;
     expand_button: TButton;
-    limit_rad_box: TGroupBox;
+    limit_rad_box: Tpanel;
     limit_rad_label: TLabel;
     change_limit_button: TButton;
     info_gauge_panel: TPanel;
@@ -84,7 +91,7 @@ type
     offsetx_label: TLabel;
     offsety_label: TLabel;
     edit_button: TButton;
-    info_mm_label: TLabel;
+    info_mm_label: Tpanel;
     info_font_button: TButton;
     metric_button: TButton;
     info_scrollbox: TScrollBox;
@@ -94,7 +101,7 @@ type
     ref_label: TLabel;
     ref_name_label: TLabel;
     memo_button: TButton;
-    rings_groupbox: TGroupBox;
+    rings_group: Tpanel;
     ring_infringed_warning_label: TLabel;
     ring_infringed_by_label: TLabel;
     ring_lamp_panel: TPanel;

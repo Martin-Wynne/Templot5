@@ -1,6 +1,6 @@
 object info_form: Tinfo_form
   Left = 20
-  Height = 494
+  Height = 490
   Top = 112
   Width = 818
   HorzScrollBar.Smooth = True
@@ -10,7 +10,7 @@ object info_form: Tinfo_form
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '  information'
-  ClientHeight = 494
+  ClientHeight = 490
   ClientWidth = 818
   Color = 15852503
   DesignTimePPI = 120
@@ -27,27 +27,35 @@ object info_form: Tinfo_form
   Scaled = False
   object radius_shape: TShape
     Left = 128
-    Height = 86
+    Height = 102
     Top = 24
     Width = 293
     Brush.Color = 14221311
     Pen.Color = 13172735
   end
-  object info_mm_label: TLabel
+  object info_mm_label: TPanel
     Left = 0
     Height = 19
-    Top = 140
+    Top = 164
     Width = 285
-    AutoSize = False
-    Caption = '   info ( all  dimensions  in  mm ) :'
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = ' template info ( all dimensions in mm ) : '
     Color = 14221311
+    Font.Color = 4210816
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
     ParentColor = False
+    ParentFont = False
     ParentShowHint = False
+    TabOrder = 27
   end
   object ref_label: TLabel
     Left = 4
     Height = 16
-    Top = 114
+    Top = 138
     Width = 48
     AutoSize = False
     Caption = 'name :'
@@ -61,7 +69,7 @@ object info_form: Tinfo_form
   object ref_name_label: TLabel
     Left = 54
     Height = 19
-    Top = 112
+    Top = 136
     Width = 559
     AutoSize = False
     Caption = 'ref_name'
@@ -92,13 +100,14 @@ object info_form: Tinfo_form
     ShowHint = True
     OnClick = gauge_bang_labelClick
   end
-  object min_rad_box: TGroupBox
+  object min_rad_box: TPanel
     Left = 132
-    Height = 40
-    Top = 24
+    Height = 56
+    Top = 25
     Width = 186
-    Caption = ' smallest  radius  now :  '
-    ClientHeight = 20
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 52
     ClientWidth = 182
     Color = 14221311
     Font.Color = clBlack
@@ -113,7 +122,7 @@ object info_form: Tinfo_form
     object min_rad_now_label: TLabel
       Left = 30
       Height = 16
-      Top = 18
+      Top = 17
       Width = 151
       AutoSize = False
       Caption = '1000 mm'
@@ -125,29 +134,53 @@ object info_form: Tinfo_form
       OnClick = limit_rad_labelClick
     end
     object min_rad_lamp_panel: TPanel
-      Left = 6
+      Left = 5
       Height = 17
-      Top = 17
+      Top = 16
       Width = 17
       BevelInner = bvLowered
       Color = clLime
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
       ParentBackground = False
       ParentColor = False
+      ParentFont = False
       TabOrder = 0
       OnClick = limit_rad_labelClick
     end
     object rounding_checkbox: TCheckBox
-      Left = 166
-      Height = 20
+      Left = 6
+      Height = 18
       Hint = ' radius shown rounded to whole numbers '
-      Top = 1
-      Width = 21
+      Top = 35
+      Width = 161
+      AutoSize = False
+      Caption = ' nearest integer rounding   '
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       State = cbChecked
       TabOrder = 1
       OnClick = rounding_checkboxClick
+    end
+    object min_rad_caption: TLabel
+      Left = 6
+      Height = 15
+      Top = 0
+      Width = 136
+      Caption = ' smallest  radius  now :  '
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object blue_corner_panel: TPanel
@@ -216,7 +249,12 @@ object info_form: Tinfo_form
       Width = 15
       ClientHeight = 16
       ClientWidth = 15
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
       ParentBackground = False
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
@@ -296,7 +334,12 @@ object info_form: Tinfo_form
     Top = 0
     Width = 1
     BevelOuter = bvNone
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
+    ParentFont = False
     TabOrder = 20
     Visible = False
   end
@@ -328,13 +371,14 @@ object info_form: Tinfo_form
     TabOrder = 0
     OnClick = expand_buttonClick
   end
-  object limit_rad_box: TGroupBox
+  object limit_rad_box: TPanel
     Left = 132
-    Height = 40
-    Top = 66
+    Height = 42
+    Top = 83
     Width = 186
-    Caption = ' warn  if  radius  is  under :  '
-    ClientHeight = 20
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 38
     ClientWidth = 182
     Color = 14221311
     Font.Color = clBlack
@@ -349,7 +393,7 @@ object info_form: Tinfo_form
     object limit_rad_label: TLabel
       Left = 16
       Height = 16
-      Top = 18
+      Top = 20
       Width = 74
       AutoSize = False
       Caption = '1000 mm'
@@ -363,7 +407,7 @@ object info_form: Tinfo_form
     object change_limit_button: TButton
       Left = 102
       Height = 21
-      Top = 15
+      Top = 17
       Width = 78
       Caption = 'ch&ange ...'
       Font.Color = clBlack
@@ -373,6 +417,18 @@ object info_form: Tinfo_form
       ParentFont = False
       TabOrder = 0
       OnClick = limit_rad_labelClick
+    end
+    object limit_rad_caption: TLabel
+      Left = 6
+      Height = 15
+      Top = 0
+      Width = 154
+      Caption = ' warn  if  radius  is  under :  '
+      Font.Color = clMaroon
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object info_gauge_panel: TPanel
@@ -386,8 +442,13 @@ object info_form: Tinfo_form
     ClientHeight = 18
     ClientWidth = 401
     Color = 16777120
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 21
@@ -428,7 +489,7 @@ object info_form: Tinfo_form
     Left = 618
     Height = 22
     Hint = ' print  info '
-    Top = 133
+    Top = 157
     Width = 44
     Caption = 'p&rint'
     Font.Color = clBlack
@@ -445,9 +506,14 @@ object info_form: Tinfo_form
     Left = 664
     Height = 22
     Hint = ' info  to  file '
-    Top = 133
+    Top = 157
     Width = 80
     Caption = 'save  f&ile ..'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 18
@@ -491,9 +557,14 @@ object info_form: Tinfo_form
     Left = 574
     Height = 22
     Hint = ' view  info  as  help '
-    Top = 133
+    Top = 157
     Width = 42
     Caption = '&view'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 16
@@ -501,22 +572,27 @@ object info_form: Tinfo_form
   end
   object slew_warn_panel: TPanel
     Left = 132
-    Height = 82
-    Top = 25
+    Height = 100
+    Top = 225
     Width = 188
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 78
+    ClientHeight = 96
     ClientWidth = 184
     Color = 14221311
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 6
     Visible = False
     object slew_caution_mode_label: TLabel
       Left = 6
       Height = 51
-      Top = 4
+      Top = 12
       Width = 176
       AutoSize = False
       Caption = 'The control template contains a mode 2  SLEW . Smallest radius info is not available.'
@@ -532,46 +608,59 @@ object info_form: Tinfo_form
     object cancel_slewing_button: TButton
       Left = 64
       Height = 22
-      Top = 53
+      Top = 70
       Width = 116
       Caption = 'cancel  s&lewing'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = cancel_slewing_buttonClick
     end
   end
-  object pad_data_groupbox: TGroupBox
+  object pad_data_group: TPanel
     Left = 504
-    Height = 82
-    Top = 24
+    Height = 90
+    Top = 36
     Width = 296
-    Caption = ' trackpad  data :  '
-    ClientHeight = 61
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 86
     ClientWidth = 292
+    Color = clCream
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentBackground = False
+    ParentColor = False
     ParentFont = False
     TabOrder = 9
     object pad_data_scrollbox: TScrollBox
       Left = 0
-      Height = 61
+      Height = 86
       Top = 0
       Width = 292
       HorzScrollBar.Page = 1
       HorzScrollBar.Visible = False
       VertScrollBar.Increment = 4
-      VertScrollBar.Page = 61
+      VertScrollBar.Page = 86
       VertScrollBar.Tracking = True
       Align = alClient
       BorderStyle = bsNone
-      ClientHeight = 61
+      ClientHeight = 86
       ClientWidth = 271
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
       ParentBackground = False
+      ParentFont = False
       TabOrder = 0
       object zoom_lock_label: TLabel
-        Left = 52
+        Left = 50
         Height = 18
         Top = 2
         Width = 88
@@ -587,7 +676,7 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_width_label: TLabel
-        Left = 4
+        Left = 2
         Height = 16
         Top = 24
         Width = 257
@@ -600,7 +689,7 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_height_label: TLabel
-        Left = 4
+        Left = 2
         Height = 16
         Top = 44
         Width = 257
@@ -613,7 +702,7 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_zoom_label: TLabel
-        Left = 2
+        Left = 0
         Height = 18
         Top = 2
         Width = 48
@@ -626,7 +715,7 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_notch_label: TLabel
-        Left = 2
+        Left = 0
         Height = 18
         Top = 66
         Width = 124
@@ -639,31 +728,46 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object notchx_label: TLabel
-        Left = 4
+        Left = 2
         Height = 16
         Top = 86
         Width = 276
         AutoSize = False
         Caption = 'notchx_label'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object notchy_label: TLabel
-        Left = 4
+        Left = 2
         Height = 16
         Top = 106
         Width = 276
         AutoSize = False
         Caption = 'notchy_label'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object notchk_label: TLabel
-        Left = 4
+        Left = 2
         Height = 16
         Top = 126
         Width = 300
         AutoSize = False
         Caption = 'notchk_label'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object grid_org_label: TLabel
-        Left = 2
+        Left = 0
         Height = 18
         Top = 148
         Width = 85
@@ -676,23 +780,33 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object offsetx_label: TLabel
-        Left = 4
+        Left = 2
         Height = 16
         Top = 168
         Width = 276
         AutoSize = False
         Caption = 'offsetx_label'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object offsety_label: TLabel
-        Left = 4
+        Left = 2
         Height = 22
         Top = 188
         Width = 276
         AutoSize = False
         Caption = 'offsety_label'
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object unlock_button: TButton
-        Left = 142
+        Left = 140
         Height = 20
         Top = 0
         Width = 52
@@ -706,7 +820,7 @@ object info_form: Tinfo_form
         OnClick = unlock_buttonClick
       end
       object lock_zoom_button: TButton
-        Left = 198
+        Left = 196
         Height = 20
         Top = 0
         Width = 68
@@ -725,9 +839,14 @@ object info_form: Tinfo_form
     Left = 534
     Height = 22
     Hint = ' edit  info '
-    Top = 133
+    Top = 157
     Width = 38
     Caption = '&edit'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 15
@@ -737,7 +856,7 @@ object info_form: Tinfo_form
     Left = 746
     Height = 22
     Hint = ' change  font  for  info  below '
-    Top = 133
+    Top = 157
     Width = 46
     Caption = '&font ..'
     Font.Color = clBlack
@@ -754,9 +873,14 @@ object info_form: Tinfo_form
     Left = 670
     Height = 22
     Hint = ' open  metric  calculator '
-    Top = 109
+    Top = 133
     Width = 122
     Caption = 'metric  &calculator'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 11
@@ -766,9 +890,14 @@ object info_form: Tinfo_form
     Left = 292
     Height = 22
     Hint = ' resize  info  to  fit  available  space '
-    Top = 133
+    Top = 157
     Width = 106
     Caption = 'fit  to  &window'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 12
@@ -777,18 +906,22 @@ object info_form: Tinfo_form
   object info_scrollbox: TScrollBox
     Left = 0
     Height = 272
-    Top = 158
+    Top = 182
     Width = 800
-    HorzScrollBar.Page = 779
+    HorzScrollBar.Page = 775
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 251
+    VertScrollBar.Page = 247
     VertScrollBar.Tracking = True
-    BorderStyle = bsNone
-    ClientHeight = 251
-    ClientWidth = 779
+    ClientHeight = 247
+    ClientWidth = 775
     Color = 14221311
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 19
     TabStop = True
     object info_memo: TMemo
@@ -819,6 +952,11 @@ object info_form: Tinfo_form
       Top = 5
       Width = 160
       Caption = 'show  timber  lengths'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = timber_lengths_buttonClick
     end
@@ -827,7 +965,7 @@ object info_form: Tinfo_form
     Left = 456
     Height = 22
     Hint = ' add  visible  info  lines  to  jotter '
-    Top = 133
+    Top = 157
     Width = 76
     Caption = 'jot  visi&ble'
     Font.Color = clBlack
@@ -844,21 +982,27 @@ object info_form: Tinfo_form
     Left = 616
     Height = 22
     Hint = ' edit  memo  notes  for  the  current  template '
-    Top = 109
+    Top = 133
     Width = 52
     Caption = '&memo'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 10
     OnClick = memo_buttonClick
   end
-  object rings_groupbox: TGroupBox
+  object rings_group: TPanel
     Left = 326
-    Height = 82
-    Top = 24
+    Height = 100
+    Top = 25
     Width = 91
-    Caption = ' rings :  '
-    ClientHeight = 62
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 96
     ClientWidth = 87
     Color = 14221311
     Font.Color = clBlack
@@ -897,21 +1041,26 @@ object info_form: Tinfo_form
       ParentFont = False
     end
     object rings_boxline_shape: TShape
-      Left = 0
+      Left = -1
       Height = 1
-      Top = 61
-      Width = 79
+      Top = 65
+      Width = 92
       Pen.Color = clGray
     end
     object ring_lamp_panel: TPanel
       Left = 58
       Height = 17
-      Top = 12
+      Top = 17
       Width = 17
       BevelInner = bvLowered
       Color = clLime
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
       ParentBackground = False
       ParentColor = False
+      ParentFont = False
       TabOrder = 2
     end
     object sp_ring_warn_checkbox: TCheckBox
@@ -922,6 +1071,11 @@ object info_form: Tinfo_form
       Width = 43
       Caption = 'ring'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       State = cbChecked
@@ -932,13 +1086,25 @@ object info_form: Tinfo_form
       Left = 6
       Height = 20
       Hint = ' warn  if  any  ring  copies  are  infringed '
-      Top = 64
+      Top = 70
       Width = 59
       Caption = 'copies'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
       OnClick = ring_copies_warn_checkboxClick
+    end
+    object Label1: TLabel
+      Left = 4
+      Height = 15
+      Top = 0
+      Width = 44
+      Caption = ' rings :  '
     end
   end
   object help_button: TButton
@@ -947,13 +1113,18 @@ object info_form: Tinfo_form
     Top = 1
     Width = 52
     Caption = '? &help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 2
     OnClick = what_next_panelClick
   end
   object jot_all_button: TButton
     Left = 400
     Height = 22
-    Top = 133
+    Top = 157
     Width = 54
     Caption = 'j&ot  all'
     Font.Color = clBlack
@@ -999,6 +1170,25 @@ object info_form: Tinfo_form
     ShowHint = True
     TabOrder = 8
     OnClick = companion_buttonClick
+  end
+  object pad_data_caption: TPanel
+    Left = 504
+    Height = 16
+    Top = 24
+    Width = 296
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = ' trackpad  data :  '
+    Color = clCream
+    Font.Color = clNavy
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 26
   end
   object save_dialog: TSaveDialog
     Title = '      write  info  and  memo  texts  to  file ...'
