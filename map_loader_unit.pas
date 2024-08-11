@@ -48,7 +48,10 @@ type
 
   Tmap_loader_form = class(TForm)
     datestamp_label: TLabel;
-    location_groupbox: TGroupBox;
+    extend_group_caption: TLabel;
+    crop_group_caption: TLabel;
+    location_group_caption: TLabel;
+    location_group: Tpanel;
     os_grid_radio_button: TRadioButton;
     lat_lon_radio_button: TRadioButton;
     os_easting_edit: TEdit;
@@ -66,13 +69,13 @@ type
     Label14: TLabel;
     load_tiles_button: TButton;
     Label19: TLabel;
-    extend_area_groupbox: TGroupBox;
+    extend_area_group: Tpanel;
     add_top_button: TButton;
     add_left_button: TButton;
     add_right_button: TButton;
     add_bottom_button: TButton;
     Shape2: TShape;
-    crop_area_groupbox: TGroupBox;
+    crop_area_group: Tpanel;
     Shape3: TShape;
     crop_top_button: TButton;
     crop_left_button: TButton;
@@ -1921,8 +1924,8 @@ begin
                              7: current_map_label.Caption:=nls_town125_radio_button.Caption;
                           end;//case
 
-                          extend_area_groupbox.Visible:=True;
-                          crop_area_groupbox.Visible:=True;
+                          extend_area_group.Visible:=True;
+                          crop_area_group.Visible:=True;
 
                         end;//with
 
@@ -1962,8 +1965,8 @@ begin
 
             map_loader_form.clarity_button.Enabled:=False;
 
-            map_loader_form.extend_area_groupbox.Visible:=False;
-            map_loader_form.crop_area_groupbox.Visible:=False;
+            map_loader_form.extend_area_group.Visible:=False;
+            map_loader_form.crop_area_group.Visible:=False;
 
           end;
 
