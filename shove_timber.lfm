@@ -1,19 +1,19 @@
 object shove_timber_form: Tshove_timber_form
   Left = 20
-  Height = 312
+  Height = 302
   Top = 190
-  Width = 680
+  Width = 780
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '    shove   timber / sleeper'
-  ClientHeight = 312
-  ClientWidth = 680
+  ClientHeight = 302
+  ClientWidth = 780
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -31
+  Font.Height = -291
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnClose = FormClose
@@ -24,12 +24,12 @@ object shove_timber_form: Tshove_timber_form
   Scaled = False
   object back_panel: TPanel
     Left = 0
-    Height = 312
+    Height = 302
     Top = 0
-    Width = 680
+    Width = 780
     BevelOuter = bvNone
-    ClientHeight = 312
-    ClientWidth = 680
+    ClientHeight = 302
+    ClientWidth = 780
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
@@ -41,7 +41,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 0
       Height = 36
       Top = 0
-      Width = 680
+      Width = 780
       Pen.Color = clWhite
     end
     object Label3: TLabel
@@ -62,9 +62,9 @@ object shove_timber_form: Tshove_timber_form
       WordWrap = True
     end
     object readout_label: TLabel
-      Left = 30
+      Left = 48
       Height = 16
-      Top = 80
+      Top = 70
       Width = 156
       AutoSize = False
       Caption = 'click these read-outs to set'
@@ -103,18 +103,11 @@ object shove_timber_form: Tshove_timber_form
       ParentColor = False
       ParentFont = False
     end
-    object help_shape: TShape
-      Left = 622
-      Height = 26
-      Top = 36
-      Width = 58
-      Pen.Color = clWhite
-    end
     object modify_timber_colour_speedbutton: TSpeedButton
-      Left = 208
+      Left = 620
       Height = 22
       Hint = ' show this timber with modified infill colour '
-      Top = 68
+      Top = 212
       Width = 156
       Caption = 'modify  timber  colour ...'
       Font.Color = 16711824
@@ -129,29 +122,29 @@ object shove_timber_form: Tshove_timber_form
       ParentShowHint = False
     end
     object tcol_shape: TShape
-      Left = 370
+      Left = 564
       Height = 16
       Hint = 'modified colour set for the trackpad'
-      Top = 72
+      Top = 216
       Width = 23
       ParentShowHint = False
       OnMouseDown = tcol_shapeMouseDown
       ShowHint = True
     end
     object ocol_shape: TShape
-      Left = 398
+      Left = 592
       Height = 16
       Hint = 'modified colour set for the output'
-      Top = 72
+      Top = 216
       Width = 23
       ParentShowHint = False
       OnMouseDown = tcol_shapeMouseDown
       ShowHint = True
     end
     object Label4: TLabel
-      Left = 530
+      Left = 526
       Height = 16
-      Top = 248
+      Top = 238
       Width = 70
       AutoSize = False
       Caption = '2-D snibs :'
@@ -162,9 +155,9 @@ object shove_timber_form: Tshove_timber_form
       ParentFont = False
     end
     object Label5: TLabel
-      Left = 572
+      Left = 622
       Height = 16
-      Top = 208
+      Top = 254
       Width = 100
       AutoSize = False
       Caption = '2-D snib-links :'
@@ -175,13 +168,13 @@ object shove_timber_form: Tshove_timber_form
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 498
+      Left = 562
       Height = 16
-      Top = 114
+      Top = 88
       Width = 82
       AutoSize = False
       Caption = '3-D flanges :'
-      Font.Color = 12582912
+      Font.Color = clMaroon
       Font.Height = -13
       Font.Name = 'Arial'
       Font.Style = [fsBold]
@@ -298,9 +291,9 @@ object shove_timber_form: Tshove_timber_form
       end
     end
     object hide_panel: TPanel
-      Left = 626
+      Left = 726
       Height = 36
-      Top = 276
+      Top = 266
       Width = 54
       Alignment = taLeftJustify
       Caption = ' hide'
@@ -329,7 +322,7 @@ object shove_timber_form: Tshove_timber_form
     object restore_button: TButton
       Left = 110
       Height = 22
-      Top = 182
+      Top = 172
       Width = 126
       Caption = 'M  restore  ti&mber'
       Enabled = False
@@ -339,7 +332,7 @@ object shove_timber_form: Tshove_timber_form
     object omit_button: TButton
       Left = 0
       Height = 22
-      Top = 182
+      Top = 172
       Width = 108
       Caption = 'O  &omit  timber'
       Enabled = False
@@ -347,9 +340,9 @@ object shove_timber_form: Tshove_timber_form
       OnClick = omit_buttonClick
     end
     object restore_all_button: TButton
-      Left = 423
+      Left = 345
       Height = 22
-      Top = 182
+      Top = 146
       Width = 82
       Caption = 'restore  all'
       TabOrder = 4
@@ -358,7 +351,7 @@ object shove_timber_form: Tshove_timber_form
     object widen_button: TButton
       Left = 0
       Height = 22
-      Top = 266
+      Top = 256
       Width = 78
       Caption = 'W   &widen'
       Enabled = False
@@ -368,7 +361,7 @@ object shove_timber_form: Tshove_timber_form
     object mouse_groupbox: TGroupBox
       Left = 0
       Height = 53
-      Top = 210
+      Top = 200
       Width = 500
       ClientHeight = 32
       ClientWidth = 496
@@ -585,7 +578,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 145
       Height = 19
       Hint = ' click to set '
-      Top = 114
+      Top = 104
       Width = 165
       Alignment = taLeftJustify
       BevelOuter = bvNone
@@ -602,7 +595,7 @@ object shove_timber_form: Tshove_timber_form
     object lengthen_button: TButton
       Left = 80
       Height = 22
-      Top = 266
+      Top = 256
       Width = 86
       Caption = 'L  &lengthen'
       Enabled = False
@@ -612,7 +605,7 @@ object shove_timber_form: Tshove_timber_form
     object shorten_button: TButton
       Left = 80
       Height = 22
-      Top = 290
+      Top = 280
       Width = 86
       Caption = 'S    &shorten'
       Enabled = False
@@ -622,7 +615,7 @@ object shove_timber_form: Tshove_timber_form
     object narrow_button: TButton
       Left = 0
       Height = 22
-      Top = 290
+      Top = 280
       Width = 78
       Caption = 'N  &narrow'
       Enabled = False
@@ -632,7 +625,7 @@ object shove_timber_form: Tshove_timber_form
     object number_panel: TPanel
       Left = 419
       Height = 20
-      Top = 266
+      Top = 256
       Width = 53
       BevelOuter = bvNone
       BorderStyle = bsSingle
@@ -651,7 +644,7 @@ object shove_timber_form: Tshove_timber_form
     object drop_button: TBitBtn
       Left = 476
       Height = 42
-      Top = 268
+      Top = 258
       Width = 26
       Default = True
       Glyph.Data = {
@@ -671,7 +664,7 @@ object shove_timber_form: Tshove_timber_form
     object data_button: TButton
       Left = 419
       Height = 22
-      Top = 290
+      Top = 280
       Width = 54
       Caption = 'data ...'
       Enabled = False
@@ -682,7 +675,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 261
       Height = 22
       Hint = ' twist timber clockwise '
-      Top = 266
+      Top = 256
       Width = 64
       Caption = 'C     &c-w'
       Enabled = False
@@ -695,7 +688,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 261
       Height = 22
       Hint = ' twist timber anti-clockwise '
-      Top = 290
+      Top = 280
       Width = 64
       Caption = 'A  &a-c-w'
       Enabled = False
@@ -707,7 +700,7 @@ object shove_timber_form: Tshove_timber_form
     object forward_button: TButton
       Left = 168
       Height = 22
-      Top = 266
+      Top = 256
       Width = 90
       Caption = 'F     &forward'
       Enabled = False
@@ -717,7 +710,7 @@ object shove_timber_form: Tshove_timber_form
     object backward_button: TButton
       Left = 168
       Height = 22
-      Top = 290
+      Top = 280
       Width = 90
       Caption = 'B  &backward'
       Enabled = False
@@ -728,7 +721,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 2
       Height = 19
       Hint = ' click to set '
-      Top = 96
+      Top = 86
       Width = 138
       Alignment = taLeftJustify
       BevelOuter = bvNone
@@ -746,7 +739,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 145
       Height = 19
       Hint = ' click to set '
-      Top = 96
+      Top = 86
       Width = 165
       Alignment = taLeftJustify
       BevelOuter = bvNone
@@ -764,7 +757,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 311
       Height = 20
       Hint = ' set centre zero on timber '
-      Top = 114
+      Top = 104
       Width = 66
       Caption = 'set zero'
       ParentShowHint = False
@@ -776,7 +769,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 2
       Height = 19
       Hint = ' click to set '
-      Top = 156
+      Top = 146
       Width = 138
       Alignment = taLeftJustify
       BevelOuter = bvNone
@@ -794,7 +787,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 2
       Height = 19
       Hint = ' click to set '
-      Top = 114
+      Top = 104
       Width = 138
       Alignment = taLeftJustify
       BevelOuter = bvNone
@@ -809,9 +802,9 @@ object shove_timber_form: Tshove_timber_form
       OnClick = width_panelClick
     end
     object help_button: TButton
-      Left = 625
+      Left = 720
       Height = 22
-      Top = 37
+      Top = 8
       Width = 52
       Caption = '? help'
       TabOrder = 23
@@ -821,7 +814,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 311
       Height = 19
       Hint = ' show  or  set  twist  angle  from  template datum '
-      Top = 95
+      Top = 85
       Width = 23
       Caption = '÷'
       Font.Color = clBlack
@@ -835,10 +828,10 @@ object shove_timber_form: Tshove_timber_form
       OnClick = twist_origin_buttonClick
     end
     object add_bonus_button: TButton
-      Left = 464
+      Left = 238
       Height = 22
       Hint = ' add  a  bonus  timber  at  CTRL-1  '
-      Top = 38
+      Top = 172
       Width = 154
       Caption = 'U  add  bon&us  timber'
       ParentShowHint = False
@@ -850,7 +843,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 378
       Height = 20
       Hint = ' reset zero on CTRL-0 or rail joint (toggle) '
-      Top = 114
+      Top = 104
       Width = 80
       Caption = 'reset zero'
       ParentShowHint = False
@@ -862,7 +855,7 @@ object shove_timber_form: Tshove_timber_form
       Left = 2
       Height = 19
       Hint = ' click to set '
-      Top = 138
+      Top = 128
       Width = 138
       Alignment = taLeftJustify
       BevelOuter = bvNone
@@ -879,7 +872,7 @@ object shove_timber_form: Tshove_timber_form
     object crab_left_button: TButton
       Left = 327
       Height = 22
-      Top = 266
+      Top = 256
       Width = 90
       Caption = 'E    crab-l&eft'
       Enabled = False
@@ -889,7 +882,7 @@ object shove_timber_form: Tshove_timber_form
     object crab_right_button: TButton
       Left = 327
       Height = 22
-      Top = 290
+      Top = 280
       Width = 90
       Caption = 'R  crab-&right'
       Enabled = False
@@ -897,19 +890,19 @@ object shove_timber_form: Tshove_timber_form
       OnClick = crab_right_buttonClick
     end
     object omit_all_button: TButton
-      Left = 505
+      Left = 427
       Height = 22
-      Top = 182
+      Top = 146
       Width = 66
       Caption = 'omit  all'
       TabOrder = 30
       OnClick = omit_all_buttonClick
     end
     object inches_radio_button: TRadioButton
-      Left = 156
+      Left = 148
       Height = 20
       Hint = ' show  or  set  dimensions  in  full-size  prototype  inches '
-      Top = 156
+      Top = 146
       Width = 119
       Caption = 'full-size  inches'
       ParentShowHint = False
@@ -918,10 +911,10 @@ object shove_timber_form: Tshove_timber_form
       OnClick = inches_radio_buttonClick
     end
     object mm_radio_button: TRadioButton
-      Left = 156
+      Left = 148
       Height = 20
       Hint = ' show  or  set  dimensions  in  model  mm '
-      Top = 136
+      Top = 126
       Width = 93
       Caption = 'model  mm'
       Checked = True
@@ -932,11 +925,12 @@ object shove_timber_form: Tshove_timber_form
       OnClick = mm_radio_buttonClick
     end
     object retain_shoves_on_mint_checkbox: TCheckBox
-      Left = 328
+      Left = 620
       Height = 20
       Hint = ' retain shoved timbers when minting a new template '
-      Top = 136
-      Width = 141
+      Top = 62
+      Width = 144
+      AutoSize = False
       Caption = 'retain on new mint'
       ParentShowHint = False
       ShowHint = True
@@ -944,11 +938,12 @@ object shove_timber_form: Tshove_timber_form
       OnClick = retain_shoves_on_mint_checkboxClick
     end
     object retain_shoves_on_make_checkbox: TCheckBox
-      Left = 328
+      Left = 620
       Height = 20
       Hint = ' retain shoved timbers when using the tools > make --- functions '
-      Top = 158
-      Width = 151
+      Top = 40
+      Width = 154
+      AutoSize = False
       Caption = 'retain on tools:make'
       ParentShowHint = False
       ShowHint = True
@@ -1019,10 +1014,10 @@ object shove_timber_form: Tshove_timber_form
       end
     end
     object show_timber_details_button: TButton
-      Left = 524
+      Left = 552
       Height = 22
       Hint = ' show details of timber lengths on this template '
-      Top = 6
+      Top = 8
       Width = 146
       Caption = 'show  timber  details'
       ParentShowHint = False
@@ -1031,10 +1026,10 @@ object shove_timber_form: Tshove_timber_form
       OnClick = show_timber_details_buttonClick
     end
     object near_flange_checkbox: TCheckBox
-      Left = 510
+      Left = 516
       Height = 20
       Hint = ' timber has Near side flange in 3-D exports '
-      Top = 136
+      Top = 130
       Width = 74
       Alignment = taLeftJustify
       AutoSize = False
@@ -1047,10 +1042,10 @@ object shove_timber_form: Tshove_timber_form
       OnClick = near_flange_checkboxClick
     end
     object far_flange_checkbox: TCheckBox
-      Left = 596
+      Left = 602
       Height = 20
       Hint = ' timber has Far side flange in 3-D exports '
-      Top = 136
+      Top = 130
       Width = 73
       AutoSize = False
       Caption = 'F-flange'
@@ -1062,11 +1057,12 @@ object shove_timber_form: Tshove_timber_form
       OnClick = far_flange_checkboxClick
     end
     object ms_flange_checkbox: TCheckBox
-      Left = 582
+      Left = 588
       Height = 20
-      Hint = ' timber has MS end flange and webs in 3-D exports '
-      Top = 158
+      Hint = ' timber has MS end flange in 3-D exports '
+      Top = 152
       Width = 85
+      AutoSize = False
       Caption = 'MS-flange'
       Checked = True
       ParentShowHint = False
@@ -1076,11 +1072,12 @@ object shove_timber_form: Tshove_timber_form
       OnClick = ms_flange_checkboxClick
     end
     object ts_flange_checkbox: TCheckBox
-      Left = 582
+      Left = 588
       Height = 20
-      Hint = ' timber has TS end flange and webs in 3-D exports '
-      Top = 114
+      Hint = ' timber has TS end flange in 3-D exports '
+      Top = 108
       Width = 82
+      AutoSize = False
       Caption = 'TS-flange'
       Checked = True
       ParentShowHint = False
@@ -1090,9 +1087,9 @@ object shove_timber_form: Tshove_timber_form
       OnClick = ts_flange_checkboxClick
     end
     object spare_checkbox: TCheckBox
-      Left = 408
+      Left = 732
       Height = 20
-      Top = 40
+      Top = 236
       Width = 35
       Caption = 'sp'
       TabOrder = 41
@@ -1100,10 +1097,10 @@ object shove_timber_form: Tshove_timber_form
       OnClick = spare_checkboxClick
     end
     object hide_outline_button: TButton
-      Left = 238
+      Left = 395
       Height = 22
       Hint = ' hide timber outline, leaving chairs (toggle show/hide)  '
-      Top = 182
+      Top = 172
       Width = 114
       Caption = 'H  &hide  outline'
       ParentShowHint = False
@@ -1112,10 +1109,10 @@ object shove_timber_form: Tshove_timber_form
       OnClick = hide_outline_buttonClick
     end
     object hide_all_button: TButton
-      Left = 354
+      Left = 276
       Height = 22
       Hint = ' hide all timber outlines, leaving chairs '
-      Top = 182
+      Top = 146
       Width = 68
       Caption = 'hide  all'
       ParentShowHint = False
@@ -1124,9 +1121,9 @@ object shove_timber_form: Tshove_timber_form
       OnClick = hide_all_buttonClick
     end
     object heave_chairs_button: TButton
-      Left = 490
+      Left = 592
       Height = 26
-      Top = 82
+      Top = 180
       Width = 186
       Caption = 'heave  chairs ...'
       Font.Color = clGreen
@@ -1138,11 +1135,12 @@ object shove_timber_form: Tshove_timber_form
       OnClick = heave_chairs_buttonClick
     end
     object tn_snibs_checkbox: TCheckBox
-      Left = 520
+      Left = 518
       Height = 20
-      Top = 266
+      Top = 256
       Width = 38
       Alignment = taLeftJustify
+      AutoSize = False
       Caption = 'TN'
       Checked = True
       State = cbChecked
@@ -1150,11 +1148,12 @@ object shove_timber_form: Tshove_timber_form
       OnClick = tn_snibs_checkboxClick
     end
     object mn_snibs_checkbox: TCheckBox
-      Left = 520
+      Left = 516
       Height = 20
-      Top = 290
+      Top = 280
       Width = 41
       Alignment = taLeftJustify
+      AutoSize = False
       Caption = 'MN'
       Checked = True
       State = cbChecked
@@ -1162,10 +1161,11 @@ object shove_timber_form: Tshove_timber_form
       OnClick = mn_snibs_checkboxClick
     end
     object tf_snibs_checkbox: TCheckBox
-      Left = 570
+      Left = 564
       Height = 20
-      Top = 266
+      Top = 256
       Width = 37
+      AutoSize = False
       Caption = 'TF'
       Checked = True
       State = cbChecked
@@ -1173,10 +1173,11 @@ object shove_timber_form: Tshove_timber_form
       OnClick = tf_snibs_checkboxClick
     end
     object mf_snibs_checkbox: TCheckBox
-      Left = 570
+      Left = 566
       Height = 20
-      Top = 290
+      Top = 280
       Width = 40
+      AutoSize = False
       Caption = 'MF'
       Checked = True
       State = cbChecked
@@ -1184,29 +1185,32 @@ object shove_timber_form: Tshove_timber_form
       OnClick = mf_snibs_checkboxClick
     end
     object snib_link_near_checkbox: TCheckBox
-      Left = 566
+      Left = 616
       Height = 20
-      Top = 226
+      Top = 272
       Width = 51
       Alignment = taLeftJustify
+      AutoSize = False
       Caption = 'Near'
       TabOrder = 49
       OnClick = snib_link_near_checkboxClick
     end
     object snib_link_far_checkbox: TCheckBox
-      Left = 626
+      Left = 676
       Height = 20
-      Top = 226
+      Top = 272
       Width = 42
+      AutoSize = False
       Caption = 'Far'
       TabOrder = 50
       OnClick = snib_link_far_checkboxClick
     end
     object show_all_blue_checkbox: TCheckBox
-      Left = 440
+      Left = 412
       Height = 20
-      Top = 60
-      Width = 182
+      Top = 40
+      Width = 184
+      AutoSize = False
       Caption = 'show all shoved timbers blue'
       Checked = True
       Font.Color = clBlack
@@ -1216,6 +1220,69 @@ object shove_timber_form: Tshove_timber_form
       State = cbChecked
       TabOrder = 51
       OnClick = show_all_blue_checkboxClick
+    end
+    object Label8: TLabel
+      Left = 698
+      Height = 16
+      Top = 96
+      Width = 70
+      AutoSize = False
+      Caption = '3-D webs :'
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object tn_web_checkbox: TCheckBox
+      Left = 690
+      Height = 20
+      Top = 116
+      Width = 38
+      Alignment = taLeftJustify
+      AutoSize = False
+      Caption = 'TN'
+      Checked = True
+      State = cbChecked
+      TabOrder = 52
+      OnClick = tn_web_checkboxClick
+    end
+    object mn_web_checkbox: TCheckBox
+      Left = 688
+      Height = 20
+      Top = 140
+      Width = 41
+      Alignment = taLeftJustify
+      AutoSize = False
+      Caption = 'MN'
+      Checked = True
+      State = cbChecked
+      TabOrder = 53
+      OnClick = mn_web_checkboxClick
+    end
+    object tf_web_checkbox: TCheckBox
+      Left = 738
+      Height = 20
+      Top = 116
+      Width = 37
+      AutoSize = False
+      Caption = 'TF'
+      Checked = True
+      State = cbChecked
+      TabOrder = 54
+      OnClick = tf_web_checkboxClick
+    end
+    object mf_web_checkbox: TCheckBox
+      Left = 738
+      Height = 20
+      Top = 140
+      Width = 40
+      AutoSize = False
+      Caption = 'MF'
+      Checked = True
+      State = cbChecked
+      TabOrder = 55
+      OnClick = mf_web_checkboxClick
     end
   end
 end

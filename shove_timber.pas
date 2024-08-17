@@ -63,7 +63,6 @@ type
     forward_button: TButton;
     heave_chairs_button: TButton;
     help_button: TButton;
-    help_shape: TShape;
     hide_all_button: TButton;
     hide_button: TButton;
     hide_outline_button: TButton;
@@ -77,11 +76,14 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
     lengthen_button: TButton;
     length_panel: TPanel;
     mf_snibs_checkbox: TCheckBox;
+    mf_web_checkbox: TCheckBox;
     mm_radio_button: TRadioButton;
     mn_snibs_checkbox: TCheckBox;
+    mn_web_checkbox: TCheckBox;
     modify_timber_colour_speedbutton: TSpeedButton;
     mouse_along_button: TButton;
     mouse_crab_button: TButton;
@@ -120,9 +122,11 @@ type
     spare_checkbox: TCheckBox;
     tcol_shape: TShape;
     tf_snibs_checkbox: TCheckBox;
+    tf_web_checkbox: TCheckBox;
     throw_panel: TPanel;
     timbering_length_label: TLabel;
     tn_snibs_checkbox: TCheckBox;
+    tn_web_checkbox: TCheckBox;
     ts_flange_checkbox: TCheckBox;
     twist_acw_button: TButton;
     twist_cw_button: TButton;
@@ -132,6 +136,8 @@ type
     width_panel: TPanel;
     xtb_panel: TPanel;
     zero_button: TButton;
+    procedure mf_web_checkboxClick(Sender: TObject);
+    procedure mn_web_checkboxClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
     procedure colour_panelClick(Sender: TObject);
     procedure hide_buttonClick(Sender: TObject);
@@ -143,6 +149,8 @@ type
     procedure mouse_along_buttonClick(Sender: TObject);
     procedure mouse_throw_buttonClick(Sender: TObject);
     procedure how_panelClick(Sender: TObject);
+    procedure tf_web_checkboxClick(Sender: TObject);
+    procedure tn_web_checkboxClick(Sender: TObject);
     procedure widen_buttonClick(Sender: TObject);
     procedure lengthen_buttonClick(Sender: TObject);
     procedure shorten_buttonClick(Sender: TObject);
@@ -441,8 +449,8 @@ procedure Tshove_timber_form.FormCreate(Sender: TObject);
 
 begin
   pad_form.InsertControl(shove_timber_form);
-  ClientWidth:=680;
-  ClientHeight:=312;
+  ClientWidth:=780;
+  ClientHeight:=302;
   AutoScroll:=True;
 end;
 //______________________________________________________________________________
@@ -512,6 +520,12 @@ begin
 
                 snib_link_near_checkbox.Checked:=snibs_data.add_near_link;
                 snib_link_far_checkbox.Checked:=snibs_data.add_far_link;
+
+
+                tn_web_checkbox.Checked:= NOT (webs_data.omit_tsn_web=True);     // 555a ...
+                tf_web_checkbox.Checked:= NOT (webs_data.omit_tsf_web=True);
+                mn_web_checkbox.Checked:= NOT (webs_data.omit_msn_web=True);
+                mf_web_checkbox.Checked:= NOT (webs_data.omit_msf_web=True);
 
                 setting_shove_checkboxes:=False;
 
@@ -825,6 +839,106 @@ begin
               shove_data.sv_code:=1;     // 0=empty slot, -1=omit this timber,  1=shove this timber.
 
               snibs_data.add_far_link:=snib_link_far_checkbox.Checked;
+            end;//with
+
+            current_shoved_timbers[n].sv_str:=current_shove_str;
+            shove_buttons(True,0,n);
+            show_and_redraw(True,True);
+          end;
+end;
+//______________________________________________________________________________
+
+procedure Tshove_timber_form.tf_web_checkboxClick(Sender: TObject);
+
+var
+  n:integer;
+
+begin
+  if setting_shove_checkboxes=True then EXIT;
+
+  n:=find_shove(current_shove_str,True);
+  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
+     then begin
+            with current_shoved_timbers[n] do begin
+
+              shove_data.sv_code:=1;     // 0=empty slot, -1=omit this timber,  1=shove this timber.
+
+              webs_data.omit_tsf_web:= NOT tf_web_checkbox.Checked;
+            end;//with
+
+            current_shoved_timbers[n].sv_str:=current_shove_str;
+            shove_buttons(True,0,n);
+            show_and_redraw(True,True);
+          end;
+end;
+//______________________________________________________________________________
+
+procedure Tshove_timber_form.tn_web_checkboxClick(Sender: TObject);
+
+var
+    n:integer;
+
+  begin
+    if setting_shove_checkboxes=True then EXIT;
+
+    n:=find_shove(current_shove_str,True);
+    if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
+       then begin
+              with current_shoved_timbers[n] do begin
+
+                shove_data.sv_code:=1;     // 0=empty slot, -1=omit this timber,  1=shove this timber.
+
+                webs_data.omit_tsn_web:= NOT tn_web_checkbox.Checked;
+              end;//with
+
+              current_shoved_timbers[n].sv_str:=current_shove_str;
+              shove_buttons(True,0,n);
+              show_and_redraw(True,True);
+            end;
+  end;
+//______________________________________________________________________________
+
+procedure Tshove_timber_form.mn_web_checkboxClick(Sender: TObject);
+
+var
+  n:integer;
+
+begin
+  if setting_shove_checkboxes=True then EXIT;
+
+  n:=find_shove(current_shove_str,True);
+  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
+     then begin
+            with current_shoved_timbers[n] do begin
+
+              shove_data.sv_code:=1;     // 0=empty slot, -1=omit this timber,  1=shove this timber.
+
+              webs_data.omit_msn_web:= NOT mn_web_checkbox.Checked;
+            end;//with
+
+            current_shoved_timbers[n].sv_str:=current_shove_str;
+            shove_buttons(True,0,n);
+            show_and_redraw(True,True);
+          end;
+end;
+//______________________________________________________________________________
+
+procedure Tshove_timber_form.mf_web_checkboxClick(Sender: TObject);
+
+var
+  n:integer;
+
+begin
+  if setting_shove_checkboxes=True then EXIT;
+
+  n:=find_shove(current_shove_str,True);
+  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
+     then begin
+            with current_shoved_timbers[n] do begin
+
+              shove_data.sv_code:=1;     // 0=empty slot, -1=omit this timber,  1=shove this timber.
+
+              webs_data.omit_msf_web:= NOT mf_web_checkbox.Checked;
             end;//with
 
             current_shoved_timbers[n].sv_str:=current_shove_str;
@@ -1281,6 +1395,15 @@ begin
 
               end;//with
 
+              with current_shoved_timbers[n].webs_data do begin    // 555a
+
+                omit_tsn_web:=False;
+                omit_tsf_web:=False;
+                omit_msn_web:=False;
+                omit_msf_web:=False;
+
+              end;//with
+
               shove_delete(n,current_shoved_timbers);
             end;
   until n<0;        // might be in more than one slot, so don't BREAK.
@@ -1370,6 +1493,7 @@ procedure Tshove_timber_form.how_panelClick(Sender: TObject);
 begin
   help(0,shovetimb_help_str,'');
 end;
+
 //__________________________________________________________________________________________
 
 procedure Tshove_timber_form.drop_buttonClick(Sender: TObject);
@@ -2296,7 +2420,7 @@ begin
 end;
 //______________________________________________________________________________
 
-function any_heaving_shoves(index:integer):boolean;     // 244a  any 3D chair heaving or snibs set?
+function any_heaving_shoves(index:integer):boolean;     // 244a  any 3D chair heaving or snibs or webs set?
 
 var
   r:integer;
@@ -2315,6 +2439,17 @@ begin
 
       OR add_near_link
       OR add_far_link;
+
+    end;// with
+
+    with webs_data do begin      // 555a
+
+      RESULT:=RESULT
+
+      OR omit_tsn_web   // TS near
+      OR omit_tsf_web   // TS far
+      OR omit_msn_web   // MS near
+      OR omit_msf_web;  // MS far
 
     end;// with
 

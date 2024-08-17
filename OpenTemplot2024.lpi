@@ -24,7 +24,7 @@
       <MajorVersionNr Value="5"/>
       <MinorVersionNr Value="55"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="503"/>
+      <BuildNr Value="598"/>
       <StringTable ProductName="TEMPLOT5"/>
     </VersionInfo>
     <BuildModes>
@@ -38,6 +38,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="synapse_units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -83,6 +84,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="synapse_units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -412,7 +414,9 @@
       <Unit>
         <Filename Value="image_viewer_unit.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="image_viewer_form"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>
         <Filename Value="mouse_colour_unit.pas"/>
@@ -598,18 +602,26 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="trial_unit.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="trial_form"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit>
-      <Unit>
         <Filename Value="custom_3d_unit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="custom_3d_form"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+      </Unit>
+      <Unit>
+        <Filename Value="synapse_units\httpsend.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="emf_unit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="emf_form"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit>
+      <Unit>
+        <Filename Value="emf_unit.lfm"/>
+        <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -621,6 +633,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="synapse_units"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

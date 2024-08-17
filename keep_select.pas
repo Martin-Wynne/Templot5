@@ -709,7 +709,7 @@ implementation
 uses  ShellAPI, Math, control_room, switch_select, help_sheet, alert_unit, math_unit,
   xing_select, entry_sheet, gauge_unit, colour_unit, info_unit, chat_unit, print_unit, bgnd_unit,
   dxf_unit, grid_unit, Clipbrd, edit_memo_unit, wait_message, shove_timber,
-  jotter_unit, print_settings_unit, data_memo_unit, MetafilePrinter, {file_viewer,} panning_unit,
+  jotter_unit, print_settings_unit, data_memo_unit, {OT2024 MetafilePrinter,} {file_viewer,} panning_unit,
   lib_unit, gaps_unit, brick_unit, xml_unit;   // 242a
 
 
@@ -2462,6 +2462,15 @@ var
                                                  WriteBool('add_far_link',add_far_link,False);
 
                                                end;//with
+
+                                               with shoved_timbers[n].webs_data do begin   // 555a
+
+                                                  WriteBool('omit_tsn_web',omit_tsn_web,False);  // TS near
+                                                  WriteBool('omit_tsf_web',omit_tsf_web,False);  // TS far
+                                                  WriteBool('omit_msn_web',omit_msn_web,False);  // MS near
+                                                  WriteBool('omit_msf_web',omit_msf_web,False);  // MS far
+
+                                                end;//with
 
                                                with shoved_timbers[n] do begin
 
@@ -4684,6 +4693,15 @@ var
 
                                                                                         add_near_link:=ReadBool('add_near_link',False);
                                                                                         add_far_link:=ReadBool('add_far_link',False);
+
+                                                                                      end;//with
+
+                                                                                      with keep_shoved_timbers[st].webs_data do begin   // 244a
+
+                                                                                        omit_tsn_web:=ReadBool('omit_tsn_web',False);  // TS near
+                                                                                        omit_tsf_web:=ReadBool('omit_tsf_web',False);  // TS far
+                                                                                        omit_msn_web:=ReadBool('omit_msn_web',False);  // MS near
+                                                                                        omit_msf_web:=ReadBool('omit_msf_web',False);  // MS far
 
                                                                                       end;//with
 
@@ -7702,7 +7720,7 @@ var
   i:integer;
   pdf_box_list:boolean;
 
-  metafile_printer:TMetafilePrinter;
+  //OT2024 metafile_printer:TMetafilePrinter;
   page:integer;
   folder_str:string;
   note_str:string;
@@ -9319,7 +9337,7 @@ begin
 
   data_child_form.Close; // if showing elsewhere
 
-  pad_form.InsertControl(data_child_form);
+  // 555a pad_form.InsertControl(data_child_form);
 
   data_child_form.Left:=pad_form.ClientWidth-data_child_form.Width-10;
   if data_child_form.Left<10 then data_child_form.Left:=10;
@@ -10156,7 +10174,7 @@ var
 
   pdf_box_info:boolean;
 
-  metafile_printer:TMetafilePrinter;
+  //OT2024 metafile_printer:TMetafilePrinter;
   page:integer;
   folder_str:string;
   note_str:string;

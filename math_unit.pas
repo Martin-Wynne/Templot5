@@ -24128,6 +24128,8 @@ var
 
   tn_snibs_wanted,tf_snibs_wanted,mn_snibs_wanted,mf_snibs_wanted,near_snib_link_wanted,far_snib_link_wanted:boolean;
 
+  tn_web_wanted,tf_web_wanted,mn_web_wanted,mf_web_wanted:boolean;
+
   half_kerfed_width,half_nib_width:extended;
 
   check_flare_shift,check_flare_twist:extended;    // 237c
@@ -29190,6 +29192,11 @@ begin
   near_snib_link_wanted:=False;
   far_snib_link_wanted:=False;
 
+  tn_web_wanted:=True;      // 555a init ...
+  tf_web_wanted:=True;
+  mn_web_wanted:=True;
+  mf_web_wanted:=True;
+
   n_flange_wanted:=True;     // 229b init ...
   f_flange_wanted:=True;
   ms_flange_wanted:=True;
@@ -29263,6 +29270,15 @@ begin
 
                             near_snib_link_wanted:=add_near_link;
                             far_snib_link_wanted:=add_far_link;
+
+                          end;//with
+
+                          with current_shoved_timbers[n].webs_data do begin      //555a  MW 17-AUG-2024
+
+                            tn_web_wanted:=(omit_tsn_web=False);
+                            tf_web_wanted:=(omit_tsf_web=False);
+                            mn_web_wanted:=(omit_msn_web=False);
+                            mf_web_wanted:=(omit_msf_web=False);
 
                           end;//with
                         end;
@@ -30134,7 +30150,7 @@ begin
 
                                      // near side lower ...      4 marks
 
-                                  if (ms_flange_wanted=True) and (flexi>=0)   // no web if no end flange 229b
+                                  if (ms_flange_wanted=True) and (mn_web_wanted=True) and (flexi>=0)   // no web if no end flange 229b
                                      then begin
 
                                             p1.x:=xns+crab-web_side_offset;
@@ -30167,7 +30183,7 @@ begin
 
                                      // near side upper ...     4 marks
 
-                                  if (ts_flange_wanted=True) and (flexi<=0)    // no web if no end flange 229b
+                                  if (ts_flange_wanted=True) and (tn_web_wanted=True) and (flexi<=0)    // no web if no end flange 229b
                                      then begin
 
                                             p1.x:=xns+crab-web_side_offset;
@@ -30208,7 +30224,7 @@ begin
 
                                      // far side lower ...         4 marks
 
-                                  if (ms_flange_wanted=True) and (flexi<=0)    // no web if no end flange 229b
+                                  if (ms_flange_wanted=True) and (mf_web_wanted=True) and (flexi<=0)    // no web if no end flange 229b
                                      then begin
 
                                             p1.x:=xfs+crab+web_side_offset;
@@ -30241,7 +30257,7 @@ begin
 
                                      // far side upper ...          4 marks
 
-                                  if (ts_flange_wanted=True) and (flexi>=0)    // no web if no end flange 229b
+                                  if (ts_flange_wanted=True) and (tf_web_wanted=True) and (flexi>=0)    // no web if no end flange 229b
                                      then begin
 
                                             p1.x:=xfs+crab+web_side_offset;
@@ -36076,6 +36092,14 @@ begin
 
   end;//with
 
+  with current_shoved_timbers[n].webs_data do begin   //555a  MW 17-AUG-2024
+
+    omit_tsn_web:=False;
+    omit_tsf_web:=False;
+    omit_msn_web:=False;
+    omit_msf_web:=False;
+
+  end;//with
 
   RESULT:=n;
 end;

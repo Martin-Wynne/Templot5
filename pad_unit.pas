@@ -39,7 +39,7 @@ interface
 
 uses
   StdCtrls, Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Menus, ExtCtrls, ComCtrls, Buttons,
+  Menus, ExtCtrls, ComCtrls, Buttons, emf_unit,
 
   PrintersDlgs, ExtDlgs, ImgList, Readhtml, FramView;
 
@@ -50,7 +50,6 @@ type
 
   Tpad_form = class(TForm)
     OO3D_menu_entry: TMenuItem;
-    trial_button: TButton;
     pad_menu_bar: TMainMenu;
     main_menu: TMenuItem;
     print_menu: TMenuItem;
@@ -2379,9 +2378,7 @@ type
     N689: TMenuItem;
     N725: TMenuItem;
 
-
     procedure OO3D_menu_entryClick(Sender: TObject);
-    procedure trial_buttonClick(Sender: TObject);
     procedure get_file_from_code_menu_entryClick(Sender: TObject);
     procedure pad_file_viewer_menu_entryClick(Sender: TObject);
     procedure print_control_template_menu_entryClick(Sender: TObject);
@@ -3839,6 +3836,13 @@ type
                 add_far_link:boolean;
               end;
 
+  Twebs_data=record                                 //555a  MW 17-AUG-2024
+                omit_tsn_web:boolean;  // TS near
+                omit_tsf_web:boolean;  // TS far
+                omit_msn_web:boolean;  // MS near
+                omit_msf_web:boolean;  // MS far
+              end;
+
   Tjaw_option=array[0..5] of boolean;   // 244a  6 options each jaw
 
   Tjaw_options=array of Tjaw_option;   // 244a
@@ -3919,6 +3923,8 @@ type
 
                    snibs_data:Tsnibs_data;    // 243b
 
+                   webs_data:Twebs_data;      // 555a
+
                    heave_rail_chairs:array[1..4] of Theave_rail_chair;
                  end;//record
 
@@ -3972,12 +3978,6 @@ type
                 end;//record
 
 
-  Temf=record                    // OT2024
-         emf_HDC:HDC;
-         emf_width_mm:double;    // frame size in mm
-         emf_height_mm:double;
-       end;
-
   Timage_shape=record
                  image_bitmap:TBitmap;           // image bitmap.
                  rotated_bitmap:TBitmap;         // rotated bitmap for printing. // 0.93.a also used for curving bitmap
@@ -3986,7 +3986,8 @@ type
 
                  undo_bitmap:TBitmap;            // 227a   for map clarity functions
 
-                 image_metafile:Temf;       // OT2024
+                 image_metafile:Temf;            // 555a      MW 12-AUG-2024
+                 rotated_metafile:Temf;          // 555a
 
                  image_width:integer;
                  image_height:integer;
@@ -4976,7 +4977,7 @@ uses
   export_unit, platform_unit, math2_unit,
   check_diffs_unit, image_viewer_unit, mouse_colour_unit, { OT 2024 file_viewer,} prefs_unit,
   map_loader_unit, trackbed_unit, make_slip_unit, create_tandem,
-  bitmap_viewer_unit, {mecbox_unit,} track_spacing_unit,
+  bitmap_viewer_unit, track_spacing_unit,
   detail_mode_unit, gaps_unit, lib_unit, intersect_unit, create_y_turnout,
   search_unit, mw_unit, brick_unit, heave_chairs, slider_unit, date_unit;
 
@@ -25641,6 +25642,8 @@ var
 
   i:integer;
 
+  dummy_emf:Temf; // 555a
+
 
 begin
 
@@ -25701,7 +25704,7 @@ begin
                   +'||Click <A HREF="alert_2.85a">view image in Templot</A> to see it.',
                    '','view  image  in  Templot','view  image  in  your  usual  image  viewer','open  the  containing  folder','','continue',0);
 
-        if i=2 then show_an_image_file(file_str);
+        if i=2 then show_an_image_file(False,file_str,dummy_emf);
 
         if i=3
            then begin
@@ -28271,24 +28274,46 @@ var
 
                     image_bitmap:=TBitmap.Create;
                     rotated_bitmap:=TBitmap.Create;
-(* OT2024
-                    image_metafile:=TMetafile.Create;    // 213b
-                    rotated_metafile:=TMetafile.Create;  // 213b
-*)
+
+//OT2024                    image_metafile:=TMetafile.Create;    // 213b
+//OT2024                    rotated_metafile:=TMetafile.Create;  // 213b
+
                     rotated_picture:=TPicture.Create;
 
                     try
 (* OT2024
                       if dropped_picture.Graphic is TMetafile
                          then begin
-                                image_metafile.Assign(dropped_picture.Graphic);
+
+                                  // OT2024 out...
+
+                                image_bitmap.Width:=200;            // arbitrary.
+                                image_bitmap.Height:=150;           // arbitrary.
+
+                                image_width:=image_bitmap.Width;
+                                image_height:=image_bitmap.Height;
+
+                                with image_bitmap.Canvas do begin     // blank the picture area...
+                                  Brush.Color:=clWhite;
+                                  Brush.Style:=bsSolid;
+                                  FillRect(Rect(0,0,image_bitmap.Width,image_bitmap.Height));
+                                end;//with
+
+                                bgnd_shape.picture_is_metafile:=False;
+
+                                show_modal_message('Sorry, unable to create picture shape from the dropped image.');
+
+{OT2024                        image_metafile.Assign(dropped_picture.Graphic);
 
                                 image_width:=image_metafile.Width;
                                 image_height:=image_metafile.Height;
 
                                 bgnd_shape.picture_is_metafile:=True;
+}
                               end
                          else begin
+*)
+
                                 bgnd_shape.picture_is_metafile:=False;
 
                                 if dropped_picture.Graphic is TIcon    // convert it to bitmap
@@ -28304,9 +28329,8 @@ var
                                 image_height:=image_bitmap.Height;
 
                                 if image_bitmap.PixelFormat<>pf8bit then image_bitmap.PixelFormat:=pf24bit;    // 215b  down from 32bit for deep zooming (also workaround for TPngImage on lower than 8bit)
-                              end;
 
-*)
+// OT2024                              end;
 
                       with bgnd_shape do p2.y:=p1.y+(p2.x-p1.x)*image_height/image_width;   // adjust height to aspect ratio of loaded image
 
@@ -28327,7 +28351,7 @@ var
 
                       bgnd_shape.picture_is_metafile:=False;
 
-                      ShowMessage('Sorry, unable to create picture shape from the dropped image.');
+                      show_modal_message('Sorry, unable to create picture shape from the dropped image.');
                     end;//try
 
                   end;//with
@@ -28364,7 +28388,7 @@ begin
   num_files:=DragQueryFile(msg.Drop,$FFFFFFFF,nil,0);
   if num_files>1
      then begin
-            ShowMessage('error - attempt to drop more than one file');
+            show_modal_message('error - attempt to drop more than one file');
             EXIT;
           end;
 
@@ -28379,6 +28403,7 @@ begin
   if dropped_file_ext='.box' then load_dropped_box_file     // load or add .box file
 
   else if dropped_file_ext='.bgs3' then load_shapes(dropped_file_name,False,False,True)
+
  (* OT2024
   else if dropped_file_ext='.sk9'
           then begin
@@ -30697,14 +30722,6 @@ procedure Tpad_form.get_file_from_code_menu_entryClick(Sender: TObject);
 begin
   do_open_source_bang('GET FILE FROM CODE');  // OT2024
 end;
-//______________________________________________________________________________
-
-procedure Tpad_form.trial_buttonClick(Sender: TObject);
-
-begin
-  trial_form.Show;
-end;
-
 //______________________________________________________________________________
 
 
