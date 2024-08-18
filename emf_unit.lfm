@@ -1,0 +1,25 @@
+object emf_form: Temf_form
+  Left = 1496
+  Height = 240
+  Top = 131
+  Width = 320
+  Caption = '    EMF  files . . .'
+  ClientHeight = 240
+  ClientWidth = 320
+  DesignTimePPI = 120
+  Font.Height = -31
+  Font.Name = 'Arial'
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object ok_button: TButton
+    Left = 196
+    Height = 28
+    Top = 167
+    Width = 85
+    Caption = 'OK'
+    Font.Height = -13
+    ParentFont = False
+    TabOrder = 0
+    OnClick = ok_buttonClick
+  end
+end
