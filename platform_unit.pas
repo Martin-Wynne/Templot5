@@ -41,12 +41,23 @@ uses
   StdCtrls, ExtCtrls, ComCtrls;
 
 type
+
+  { Tplatform_form }
+
   Tplatform_form = class(TForm)
     hide_panel: TPanel;
     hide_button: TButton;
     help_shape: TShape;
     help_button: TButton;
     blue_corner_panel: TPanel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    ms_spacing_button: TButton;
+    ms_width_button: TButton;
+    ms_panel2: TPanel;
+    ts_panel2: TPanel;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
@@ -54,32 +65,27 @@ type
     ts_platform_tabsheet: TTabSheet;
     ms_platform_tabsheet: TTabSheet;
     ts_panel: TPanel;
-    ts_width_button: TButton;
-    ts_mouse_groupbox: TGroupBox;
+    ts_position_button: TButton;
+    ts_mouse_panel: Tpanel;
     mouse_ts_length_button: TButton;
     mouse_ts_start_button: TButton;
-    ts_position_button: TButton;
-    ts_spacing_button: TButton;
-    ts_edge_groupbox: TGroupBox;
+    ts_edge_panel: Tpanel;
     ts_platform_start_edge_checkbox: TCheckBox;
     ts_platform_end_edge_checkbox: TCheckBox;
     ts_platform_rear_edge_checkbox: TCheckBox;
     ts_platform_checkbox: TCheckBox;
     ms_panel: TPanel;
-    ms_mouse_groupbox: TGroupBox;
+    ms_mouse_panel: Tpanel;
     mouse_ms_length_button: TButton;
     mouse_ms_start_button: TButton;
-    ms_width_button: TButton;
-    ms_position_button: TButton;
-    ms_spacing_button: TButton;
-    ms_edge_groupbox: TGroupBox;
+    ms_edge_panel: Tpanel;
     ms_platform_start_edge_checkbox: TCheckBox;
     ms_platform_rear_edge_checkbox: TCheckBox;
     ms_platform_end_edge_checkbox: TCheckBox;
     ms_platform_checkbox: TCheckBox;
     mouse_ts_skew2_button: TButton;
     mouse_ts_skew1_button: TButton;
-    ts_mouse_width_groupbox: TGroupBox;
+    ts_mouse_width_panel: Tpanel;
     mouse_ts_width1_button: TButton;
     mouse_ts_width2_button: TButton;
     Label1: TLabel;
@@ -87,10 +93,13 @@ type
     Label3: TLabel;
     mouse_ms_skew2_button: TButton;
     mouse_ms_skew1_button: TButton;
-    ms_mouse_width_groupbox: TGroupBox;
+    ms_mouse_width_panel: Tpanel;
     Label4: TLabel;
     mouse_ms_width1_button: TButton;
     mouse_ms_width2_button: TButton;
+    ms_position_button: TButton;
+    ts_spacing_button: TButton;
+    ts_width_button: TButton;
     procedure ts_platform_checkboxClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -239,9 +248,14 @@ begin
 
     if draw_ts_platform=True then ts_panel.Visible:=True
                              else ts_panel.Visible:=False;
-
     if draw_ms_platform=True then ms_panel.Visible:=True
                              else ms_panel.Visible:=False;
+    // SC 18/08/24
+    if draw_ts_platform=True then ts_panel2.Visible:=True
+                             else ts_panel2.Visible:=False;
+    if draw_ms_platform=True then ms_panel2.Visible:=True
+                             else ms_panel2.Visible:=False;
+   // sc 18/08/24
 
 
     if draw_ts_platform=True then ts_platform_checkbox.Color:=ts_panel.Color
@@ -272,8 +286,8 @@ begin
 
   AutoScroll:=False;
 
-  ClientWidth:=800;
-  ClientHeight:=120;
+  ClientWidth:=801;
+  ClientHeight:=125;
 end;
 //______________________________________________________________________________
 
