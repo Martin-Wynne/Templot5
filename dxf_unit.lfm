@@ -1,21 +1,22 @@
 object dxf_form: Tdxf_form
   Left = 31
-  Height = 743
+  Height = 790
   Top = 133
   Width = 1160
   BorderIcons = [biSystemMenu]
   Caption = '     export  DXF / STL  file ...'
-  ClientHeight = 743
+  ClientHeight = 790
   ClientWidth = 1160
   Color = 16051416
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -13
+  Font.Height = -39
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
+  Position = poScreenCenter
   LCLVersion = '3.4.0.0'
   Scaled = False
   object Label31: TLabel
@@ -527,14 +528,14 @@ object dxf_form: Tdxf_form
     Height = 782
     Top = 0
     Width = 840
-    ActivePage = rails_tab_sheet
+    ActivePage = export_tabsheet
     Font.Color = clBlack
     Font.Height = -15
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 7
     Visible = False
     Options = [nboMultiLine]
@@ -4495,6 +4496,8 @@ object dxf_form: Tdxf_form
         Top = 630
         Width = 93
         Caption = 'brim  fence'
+        Checked = True
+        State = cbChecked
         TabOrder = 56
       end
       object sprue_kerf_checkbox: TCheckBox

@@ -11128,7 +11128,7 @@ var
   s:string;
   arm,diamond:extended;
 
-  z,z1,z2,brick_bot_z,slabs_top_z,splints_top_z,walls_top_z,clips_top_z,clips_foot_z:extended;
+  z,z1,z2,brick_bot_z,slabs_top_z,splints_top_z,walls_top_z,clips_top_z,clips_foot_z,fence_top_z:extended;
 
   shapes_z2,shapes_z3:extended;
 
@@ -11414,7 +11414,7 @@ var
 
                 ////////////////////////////////////////////////////////////////
 
-                procedure do_clip(brim_fence:boolean; offset,z1,z2:extended);
+                procedure do_clip(brim_fence:boolean; offset,z1,z2,z3:extended);
 
                 begin
 
@@ -11496,7 +11496,7 @@ var
                                       p2a.x:=p1a.x;
                                       p2a.y:=p1a.y+3*inscale;  // brim fence 3" wide   232c
 
-                                      p3a.x:=p3.x+3.5*inscale;
+                                      p3a.x:=p3.x+3*inscale;
                                       p3a.y:=p2a.y;
 
                                       p4a.x:=p3a.x;
@@ -11525,7 +11525,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence north
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence north
                                     end;
 
                             if offset=0    // ignore chamered ends if doing foot
@@ -11571,7 +11571,7 @@ var
                                       p2a.x:=p1a.x;
                                       p2a.y:=p1a.y-3*inscale;  // brim fence 3" wide   232c
 
-                                      p3a.x:=p3.x+3.5*inscale;
+                                      p3a.x:=p3.x+3*inscale;
                                       p3a.y:=p2a.y;
 
                                       p4a.x:=p3a.x;
@@ -11601,7 +11601,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence south
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence south
 
 
                                       p1:=p1b;
@@ -11611,7 +11611,17 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence outer
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence outer
+
+
+                                      p1.x:=p1b.x-15*inscale;     // 555a  MW 17-AUG-2024 ...
+                                      p2.x:=p2b.x-15*inscale;
+                                      p3.x:=p3b.x-15*inscale;
+                                      p4.x:=p4b.x-15*inscale;
+
+                                      rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
+
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence inner (buried)
 
                                     end;
 
@@ -11635,7 +11645,8 @@ var
                                     end;
 
                             p1.x:=x1+clip_hole_mm/2;
-                            p1.y:=y1-clip_shaft_width*inscale/2+offset;
+                            p1.y:=y1-clip_shaft_width*inscale/2+offset;                                                          
+
 
                             p2.x:=p1.x;
                             p2.y:=y1+clip_shaft_width*inscale/2-offset;
@@ -11707,7 +11718,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence north
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence north
                                     end;
 
                             p1.x:=x1-clip_sides_clear*inscale-offset;
@@ -11764,7 +11775,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence south
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence south
 
 
                                       p1:=p1b;
@@ -11774,7 +11785,17 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence outer
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence outer
+
+
+                                      p1.x:=p1b.x+15.5*inscale;     // 555a  MW 17-AUG-2024 ...
+                                      p2.x:=p2b.x+15.5*inscale;
+                                      p3.x:=p3b.x+15.5*inscale;
+                                      p4.x:=p4b.x+15.5*inscale;
+
+                                      rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
+
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence inner (buried)
 
                                     end;
 
@@ -11919,6 +11940,8 @@ begin
 
               clips_top_z:=brick_bot_z+clip_depth_mm;           // 228b
               clips_foot_z:=brick_bot_z+clip_foot_depth_mm;     // 228b
+
+              fence_top_z:=clips_top_z;  // 555a
 
             end;//with
 
@@ -12263,8 +12286,8 @@ begin
                                     and ((now_shape.is_brick=False) or (now_shape.wrap_offset<>dxf_form.marker_colour_panel.Color))
                                        then CONTINUE;      // not a brick or wrong brick colour
 
-                                    do_clip(True,clip_foot_offset_mm,clips_foot_z,brick_bot_z);     // foot part with offset to prevent elephant's foot
-                                    do_clip(False,0,clips_top_z,clips_foot_z);                      // main part above
+                                    do_clip(True,clip_foot_offset_mm,clips_foot_z,brick_bot_z,fence_top_z);     // foot part with offset to prevent elephant's foot
+                                    do_clip(False,0,clips_top_z,clips_foot_z,fence_top_z);                      // main part above  555a
 
                                   end
                              else begin         // 2-D target mark..
