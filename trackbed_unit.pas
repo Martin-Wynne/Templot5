@@ -41,8 +41,25 @@ uses
   StdCtrls, ComCtrls, ExtCtrls;
 
 type
+
+  { Ttrackbed_form }
+
   Ttrackbed_form = class(TForm)
     blue_corner_panel: TPanel;
+    ts_line_caption: TLabel;
+    ms_cess_radio_button: TRadioButton;
+    ms_cut_radio_button: TRadioButton;
+    ms_lines_caption: TLabel;
+    ms_help_button: TButton;
+    ms_lines_panel: TPanel;
+    ts_cess_radio_button: TRadioButton;
+    ts_cut_radio_button: TRadioButton;
+    ts_line_panel: TPanel;
+    ts_help_button: TButton;
+    ts_panel2: TPanel;
+    ts_mouse_caption: TLabel;
+    ms_mouse_caption: TLabel;
+    ms_panel2: TPanel;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
@@ -51,28 +68,22 @@ type
     trackbed_pagecontrol: TPageControl;
     ms_trackbed_tabsheet: TTabSheet;
     ms_panel: TPanel;
-    ms_mouse_groupbox: TGroupBox;
+    ms_mouse_panel: Tpanel;
     mouse_ms_length_button: TButton;
     mouse_ms_start_button: TButton;
     ms_position_button: TButton;
     ms_trackbed_checkbox: TCheckBox;
     ts_trackbed_tabsheet: TTabSheet;
     ts_panel: TPanel;
-    ts_mouse_groupbox: TGroupBox;
+    ts_mouse_panel: Tpanel;
     mouse_ts_length_button: TButton;
     mouse_ts_start_button: TButton;
     ts_position_button: TButton;
     ts_trackbed_checkbox: TCheckBox;
-    ms_cut_radio_button: TRadioButton;
-    ms_cess_radio_button: TRadioButton;
-    ts_cut_radio_button: TRadioButton;
-    ts_cess_radio_button: TRadioButton;
     ms_cess_width_button: TButton;
     ts_cess_width_button: TButton;
     trackbed_widths_button: TButton;
     modify_group_button: TButton;
-    ms_help_button: TButton;
-    ts_help_button: TButton;
     help_button: TButton;
     procedure FormCreate(Sender: TObject);
     procedure ts_trackbed_checkboxClick(Sender: TObject);
@@ -171,7 +182,8 @@ begin
   AutoScroll:=False;
 
   ClientWidth:=530;
-  ClientHeight:=180;
+  ClientHeight:=204;
+
 end;
 //______________________________________________________________________________
 
@@ -278,6 +290,14 @@ begin
 
     if draw_ms_trackbed_edge=True then ms_panel.Visible:=True
                                   else ms_panel.Visible:=False;
+
+    // SC 18/08/24
+    if draw_ts_trackbed_edge=True then ts_panel2.Visible:=True
+                                  else ts_panel2.Visible:=False;
+
+    if draw_ms_trackbed_edge=True then ms_panel2.Visible:=True
+                                  else ms_panel2.Visible:=False;
+    // sc 18/08/24
 
     ms_cess_radio_button.Checked:=draw_ms_trackbed_cess_edge;
     ms_cut_radio_button.Checked:= NOT draw_ms_trackbed_cess_edge;
