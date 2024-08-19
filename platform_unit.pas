@@ -214,7 +214,6 @@ begin
   if (save_ts=False) and (draw_ts_platform=True)   // just added a platform, set default lengths (leave widths).
      then begin
             platform_ts_start_mm:=0;
-<<<<<<< HEAD
 
                 // 555a  MW 19-AUG-2024 ...
 
@@ -225,14 +224,11 @@ begin
                else platform_ts_length_mm:=xorg-pt_blank;            // or stop at rail joint for plain track - plain track blanking
 
             if platform_ts_length_mm<0 then platform_ts_length_mm:=0;    // safety
-=======
- >>>>>>> 6ff637983ac1f64b68c3786250c409775256aee4
           end;
 
   if (save_ms=False) and (draw_ms_platform=True)   // just added a platform, set default lengths (leave widths).
      then begin
             platform_ms_start_mm:=0;
-<<<<<<< HEAD
 
                 // 555a  MW 19-AUG-2024 ...
 
@@ -243,8 +239,6 @@ begin
                else platform_ms_length_mm:=xorg-pt_blank;         // or stop at rail joint for plain track - plain track blanking
 
             if platform_ms_length_mm<0 then platform_ms_length_mm:=0;    // safety
-=======
->>>>>>> 6ff637983ac1f64b68c3786250c409775256aee4
           end;
 
   do_railedges;
