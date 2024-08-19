@@ -312,13 +312,14 @@ begin
     if draw_ms_trackbed_edge=True then ms_panel.Visible:=True
                                   else ms_panel.Visible:=False;
 
-    // SC 18/08/24
+    // 555a SC 18-AUG-2024 ...
+	// cater for extra panels
     if draw_ts_trackbed_edge=True then ts_panel2.Visible:=True
                                   else ts_panel2.Visible:=False;
 
     if draw_ms_trackbed_edge=True then ms_panel2.Visible:=True
                                   else ms_panel2.Visible:=False;
-    // sc 18/08/24
+    // 555a SC 18-AUG-2024 ...
 
     ms_cess_radio_button.Checked:=draw_ms_trackbed_cess_edge;
     ms_cut_radio_button.Checked:= NOT draw_ms_trackbed_cess_edge;
