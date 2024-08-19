@@ -214,13 +214,31 @@ begin
   if (save_ts=False) and (draw_ts_platform=True)   // just added a platform, set default lengths (leave widths).
      then begin
             platform_ts_start_mm:=0;
-            platform_ts_length_mm:=(0-1);        // converted in strails(); to full template length.
+
+                // 555a  MW 19-AUG-2024 ...
+
+            //platform_ts_length_mm:=(0-1);        // converted in strails(); to full template length.
+
+            if plain_track=False                                     // turnout
+               then platform_ts_length_mm:=xorg+turnout_road_endx    // stop at end of turnout-road exit
+               else platform_ts_length_mm:=xorg-pt_blank;            // or stop at rail joint for plain track - plain track blanking
+
+            if platform_ts_length_mm<0 then platform_ts_length_mm:=0;    // safety
           end;
 
   if (save_ms=False) and (draw_ms_platform=True)   // just added a platform, set default lengths (leave widths).
      then begin
             platform_ms_start_mm:=0;
-            platform_ms_length_mm:=(0-1);        // converted in strails(); to full template length.
+
+                // 555a  MW 19-AUG-2024 ...
+
+            //platform_ms_length_mm:=(0-1);        // converted in strails(); to full template length.
+
+            if plain_track=False                                  // turnout
+               then platform_ms_length_mm:=xorg+main_road_endx    // stop at end of main-road exit
+               else platform_ms_length_mm:=xorg-pt_blank;         // or stop at rail joint for plain track - plain track blanking
+
+            if platform_ms_length_mm<0 then platform_ms_length_mm:=0;    // safety
           end;
 
   do_railedges;
