@@ -1,17 +1,17 @@
 object grid_form: Tgrid_form
-  Left = 9
-  Height = 387
-  Top = 72
-  Width = 710
+  Left = 64
+  Height = 340
+  Top = 178
+  Width = 692
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '        dummy  vehicles      •      spacing - rings'
-  ClientHeight = 387
-  ClientWidth = 710
+  ClientHeight = 340
+  ClientWidth = 692
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -69,7 +69,12 @@ object grid_form: Tgrid_form
       Width = 15
       ClientHeight = 16
       ClientWidth = 15
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
       ParentBackground = False
+      ParentFont = False
       TabOrder = 1
       OnClick = colour_panelClick
       object colour_patch: TImage
@@ -126,7 +131,7 @@ object grid_form: Tgrid_form
     end
   end
   object close_panel: TPanel
-    Left = 626
+    Left = 628
     Height = 24
     Top = 316
     Width = 64
@@ -151,17 +156,23 @@ object grid_form: Tgrid_form
       Width = 14
       Caption = '  '
       Default = True
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = close_buttonClick
     end
   end
-  object ring_copies_groupbox: TGroupBox
+  object ring_copies_panel: TPanel
     Left = 168
     Height = 48
     Top = 32
     Width = 257
-    Caption = ' ring  copies :  '
-    ClientHeight = 27
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 44
     ClientWidth = 253
     Font.Color = clBlue
     Font.Height = -13
@@ -176,6 +187,11 @@ object grid_form: Tgrid_form
       Top = 20
       Width = 48
       Caption = 'ma&ke'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       OnClick = make_copy_buttonClick
     end
@@ -186,6 +202,11 @@ object grid_form: Tgrid_form
       Width = 54
       Caption = 'de&lete'
       Enabled = False
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = delete_copy_buttonClick
     end
@@ -196,6 +217,11 @@ object grid_form: Tgrid_form
       Width = 70
       Caption = 'clear  &all'
       Enabled = False
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = clear_buttonClick
     end
@@ -205,17 +231,35 @@ object grid_form: Tgrid_form
       Top = 20
       Width = 64
       Caption = 'colour...'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = ring_copy_colour_buttonClick
     end
+    object Label2: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 94
+      Caption = ' ring  copies :  '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object pen_groupbox: TGroupBox
+  object pen_panel: TPanel
     Left = 108
     Height = 78
     Top = 202
     Width = 117
-    Caption = ' drawing  pen :  '
-    ClientHeight = 57
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 74
     ClientWidth = 113
     Font.Color = clBlue
     Font.Height = -13
@@ -230,6 +274,11 @@ object grid_form: Tgrid_form
       Top = 20
       Width = 104
       Caption = 'mo&ve  to  ring'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = move_pen_buttonClick
     end
@@ -239,17 +288,35 @@ object grid_form: Tgrid_form
       Top = 48
       Width = 104
       Caption = 'dra&w  to  ring'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = draw_line_buttonClick
     end
+    object Label7: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 104
+      Caption = ' drawing  pen :  '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object set_groupbox: TGroupBox
+  object set_panel: TPanel
     Left = 0
     Height = 108
     Top = 86
     Width = 196
-    Caption = ' set  ring :  '
-    ClientHeight = 87
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 104
     ClientWidth = 192
     Font.Color = clBlue
     Font.Height = -13
@@ -278,6 +345,11 @@ object grid_form: Tgrid_form
       Top = 20
       Width = 50
       Caption = 'size...'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = ring_size_buttonClick
     end
@@ -287,6 +359,11 @@ object grid_form: Tgrid_form
       Top = 20
       Width = 74
       Caption = 'position...'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = ring_location_buttonClick
     end
@@ -296,6 +373,11 @@ object grid_form: Tgrid_form
       Top = 50
       Width = 64
       Caption = 'colour...'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       OnClick = colour_buttonClick
     end
@@ -306,6 +388,11 @@ object grid_form: Tgrid_form
       Top = 20
       Width = 58
       Caption = 'six-foot'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
@@ -318,10 +405,27 @@ object grid_form: Tgrid_form
       Top = 80
       Width = 88
       Caption = 'shrink  ring'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
       OnClick = make_target_buttonClick
+    end
+    object Label4: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 71
+      Caption = ' set  ring :  '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object measuring_panel: TPanel
@@ -391,18 +495,24 @@ object grid_form: Tgrid_form
     Top = 200
     Width = 93
     Caption = 'cross-hairs'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 6
     OnClick = cross_hairs_buttonClick
   end
-  object jump_groupbox: TGroupBox
+  object jump_panel: TPanel
     Left = 0
     Height = 111
     Top = 226
     Width = 100
-    Caption = ' jump  ring :  '
-    ClientHeight = 90
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 107
     ClientWidth = 96
     Font.Color = clBlue
     Font.Height = -13
@@ -417,6 +527,11 @@ object grid_form: Tgrid_form
       Top = 80
       Width = 80
       Caption = 'to  notch'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = jump_to_notch_buttonClick
     end
@@ -426,6 +541,11 @@ object grid_form: Tgrid_form
       Top = 52
       Width = 80
       Caption = 'to  centre'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = jump_to_centre_buttonClick
     end
@@ -435,17 +555,35 @@ object grid_form: Tgrid_form
       Top = 24
       Width = 80
       Caption = 'to  mo&Use'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = jump_to_mouse_buttonClick
     end
+    object Label6: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 85
+      Caption = ' jump  ring :  '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object mouse_actions_groupbox: TGroupBox
+  object mouse_actions_panel: TPanel
     Left = 232
     Height = 78
-    Top = 202
+    Top = 200
     Width = 457
-    Caption = ' mouse  actions :  '
-    ClientHeight = 57
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 74
     ClientWidth = 453
     Color = 14221272
     Font.Color = clGreen
@@ -462,6 +600,11 @@ object grid_form: Tgrid_form
       Top = 18
       Width = 82
       Caption = 'm&ove  ring'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = mouse_buttonClick
     end
@@ -471,6 +614,11 @@ object grid_form: Tgrid_form
       Top = 48
       Width = 82
       Caption = 'ring  si&ze'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = adjust_ring_dia_buttonClick
     end
@@ -480,6 +628,11 @@ object grid_form: Tgrid_form
       Top = 18
       Width = 150
       Caption = '&roll  dummy  vehicle'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 4
       OnClick = roll_dummy_vehicle_buttonClick
     end
@@ -489,6 +642,11 @@ object grid_form: Tgrid_form
       Top = 48
       Width = 194
       Caption = 'dumm&y  vehicle  clearance'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 5
       OnClick = dummy_vehicle_clearance_buttonClick
     end
@@ -498,6 +656,11 @@ object grid_form: Tgrid_form
       Top = 48
       Width = 154
       Caption = 'adjacent  centres  MS'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       OnClick = adjust_adjacent_centres_ms_buttonClick
     end
@@ -507,8 +670,25 @@ object grid_form: Tgrid_form
       Top = 18
       Width = 154
       Caption = 'adjacent  centres  TS'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = adjust_adjacent_centres_ts_buttonClick
+    end
+    object Label8: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 115
+      Caption = ' mouse  actions :  '
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object help_button: TButton
@@ -525,13 +705,14 @@ object grid_form: Tgrid_form
     TabOrder = 1
     OnClick = help_buttonClick
   end
-  object dummy_vehicle_copies_groupbox: TGroupBox
+  object dummy_vehicle_copies_panel: TPanel
     Left = 430
     Height = 48
     Top = 32
     Width = 260
-    Caption = ' dummy  vehicle  copies :  '
-    ClientHeight = 27
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 44
     ClientWidth = 256
     Color = 14221296
     Font.Color = clBlack
@@ -549,6 +730,11 @@ object grid_form: Tgrid_form
       Width = 80
       Caption = '&make  one'
       Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = dummy_vehicle_make_copy_buttonClick
     end
@@ -559,6 +745,11 @@ object grid_form: Tgrid_form
       Width = 88
       Caption = '&delete  last'
       Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       OnClick = dummy_vehicle_delete_copy_buttonClick
     end
@@ -569,17 +760,35 @@ object grid_form: Tgrid_form
       Width = 72
       Caption = '&clear  all'
       Enabled = False
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = dummy_vehicle_clear_copies_buttonClick
     end
+    object Label3: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 170
+      Caption = ' dummy  vehicle  copies :  '
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object show_ring_groupbox: TGroupBox
+  object show_ring_panel: TPanel
     Left = 26
     Height = 48
     Top = 30
     Width = 136
-    Caption = ' spacing-rings :  '
-    ClientHeight = 27
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 44
     ClientWidth = 132
     Font.Color = clBlue
     Font.Height = -13
@@ -618,14 +827,27 @@ object grid_form: Tgrid_form
       TabStop = True
       OnClick = hide_rings_radio_buttonClick
     end
+    object show_ring_label: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 104
+      Caption = ' spacing-rings :  '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object dummy_vehicle_groupbox: TGroupBox
+  object dummy_vehicle_panel: TPanel
     Left = 202
     Height = 108
     Top = 86
     Width = 488
-    Caption = ' dummy  vehicles :  '
-    ClientHeight = 87
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 104
     ClientWidth = 484
     Color = 14221296
     Font.Color = clBlack
@@ -657,6 +879,11 @@ object grid_form: Tgrid_form
       Top = 24
       Width = 54
       Caption = 'show'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = show_dummy_vehicles_radio_buttonClick
     end
@@ -667,17 +894,23 @@ object grid_form: Tgrid_form
       Width = 49
       Caption = 'h&ide'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
       TabStop = True
       OnClick = hide_dummy_vehicles_radio_buttonClick
     end
-    object road_groupbox: TGroupBox
+    object road_panel: TPanel
       Left = 202
       Height = 42
       Top = 10
       Width = 278
-      Caption = ' on  control  template :  '
-      ClientHeight = 22
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 38
       ClientWidth = 274
       Font.Color = clMaroon
       Font.Height = -12
@@ -716,6 +949,18 @@ object grid_form: Tgrid_form
         TabOrder = 1
         OnClick = turnout_road_dummy_vehicle_radio_buttonClick
       end
+      object Label10: TLabel
+        Left = 2
+        Height = 15
+        Top = 0
+        Width = 131
+        Caption = ' on  control  template :  '
+        Font.Color = clMaroon
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
     object dummy_vehicle_dimensions_button: TButton
       Left = 78
@@ -723,6 +968,11 @@ object grid_form: Tgrid_form
       Top = 24
       Width = 110
       Caption = 'dimen&sions ...'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = dummy_vehicle_dimensions_buttonClick
     end
@@ -749,6 +999,11 @@ object grid_form: Tgrid_form
       Top = 78
       Width = 194
       Caption = 'generate  outline  envelope'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 6
       OnClick = vehicle_envelope_buttonClick
     end
@@ -758,6 +1013,11 @@ object grid_form: Tgrid_form
       Top = 78
       Width = 38
       Caption = 'first'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 7
       OnClick = clear_first_envelope_buttonClick
     end
@@ -767,6 +1027,11 @@ object grid_form: Tgrid_form
       Top = 78
       Width = 36
       Caption = 'last'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 8
       OnClick = clear_last_envelope_buttonClick
     end
@@ -776,6 +1041,11 @@ object grid_form: Tgrid_form
       Top = 78
       Width = 32
       Caption = 'all'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 9
       OnClick = clear_all_envelopes_buttonClick
     end
@@ -786,8 +1056,25 @@ object grid_form: Tgrid_form
       Width = 220
       Caption = 'blank off invalid envelope ends'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 5
+    end
+    object Label5: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 127
+      Caption = ' dummy  vehicles :  '
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object reset_centre_line_button: TButton
@@ -796,16 +1083,22 @@ object grid_form: Tgrid_form
     Top = 288
     Width = 260
     Caption = 'reset  normal  track  centre-line  offset'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 11
     OnClick = reset_centre_line_buttonClick
   end
-  object GroupBox1: TGroupBox
+  object panel1: TPanel
     Left = 108
     Height = 53
     Top = 284
     Width = 301
-    Caption = ' make  background  shapes  from  ring :  '
-    ClientHeight = 32
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 49
     ClientWidth = 297
     Font.Color = clBlue
     Font.Height = -13
@@ -856,6 +1149,18 @@ object grid_form: Tgrid_form
       ParentFont = False
       TabOrder = 2
       OnClick = make_target_clip_buttonClick
+    end
+    object Label9: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 260
+      Caption = ' make  background  shapes  from  ring :  '
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
 end
