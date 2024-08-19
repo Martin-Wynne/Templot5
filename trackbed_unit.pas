@@ -260,19 +260,33 @@ begin
   if (save_ts=False) and (draw_ts_trackbed_edge=True)   // just added a trackbed edge, set default lengths (leave widths).
      then begin
             trackbed_ts_start_mm:=0;
-            // SC 19/08/24
+
+                // 555a  MW 19-AUG-2024 ...
+
             // trackbed_ts_length_mm:=(0-1);              // converted in strails(); to full template length.
-            trackbed_ts_length_mm:=turnoutx;              // converted in strails(); to full template length.
-            // sc 19/08/24
+
+            if plain_track=False                                       // turnout
+               then trackbed_ts_length_mm:=xorg+turnout_road_endx      // stop at end of turnout-road exit
+               else trackbed_ts_length_mm:=xorg-pt_blank;              // or stop at rail joint for plain track - plain track blanking
+
+            if trackbed_ts_length_mm<0 then trackbed_ts_length_mm:=0   // safety
+
           end;
 
   if (save_ms=False) and (draw_ms_trackbed_edge=True)   // just added a  trackbed edge, set default lengths (leave widths).
      then begin
             trackbed_ms_start_mm:=0;
-            // SC 19/08/24
+
+                // 555a  MW 19-AUG-2024 ...
+
             // trackbed_ms_length_mm:=(0-1);               // converted in strails(); to full template length.
-            trackbed_ms_length_mm:=turnoutx;               // converted in strails(); to full template length.
-            // sc 19/08/24
+
+            if plain_track=False                                       // turnout
+               then trackbed_ms_length_mm:=xorg+main_road_endx         // stop at end of main-road exit
+               else trackbed_ms_length_mm:=xorg-pt_blank;              // or stop at rail joint for plain track - plain track blanking
+
+            if trackbed_ms_length_mm<0 then trackbed_ms_length_mm:=0   // safety
+
           end;
 
   do_railedges;

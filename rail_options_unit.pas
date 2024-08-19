@@ -41,10 +41,17 @@ uses
   StdCtrls, ExtCtrls, ComCtrls;
 
 type
+
+  { Trail_options_form }
+
   Trail_options_form = class(TForm)
+    turnout_panel_label: TLabel;
+    xing_joints_label: TLabel;
+    switch_joints_label: TLabel;
+    plain_track_label: TLabel;
     top_label: TLabel;
-    turnout_groupbox: TGroupBox;
-    xing_joints_groupbox: TGroupBox;
+    turnout_panel: Tpanel;
+    xing_joints_panel: Tpanel;
     turnout_road_check_rail_checkbox: TCheckBox;
     turnout_road_crossing_rail_checkbox: TCheckBox;
     crossing_vee_checkbox: TCheckBox;
@@ -53,7 +60,7 @@ type
     main_road_stock_rail_checkbox: TCheckBox;
     wing_rail_joints_checkbox: TCheckBox;
     vee_rail_joints_checkbox: TCheckBox;
-    plain_track_groupbox: TGroupBox;
+    plain_track_panel: Tpanel;
     plain_track_ts_rail_checkbox: TCheckBox;
     plain_track_ms_rail_checkbox: TCheckBox;
     turnout_road_stock_rail_checkbox: TCheckBox;
@@ -84,7 +91,7 @@ type
     slide_button: TButton;
     set_at_marker_button: TButton;
     reset_joint_button: TButton;
-    switch_joints_groupbox: TGroupBox;
+    switch_joints_panel: Tpanel;
     switch_front_joints_checkbox: TCheckBox;
     switch_rail_joints_checkbox: TCheckBox;
     switch_stock_rail_joints_checkbox: TCheckBox;
@@ -148,13 +155,13 @@ begin
 
     if half_diamond=False
        then begin
-              turnout_groupbox.Caption:=' turnout  rails :  ';
+              turnout_panel_label.Caption:=' turnout  rails :  ';
               turnout_road_stock_rail_checkbox.Caption:='turnout-road  stock  rail';
               turnout_road_check_rail_checkbox.Caption:='turnout-road  check  rail';
               turnout_road_crossing_rail_checkbox.Caption:='turnout-road  crossing  rail';
             end
        else begin
-              turnout_groupbox.Caption:=' half-diamond  rails :  ';
+              turnout_panel_label.Caption:=' half-diamond  rails :  ';
               turnout_road_stock_rail_checkbox.Caption:='diagonal-road  stock  rail';
               turnout_road_check_rail_checkbox.Caption:='diagonal-road  check  rail';
               turnout_road_crossing_rail_checkbox.Caption:='diagonal-road  crossing  rail';
