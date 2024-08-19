@@ -260,17 +260,24 @@ begin
   if (save_ts=False) and (draw_ts_trackbed_edge=True)   // just added a trackbed edge, set default lengths (leave widths).
      then begin
             trackbed_ts_start_mm:=0;
-            trackbed_ts_length_mm:=(0-1);              // converted in strails(); to full template length.
+            // SC 19/08/24
+            // trackbed_ts_length_mm:=(0-1);              // converted in strails(); to full template length.
+            trackbed_ts_length_mm:=turnoutx;              // converted in strails(); to full template length.
+            // sc 19/08/24
           end;
 
   if (save_ms=False) and (draw_ms_trackbed_edge=True)   // just added a  trackbed edge, set default lengths (leave widths).
      then begin
             trackbed_ms_start_mm:=0;
-            trackbed_ms_length_mm:=(0-1);               // converted in strails(); to full template length.
+            // SC 19/08/24
+            // trackbed_ms_length_mm:=(0-1);               // converted in strails(); to full template length.
+            trackbed_ms_length_mm:=turnoutx;               // converted in strails(); to full template length.
+            // sc 19/08/24
           end;
 
   do_railedges;
   redraw_pad(True,True);
+
 end;
 //______________________________________________________________________________
 

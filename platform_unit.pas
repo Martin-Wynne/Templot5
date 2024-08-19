@@ -214,13 +214,19 @@ begin
   if (save_ts=False) and (draw_ts_platform=True)   // just added a platform, set default lengths (leave widths).
      then begin
             platform_ts_start_mm:=0;
-            platform_ts_length_mm:=(0-1);        // converted in strails(); to full template length.
+            // SC 19/08/24
+            // platform_ts_length_mm:=(0-1);        // converted in strails(); to full template length.
+            platform_ts_length_mm:=turnoutx;        // converted in strails(); to full template length.
+            // sc 19/08/24
           end;
 
   if (save_ms=False) and (draw_ms_platform=True)   // just added a platform, set default lengths (leave widths).
      then begin
             platform_ms_start_mm:=0;
-            platform_ms_length_mm:=(0-1);        // converted in strails(); to full template length.
+            // SC 19/08/24
+            // platform_ms_length_mm:=(0-1);        // converted in strails(); to full template length.
+            platform_ms_length_mm:=turnoutx;        // converted in strails(); to full template length.
+            // sc 19/08/24
           end;
 
   do_railedges;
