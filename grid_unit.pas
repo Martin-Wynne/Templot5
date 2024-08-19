@@ -41,21 +41,34 @@ uses
   StdCtrls, ExtCtrls, ComCtrls;
 
 type
+
+  { Tgrid_form }
+
   Tgrid_form = class(TForm)
     blue_corner_panel: TPanel;
+    Label10: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    show_ring_label: TLabel;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
     close_panel: TPanel;
     close_button: TButton;
-    ring_copies_groupbox: TGroupBox;
+    ring_copies_panel: Tpanel;
     make_copy_button: TButton;
     delete_copy_button: TButton;
     clear_button: TButton;
-    pen_groupbox: TGroupBox;
+    pen_panel: Tpanel;
     move_pen_button: TButton;
     draw_line_button: TButton;
-    set_groupbox: TGroupBox;
+    set_panel: Tpanel;
     ring_size_button: TButton;
     dia_label: TLabel;
     measuring_panel: TPanel;
@@ -66,26 +79,26 @@ type
     ring_location_button: TButton;
     colour_button: TButton;
     six_foot_button: TButton;
-    jump_groupbox: TGroupBox;
+    jump_panel: Tpanel;
     jump_to_notch_button: TButton;
     jump_to_centre_button: TButton;
     jump_to_mouse_button: TButton;
-    mouse_actions_groupbox: TGroupBox;
+    mouse_actions_panel: Tpanel;
     mouse_button: TButton;
     adjust_ring_dia_button: TButton;
     help_button: TButton;
-    dummy_vehicle_copies_groupbox: TGroupBox;
+    dummy_vehicle_copies_panel: Tpanel;
     dummy_vehicle_make_copy_button: TButton;
     dummy_vehicle_delete_copy_button: TButton;
     dummy_vehicle_clear_copies_button: TButton;
     roll_dummy_vehicle_button: TButton;
-    show_ring_groupbox: TGroupBox;
+    show_ring_panel: Tpanel;
     show_rings_radio_button: TRadioButton;
     hide_rings_radio_button: TRadioButton;
-    dummy_vehicle_groupbox: TGroupBox;
+    dummy_vehicle_panel: Tpanel;
     show_dummy_vehicles_radio_button: TRadioButton;
     hide_dummy_vehicles_radio_button: TRadioButton;
-    road_groupbox: TGroupBox;
+    road_panel: Tpanel;
     main_road_dummy_vehicle_radio_button: TRadioButton;
     turnout_road_dummy_vehicle_radio_button: TRadioButton;
     dummy_vehicle_dimensions_button: TButton;
@@ -104,7 +117,7 @@ type
     Label1: TLabel;
     blank_ends_checkbox: TCheckBox;
     make_target_button: TButton;
-    GroupBox1: TGroupBox;
+    panel1: Tpanel;
     make_circle_shapes_button: TButton;
     make_target_clip_button: TButton;
     make_clip_button: TButton;
