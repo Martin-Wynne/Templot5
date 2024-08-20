@@ -41,9 +41,13 @@ uses
   StdCtrls, ExtCtrls, Math;
 
 type
+
+  { Ttandem_form }
+
   Ttandem_form = class(TForm)
     go_button: TButton;
-    xing_type_groupbox: TGroupBox;
+    Label5: TLabel;
+    xing_type_groupbox: Tpanel;
     Label1: TLabel;
     Label2: TLabel;
     regular_xing_radio: TRadioButton;
