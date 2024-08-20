@@ -49,8 +49,10 @@ type
   { Tmint_form }
 
   Tmint_form = class(TForm)
-    size_groupbox: TGroupBox;
-    curving_groupbox: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    size_panel: Tpanel;
+    curving_panel: Tpanel;
     left_hand_radio_button: TRadioButton;
     right_hand_radio_button: TRadioButton;
     posrad_radio_button: TRadioButton;
