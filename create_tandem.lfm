@@ -1,17 +1,17 @@
 object tandem_form: Ttandem_form
   Left = 232
-  Height = 377
+  Height = 330
   Top = 194
-  Width = 618
+  Width = 600
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '    make  3-way  tandem  turnout  -  double-sided'
-  ClientHeight = 377
-  ClientWidth = 618
+  ClientHeight = 330
+  ClientWidth = 600
   Color = 15794175
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -13
+  Font.Height = -16
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -62,7 +62,7 @@ object tandem_form: Ttandem_form
   object comprised_label: TLabel
     Left = 12
     Height = 20
-    Top = 268
+    Top = 262
     Width = 493
     AutoSize = False
     Caption = 'The tandem turnout will be comprised of 7 partial templates.'
@@ -94,12 +94,17 @@ object tandem_form: Ttandem_form
     Width = 344
     AutoSize = False
     Caption = 'Allow space in the track plan for a new switch to be created in front of the starting turnout.'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     WordWrap = True
   end
   object derived_label: TLabel
     Left = 12
     Height = 20
-    Top = 296
+    Top = 290
     Width = 518
     AutoSize = False
     Caption = 'The new middle V-crossing will be derived from a gaunt turnout.'
@@ -113,7 +118,7 @@ object tandem_form: Ttandem_form
   object ds_label: TLabel
     Left = 92
     Height = 20
-    Top = 236
+    Top = 230
     Width = 249
     AutoSize = False
     Caption = 'double-sided  tandem  turnout'
@@ -130,25 +135,36 @@ object tandem_form: Ttandem_form
     Top = 260
     Width = 57
     Caption = 'GO'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ModalResult = 1
+    ParentFont = False
     TabOrder = 0
   end
-  object xing_type_groupbox: TGroupBox
+  object xing_type_groupbox: TPanel
     Left = 24
     Height = 140
     Top = 68
     Width = 369
-    Caption = '  V-crossing  on  new  2nd  turnout  in  tandem :   '
-    ClientHeight = 119
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 136
     ClientWidth = 365
     Color = 16777200
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 1
     object Label1: TLabel
       Left = 64
       Height = 20
-      Top = 34
+      Top = 50
       Width = 295
       AutoSize = False
       Caption = 'for loops, crossovers and lay-by sidings'
@@ -161,7 +177,7 @@ object tandem_form: Ttandem_form
     object Label2: TLabel
       Left = 64
       Height = 20
-      Top = 94
+      Top = 110
       Width = 287
       AutoSize = False
       Caption = 'for yards and double-junctions'
@@ -174,20 +190,42 @@ object tandem_form: Ttandem_form
     object regular_xing_radio: TRadioButton
       Left = 28
       Height = 20
-      Top = 8
+      Top = 24
       Width = 140
       Caption = 'regular  V-crossing'
       Checked = True
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       TabStop = True
     end
     object curviform_xing_radio: TRadioButton
       Left = 28
       Height = 20
-      Top = 68
+      Top = 84
       Width = 154
       Caption = 'curviform  V-crossing'
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 1
+    end
+    object Label5: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 311
+      Caption = '  V-crossing  on  new  2nd  turnout  in  tandem :   '
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object cancel_button: TButton
@@ -196,7 +234,12 @@ object tandem_form: Ttandem_form
     Top = 76
     Width = 77
     Caption = 'cancel'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ModalResult = 2
+    ParentFont = False
     TabOrder = 2
   end
   object click_first_button: TButton
@@ -205,6 +248,11 @@ object tandem_form: Ttandem_form
     Top = 160
     Width = 169
     Caption = 'please  click  this  first'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 3
     OnClick = click_first_buttonClick
   end
