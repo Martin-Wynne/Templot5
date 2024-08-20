@@ -1,7 +1,7 @@
 object mint_form: Tmint_form
-  Left = 31
+  Left = 46
   Height = 330
-  Top = 82
+  Top = 149
   Width = 682
   BorderIcons = [biSystemMenu]
   Caption = '    new  control  template  -  quick  set  ( mint ) ...'
@@ -10,7 +10,7 @@ object mint_form: Tmint_form
   Color = 15663103
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -39
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -65,13 +65,14 @@ object mint_form: Tmint_form
     TabOrder = 12
     TabStop = True
   end
-  object size_groupbox: TGroupBox
+  object size_panel: TPanel
     Left = 328
     Height = 158
     Top = 122
     Width = 157
-    Caption = ' turnout  &size :  '
-    ClientHeight = 135
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 154
     ClientWidth = 153
     Color = 16772829
     Font.Color = clNavy
@@ -85,7 +86,7 @@ object mint_form: Tmint_form
     object left_hand_radio_button: TRadioButton
       Left = 8
       Height = 22
-      Top = 8
+      Top = 18
       Width = 116
       Caption = 'L H  &left-hand'
       Checked = True
@@ -100,7 +101,7 @@ object mint_form: Tmint_form
     object right_hand_radio_button: TRadioButton
       Left = 8
       Height = 22
-      Top = 32
+      Top = 42
       Width = 128
       Caption = 'R H  &right-hand'
       Font.Color = clNavy
@@ -113,7 +114,7 @@ object mint_form: Tmint_form
     object turnout_combo: TComboBox
       Left = 10
       Height = 26
-      Top = 102
+      Top = 112
       Width = 137
       DropDownCount = 20
       Font.Color = clBlack
@@ -146,7 +147,7 @@ object mint_form: Tmint_form
     object joggled_rails_checkbox: TCheckBox
       Left = 8
       Height = 20
-      Top = 66
+      Top = 76
       Width = 136
       Caption = 'joggled stoc&k rails'
       Font.Color = clNavy
@@ -156,14 +157,27 @@ object mint_form: Tmint_form
       ParentFont = False
       TabOrder = 2
     end
+    object Label1: TLabel
+      Left = 2
+      Height = 18
+      Top = 0
+      Width = 109
+      Caption = ' turnout  &size :  '
+      Font.Color = clNavy
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object curving_groupbox: TGroupBox
+  object curving_panel: TPanel
     Left = 496
     Height = 158
     Top = 122
     Width = 176
-    Caption = ' main  road  &curving :  '
-    ClientHeight = 135
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 154
     ClientWidth = 172
     Color = 16777198
     Font.Color = clGreen
@@ -177,7 +191,7 @@ object mint_form: Tmint_form
     object rad_label: TLabel
       Left = 10
       Height = 20
-      Top = 60
+      Top = 70
       Width = 133
       AutoSize = False
       Caption = 'model  radius :'
@@ -190,7 +204,7 @@ object mint_form: Tmint_form
     object model_rad_label: TLabel
       Left = 10
       Height = 18
-      Top = 80
+      Top = 90
       Width = 158
       AutoSize = False
       Caption = '00000 mm  ( 0000.0 ins )'
@@ -203,7 +217,7 @@ object mint_form: Tmint_form
     object posrad_radio_button: TRadioButton
       Left = 10
       Height = 22
-      Top = 8
+      Top = 18
       Width = 78
       Caption = 'p&ositive'
       Checked = True
@@ -218,7 +232,7 @@ object mint_form: Tmint_form
     object negrad_radio_button: TRadioButton
       Left = 10
       Height = 22
-      Top = 32
+      Top = 42
       Width = 83
       Caption = '&negative'
       Font.Color = clGreen
@@ -231,7 +245,7 @@ object mint_form: Tmint_form
     object radius_combo: TComboBox
       Left = 8
       Height = 26
-      Top = 102
+      Top = 112
       Width = 154
       DropDownCount = 16
       Font.Color = clBlack
@@ -259,6 +273,18 @@ object mint_form: Tmint_form
       Style = csDropDownList
       TabOrder = 2
       OnChange = radius_comboChange
+    end
+    object Label2: TLabel
+      Left = 2
+      Height = 18
+      Top = 0
+      Width = 155
+      Caption = ' main  road  &curving :  '
+      Font.Color = clGreen
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object blue_corner_panel: TPanel
@@ -297,7 +323,12 @@ object mint_form: Tmint_form
       Width = 15
       ClientHeight = 16
       ClientWidth = 15
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
       ParentBackground = False
+      ParentFont = False
       TabOrder = 1
       OnClick = colour_panelClick
       object colour_patch: TImage
@@ -430,6 +461,11 @@ object mint_form: Tmint_form
     Top = 68
     Width = 56
     Caption = '? &help'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
@@ -457,6 +493,11 @@ object mint_form: Tmint_form
     Top = 84
     Width = 100
     Caption = 'plain  &track'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
@@ -469,6 +510,11 @@ object mint_form: Tmint_form
     Top = 84
     Width = 80
     Caption = '&straight'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 3
