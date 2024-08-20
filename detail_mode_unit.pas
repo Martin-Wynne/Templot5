@@ -41,14 +41,18 @@ uses
   StdCtrls, ExtCtrls;
 
 type
+
+  { Tdetail_mode_form }
+
   Tdetail_mode_form = class(TForm)
-    normal_radio: TRadioButton;
-    thickcl_radio: TRadioButton;
-    thickcl_groupbox: TGroupBox;
-    platforms_groupbox: TGroupBox;
-    normal_colours_radio: TRadioButton;
+    Label1: TLabel;
     marker_colours_radio: TRadioButton;
+    normal_colours_radio: TRadioButton;
+    normal_radio: TRadioButton;
     no_platforms_radio: TRadioButton;
+    platforms_panel: TPanel;
+    thickcl_radio: TRadioButton;
+    thickcl_panel: Tpanel;
     line_thickness_button: TButton;
     ok_panel: TPanel;
     ok_button: TButton;
@@ -99,7 +103,7 @@ end;
 procedure Tdetail_mode_form.normal_radioClick(Sender: TObject);
 
 begin
-  platforms_groupbox.Enabled:=False;
+  platforms_panel.Enabled:=False;
 
   with print_settings_form do begin
 
@@ -132,7 +136,7 @@ end;
 procedure Tdetail_mode_form.thickcl_radioClick(Sender: TObject);
 
 begin
-  platforms_groupbox.Enabled:=True;
+  platforms_panel.Enabled:=True;
 
   with print_settings_form do begin
 
