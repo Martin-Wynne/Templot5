@@ -41,7 +41,13 @@ uses
   StdCtrls, ExtCtrls, Spin, ComCtrls, ReadHTML, FramView;
 
 type
+
+  { Tmetric_form }
+
   Tmetric_form = class(TForm)
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
     mm_box_edit: TEdit;
     inch_box_edit: TEdit;
     Label1: TLabel;
@@ -51,7 +57,7 @@ type
     size_button: TButton;
     scale_panel: TPanel;
     scale_button: TButton;
-    feet_inches_groupbox: TGroupBox;
+    feet_inches_panel: Tpanel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -64,10 +70,10 @@ type
     whole_inch_panel: TPanel;
     Label8: TLabel;
     approx_label: TLabel;
-    decimal_places_groupbox: TGroupBox;
+    decimal_places_panel: Tpanel;
     decimal_updown: TUpDown;
     places_label: TLabel;
-    scale_groupbox: TGroupBox;
+    scale_group: Tpanel;
     Label10: TLabel;
     scale_label: TLabel;
     blue_corner_panel: TPanel;
@@ -229,7 +235,7 @@ begin
       font_all(clRed);
       metric_form.scale_panel.Show;
       metric_form.size_panel.Show;
-      //scale_groupbox.Show;
+      //scale_panel.Show;
 
     end;//with
   except
@@ -497,7 +503,11 @@ procedure Tmetric_form.FormCreate(Sender: TObject);
 begin
   ClientWidth:=600;
   ClientHeight:=336;
-  AutoScroll:=False;
+
+  // 555a SC 20-AUG-2024 ...
+  // AutoScroll:=False;
+  AutoScroll:=True;
+  // ...
 end;
 //______________________________________________________________________________
 
