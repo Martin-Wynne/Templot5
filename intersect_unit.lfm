@@ -1,16 +1,16 @@
 object intersect_form: Tintersect_form
-  Left = 703
-  Height = 467
-  Top = 420
-  Width = 638
+  Left = 86
+  Height = 420
+  Top = 163
+  Width = 620
   BorderStyle = bsSizeToolWin
   Caption = '    find  intersection'
-  ClientHeight = 467
-  ClientWidth = 638
+  ClientHeight = 420
+  ClientWidth = 620
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -29
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnClose = FormClose
@@ -69,13 +69,14 @@ object intersect_form: Tintersect_form
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object control_groupbox: TGroupBox
+  object control_panel: TPanel
     Left = 318
     Height = 298
-    Top = 36
+    Top = 34
     Width = 300
-    Caption = ' on  the  control  template :  '
-    ClientHeight = 275
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 294
     ClientWidth = 296
     Color = 13695224
     Font.Color = clMaroon
@@ -89,7 +90,7 @@ object intersect_form: Tintersect_form
     object control4_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 12
+      Top = 24
       Width = 214
       Caption = '4.  turnout-road    stock  rail'
       Font.Color = clBlack
@@ -102,7 +103,7 @@ object intersect_form: Tintersect_form
     object control3_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 40
+      Top = 52
       Width = 238
       Caption = '3.  main-road         crossing  rail'
       Font.Color = clBlack
@@ -115,7 +116,7 @@ object intersect_form: Tintersect_form
     object control2_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 68
+      Top = 80
       Width = 237
       Caption = '2.  turnout-road    crossing  rail'
       Font.Color = clBlack
@@ -128,7 +129,7 @@ object intersect_form: Tintersect_form
     object control1_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 96
+      Top = 108
       Width = 215
       Caption = '1.  main-road         stock  rail'
       Font.Color = clBlack
@@ -141,7 +142,7 @@ object intersect_form: Tintersect_form
     object control25_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 136
+      Top = 148
       Width = 220
       Caption = 'centre-line  of  turnout  road'
       Font.Color = clBlack
@@ -154,7 +155,7 @@ object intersect_form: Tintersect_form
     object control24_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 164
+      Top = 176
       Width = 201
       Caption = 'centre-line  of  main  road'
       Checked = True
@@ -166,13 +167,14 @@ object intersect_form: Tintersect_form
       TabOrder = 5
       TabStop = True
     end
-    object expert_groupbox: TGroupBox
+    object expert_panel: TPanel
       Left = 40
       Height = 72
-      Top = 196
+      Top = 210
       Width = 252
-      Caption = ' expert :  '
-      ClientHeight = 51
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 68
       ClientWidth = 248
       Color = 15269864
       Font.Color = clBlue
@@ -186,7 +188,7 @@ object intersect_form: Tintersect_form
       object angle_label: TLabel
         Left = 0
         Height = 20
-        Top = 28
+        Top = 42
         Width = 156
         Alignment = taRightJustify
         AutoSize = False
@@ -202,7 +204,7 @@ object intersect_form: Tintersect_form
         Left = 6
         Height = 20
         Hint = ' adjust the curving radius in the control template until the intersection is at the specified angle '
-        Top = 4
+        Top = 18
         Width = 200
         Caption = 'adjust radius to intersect at :'
         Font.Color = clBlack
@@ -218,7 +220,7 @@ object intersect_form: Tintersect_form
         Left = 164
         Height = 23
         Hint = ' set the intersection angle '
-        Top = 24
+        Top = 38
         Width = 81
         Caption = 'change ...'
         Font.Color = clBlack
@@ -231,15 +233,40 @@ object intersect_form: Tintersect_form
         TabOrder = 1
         OnClick = angle_buttonClick
       end
+      object Label4: TLabel
+        Left = 2
+        Height = 16
+        Top = 0
+        Width = 53
+        Caption = ' expert :'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+    end
+    object Label3: TLabel
+      Left = 2
+      Height = 18
+      Top = 0
+      Width = 196
+      Caption = ' on  the  control  template :  '
+      Font.Color = clMaroon
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
-  object bgnd_groupbox: TGroupBox
+  object bgnd_panel: TPanel
     Left = 2
     Height = 250
     Top = 34
     Width = 300
-    Caption = ' on  selected  background  template :  '
-    ClientHeight = 227
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 246
     ClientWidth = 296
     Color = 13172712
     Font.Color = clGreen
@@ -253,7 +280,7 @@ object intersect_form: Tintersect_form
     object bgnd4_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 12
+      Top = 24
       Width = 214
       Caption = '4.  turnout-road    stock  rail'
       Font.Color = clBlack
@@ -266,7 +293,7 @@ object intersect_form: Tintersect_form
     object bgnd3_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 40
+      Top = 52
       Width = 238
       Caption = '3.  main-road         crossing  rail'
       Font.Color = clBlack
@@ -279,7 +306,7 @@ object intersect_form: Tintersect_form
     object bgnd2_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 68
+      Top = 80
       Width = 237
       Caption = '2.  turnout-road    crossing  rail'
       Font.Color = clBlack
@@ -292,7 +319,7 @@ object intersect_form: Tintersect_form
     object bgnd1_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 96
+      Top = 108
       Width = 215
       Caption = '1.  main-road         stock  rail'
       Font.Color = clBlack
@@ -305,7 +332,7 @@ object intersect_form: Tintersect_form
     object bgnd25_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 136
+      Top = 148
       Width = 220
       Caption = 'centre-line  of  turnout  road'
       Font.Color = clBlack
@@ -318,7 +345,7 @@ object intersect_form: Tintersect_form
     object bgnd24_radio: TRadioButton
       Left = 16
       Height = 20
-      Top = 164
+      Top = 176
       Width = 201
       Caption = 'centre-line  of  main  road'
       Checked = True
@@ -334,7 +361,7 @@ object intersect_form: Tintersect_form
       Left = 36
       Height = 20
       Hint = ' move the fixing peg on the background template to the found intersection '
-      Top = 200
+      Top = 210
       Width = 246
       Caption = 'put background peg on intersection'
       Font.Color = clBlack
@@ -345,6 +372,18 @@ object intersect_form: Tintersect_form
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
+    end
+    object Label6: TLabel
+      Left = 2
+      Height = 18
+      Top = 0
+      Width = 268
+      Caption = ' on  selected  background  template :  '
+      Font.Color = clGreen
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object find_intersect_button: TButton
@@ -388,6 +427,11 @@ object intersect_form: Tintersect_form
       Width = 16
       Cancel = True
       Caption = '  '
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = hide_buttonClick
     end
@@ -397,7 +441,12 @@ object intersect_form: Tintersect_form
     Height = 16
     Top = 346
     Width = 133
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Max = 20
+    ParentFont = False
     TabOrder = 3
   end
   object cancel_button: TButton

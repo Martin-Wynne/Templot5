@@ -41,15 +41,18 @@ uses
   ExtCtrls, StdCtrls, ComCtrls;
 
 type
+
+  { Tintersect_form }
+
   Tintersect_form = class(TForm)
-    control_groupbox: TGroupBox;
+    control_panel: Tpanel;
     control4_radio: TRadioButton;
     control3_radio: TRadioButton;
     control2_radio: TRadioButton;
     control1_radio: TRadioButton;
     control25_radio: TRadioButton;
     control24_radio: TRadioButton;
-    bgnd_groupbox: TGroupBox;
+    bgnd_panel: Tpanel;
     bgnd4_radio: TRadioButton;
     bgnd3_radio: TRadioButton;
     bgnd2_radio: TRadioButton;
@@ -60,10 +63,13 @@ type
     hide_panel: TPanel;
     hide_button: TButton;
     Label1: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label6: TLabel;
     progress_bar: TProgressBar;
     cancel_button: TButton;
     bgnd_move_peg_checkbox: TCheckBox;
-    expert_groupbox: TGroupBox;
+    expert_panel: Tpanel;
     adjust_rad_checkbox: TCheckBox;
     angle_label: TLabel;
     angle_button: TButton;
