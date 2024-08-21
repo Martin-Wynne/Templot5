@@ -1,17 +1,17 @@
 object jigs_form: Tjigs_form
-  Left = 40
-  Height = 561
-  Top = 80
-  Width = 946
+  Left = 33
+  Height = 514
+  Top = 135
+  Width = 928
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '    DXF / STL  exports  for  track - building  tools'
-  ClientHeight = 561
-  ClientWidth = 946
+  ClientHeight = 514
+  ClientWidth = 928
   Color = 16776438
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -20
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -30,13 +30,14 @@ object jigs_form: Tjigs_form
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object jigs_groupbox: TGroupBox
+  object jigs_panel: TPanel
     Left = 12
     Height = 494
     Top = 12
     Width = 821
-    Caption = ' filing  jig :  '
-    ClientHeight = 471
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 490
     ClientWidth = 817
     Font.Color = clBlack
     Font.Height = -15
@@ -140,13 +141,14 @@ object jigs_form: Tjigs_form
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object rail_type_groupbox: TGroupBox
+    object rail_type_panel: TPanel
       Left = 14
       Height = 106
       Top = 126
       Width = 185
-      Caption = ' rail  type :  '
-      ClientHeight = 85
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 102
       ClientWidth = 181
       Color = 15794160
       Font.Color = clGreen
@@ -164,6 +166,11 @@ object jigs_form: Tjigs_form
         Width = 107
         Caption = ' BH  bullhead'
         Checked = True
+        Font.Color = clGreen
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 0
         TabStop = True
       end
@@ -174,6 +181,11 @@ object jigs_form: Tjigs_form
         Width = 143
         Caption = 'FB - LH  flat-bottom'
         Enabled = False
+        Font.Color = clGreen
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 1
       end
       object RadioButton3: TRadioButton
@@ -183,16 +195,34 @@ object jigs_form: Tjigs_form
         Width = 144
         Caption = 'FB - RH  flat-bottom'
         Enabled = False
+        Font.Color = clGreen
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 2
       end
+      object Label21: TLabel
+        Left = 2
+        Height = 16
+        Top = 0
+        Width = 76
+        Caption = ' rail  type :  '
+        Font.Color = clGreen
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
-    object xing_groupbox: TGroupBox
+    object xing_panel: TPanel
       Left = 312
       Height = 124
       Top = 48
       Width = 361
-      Caption = ' crossing  rails :  '
-      ClientHeight = 103
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 120
       ClientWidth = 357
       Color = 15269887
       Font.Color = clBlue
@@ -296,14 +326,27 @@ object jigs_form: Tjigs_form
         ParentFont = False
         TabOrder = 3
       end
+      object Label22: TLabel
+        Left = 2
+        Height = 16
+        Top = 0
+        Width = 107
+        Caption = ' crossing  rails :  '
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
-    object switch_groupbox: TGroupBox
+    object switch_panel: TPanel
       Left = 316
       Height = 259
       Top = 222
       Width = 489
-      Caption = ' switch  rails :  '
-      ClientHeight = 238
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 255
       ClientWidth = 485
       Color = 15269887
       Font.Color = clBlue
@@ -315,13 +358,14 @@ object jigs_form: Tjigs_form
       ParentFont = False
       TabOrder = 2
       Visible = False
-      object GroupBox2: TGroupBox
+      object panel2: TPanel
         Left = 24
         Height = 61
         Top = 180
         Width = 397
-        Caption = ' toe angle  RAM :  '
-        ClientHeight = 40
+        BevelOuter = bvNone
+        BorderStyle = bsSingle
+        ClientHeight = 57
         ClientWidth = 393
         Font.Color = clBlack
         Font.Height = -13
@@ -397,6 +441,18 @@ object jigs_form: Tjigs_form
           Text = '32.00'
           OnMouseDown = switch_angle_editMouseDown
         end
+        object Label24: TLabel
+          Left = 2
+          Height = 16
+          Top = 0
+          Width = 117
+          Caption = ' toe angle  RAM :  '
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
       end
       object back_radio: TRadioButton
         Left = 24
@@ -414,13 +470,14 @@ object jigs_form: Tjigs_form
         TabStop = True
         OnMouseDown = back_radioMouseDown
       end
-      object front_groupbox: TGroupBox
+      object front_panel: TPanel
         Left = 246
         Height = 96
         Top = 66
         Width = 227
-        Caption = ' front  angle :  '
-        ClientHeight = 75
+        BevelOuter = bvNone
+        BorderStyle = bsSingle
+        ClientHeight = 92
         ClientWidth = 223
         Color = 16777200
         Font.Color = clBlue
@@ -488,6 +545,18 @@ object jigs_form: Tjigs_form
           State = cbChecked
           TabOrder = 1
         end
+        object Label25: TLabel
+          Left = 2
+          Height = 16
+          Top = 0
+          Width = 93
+          Caption = ' front  angle :  '
+          Font.Color = clBlue
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
       end
       object front_left_radio: TRadioButton
         Left = 24
@@ -544,6 +613,18 @@ object jigs_form: Tjigs_form
         TabOrder = 6
         OnClick = set_top_pad_buttonClick
       end
+      object Label23: TLabel
+        Left = 2
+        Height = 16
+        Top = 0
+        Width = 95
+        Caption = ' switch  rails :  '
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
     object xing_radio: TRadioButton
       Left = 288
@@ -552,6 +633,11 @@ object jigs_form: Tjigs_form
       Width = 163
       Caption = 'crossing  vee  rails :'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       TabStop = True
       OnMouseDown = xing_radioMouseDown
@@ -562,16 +648,22 @@ object jigs_form: Tjigs_form
       Top = 198
       Width = 129
       Caption = 'switch  blades :'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 4
       OnMouseDown = switch_radioMouseDown
     end
-    object dims_groupbox: TGroupBox
+    object dims_panel: TPanel
       Left = 14
       Height = 146
       Top = 246
       Width = 236
-      Caption = ' rail-fit  dimensions :  '
-      ClientHeight = 125
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 142
       ClientWidth = 232
       Color = 16777200
       Font.Color = clBlue
@@ -715,6 +807,18 @@ object jigs_form: Tjigs_form
         TabOrder = 2
         Text = '0.96'
       end
+      object Label26: TLabel
+        Left = 2
+        Height = 16
+        Top = 0
+        Width = 137
+        Caption = ' rail-fit  dimensions :  '
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
     object north_checkbox: TCheckBox
       Left = 16
@@ -723,6 +827,11 @@ object jigs_form: Tjigs_form
       Width = 95
       Caption = 'north  part'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 6
     end
@@ -733,6 +842,11 @@ object jigs_form: Tjigs_form
       Width = 97
       Caption = 'south  part'
       Checked = True
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       State = cbChecked
       TabOrder = 7
     end
@@ -785,6 +899,11 @@ object jigs_form: Tjigs_form
       Top = 416
       Width = 217
       Caption = 'knuckle  bend  gauge  only :'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 11
       OnMouseDown = xing_radioMouseDown
     end
@@ -800,6 +919,18 @@ object jigs_form: Tjigs_form
       ParentFont = False
       TabOrder = 12
       Text = '2.1'
+    end
+    object Label3: TLabel
+      Left = 2
+      Height = 18
+      Top = 0
+      Width = 80
+      Caption = ' filing  jig :  '
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object ok_button: TButton
