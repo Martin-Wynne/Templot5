@@ -38,25 +38,37 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls;
+  // StdCtrls;
+  StdCtrls, ExtCtrls;
+
 
 type
+
+  { Tjigs_form }
+
   Tjigs_form = class(TForm)
-    jigs_groupbox: TGroupBox;
-    rail_type_groupbox: TGroupBox;
+    jigs_panel: Tpanel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label3: TLabel;
+    rail_type_panel: Tpanel;
     bh_radio: TRadioButton;
     RadioButton2: TRadioButton;
     RadioButton3: TRadioButton;
-    xing_groupbox: TGroupBox;
+    xing_panel: Tpanel;
     Label1: TLabel;
     Label2: TLabel;
     xing_angle_as_control_radio: TRadioButton;
     xing_angle_entered_radio: TRadioButton;
     xing_angle_edit: TEdit;
-    switch_groupbox: TGroupBox;
+    switch_panel: Tpanel;
     xing_radio: TRadioButton;
     switch_radio: TRadioButton;
-    dims_groupbox: TGroupBox;
+    dims_panel: Tpanel;
     ok_button: TButton;
     datestamp_label: TLabel;
     xing_control_label: TLabel;
@@ -85,14 +97,14 @@ type
     Label18: TLabel;
     kn_groove_depth_edit: TEdit;
     knuckle_guide_checkbox: TCheckBox;
-    GroupBox2: TGroupBox;
+    panel2: Tpanel;
     Label4: TLabel;
     switch_control_label: TLabel;
     switch_angle_as_control_radio: TRadioButton;
     switch_angle_entered_radio: TRadioButton;
     switch_angle_edit: TEdit;
     back_radio: TRadioButton;
-    front_groupbox: TGroupBox;
+    front_panel: Tpanel;
     Label19: TLabel;
     Label20: TLabel;
     slope_angle_edit: TEdit;
@@ -1847,37 +1859,37 @@ procedure Tjigs_form.xing_radioMouseDown(Sender: TObject; Button: TMouseButton; 
   // also knuckle bend MouseDown
 
 begin
-  xing_groupbox.Visible:=True;
-  switch_groupbox.Visible:=False;
+  xing_panel.Visible:=True;
+  switch_panel.Visible:=False;
 end;
 //______________________________________________________________________________
 
 procedure Tjigs_form.switch_radioMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  xing_groupbox.Visible:=False;
-  switch_groupbox.Visible:=True;
+  xing_panel.Visible:=False;
+  switch_panel.Visible:=True;
 end;
 //______________________________________________________________________________
 
 procedure Tjigs_form.front_left_radioMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  front_groupbox.Visible:=True;
+  front_panel.Visible:=True;
 end;
 //______________________________________________________________________________
 
 procedure Tjigs_form.front_right_radioMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  front_groupbox.Visible:=True;
+  front_panel.Visible:=True;
 end;
 //______________________________________________________________________________
 
 procedure Tjigs_form.back_radioMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 begin
-  front_groupbox.Visible:=False;
+  front_panel.Visible:=False;
 end;
 //______________________________________________________________________________
 
