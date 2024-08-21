@@ -40,12 +40,16 @@ uses
   StdCtrls, Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, ComCtrls;
 
 type
+
+  { Tgaps_form }
+
   Tgaps_form = class(TForm)
     hide_panel: TPanel;
     hide_button: TButton;
     help_shape: TShape;
     help_button: TButton;
     Label1: TLabel;
+    Label12: TLabel;
     slide_button: TButton;
     blue_corner_panel: TPanel;
     size_updown: TUpDown;
@@ -66,7 +70,7 @@ type
     symbols_retain_on_make_checkbox: TCheckBox;
     Label6: TLabel;
     symbols_visible_listbox: TListBox;
-    size_groupbox: TGroupBox;
+    size_panel: Tpanel;
     small_radio: TRadioButton;
     medium_radio: TRadioButton;
     large_radio: TRadioButton;

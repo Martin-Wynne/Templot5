@@ -61,7 +61,12 @@ object gaps_form: Tgaps_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'ID :'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
   end
   object replace_fill_colour_label: TLabel
     Left = 180
@@ -71,6 +76,11 @@ object gaps_form: Tgaps_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'gap colour :'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object Label6: TLabel
     Left = 192
@@ -116,6 +126,11 @@ object gaps_form: Tgaps_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'dropper colour :'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object Label7: TLabel
     Left = 184
@@ -125,6 +140,11 @@ object gaps_form: Tgaps_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'sticker colour :'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object Label8: TLabel
     Left = 436
@@ -212,6 +232,11 @@ object gaps_form: Tgaps_form
       Width = 16
       Cancel = True
       Caption = '  '
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
       OnClick = hide_buttonClick
     end
@@ -222,6 +247,11 @@ object gaps_form: Tgaps_form
     Top = 6
     Width = 60
     Caption = '? help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 3
     OnClick = help_buttonClick
   end
@@ -264,7 +294,12 @@ object gaps_form: Tgaps_form
       Width = 15
       ClientHeight = 16
       ClientWidth = 15
+      Font.Color = clBlack
+      Font.Height = -17
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
       ParentBackground = False
+      ParentFont = False
       TabOrder = 1
       OnClick = colour_panelClick
       object colour_patch: TImage
@@ -355,6 +390,11 @@ object gaps_form: Tgaps_form
     Width = 110
     Caption = 'delete  symbol'
     Enabled = False
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 10
@@ -368,6 +408,11 @@ object gaps_form: Tgaps_form
     Width = 114
     Caption = 'modify  symbol'
     Enabled = False
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 9
@@ -380,6 +425,11 @@ object gaps_form: Tgaps_form
     Top = 394
     Width = 140
     Caption = 'delete  all  symbols'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 11
@@ -443,6 +493,11 @@ object gaps_form: Tgaps_form
     Top = 6
     Width = 141
     Caption = 'retain on new mint'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
@@ -454,6 +509,11 @@ object gaps_form: Tgaps_form
     Top = 6
     Width = 151
     Caption = 'retain on tools:make'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
@@ -477,13 +537,14 @@ object gaps_form: Tgaps_form
     OnDrawItem = symbols_visible_listboxDrawItem
     OnExit = symbols_visible_listboxExit
   end
-  object size_groupbox: TGroupBox
+  object size_panel: TPanel
     Left = 172
     Height = 44
     Top = 336
     Width = 262
-    Caption = ' symbol  size :  '
-    ClientHeight = 23
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 40
     ClientWidth = 258
     Color = 16774376
     Font.Color = clBlack
@@ -547,6 +608,18 @@ object gaps_form: Tgaps_form
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
+    end
+    object Label12: TLabel
+      Left = 2
+      Height = 16
+      Top = 0
+      Width = 98
+      Caption = ' symbol  size :  '
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
   object sticker_radio: TRadioButton
@@ -673,6 +746,11 @@ object gaps_form: Tgaps_form
     Top = 38
     Width = 242
     Caption = 'show / hide  symbols  on  trackpad'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 20
     OnClick = show_hide_buttonClick
   end
@@ -684,7 +762,12 @@ object gaps_form: Tgaps_form
     BevelOuter = bvNone
     ClientHeight = 110
     ClientWidth = 260
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
+    ParentFont = False
     TabOrder = 21
     object rail_4_radio: TRadioButton
       Left = 8
