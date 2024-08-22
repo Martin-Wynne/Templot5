@@ -6234,7 +6234,15 @@ with keep_form do begin
                         move_to_top_button.Visible:=False;     // 0.93.a
                         move_to_bottom_button.Visible:=False;  // 0.93.a
                       end;
+					  
+	      // 555a SC 22-AUG-2024 ...
+	      // ensure list_position within bounds before using to update Keepform_listbox.ItemIndex
+	      // occurs having deleted last item in list
 
+	      if list_position>keeps_list.count-1 then list_position:=keeps_list.count-1;
+              
+	      // 555a sc 22-aug-2024
+			  
               case code of
                     -1: keepform_listbox.ItemIndex:=list_position;     // the up-down position takes precedence if any mismatch.
                      0: begin                                          // set to top template;
