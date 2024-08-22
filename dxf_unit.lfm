@@ -10,7 +10,7 @@ object dxf_form: Tdxf_form
   Color = 16051416
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -39
+  Font.Height = -711
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnActivate = FormActivate
@@ -61,13 +61,13 @@ object dxf_form: Tdxf_form
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 8
     OnClick = show_settings_buttonClick
   end
   object ok_panel: TPanel
-    Left = 107
+    Left = 108
     Height = 32
-    Top = 562
+    Top = 596
     Width = 198
     Alignment = taLeftJustify
     Caption = '   export  DXF / STL  file'
@@ -343,9 +343,9 @@ object dxf_form: Tdxf_form
     Visible = False
   end
   object cancel_panel: TPanel
-    Left = 7
+    Left = 28
     Height = 24
-    Top = 568
+    Top = 522
     Width = 86
     Alignment = taLeftJustify
     Caption = '  cancel'
@@ -479,9 +479,9 @@ object dxf_form: Tdxf_form
     OnClick = help_buttonClick
   end
   object preview_panel: TPanel
-    Left = 115
+    Left = 116
     Height = 26
-    Top = 526
+    Top = 560
     Width = 188
     Alignment = taLeftJustify
     Caption = '   preview  2-D  export'
@@ -508,10 +508,10 @@ object dxf_form: Tdxf_form
     end
   end
   object edit_preview_button: TButton
-    Left = 69
+    Left = 70
     Height = 16
     Hint = ' set preview options '
-    Top = 532
+    Top = 566
     Width = 42
     Caption = 'edit ...'
     Font.Color = clBlack
@@ -528,14 +528,14 @@ object dxf_form: Tdxf_form
     Height = 782
     Top = 0
     Width = 840
-    ActivePage = export_tabsheet
+    ActivePage = combos_tabsheet
     Font.Color = clBlack
     Font.Height = -15
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 5
     TabOrder = 7
     Visible = False
     Options = [nboMultiLine]
@@ -4490,13 +4490,18 @@ object dxf_form: Tdxf_form
         OnDropDown = rails_comboDropDown
         OnExit = rails_comboChange
       end
-      object brim_fence_checkbox: TCheckBox
+      object caged_clip_checkbox: TCheckBox
         Left = 510
         Height = 20
         Top = 630
-        Width = 93
-        Caption = 'brim  fence'
+        Width = 83
+        Caption = 'with cage'
         Checked = True
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         State = cbChecked
         TabOrder = 56
       end
@@ -4993,41 +4998,108 @@ object dxf_form: Tdxf_form
       end
     end
   end
-  object quick_groupbox: TGroupBox
-    Left = 32
-    Height = 416
-    Top = 94
-    Width = 256
-    ClientHeight = 393
-    ClientWidth = 252
-    Color = 15269887
-    DoubleBuffered = True
-    Font.Color = clBlue
+  object hide_settings_button: TButton
+    Left = 192
+    Height = 22
+    Top = 8
+    Width = 116
+    Caption = 'hide  settings'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 9
+    Visible = False
+    OnClick = hide_settings_buttonClick
+  end
+  object exp_panel: TPanel
+    Left = 34
+    Height = 157
+    Top = 628
+    Width = 249
+    BevelOuter = bvNone
+    ClientHeight = 157
+    ClientWidth = 249
+    ParentBackground = False
+    TabOrder = 10
+    object Label53: TLabel
+      Left = 4
+      Height = 70
+      Top = 16
+      Width = 233
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'v.555 experimental work in progress :  all DXF / STL functions affected '
+      Color = clYellow
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      WordWrap = True
+    end
+    object Label27: TLabel
+      Left = 4
+      Height = 69
+      Top = 84
+      Width = 233
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'ask on Templot Club forum for help in using these settings'
+      Color = clYellow
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      WordWrap = True
+    end
+    object club_button: TButton
+      Left = 113
+      Height = 24
+      Hint = ' visit the Templot Club user forum '
+      Top = 124
+      Width = 116
+      Caption = 'Templot  Club'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = club_buttonClick
+    end
+  end
+  object quick_change_panel: TPanel
+    Left = 31
+    Height = 404
+    Top = 92
+    Width = 262
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 400
+    ClientWidth = 258
+    Color = 14745599
+    Font.Color = clBlack
     Font.Height = -15
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
-    ParentDoubleBuffered = False
     ParentFont = False
-    TabOrder = 8
-    object Label19: TLabel
-      Left = 11
-      Height = 20
-      Top = 368
-      Width = 229
-      Alignment = taRightJustify
-      AutoSize = False
-      Caption = 'on experimental chairing templates'
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Arial'
-      ParentFont = False
-    end
+    TabOrder = 11
     object timbers_fdm_bullet_shape: TShape
       Left = 228
       Height = 11
-      Top = 255
+      Top = 287
       Width = 11
       Brush.Color = clAqua
       Shape = stCircle
@@ -5036,7 +5108,7 @@ object dxf_form: Tdxf_form
     object chairs_bullet_shape: TShape
       Left = 228
       Height = 11
-      Top = 16
+      Top = 48
       Width = 11
       Brush.Color = clAqua
       Shape = stCircle
@@ -5045,7 +5117,7 @@ object dxf_form: Tdxf_form
     object reset_both_bullet_shape: TShape
       Left = 228
       Height = 11
-      Top = 341
+      Top = 373
       Width = 11
       Brush.Color = clYellow
       Shape = stCircle
@@ -5053,7 +5125,7 @@ object dxf_form: Tdxf_form
     object timbers_laser_bullet_shape: TShape
       Left = 228
       Height = 11
-      Top = 292
+      Top = 324
       Width = 11
       Brush.Color = 8433919
       Shape = stCircle
@@ -5062,7 +5134,7 @@ object dxf_form: Tdxf_form
     object rail_label: TLabel
       Left = 0
       Height = 20
-      Top = 186
+      Top = 218
       Width = 246
       Alignment = taRightJustify
       AutoSize = False
@@ -5080,11 +5152,11 @@ object dxf_form: Tdxf_form
     object timbers_only_fdm_button: TButton
       Left = 12
       Height = 28
-      Top = 246
+      Top = 278
       Width = 208
       Caption = 'timbers  only  -  FDM  3D'
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -15
       Font.Name = 'Arial'
       Font.Style = [fsBold]
       ParentFont = False
@@ -5094,11 +5166,11 @@ object dxf_form: Tdxf_form
     object chairs_only_button: TButton
       Left = 12
       Height = 28
-      Top = 8
+      Top = 40
       Width = 208
       Caption = 'chairs  only  -  resin  3D'
       Font.Color = clBlack
-      Font.Height = -16
+      Font.Height = -15
       Font.Name = 'Arial'
       Font.Style = [fsBold]
       ParentFont = False
@@ -5108,7 +5180,7 @@ object dxf_form: Tdxf_form
     object reset_both_button: TButton
       Left = 35
       Height = 24
-      Top = 334
+      Top = 366
       Width = 180
       Caption = 'reset  all  -  CAD  2D / 3D'
       Font.Color = clBlack
@@ -5122,11 +5194,11 @@ object dxf_form: Tdxf_form
     object timbers_only_laser_button: TButton
       Left = 12
       Height = 28
-      Top = 284
+      Top = 316
       Width = 208
       Caption = 'timbers  only  - laser  2D'
       Font.Color = clBlack
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Arial'
       Font.Style = [fsBold]
       ParentFont = False
@@ -5136,7 +5208,7 @@ object dxf_form: Tdxf_form
     object rail_section_button: TButton
       Left = 67
       Height = 22
-      Top = 210
+      Top = 242
       Width = 170
       Caption = 'change  rail  section ...'
       Font.Color = clBlue
@@ -5147,24 +5219,10 @@ object dxf_form: Tdxf_form
       TabOrder = 4
       OnClick = rail_section_buttonClick
     end
-    object Label81: TLabel
-      Left = 4
-      Height = 18
-      Top = -20
-      Width = 193
-      AutoSize = False
-      Caption = ' quick change settings to :  '
-      Font.Color = clBlue
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentFont = False
-      Transparent = False
-    end
     object jaws_panel: TPanel
       Left = 54
       Height = 134
-      Top = 44
+      Top = 76
       Width = 189
       BevelOuter = bvNone
       BorderStyle = bsSingle
@@ -5216,86 +5274,45 @@ object dxf_form: Tdxf_form
         OnClick = all_solid_jaws_buttonClick
       end
     end
+    object Label81: TLabel
+      Left = 8
+      Height = 20
+      Top = 8
+      Width = 220
+      AutoSize = False
+      Caption = 'quick change all settings to :'
+      Font.Color = clBlue
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      ParentFont = False
+    end
   end
-  object hide_settings_button: TButton
-    Left = 192
-    Height = 22
-    Top = 8
-    Width = 116
-    Caption = 'hide  settings'
+  object Label19: TLabel
+    Left = 36
+    Height = 16
+    Top = 496
+    Width = 220
+    AutoSize = False
+    Caption = 'on experimental chairing templates'
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
+    ParentFont = False
+  end
+  object overall_size_button: TButton
+    Left = 144
+    Height = 26
+    Top = 520
+    Width = 160
+    Caption = 'show  overall  size'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 10
-    Visible = False
-    OnClick = hide_settings_buttonClick
-  end
-  object exp_panel: TPanel
-    Left = 34
-    Height = 157
-    Top = 620
-    Width = 249
-    BevelOuter = bvNone
-    ClientHeight = 157
-    ClientWidth = 249
-    ParentBackground = False
-    TabOrder = 11
-    object Label53: TLabel
-      Left = 4
-      Height = 70
-      Top = 1
-      Width = 233
-      Alignment = taCenter
-      AutoSize = False
-      Caption = 'v.555 experimental work in progress :  all DXF / STL functions affected '
-      Color = clYellow
-      Font.Color = clRed
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      Layout = tlCenter
-      ParentColor = False
-      ParentFont = False
-      Transparent = False
-      WordWrap = True
-    end
-    object Label27: TLabel
-      Left = 4
-      Height = 78
-      Top = 71
-      Width = 233
-      Alignment = taCenter
-      AutoSize = False
-      Caption = 'ask on Templot Club forum for help in using these settings'
-      Color = clYellow
-      Font.Color = clBlue
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      Transparent = False
-      WordWrap = True
-    end
-    object club_button: TButton
-      Left = 113
-      Height = 24
-      Hint = ' visit the Templot Club user forum '
-      Top = 118
-      Width = 116
-      Caption = 'Templot  Club'
-      Font.Color = clBlack
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentFont = False
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
-      OnClick = club_buttonClick
-    end
+    TabOrder = 12
+    OnClick = ok_panelClick
   end
   object save_dialog: TSaveDialog
     Title = '      export  DXF  file  as ...'

@@ -87,7 +87,7 @@ implementation
 
 uses
   Registry, StyleUn, control_room, pad_unit, alert_unit, help_sheet, panning_unit, mint_unit, info_unit, entry_sheet,
-  gauge_unit, bgnd_unit, keep_select, make_slip_unit, lib_unit;
+  gauge_unit, bgnd_unit, keep_select, make_slip_unit, lib_unit, bitmap_viewer_unit;
 
 
 {$BOOLEVAL ON}
@@ -522,7 +522,10 @@ begin
 
   end;//with
 
-  do_toolbars;  // 217a 
+  do_toolbars;  // 217a
+
+  bvform_wide:=bitmap_viewer_form.ClientWidth;     // 555a
+  bvform_high:=bitmap_viewer_form.ClientHeight;
 
 end;
 //______________________________________________________________________________

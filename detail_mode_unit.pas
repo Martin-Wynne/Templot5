@@ -50,7 +50,6 @@ type
     normal_colours_radio: TRadioButton;
     normal_radio: TRadioButton;
     no_platforms_radio: TRadioButton;
-    platforms_panel: TPanel;
     thickcl_radio: TRadioButton;
     thickcl_panel: Tpanel;
     line_thickness_button: TButton;
@@ -103,7 +102,7 @@ end;
 procedure Tdetail_mode_form.normal_radioClick(Sender: TObject);
 
 begin
-  platforms_panel.Enabled:=False;
+  thickcl_panel.Enabled:=False;
 
   with print_settings_form do begin
 
@@ -136,7 +135,7 @@ end;
 procedure Tdetail_mode_form.thickcl_radioClick(Sender: TObject);
 
 begin
-  platforms_panel.Enabled:=True;
+  thickcl_panel.Enabled:=True;
 
   with print_settings_form do begin
 

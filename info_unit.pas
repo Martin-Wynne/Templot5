@@ -195,7 +195,7 @@ begin
   AutoScroll:=False;
 
   ClientWidth:=800;
-  ClientHeight:=430;
+  ClientHeight:=454;
 end;
 //______________________________________________________________________________________
 
@@ -496,7 +496,7 @@ begin
 
   data_child_form.Close; // if showing elsewhere
 
-  pad_form.InsertControl(data_child_form);
+  // 555a pad_form.InsertControl(data_child_form);
 
   data_child_form.data_memo.Text:=insert_crlf_str(memo_str);  //  replace embedded | chars with a CR.
 

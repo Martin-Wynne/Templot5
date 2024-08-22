@@ -14,7 +14,7 @@ object export_form: Texport_form
   Color = 16310480
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -61
+  Font.Height = -95
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -851,6 +851,11 @@ object export_form: Texport_form
     Top = 64
     Width = 109
     Caption = '? export - help'
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 5
   end
   object save_static_label: TStaticText

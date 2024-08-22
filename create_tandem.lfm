@@ -11,7 +11,7 @@ object tandem_form: Ttandem_form
   Color = 15794175
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -16
+  Font.Height = -31
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate

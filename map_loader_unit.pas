@@ -38,9 +38,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, Clipbrd;
+  StdCtrls, ExtCtrls, Clipbrd,
 
-// OT2024  HTTPSend;
+{OT2024}  HTTPSend;
 
 type
 
@@ -148,7 +148,7 @@ type
     procedure location_groupboxMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure lon_editEnter(Sender: TObject);
     procedure os_letters_editEnter(Sender: TObject);
-// OT2024    procedure load_tiles_buttonClick(Sender: TObject);
+{OT2024}    procedure load_tiles_buttonClick(Sender: TObject);
     procedure background_shapes_buttonClick(Sender: TObject);
     procedure Label24Click(Sender: TObject);
     procedure Label25Click(Sender: TObject);
@@ -185,7 +185,7 @@ type
     procedure zoom_to_map_buttonClick(Sender: TObject);
     procedure nls_county_radio_buttonClick(Sender: TObject);
     procedure nls_natgrid50_radio_buttonClick(Sender: TObject);
-// OT2024    procedure clarity_buttonClick(Sender: TObject);
+{OT2024}    procedure clarity_buttonClick(Sender: TObject);
     procedure os_coverage_buttonClick(Sender: TObject);
     procedure nls_coverage_buttonClick(Sender: TObject);
     procedure nls_natgrid25_radio_buttonClick(Sender: TObject);
@@ -198,6 +198,17 @@ type
     { Public declarations }
   end;
 
+
+  Tlat_lon=record
+             lat:extended;  // latitude degrees
+             lon:extended;  // longitude degrees
+           end;
+
+  Tos_grid=record
+             easting:extended;
+             northing:extended;
+           end;
+
 var
   map_loader_form: Tmap_loader_form;
 
@@ -207,13 +218,20 @@ var
 
              // 5=NLS modern 25-inch(tiled)         6=NLS town plans 60-inch    7=NLS town plans 125-inch              //no longer used 8=URL(screenshot)
 
+  got_osgrid:boolean=False;
+
+  previous_lat_lon:Tlat_lon;
+
   procedure map_loader_form_update;
 
   function format_his_name:string;
 
-// OT2024  function parse_url(str:string; var zoom_level:integer; var lat_lon:Tlat_lon):boolean;
+{OT2024}
+  function parse_url(str:string; var zoom_level:integer; var lat_lon:Tlat_lon):boolean;
 
-  function check_browser_zoom:boolean;
+  function parse_os_grid(modx,mody:extended; letter_str,easting_str,northing_str:string):Tos_grid;
+
+  function os_grid_to_lat_lon(easting,northing:extended):Tlat_lon;
 
 
 implementation
@@ -221,9 +239,8 @@ implementation
 {$R *.lfm}
 
 uses
-  Math, control_room, bgnd_unit, pad_unit, grid_unit, math_unit, entry_sheet, alert_unit, help_sheet, gauge_unit;
-// OT2024  map_clarity_unit;
-
+  Math, control_room, bgnd_unit, pad_unit, grid_unit, math_unit, entry_sheet, alert_unit, help_sheet, gauge_unit,
+{OT2024}  map_clarity_unit;
 
 var
   xtile_min,ytile_min,xtile_max,ytile_max:integer;
@@ -582,7 +599,7 @@ var
   http_count:integer;
 
   http_result:Boolean;
-// OT2024  http_sender:THTTPSend;
+{OT2024}  http_sender:THTTPSend;
   file_str:string;
 
   no_tile_str:string;
@@ -604,7 +621,7 @@ var
               begin
                 RESULT:=False;    // init
 
-                (* // OT2024
+                {// OT2024}
 
                    // 0=NLS historic 25-inch (tiled)      1=NLS 50-inch (tiled)       2=Thunderforest(tiled)     3=OpenStreetMap(tiled)     4=NLS 60-inch (tiled)
 
@@ -924,7 +941,7 @@ var
                           http_sender.Free;
                         end;
 
-*) // OT2024
+
 
               end;
               //////////////////////////////////////////////////////////////////
@@ -1099,7 +1116,7 @@ begin
   redraw(True);
 end;
 //______________________________________________________________________________
-(* // OT2024
+{OT2024}
 
 function parse_url(str:string; var zoom_level:integer; var lat_lon:Tlat_lon):boolean;
 
@@ -1708,10 +1725,10 @@ begin
 
             image_bitmap:=TBitmap.Create;
             rotated_bitmap:=TBitmap.Create;
-
+{OT2024
             image_metafile:=TMetafile.Create;    // 213b
             rotated_metafile:=TMetafile.Create;  // 213b
-
+}
             rotated_picture:=TPicture.Create;
 
             load_picture:=TPicture.Create; //0.93.a
@@ -1848,7 +1865,6 @@ begin
   map_buttons_click(True);
 end;
 //______________________________________________________________________________
-*)
 
 procedure Tmap_loader_form.background_shapes_buttonClick(Sender: TObject);
 
@@ -2852,7 +2868,7 @@ begin
   if map_exists=True then zoom_to_map;
 end;
 //______________________________________________________________________________
-(* // OT2024
+// OT2024
 
 procedure Tmap_loader_form.clarity_buttonClick(Sender: TObject);
 
@@ -2860,7 +2876,6 @@ begin
   map_clarity_form.Show;
 end;
 //______________________________________________________________________________
-*)
 
 procedure Tmap_loader_form.nls_coverage_buttonClick(Sender: TObject);
 
@@ -2895,5 +2910,271 @@ begin
   end;//with
 end;
 //______________________________________________________________________________
+
+function parse_os_grid(modx,mody:extended; letter_str,easting_str,northing_str:string):Tos_grid;
+
+  // e.g. TG 51409 13177  = easting:651409  northing:313177
+  // e.g. ND 51 13        = easting:351000  northing:913000
+
+  // modify result by modx,mody metres
+
+var
+  east,north:integer;
+  east_chars,north_chars:integer;
+
+                ////////////////////////////////////////////////////////////////
+
+                procedure get_letters;
+
+                begin
+                  if letter_str='HP' then begin east:=4; north:=12; EXIT; end;
+                  if letter_str='HT' then begin east:=3; north:=11; EXIT; end;
+                  if letter_str='HU' then begin east:=4; north:=11; EXIT; end;
+                  if letter_str='HW' then begin east:=1; north:=10; EXIT; end;
+                  if letter_str='HX' then begin east:=2; north:=10; EXIT; end;
+                  if letter_str='HY' then begin east:=3; north:=10; EXIT; end;
+                  if letter_str='HZ' then begin east:=4; north:=10; EXIT; end;
+                  if letter_str='NA' then begin east:=0; north:=9; EXIT; end;
+                  if letter_str='NB' then begin east:=1; north:=9; EXIT; end;
+                  if letter_str='NC' then begin east:=2; north:=9; EXIT; end;
+                  if letter_str='ND' then begin east:=3; north:=9; EXIT; end;
+                  if letter_str='NF' then begin east:=0; north:=8; EXIT; end;
+                  if letter_str='NG' then begin east:=1; north:=8; EXIT; end;
+                  if letter_str='NH' then begin east:=2; north:=8; EXIT; end;
+                  if letter_str='NJ' then begin east:=3; north:=8; EXIT; end;
+                  if letter_str='NK' then begin east:=4; north:=8; EXIT; end;
+                  if letter_str='NL' then begin east:=0; north:=7; EXIT; end;
+                  if letter_str='NM' then begin east:=1; north:=7; EXIT; end;
+                  if letter_str='NN' then begin east:=2; north:=7; EXIT; end;
+                  if letter_str='NO' then begin east:=3; north:=7; EXIT; end;
+                  if letter_str='NQ' then begin east:=0; north:=6; EXIT; end;
+                  if letter_str='NR' then begin east:=1; north:=6; EXIT; end;
+                  if letter_str='NS' then begin east:=2; north:=6; EXIT; end;
+                  if letter_str='NT' then begin east:=3; north:=6; EXIT; end;
+                  if letter_str='NU' then begin east:=4; north:=6; EXIT; end;
+                  if letter_str='NV' then begin east:=0; north:=5; EXIT; end;
+                  if letter_str='NW' then begin east:=1; north:=5; EXIT; end;
+                  if letter_str='NX' then begin east:=2; north:=5; EXIT; end;
+                  if letter_str='NY' then begin east:=3; north:=5; EXIT; end;
+                  if letter_str='NZ' then begin east:=4; north:=5; EXIT; end;
+                  if letter_str='OV' then begin east:=5; north:=5; EXIT; end;
+                  if letter_str='SA' then begin east:=0; north:=4; EXIT; end;
+                  if letter_str='SB' then begin east:=1; north:=4; EXIT; end;
+                  if letter_str='SC' then begin east:=2; north:=4; EXIT; end;
+                  if letter_str='SD' then begin east:=3; north:=4; EXIT; end;
+                  if letter_str='SE' then begin east:=4; north:=4; EXIT; end;
+                  if letter_str='SH' then begin east:=2; north:=3; EXIT; end;
+                  if letter_str='SJ' then begin east:=3; north:=3; EXIT; end;
+                  if letter_str='SK' then begin east:=4; north:=3; EXIT; end;
+                  if letter_str='SM' then begin east:=1; north:=2; EXIT; end;
+                  if letter_str='SN' then begin east:=2; north:=2; EXIT; end;
+                  if letter_str='SO' then begin east:=3; north:=2; EXIT; end;
+                  if letter_str='SP' then begin east:=4; north:=2; EXIT; end;
+                  if letter_str='SR' then begin east:=1; north:=1; EXIT; end;
+                  if letter_str='SS' then begin east:=2; north:=1; EXIT; end;
+                  if letter_str='ST' then begin east:=3; north:=1; EXIT; end;
+                  if letter_str='SU' then begin east:=4; north:=1; EXIT; end;
+                  if letter_str='SV' then begin east:=0; north:=0; EXIT; end;
+                  if letter_str='SW' then begin east:=1; north:=0; EXIT; end;
+                  if letter_str='SX' then begin east:=2; north:=0; EXIT; end;
+                  if letter_str='SY' then begin east:=3; north:=0; EXIT; end;
+                  if letter_str='SZ' then begin east:=4; north:=0; EXIT; end;
+                  if letter_str='TA' then begin east:=5; north:=4; EXIT; end;
+                  if letter_str='TF' then begin east:=5; north:=3; EXIT; end;
+                  if letter_str='TG' then begin east:=6; north:=3; EXIT; end;
+                  if letter_str='TL' then begin east:=5; north:=2; EXIT; end;
+                  if letter_str='TM' then begin east:=6; north:=2; EXIT; end;
+                  if letter_str='TQ' then begin east:=5; north:=1; EXIT; end;
+                  if letter_str='TR' then begin east:=6; north:=1; EXIT; end;
+                  if letter_str='TV' then begin east:=5; north:=0; EXIT; end;
+
+                end;
+                ////////////////////////////////////////////////////////////////
+
+begin
+  east:=-1;  // init invalid
+
+  RESULT.easting:=-1;
+  RESULT.northing:=-1;
+
+  letter_str:=Trim(letter_str);
+  easting_str:=Trim(easting_str);
+  northing_str:=Trim(northing_str);
+
+  letter_str:=UpperCase(letter_str);
+
+  get_letters;
+
+  if east=-1
+     then begin
+            show_modal_message('invalid OS Grid letters'+#13+#13+'The letters must be 2 valid grid letters marking an area 100km square in the UK.'
+                         +#13+#13+'Refer to your OS map for the correct letters for your area.');
+            got_osgrid:=False;
+            EXIT;
+          end;
+
+  east:=east*100000;    // metres to SW corner of letter squares
+  north:=north*100000;
+
+  east_chars:=Length(easting_str);
+  north_chars:=Length(northing_str);
+
+  if (east_chars<1) or (east_chars>5) or (north_chars<1) or (north_chars>5)
+     then begin
+            show_modal_message('invalid OS Grid reference'+#13+#13+'Grid numbers with letters must contain at least 1 and not more than 5 digits.'
+            +#13+#13+'Alternatively you can enter 6 digits and leave the letters blank');
+            got_osgrid:=False;
+            EXIT;
+          end;
+
+  case east_chars of
+
+    1: easting_str:=easting_str+'0000';
+    2: easting_str:=easting_str+'000';
+    3: easting_str:=easting_str+'00';
+    4: easting_str:=easting_str+'0';
+
+  end;//case
+
+  case north_chars of
+
+    1: northing_str:=northing_str+'0000';
+    2: northing_str:=northing_str+'000';
+    3: northing_str:=northing_str+'00';
+    4: northing_str:=northing_str+'0';
+
+  end;//case
+
+  try
+    east:=east+StrToInt(easting_str);
+    north:=north+StrToInt(northing_str);
+  except
+    show_modal_message('invalid OS Grid reference'+#13+#13+'Grid numbers must contain valid digits 0-9 only.');
+    got_osgrid:=False;
+    EXIT;
+  end;//try
+
+  got_osgrid:=True;
+
+    // to floats ...
+
+  RESULT.easting:=east+modx;
+  RESULT.northing:=north+mody;
+end;
+//______________________________________________________________________________
+
+// Converts Ordnance Survey grid reference easting/northing coordinate to latitude/longitude
+// (SW corner of grid square).
+
+function os_grid_to_lat_lon(easting,northing:extended):Tlat_lon;
+
+var
+  E,NN,
+  a,b,
+  F0,
+  k10,k20,
+  N0,E0,
+  e2,
+  n,n2,n3,
+  k1,M,
+  Ma,
+  Mb,
+  Mc,
+  Md,
+  cosk1,sink1,
+  v,
+  k3,
+  k42,
+
+  tank1,
+  tan2k1,tan4k1,tan6k1,
+  seck1,
+  v3,v5,v7,
+
+  VII,VIII,IX,X,XI,XII,XIIA,
+
+  dE,dE2,dE3,dE4,dE5,dE6,dE7,k2:extended;
+
+begin
+  E:=easting;
+  NN:=northing;
+
+  a:=6377563.396;        // Airy 1830 major & minor semi-axes
+  b:=6356256.909;
+
+  F0:=0.9996012717;      // NatGrid scale factor on central meridian
+
+  k10:=49*Pi/180;        // radians // NatGrid true origin is 49°N,2°W
+  k20:=0-2*Pi/180;
+
+  N0:=-100000;           // northing & easting of true origin, metres
+  E0:=400000;
+
+  e2:=1-(b*b)/(a*a);     // eccentricity squared
+
+  n:=(a-b)/(a+b);
+  n2:=n*n;
+  n3:=n*n*n;             // n, n squared, n cubed
+
+  k1:=k10;
+  M:=0;
+
+  repeat
+    k1:=(NN-N0-M)/(a*F0)+k1;
+
+    Ma:=(1+n+(5/4)*n2+(5/4)*n3)*(k1-k10);
+    Mb:=(3*n+3*n*n+(21/8)*n3)*SIN(k1-k10)*COS(k1+k10);
+    Mc:=((15/8)*n2+(15/8)*n3)*SIN(2*(k1-k10))*COS(2*(k1+k10));
+    Md:=(35/24)*n3*SIN(3*(k1-k10))*COS(3*(k1+k10));
+
+    M:=b*F0*(Ma-Mb+Mc-Md);       // meridional arc
+
+  until (NN-N0-M)<0.00001;       // i.e. until < 0.01mm
+
+  cosk1:=COS(k1);
+  sink1:=SIN(k1);
+
+  v:=a*F0/SQRT(1-e2*sink1*sink1);                // transverse radius of curvature
+
+  k3:=a*F0*(1-e2)/POWER(1-e2*sink1*sink1,1.5);   // meridional radius of curvature
+
+  k42:=v/k3-1;
+
+  tank1:=TAN(k1);
+  tan2k1:=tank1*tank1;
+  tan4k1:=tan2k1*tan2k1;
+  tan6k1:=tan4k1*tan2k1;
+
+  seck1:=1/cosk1;
+
+  v3:=v*v*v;
+  v5:=v3*v*v;
+  v7:=v5*v*v;
+
+  VII:=tank1/(2*k3*v);
+  VIII:=tank1/(24*k3*v3)*(5+3*tan2k1+k42-9*tan2k1*k42);
+  IX:=tank1/(720*k3*v5)*(61+90*tan2k1+45*tan4k1);
+  X:=seck1/v;
+  XI:=seck1/(6*v3)*(v/k3+2*tan2k1);
+  XII:=seck1/(120*v5)*(5+28*tan2k1+24*tan4k1);
+  XIIA:=seck1/(5040*v7)*(61+662*tan2k1+1320*tan4k1+720*tan6k1);
+
+  dE:=(E-E0);
+  dE2:=dE*dE;
+  dE3:=dE2*dE;
+  dE4:=dE2*dE2;
+  dE5:=dE3*dE2;
+  dE6:=dE4*dE2;
+  dE7:=dE5*dE2;
+
+  k1:=k1- VII*dE2+VIII*dE4-IX*dE6;
+
+  k2:=k20+X*dE-XI*dE3+XII*dE5-XIIA*dE7;
+
+  RESULT.lat:=k1*180/Pi;       // back to degrees
+  RESULT.lon:=k2*180/Pi;
+end;
+//______________________________________________________________________________
+
 
 end.

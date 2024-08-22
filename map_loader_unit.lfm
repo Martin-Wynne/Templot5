@@ -11,7 +11,7 @@ object map_loader_form: Tmap_loader_form
   Color = 16775412
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -24
+  Font.Height = -38
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -40,7 +40,12 @@ object map_loader_form: Tmap_loader_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'map name :'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
   end
   object Label21: TLabel
     Left = 302
@@ -63,7 +68,12 @@ object map_loader_form: Tmap_loader_form
     Alignment = taRightJustify
     AutoSize = False
     Caption = 'loaded maps :'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Layout = tlCenter
+    ParentFont = False
     Visible = False
   end
   object Label26: TLabel
@@ -323,11 +333,11 @@ object map_loader_form: Tmap_loader_form
   end
   object location_groupbox: TGroupBox
     Left = 412
-    Height = 207
+    Height = 212
     Top = 434
     Width = 534
     Caption = ' real location :  '
-    ClientHeight = 184
+    ClientHeight = 189
     ClientWidth = 530
     Color = 14221304
     Font.Color = clBlack
@@ -342,7 +352,7 @@ object map_loader_form: Tmap_loader_form
     object Label7: TLabel
       Left = 336
       Height = 16
-      Top = 120
+      Top = 102
       Width = 49
       AutoSize = False
       Caption = 'letters:'
@@ -354,7 +364,7 @@ object map_loader_form: Tmap_loader_form
     object Label8: TLabel
       Left = 388
       Height = 16
-      Top = 120
+      Top = 102
       Width = 60
       AutoSize = False
       Caption = 'easting:'
@@ -366,7 +376,7 @@ object map_loader_form: Tmap_loader_form
     object Label9: TLabel
       Left = 460
       Height = 16
-      Top = 120
+      Top = 102
       Width = 60
       AutoSize = False
       Caption = 'northing:'
@@ -378,7 +388,7 @@ object map_loader_form: Tmap_loader_form
     object Label11: TLabel
       Left = 164
       Height = 16
-      Top = 120
+      Top = 102
       Width = 77
       AutoSize = False
       Caption = 'latitude:'
@@ -390,7 +400,7 @@ object map_loader_form: Tmap_loader_form
     object Label12: TLabel
       Left = 16
       Height = 16
-      Top = 120
+      Top = 102
       Width = 73
       AutoSize = False
       Caption = 'longitude:'
@@ -402,7 +412,7 @@ object map_loader_form: Tmap_loader_form
     object Label13: TLabel
       Left = 248
       Height = 16
-      Top = 141
+      Top = 123
       Width = 69
       AutoSize = False
       Caption = 'degrees'
@@ -414,7 +424,7 @@ object map_loader_form: Tmap_loader_form
     object Label16: TLabel
       Left = 124
       Height = 20
-      Top = 26
+      Top = 8
       Width = 196
       Alignment = taRightJustify
       AutoSize = False
@@ -430,7 +440,7 @@ object map_loader_form: Tmap_loader_form
       Left = 324
       Height = 20
       Hint = 'visit NLS 25K 1950s mapping, add marker, copy URL from address bar, paste into box below'
-      Top = 26
+      Top = 8
       Width = 80
       AutoSize = False
       Caption = 'NLS maps'
@@ -448,7 +458,7 @@ object map_loader_form: Tmap_loader_form
     object Label19: TLabel
       Left = 176
       Height = 22
-      Top = 92
+      Top = 74
       Width = 108
       AutoSize = False
       Caption = '( entire world )'
@@ -461,7 +471,7 @@ object map_loader_form: Tmap_loader_form
     object Label27: TLabel
       Left = 8
       Height = 32
-      Top = 168
+      Top = 150
       Width = 153
       AutoSize = False
       Caption = 'enter longitude negative West of Greenwich UK'
@@ -474,7 +484,7 @@ object map_loader_form: Tmap_loader_form
     object Label28: TLabel
       Left = 164
       Height = 32
-      Top = 168
+      Top = 150
       Width = 145
       AutoSize = False
       Caption = 'enter latitude negative South of the Equator'
@@ -487,7 +497,7 @@ object map_loader_form: Tmap_loader_form
     object Label25: TLabel
       Left = 326
       Height = 16
-      Top = 172
+      Top = 154
       Width = 203
       AutoSize = False
       Caption = '3-figure or 5-figure references valid'
@@ -499,7 +509,7 @@ object map_loader_form: Tmap_loader_form
     object Label2: TLabel
       Left = 100
       Height = 16
-      Top = 141
+      Top = 123
       Width = 61
       AutoSize = False
       Caption = 'degrees'
@@ -511,7 +521,7 @@ object map_loader_form: Tmap_loader_form
     object Label22: TLabel
       Left = 398
       Height = 20
-      Top = 26
+      Top = 8
       Width = 131
       AutoSize = False
       Caption = 'then enter URL below'
@@ -524,7 +534,7 @@ object map_loader_form: Tmap_loader_form
     object os_grid_radio_button: TRadioButton
       Left = 316
       Height = 22
-      Top = 92
+      Top = 74
       Width = 184
       Caption = 'OS Grid Reference GB'
       TabOrder = 5
@@ -533,7 +543,7 @@ object map_loader_form: Tmap_loader_form
     object lat_lon_radio_button: TRadioButton
       Left = 12
       Height = 22
-      Top = 92
+      Top = 74
       Width = 153
       Caption = 'longitude / latitude'
       Checked = True
@@ -544,7 +554,7 @@ object map_loader_form: Tmap_loader_form
     object os_easting_edit: TEdit
       Left = 388
       Height = 24
-      Top = 138
+      Top = 120
       Width = 64
       AutoSize = False
       AutoSelect = False
@@ -562,7 +572,7 @@ object map_loader_form: Tmap_loader_form
     object os_northing_edit: TEdit
       Left = 460
       Height = 24
-      Top = 138
+      Top = 120
       Width = 64
       AutoSize = False
       AutoSelect = False
@@ -580,7 +590,7 @@ object map_loader_form: Tmap_loader_form
     object os_letters_edit: TEdit
       Left = 336
       Height = 24
-      Top = 138
+      Top = 120
       Width = 36
       AutoSize = False
       AutoSelect = False
@@ -599,7 +609,7 @@ object map_loader_form: Tmap_loader_form
     object lon_edit: TEdit
       Left = 16
       Height = 24
-      Top = 138
+      Top = 120
       Width = 80
       AutoSize = False
       AutoSelect = False
@@ -617,7 +627,7 @@ object map_loader_form: Tmap_loader_form
     object lat_edit: TEdit
       Left = 164
       Height = 24
-      Top = 138
+      Top = 120
       Width = 80
       AutoSize = False
       AutoSelect = False
@@ -635,7 +645,7 @@ object map_loader_form: Tmap_loader_form
     object url_radio_button: TRadioButton
       Left = 12
       Height = 20
-      Top = 26
+      Top = 8
       Width = 105
       Caption = 'from a URL :'
       Font.Color = clBlack
@@ -650,7 +660,7 @@ object map_loader_form: Tmap_loader_form
       Left = 16
       Height = 22
       Hint = ' set location by entering the URL for an OpenStreetMap or NLS slippy map or Google Maps or OS Maps '
-      Top = 54
+      Top = 36
       Width = 508
       AutoSize = False
       AutoSelect = False
@@ -679,15 +689,16 @@ object map_loader_form: Tmap_loader_form
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 17
+    OnClick = load_tiles_buttonClick
   end
   object extend_area_groupbox: TGroupBox
     Left = 398
     Height = 116
     Top = 70
-    Width = 266
+    Width = 270
     Caption = ' extend tiled map :  '
     ClientHeight = 93
-    ClientWidth = 262
+    ClientWidth = 266
     Color = 14221311
     Font.Color = clBlack
     Font.Height = -15
@@ -701,7 +712,7 @@ object map_loader_form: Tmap_loader_form
     object Shape2: TShape
       Left = 100
       Height = 24
-      Top = 54
+      Top = 30
       Width = 66
       Brush.Color = clSilver
       Brush.Style = bsDiagCross
@@ -712,7 +723,7 @@ object map_loader_form: Tmap_loader_form
       Left = 100
       Height = 24
       Hint = 'add a row of tiles at the top'
-      Top = 24
+      Top = 0
       Width = 66
       Caption = '+ 1 row'
       Font.Color = clWindowText
@@ -729,7 +740,7 @@ object map_loader_form: Tmap_loader_form
       Left = 8
       Height = 24
       Hint = 'add a column of tiles on the left'
-      Top = 54
+      Top = 30
       Width = 86
       Caption = '+ 1 column'
       Font.Color = clWindowText
@@ -746,7 +757,7 @@ object map_loader_form: Tmap_loader_form
       Left = 172
       Height = 24
       Hint = 'add a column of tiles on the right'
-      Top = 54
+      Top = 30
       Width = 86
       Caption = '+ 1 column'
       Font.Color = clWindowText
@@ -763,7 +774,7 @@ object map_loader_form: Tmap_loader_form
       Left = 100
       Height = 24
       Hint = 'add a row of tiles at the bottom'
-      Top = 84
+      Top = 60
       Width = 66
       Caption = '+ 1 row'
       Font.Color = clWindowText
@@ -781,10 +792,10 @@ object map_loader_form: Tmap_loader_form
     Left = 678
     Height = 116
     Top = 70
-    Width = 266
+    Width = 270
     Caption = ' crop tiled map  :  '
     ClientHeight = 93
-    ClientWidth = 262
+    ClientWidth = 266
     Color = 14221288
     Font.Color = clBlack
     Font.Height = -15
@@ -798,7 +809,7 @@ object map_loader_form: Tmap_loader_form
     object Shape3: TShape
       Left = 100
       Height = 24
-      Top = 54
+      Top = 30
       Width = 66
       Brush.Color = clSilver
       Brush.Style = bsDiagCross
@@ -809,7 +820,7 @@ object map_loader_form: Tmap_loader_form
       Left = 100
       Height = 24
       Hint = 'remove a row of tiles at the top'
-      Top = 24
+      Top = 0
       Width = 66
       Caption = '- 1 row'
       Font.Color = clWindowText
@@ -826,7 +837,7 @@ object map_loader_form: Tmap_loader_form
       Left = 8
       Height = 24
       Hint = 'remove a column of tiles on the left'
-      Top = 54
+      Top = 30
       Width = 86
       Caption = '- 1 column'
       Font.Color = clWindowText
@@ -843,7 +854,7 @@ object map_loader_form: Tmap_loader_form
       Left = 172
       Height = 24
       Hint = 'remove a column of tiles on the right'
-      Top = 54
+      Top = 30
       Width = 86
       Caption = '- 1 column'
       Font.Color = clWindowText
@@ -860,7 +871,7 @@ object map_loader_form: Tmap_loader_form
       Left = 100
       Height = 24
       Hint = 'remove a row of tiles at the bottom'
-      Top = 84
+      Top = 60
       Width = 66
       Caption = '- 1 row'
       Font.Color = clWindowText
@@ -1007,11 +1018,16 @@ object map_loader_form: Tmap_loader_form
   end
   object osm_radio_button: TRadioButton
     Left = 20
-    Height = 33
+    Height = 22
     Hint = 'a colourful modern map of the entire world'
     Top = 568
-    Width = 344
+    Width = 221
     Caption = 'OpenStreetMap  World  Map'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 14
@@ -1019,11 +1035,16 @@ object map_loader_form: Tmap_loader_form
   end
   object tf_radio_button: TRadioButton
     Left = 20
-    Height = 33
+    Height = 22
     Hint = ' a simplified railway map '
     Top = 492
-    Width = 350
+    Width = 223
     Caption = 'Thunderforest  Railway  Map'
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 12
@@ -1258,11 +1279,11 @@ object map_loader_form: Tmap_loader_form
   end
   object tf_style_groupbox: TGroupBox
     Left = 304
-    Height = 86
+    Height = 94
     Top = 478
     Width = 97
     Caption = ' style :  '
-    ClientHeight = 65
+    ClientHeight = 73
     ClientWidth = 93
     Font.Color = clBlack
     Font.Height = -13
@@ -1274,7 +1295,7 @@ object map_loader_form: Tmap_loader_form
     object tfm_radio: TRadioButton
       Left = 8
       Height = 20
-      Top = 18
+      Top = 4
       Width = 58
       Caption = 'bright'
       Checked = True
@@ -1285,7 +1306,7 @@ object map_loader_form: Tmap_loader_form
     object tfp_radio: TRadioButton
       Left = 8
       Height = 20
-      Top = 40
+      Top = 26
       Width = 70
       Caption = 'pioneer'
       Enabled = False
@@ -1294,7 +1315,7 @@ object map_loader_form: Tmap_loader_form
     object tfo_radio: TRadioButton
       Left = 8
       Height = 20
-      Top = 62
+      Top = 48
       Width = 76
       Caption = 'outdoors'
       Enabled = False
@@ -1316,6 +1337,7 @@ object map_loader_form: Tmap_loader_form
     ParentShowHint = False
     ShowHint = True
     TabOrder = 3
+    OnClick = clarity_buttonClick
   end
   object os_coverage_button: TButton
     Left = 12

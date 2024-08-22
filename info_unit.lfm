@@ -1,8 +1,8 @@
 object info_form: Tinfo_form
-  Left = 20
-  Height = 490
-  Top = 112
-  Width = 818
+  Left = 650
+  Height = 454
+  Top = 399
+  Width = 800
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True
   VertScrollBar.Smooth = True
@@ -10,12 +10,12 @@ object info_form: Tinfo_form
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '  information'
-  ClientHeight = 490
-  ClientWidth = 818
+  ClientHeight = 454
+  ClientWidth = 800
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -13
+  Font.Height = -61
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -27,7 +27,7 @@ object info_form: Tinfo_form
   Scaled = False
   object radius_shape: TShape
     Left = 128
-    Height = 102
+    Height = 106
     Top = 24
     Width = 293
     Brush.Color = 14221311
@@ -39,7 +39,6 @@ object info_form: Tinfo_form
     Top = 164
     Width = 285
     BevelOuter = bvNone
-    BorderStyle = bsSingle
     Caption = ' template info ( all dimensions in mm ) : '
     Color = 14221311
     Font.Color = 4210816
@@ -98,6 +97,7 @@ object info_form: Tinfo_form
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    Transparent = False
     OnClick = gauge_bang_labelClick
   end
   object min_rad_box: TPanel
@@ -186,7 +186,7 @@ object info_form: Tinfo_form
   object blue_corner_panel: TPanel
     Left = 0
     Height = 48
-    Top = 60
+    Top = 64
     Width = 40
     BevelOuter = bvNone
     ClientHeight = 48
@@ -344,9 +344,9 @@ object info_form: Tinfo_form
     Visible = False
   end
   object shrink_button: TButton
-    Left = 66
+    Left = 68
     Height = 24
-    Top = 59
+    Top = 62
     Width = 56
     Caption = 'shrin&k'
     Font.Color = clBlack
@@ -358,9 +358,9 @@ object info_form: Tinfo_form
     OnClick = shrink_buttonClick
   end
   object expand_button: TButton
-    Left = 66
+    Left = 68
     Height = 24
-    Top = 29
+    Top = 28
     Width = 56
     Caption = 'e&xpand'
     Font.Color = clBlack
@@ -520,10 +520,10 @@ object info_form: Tinfo_form
     OnClick = write_buttonClick
   end
   object mouse_now_panel: TPanel
-    Left = 504
+    Left = 500
     Height = 22
     Top = 0
-    Width = 242
+    Width = 246
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Color = clWhite
@@ -540,7 +540,7 @@ object info_form: Tinfo_form
     Left = 52
     Height = 22
     Hint = ' name or rename current template '
-    Top = 88
+    Top = 104
     Width = 70
     Caption = '&name ...'
     Font.Color = clBlack
@@ -621,14 +621,13 @@ object info_form: Tinfo_form
     end
   end
   object pad_data_group: TPanel
-    Left = 504
+    Left = 500
     Height = 90
-    Top = 36
-    Width = 296
+    Top = 40
+    Width = 300
     BevelOuter = bvNone
-    BorderStyle = bsSingle
-    ClientHeight = 86
-    ClientWidth = 292
+    ClientHeight = 90
+    ClientWidth = 300
     Color = clCream
     Font.Color = clBlack
     Font.Height = -13
@@ -640,18 +639,17 @@ object info_form: Tinfo_form
     TabOrder = 9
     object pad_data_scrollbox: TScrollBox
       Left = 0
-      Height = 86
-      Top = 0
-      Width = 292
+      Height = 88
+      Top = 2
+      Width = 300
       HorzScrollBar.Page = 1
       HorzScrollBar.Visible = False
       VertScrollBar.Increment = 4
-      VertScrollBar.Page = 86
+      VertScrollBar.Page = 88
       VertScrollBar.Tracking = True
-      Align = alClient
       BorderStyle = bsNone
-      ClientHeight = 86
-      ClientWidth = 271
+      ClientHeight = 88
+      ClientWidth = 279
       Font.Color = clBlack
       Font.Height = -13
       Font.Name = 'Arial'
@@ -660,9 +658,9 @@ object info_form: Tinfo_form
       ParentFont = False
       TabOrder = 0
       object zoom_lock_label: TLabel
-        Left = 50
+        Left = 54
         Height = 18
-        Top = 2
+        Top = 4
         Width = 88
         Alignment = taCenter
         AutoSize = False
@@ -676,9 +674,9 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_width_label: TLabel
-        Left = 2
+        Left = 6
         Height = 16
-        Top = 24
+        Top = 26
         Width = 257
         AutoSize = False
         Caption = 'pad_width_label'
@@ -689,9 +687,9 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_height_label: TLabel
-        Left = 2
+        Left = 6
         Height = 16
-        Top = 44
+        Top = 46
         Width = 257
         AutoSize = False
         Caption = 'pad_height_label'
@@ -702,9 +700,9 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_zoom_label: TLabel
-        Left = 0
+        Left = 4
         Height = 18
-        Top = 2
+        Top = 4
         Width = 48
         AutoSize = False
         Caption = 'zoom :'
@@ -715,9 +713,9 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object pad_notch_label: TLabel
-        Left = 0
+        Left = 4
         Height = 18
-        Top = 66
+        Top = 68
         Width = 124
         AutoSize = False
         Caption = 'pegging  notch :'
@@ -806,7 +804,7 @@ object info_form: Tinfo_form
         ParentFont = False
       end
       object unlock_button: TButton
-        Left = 140
+        Left = 148
         Height = 20
         Top = 0
         Width = 52
@@ -820,7 +818,7 @@ object info_form: Tinfo_form
         OnClick = unlock_buttonClick
       end
       object lock_zoom_button: TButton
-        Left = 196
+        Left = 204
         Height = 20
         Top = 0
         Width = 68
@@ -1172,13 +1170,12 @@ object info_form: Tinfo_form
     OnClick = companion_buttonClick
   end
   object pad_data_caption: TPanel
-    Left = 504
+    Left = 500
     Height = 16
     Top = 24
-    Width = 296
+    Width = 300
     Alignment = taLeftJustify
     BevelOuter = bvNone
-    BorderStyle = bsSingle
     Caption = ' trackpad  data :  '
     Color = clCream
     Font.Color = clNavy

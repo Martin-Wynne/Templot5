@@ -11,7 +11,7 @@ object detail_mode_form: Tdetail_mode_form
   Color = 15794175
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -13
+  Font.Height = -31
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -31,15 +31,17 @@ object detail_mode_form: Tdetail_mode_form
     ParentFont = False
   end
   object thickcl_panel: TPanel
-    Left = 12
-    Height = 140
-    Top = 60
-    Width = 300
+    Left = 32
+    Height = 130
+    Top = 68
+    Width = 290
     BevelOuter = bvNone
+    BorderWidth = 1
     BorderStyle = bsSingle
     Caption = '    '
-    ClientHeight = 136
-    ClientWidth = 296
+    ClientHeight = 126
+    ClientWidth = 286
+    Enabled = False
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
@@ -47,77 +49,66 @@ object detail_mode_form: Tdetail_mode_form
     ParentBackground = False
     ParentFont = False
     TabOrder = 4
-    object platforms_panel: TPanel
-      Left = 45
-      Height = 103
-      Top = 17
-      Width = 244
-      BevelOuter = bvNone
-      ClientHeight = 103
-      ClientWidth = 244
-      Enabled = False
-      ParentBackground = False
+    object Label1: TLabel
+      Left = 28
+      Height = 18
+      Top = 16
+      Width = 127
+      Caption = '  with  platforms :  '
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object normal_colours_radio: TRadioButton
+      Left = 54
+      Height = 20
+      Top = 40
+      Width = 140
+      Caption = 'in  normal  colours'
+      Checked = True
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 0
-      object Label1: TLabel
-        Left = 4
-        Height = 18
-        Top = 0
-        Width = 127
-        Caption = '  with  platforms :  '
-        Font.Color = clBlue
-        Font.Height = -15
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object normal_colours_radio: TRadioButton
-        Left = 30
-        Height = 20
-        Top = 20
-        Width = 140
-        Caption = 'in  normal  colours'
-        Checked = True
-        Font.Color = clGreen
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 0
-        TabStop = True
-      end
-      object marker_colours_radio: TRadioButton
-        Left = 30
-        Height = 20
-        Top = 48
-        Width = 208
-        Caption = 'in  marker / mapping  colours'
-        Font.Color = clGreen
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 1
-      end
-      object no_platforms_radio: TRadioButton
-        Left = 30
-        Height = 20
-        Top = 72
-        Width = 104
-        Caption = 'no  platforms'
-        Font.Color = clGreen
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 2
-      end
+      TabStop = True
+    end
+    object marker_colours_radio: TRadioButton
+      Left = 54
+      Height = 20
+      Top = 68
+      Width = 208
+      Caption = 'in  marker / mapping  colours'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+    end
+    object no_platforms_radio: TRadioButton
+      Left = 54
+      Height = 20
+      Top = 96
+      Width = 104
+      Caption = 'no  platforms'
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
     end
   end
   object normal_radio: TRadioButton
-    Left = 28
+    Left = 24
     Height = 22
-    Top = 12
-    Width = 214
+    Top = 20
+    Width = 240
+    AutoSize = False
     Caption = 'normal  detail-mode  output'
     Checked = True
     Font.Color = clWindowText
@@ -193,12 +184,11 @@ object detail_mode_form: Tdetail_mode_form
     OnClick = more_info_buttonClick
   end
   object thickcl_radio: TRadioButton
-    Left = 28
-    Height = 22
-    Top = 50
-    Width = 236
-    BorderSpacing.Left = 4
-    BorderSpacing.Around = 6
+    Left = 24
+    Height = 28
+    Top = 54
+    Width = 240
+    AutoSize = False
     Caption = ' thick  track  centre-lines  only '
     Font.Color = clWindowText
     Font.Height = -15

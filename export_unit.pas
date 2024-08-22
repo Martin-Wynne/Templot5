@@ -184,17 +184,14 @@ var
   pdf_black_white:boolean=False;
   pdf_grey_shade:boolean=False;
 
-  emf_file_str:string='';   // 555a
-
-
   procedure set_boundary_rectangle_dims(calling_form:TForm);
 
 
 implementation
 
-uses ShellAPI, control_room, pad_unit, keep_select, math_unit, preview_unit, entry_sheet, help_sheet,
+uses ShellAPI, control_room, keep_select, math_unit, preview_unit, entry_sheet, help_sheet, pad_unit,
      alert_unit, grid_unit, print_settings_unit, colour_unit, bgnd_unit, dxf_unit, image_viewer_unit,
-     export_draw_unit, pdf_laz_unit;
+     export_draw_unit, pdf_laz_unit, emf_unit;
 
 {$R *.lfm}
 
@@ -486,7 +483,14 @@ begin
 end;
 //______________________________________________________________________________
 
-function do_export_metafile(file_str:string; met_width_dots,met_height_dots:integer):boolean;     // 555a
+procedure view_memory_emf;
+
+begin
+  show_an_image_file(True,'',emf_in_memory);
+end;
+//______________________________________________________________________________
+
+function do_export_metafile(file_str:string; met_width_dots,met_height_dots:integer; var mem_emf:Temf):boolean;     // 555a      MW 12-AUG-2024
 
 var
   on_canvas:TCanvas;
@@ -498,6 +502,15 @@ var
   met_rect:TRect;
   met_ref_DC:HDC;      // for EMF metafiles   555a
   memory_met_dc:HDC;
+
+  n,met_size,met_copied:integer;
+
+  p:Pointer;
+
+  arr_byte:array of byte;
+
+
+  s:string;
 
 begin
   RESULT:=False;  // init
@@ -513,7 +526,9 @@ begin
 
   met_rect:=Rect(0,0,Round(met_width_dots*horz_factor),Round(met_height_dots*vert_factor));
 
-  met_dc_handle:=CreateEnhMetaFile(met_ref_DC,PChar(met_file_str),@met_rect,nil);
+  if met_file_str=''                                                                         // 555a
+     then met_dc_handle:=CreateEnhMetaFile(met_ref_DC,nil,@met_rect,nil)                     // memory-based metafile
+     else met_dc_handle:=CreateEnhMetaFile(met_ref_DC,PChar(met_file_str),@met_rect,nil);    // for .EMF file
 
   if met_dc_handle=0
      then begin
@@ -532,12 +547,78 @@ begin
   export_draw(on_canvas,met_width_dots,met_height_dots,4);    // draw within image boundary    4= to metafile.
 
   try
-    memory_met_dc:=CloseEnhMetaFile(met_dc_handle);   // save it to file
+    memory_met_dc:=CloseEnhMetaFile(met_dc_handle);   // save it to .EMF file
 
     if memory_met_dc=0
        then begin
               show_modal_message('Sorry, an error occurred in saving the metafile.');
               EXIT;
+            end;
+
+{
+Temf=record                           // 555a       MW 12-AUG-2024
+       emf_bytes:array of byte;
+
+       emf_width_100mm:double;    // frame size in mm
+       emf_height_100mm:double;
+
+       emf_width_dots:integer;
+       emf_height_dots:integer;
+     end;
+}
+
+    if met_file_str=''     // metafile in memory
+       then begin
+              with mem_emf do begin
+                met_size:=GetEnhMetaFileBits(memory_met_dc,0,nil);  // get size of EMF data
+
+                if met_size=0
+                   then begin
+                          show_modal_message('Sorry, an error occurred in saving the metafile data.');
+                          EXIT;
+                        end;
+
+                showmessage('1  '+inttostr(met_size));
+
+                try
+                  GetMem(p,met_size);    // get memory buffer for it
+                except
+                  show_modal_message('Sorry, an error occurred in saving the metafile data to memory.');
+                  p:=nil;
+                  EXIT;
+                end;//try
+
+                met_copied:=GetEnhMetaFileBits(memory_met_dc,met_size,p);   // get the EMF contents into the buffer
+
+                if met_copied=0    // size of data copied
+                   then begin
+                          show_modal_message('Sorry, an error occurred in saving the metafile data to memory.');
+                          EXIT;
+                        end;
+
+                showmessage('2  '+inttostr(met_copied));
+
+                SetLength(emf_bytes, met_copied);
+
+                Move(p^, emf_bytes[0], met_copied);
+
+                s:='';
+                for n:=0 to 200 do begin
+                  s:=s+Inttostr(emf_bytes[n]);
+                end;
+
+                showmessage('3 '+s);
+
+                FreeMem(p);   // free the buffer
+
+
+                emf_width_100mm:=met_width_dots*horz_factor;          // frame size in 1/100ths mm
+                emf_height_100mm:=met_height_dots*vert_factor;
+
+                emf_width_dots:=met_width_dots;
+                emf_height_dots:=met_height_dots;
+
+              end;//with
             end;
 
     RESULT:=True;
@@ -547,6 +628,8 @@ begin
 
     on_canvas.Free;
   end;
+
+
 end;
 //______________________________________________________________________________
 
@@ -572,7 +655,11 @@ var
 
   box_value:extended;
 
+  emf_streaming:boolean;
+
   emf_warning_str,emf_alert_str:string;
+
+  dummy_emf:Temf; // 555a
 
 begin
 
@@ -649,33 +736,39 @@ begin
     EXIT;
   end;//try
 
-     // 291a ...
+  i:=alert(4,'    metafile  destination ?',
+             'Do you want to save the metafile in memory (for use on the sketchboard, or in background picture shapes).||Or export it to a file ?',
+             '','','','save  in  memory','cancel  metafile','export  to  a  file',0);
 
-  file_str:='';   // init
+  if i=5 then EXIT;
 
-  file_name_str:=remove_invalid_str(Copy(Trim(box_project_title_str),1,20)+FormatDateTime('_yyyy_mm_dd_hhmm_ss',Date+Time));
+  emf_streaming:=(i=4);
 
-  with save_emf_dialog do begin
+  if emf_streaming=False
+     then begin
+            file_name_str:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime('_yyyy_mm_dd_hhmm_ss',Date+Time));
 
-    if his_emf_file_name<>'' then InitialDir:=ExtractFilePath(his_emf_file_name)
-                             else InitialDir:=exe_str+'EMF-FILES\';
+            with save_emf_dialog do begin
 
-    FileName:=file_name_str+'.emf';
-    DefaultExt:='emf';
-    Filter:='EMF metafile ( .emf)|*.emf';
-    Title:='    create  EMF  metafile ...';
+              if his_emf_file_name<>'' then InitialDir:=ExtractFilePath(his_emf_file_name)
+                                       else InitialDir:=exe_str+'EMF-FILES\';
 
-    if Execute=False then EXIT;
+              FileName:=file_name_str+'.emf';
+              DefaultExt:='emf';
+              Filter:='EMF metafile ( .emf)|*.emf';
+              Title:='    create  EMF  metafile ...';
 
-    FileName:=ChangeFileExt(FileName,'.emf');   // force extension
+              if Execute=False then EXIT;
 
-    his_emf_file_name:=FileName;        // so we can use the same folder next time.
+              his_emf_file_name:=FileName;        // so we can use the same folder next time.
 
-      // invalid entered chars removed by dialog
+                // invalid entered chars removed by dialog
 
-    file_str:=ExtractFilePath(FileName)+lower_case_filename(ExtractFileName(FileName));   // to underscores and lower case
+              file_str:=ExtractFilePath(FileName)+lower_case_filename(ExtractFileName(FileName));   // to underscores and lower case
 
-  end;//with
+            end;//with
+          end
+     else file_str:='';  // emf_streaming, save to memory
 
   Screen.Cursor:=crHourGlass;  // needed for large images or slow systems
 
@@ -736,7 +829,7 @@ begin
   metafile_height:=Round(img_height_mm*metafile_dpi/25.4);
 
   try
-    if do_export_metafile(file_str,metafile_width,metafile_height)=False
+    if do_export_metafile(file_str, metafile_width, metafile_height, emf_in_memory)=False   // if file_str blank, save to emf_in_memory
        then begin
               show_modal_message('Sorry, an error occurred in creating the EMF file.');
               EXIT;
@@ -744,7 +837,14 @@ begin
 
     Screen.Cursor:=crDefault;
 
-     // 291a ...
+    if emf_streaming=True
+       then begin
+              if alert(2,'   EMF  metafile  created  in  memory',
+                         'The EMF metafile was created in memory successfully.',
+                         '','','','view  EMF  metafile','','OK',0)=4
+                 then view_memory_emf;
+              EXIT;
+            end;
 
     emf_warning_str:='';    // init
     emf_alert_str:='';
@@ -776,7 +876,7 @@ begin
 
                 if i=2
                    then begin
-                          show_an_image_file(file_str);
+                          show_an_image_file(False,file_str,dummy_emf);
                         end;
 
                 if i=3
@@ -874,6 +974,8 @@ var
   img_height_mm:extended;
 
   box_value:integer;  // 205e ...
+
+  dummy_emf:Temf; // 555a
 
 begin
 
@@ -1130,7 +1232,7 @@ begin
 
         if i=2
            then begin
-                  show_an_image_file(file_str);
+                  show_an_image_file(False,file_str,dummy_emf);
                 end;
 
         if i=3

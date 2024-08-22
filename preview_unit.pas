@@ -1276,6 +1276,33 @@ begin
                                                            then begin
                                                                   // OT2024 pad_form.bgnd_shape_image.Picture.Graphic:=Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgimage.image_shape.image_metafile;
                                                                   // OT2024 CopyMode:=cmSrcCopy;  // normal
+
+                                                                  // 555a begin
+
+                                                                  with Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgimage.image_shape do begin
+
+                                                                    image_bitmap.Width:=20;            // arbitrary.
+                                                                    image_bitmap.Height:=10;           // arbitrary.
+
+                                                                    image_width:=image_bitmap.Width;
+                                                                    image_height:=image_bitmap.Height;
+
+                                                                    with image_bitmap.Canvas do begin     // and blank the picture area...
+                                                                      Brush.Color:=clWhite;
+                                                                      Brush.Style:=bsSolid;
+                                                                      FillRect(Rect(0, 0, image_bitmap.Width, image_bitmap.Height));
+                                                                    end;//with
+
+                                                                  end;//with
+
+                                                                  pad_form.bgnd_shape_image.Picture.Graphic:=Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgimage.image_shape.image_bitmap;
+
+                                                                  if Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgnd_shape.show_transparent=True
+                                                                     then CopyMode:=cmSrcAnd    // (destination Canvas) transparent if on white background.
+                                                                     else CopyMode:=cmSrcCopy;  // reset normal for destination Canvas.
+
+                                                                  // 555a END
+
                                                                 end
                                                            else begin
 
