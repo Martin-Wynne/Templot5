@@ -702,8 +702,9 @@ implementation
 uses
   ShellAPI, Math, Clipbrd, control_room, grid_unit, colour_unit, help_sheet, chat_unit, alert_unit, keep_select,
   entry_sheet, math_unit, wait_message, image_viewer_unit, export_unit, xml_unit,  // 227a
-  map_loader_unit, action_unit, map_clarity_unit, brick_unit, dxf_unit;  // 555a
 
+  map_loader_unit, action_unit, map_clarity_unit,
+  brick_unit;
 
 //______________________________________________________________________________
 
@@ -2154,17 +2155,17 @@ begin
               end;//with
 
               with Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[n]).bgimage.image_shape do begin
-
+(* OT2024
                 image_bitmap:=TBitmap.Create;
                 rotated_bitmap:=TBitmap.Create;
 
-// OT2024                image_metafile:=TMetafile.Create;
-// OT2024                rotated_metafile:=TMetafile.Create;
+                image_metafile:=TMetafile.Create;     // created but not used  213b
+                rotated_metafile:=TMetafile.Create;   // created but not used  213b
 
                 rotated_picture:=TPicture.Create;
 
                 try
- (* OT2024                  if dropped_picture.Graphic is TMetafile
+                  if dropped_picture.Graphic is TMetafile
                      then begin
                             image_metafile.Assign(dropped_picture.Graphic);
 
@@ -2174,7 +2175,6 @@ begin
                             Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[n]).bgnd_shape.picture_is_metafile:=True;
                           end
                      else begin
-*)
                             Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[n]).bgnd_shape.picture_is_metafile:=False;
 
                             if dropped_picture.Graphic is TIcon    // convert it to bitmap
@@ -2191,7 +2191,7 @@ begin
 
                             if image_bitmap.PixelFormat<>pf8bit then image_bitmap.PixelFormat:=pf24bit;    // 215b  down from 32bit for deep zooming (also workaround for TPngImage on lower than 8bit)
 
-// OT2024                          end;
+                          end;
 
                 except
                   image_bitmap.Width:=200;            // arbitrary.
@@ -2213,7 +2213,7 @@ begin
 
                 img_width:=image_width;        // return these to caller...
                 img_height:=image_height;
-
+*)
               end;//with image_shape
 
               shapes_saved:=False;
@@ -2225,12 +2225,9 @@ begin
 
          // 214a get TWAIN scanned image
 
-
-
     if scan_wanted=True
        then begin
 
-(* OT2024
               new_bmp:=TBitmap.Create;
 
               if do_twain(new_bmp)=True    // get scan
@@ -2246,10 +2243,10 @@ begin
                                       bgimage.image_shape.rotated_bitmap.Free;
 
                                       bgimage.image_shape.undo_bitmap.Free;   // 227a
-{ OT2024
+(* OT2024
                                       bgimage.image_shape.image_metafile.Free;    // 213b
                                       bgimage.image_shape.rotated_metafile.Free;  // 213b
-}
+*)
                                       bgimage.image_shape.rotated_picture.Free;
 
                                       bgimage.Free;                               // and free the image object.
@@ -2265,10 +2262,10 @@ begin
 
                             image_bitmap:=TBitmap.Create;
                             rotated_bitmap:=TBitmap.Create;
-{ OT2024
+(* OT2024
                             image_metafile:=TMetafile.Create;     // created but not used  213b
                             rotated_metafile:=TMetafile.Create;   // created but not used  213b
-}
+*)
                             rotated_picture:=TPicture.Create;
 
                             image_bitmap.Assign(new_bmp);
@@ -2288,7 +2285,6 @@ begin
                    else was_cancelled:=True;    // scan failed
 
               new_bmp.Free;
-*)
 
               EXIT;
             end;// scan wanted
@@ -2461,7 +2457,6 @@ begin
                                                   bgnd_shape.picture_is_metafile:=True;  // into file   213b
                                                 end
                                            else begin
-*)
                                                   image_bitmap.Assign(load_picture.Graphic);
 
                                                   if image_bitmap.PixelFormat<>pf8bit then image_bitmap.PixelFormat:=pf24bit;    // 215b  down from 32bit for deep zooming (also workaround for TPngImage on lower than 8bit)
@@ -2470,7 +2465,8 @@ begin
                                                   image_height:=image_bitmap.Height;
 
                                                   bgnd_shape.picture_is_metafile:=False;  // into file   213b
-// OT2024                                                end;
+                                                end;
+*)
 
                                       finally
                                         load_picture.Free;
@@ -11918,49 +11914,11 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   // 555b  SC 17-JULY-2024
-
-const
-  clip_str:string='      `0Connector  Clip  Dimensions`9'
-                 +'||Set the size of the timbering brick connector clips by entering the dimensions here.'
-                 +'||The dimension should be entered in mm unless you apply conversion factors.'
-                 +'||For more information about using conversion factors click the `0? help`1 button.';
-
-var
-  n:integer;
-  od:Toutdim;
+procedure Tbgnd_form.clip_dims_menu_entryClick(Sender: TObject);   // 555b
 
 begin
   // set dimensions for connector clip
 
-     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  shaft  width',clip_shaft_width*inscale,True,True,True,False);     // no negative, no preset, no zero, don't terminate on zero.
-     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  width',clip_top_width*inscale,True,True,True,False);         // no negative, no preset, no zero, don't terminate on zero.
-     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  top  length',clip_top_length*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
-
-     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  arms  width',clip_arms_width*inscale,True,True,True,False);       // no negative, no preset, no zero, don't terminate on zero.
-
-     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers  width',clip_outers_width*inscale,True,True,True,False);   // no negative, no preset, no zero, don't terminate on zero.
-     putdim('please refer to Templot Club forum',1,'3-D  connector  clip  outers length',clip_outers_length*inscale,True,True,True,False);  // no negative, no preset, no zero, don't terminate on zero.
-
-  n:=putdim('please refer to Templot Club forum',1,'3-D  connector  clip  hole  size',clip_hole_mm,True,True,True,False);           // no negative, no preset, no zero, don't terminate on zero.
-
-  if n<>6 then EXIT;
-
-  if getdims('3-D  brick  connector  clip sizes ...',clip_str,bgnd_form,n,od)=True
-     then begin
-            clip_shaft_width:=od[0]/inscale;
-            clip_top_width:=od[1]/inscale;
-            clip_top_length:=od[2]/inscale;
-
-            clip_arms_width:=od[3]/inscale;
-
-            clip_outers_width:=od[4]/inscale;
-            clip_outers_length:=od[5]/inscale;
-
-            clip_hole_mm:=od[6];
-          end;
-
-  redraw(True);     // show target marks as clips
 
 end;
 //______________________________________________________________________________

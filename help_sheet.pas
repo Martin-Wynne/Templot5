@@ -39,7 +39,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Buttons, ComCtrls, Menus, Clipbrd, ShellAPI, PrintersDlgs,
-  Htmlview, MetafilePrinter, StyleUn, HtmlFonts, HtmlGlobals;
+  Htmlview, {OT2024 MetafilePrinter,} StyleUn, HtmlFonts, HtmlGlobals;
 
 type
 
@@ -1409,7 +1409,7 @@ end;
 procedure Thelp_form.pdf_buttonClick(Sender: TObject);
 
 var
-  metafile_printer:TMetafilePrinter;
+ //OT2024  metafile_printer:TMetafilePrinter;
   page:integer;
   folder_str:string;
 
@@ -1510,18 +1510,19 @@ end;
 procedure Thelp_form.create_emf_file_popup_entryClick(Sender: TObject);    // 214a  test...
 
 var
-  help_metafile:TMetafile;
+  //help_metafile:TMetafile;
   file_str,folder_str:string;
 
 begin
+
+(*OT2024
   file_str:=exe_str+'EMF-FILES\help_notes_metafile.emf';
 
-// OT2024  help_metafile:=html_view.MakeMetafile(0, html_view.Width, html_view.Width+30, html_view.Height);
+  help_metafile:=html_view.MakeMetafile(0, html_view.Width, html_view.Width+30, html_view.Height);
 
 
   try
-// OT2024    help_metafile.Enhanced:=True;
-// OT2024 help_metafile.SaveToFile(file_str);
+    help_metafile.SaveToFile(file_str);
 
     if alert(2,'    metafile  created',
                   ' |The metafile was successfully created:||'+file_str+'| ',
@@ -1539,7 +1540,7 @@ begin
   end;//try
 
   if Assigned(help_metafile) then help_metafile.Free;
-
+*)
 end;
 //______________________________________________________________________________
 

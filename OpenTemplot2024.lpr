@@ -114,9 +114,10 @@ uses
   date_unit in 'date_unit.pas' {date_form},
   pdf_laz_unit in 'pdf_laz_unit.pas' {pdf_laz_form},
   export_draw_unit in 'export_draw_unit.pas',
-  FrameViewer09 {date_form},
+  custom_3d_unit in 'custom_3d_unit.pas',
+  emf_unit in 'emf_unit.pas' {emf_form},
 
-  printer4lazarus, trial_unit, custom_3d_unit;
+  FrameViewer09, printer4lazarus, httpsend;
 
 {$R *.res}
 
@@ -226,8 +227,8 @@ begin
   Application.CreateForm(Tsliders_form, sliders_form);
   Application.CreateForm(Tdate_form, date_form);
   Application.CreateForm(Tpdf_laz_form, pdf_laz_form);
-  Application.CreateForm(Ttrial_form, trial_form);
   Application.CreateForm(Tcustom_3d_form, custom_3d_form);
+  Application.CreateForm(Temf_form, emf_form);
 
   detect_wine;   // 205a in startup unit
 
@@ -238,7 +239,6 @@ begin
   control_room_form.Enabled:=True;
 
   do_dpi_aware_scaling(0);   // 211b
-
 
   Application.Run;
 

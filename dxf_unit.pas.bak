@@ -41,31 +41,11 @@ uses
   StdCtrls, ExtCtrls, ComCtrls, pad_unit;
 
 type
-
-  { Tdxf_form }
-
   Tdxf_form = class(TForm)
-    all_loose_jaws_button: TButton;
-    all_slots_button: TButton;
-    all_solid_jaws_button: TButton;
-    chairs_bullet_shape: TShape;
-    chairs_only_button: TButton;
-    jaws_panel: TPanel;
-    Label19: TLabel;
-    Label81: TLabel;
-    Label82: TLabel;
-    Label84: TLabel;
-    Label85: TLabel;
     ok_panel: TPanel;
     ok_button: TButton;
     datestamp_label: TLabel;
     blue_corner_panel: TPanel;
-    overall_size_button: TButton;
-    quick_change_panel: TPanel;
-    rail_label: TLabel;
-    rail_section_button: TButton;
-    reset_both_bullet_shape: TShape;
-    reset_both_button: TButton;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
@@ -99,10 +79,6 @@ type
     set_custom_rail_button: TButton;
     splints_button: TButton;
     clips_button: TButton;
-    timbers_fdm_bullet_shape: TShape;
-    timbers_laser_bullet_shape: TShape;
-    timbers_only_fdm_button: TButton;
-    timbers_only_laser_button: TButton;
     webs_sprues_button: TButton;
     normals_button: TButton;
     loose_jaws_button: TButton;
@@ -210,7 +186,7 @@ type
     timbout_kerf_combo: TComboBox;
     sockets_kerf_style_combo: TComboBox;
     sockets_kerf_combo: TComboBox;
-    caged_clip_checkbox: TCheckBox;
+    brim_fence_checkbox: TCheckBox;
     sprue_kerf_checkbox: TCheckBox;
     grbl_file_dialog: TOpenDialog;
     _3d_colours_button: TButton;
@@ -334,7 +310,17 @@ type
     limits_checkbox: TCheckBox;
     scaled_checkbox: TCheckBox;
     rotate_stl_by_button: TButton;
+    quick_groupbox: TGroupBox;
+    Label19: TLabel;
+    timbers_fdm_bullet_shape: TShape;
+    chairs_bullet_shape: TShape;
+    reset_both_bullet_shape: TShape;
+    timbers_only_fdm_button: TButton;
+    chairs_only_button: TButton;
+    reset_both_button: TButton;
     show_settings_button: TButton;
+    timbers_laser_bullet_shape: TShape;
+    timbers_only_laser_button: TButton;
     hide_settings_button: TButton;
     fdm_filament_button: TButton;
     filament_checkbox: TCheckBox;
@@ -370,17 +356,15 @@ type
     Label74: TLabel;
     mod_depths_edit: TEdit;
     increase_plug_size_checkbox: TCheckBox;
+    rail_section_button: TButton;
     Label75: TLabel;
+    rail_label: TLabel;
     Label77: TLabel;
     Label76: TLabel;
     Label78: TLabel;
     Label79: TLabel;
     Label80: TLabel;
     assemblers_checkbox: TCheckBox;
-    procedure all_loose_jaws_buttonClick(Sender: TObject);
-    procedure all_slots_buttonClick(Sender: TObject);
-    procedure all_solid_jaws_buttonClick(Sender: TObject);
-    procedure overall_size_buttonClick(Sender: TObject);
     procedure ok_panelClick(Sender: TObject);
     procedure help_buttonClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
@@ -780,8 +764,6 @@ var
   fw_tweak_xing:extended=0;        // flangeway tweaks after test printing
   fw_tweak_check:extended=0;
 
-  fw_mod_for_gw:extended=0;
-
   cutter_kerf_mm:extended=0.2;
   kerf_extra_undercut_mm:extended=0;
 
@@ -800,61 +782,6 @@ var
   snib2_extent_p:extended=10;     // plain track and  ms side square-on
   snib2_extent_e:extended=12.5;   // equalized timbers
 
-  nailx_spacing:extended=1.0;   // mm  for bed of nails support
-  naily_spacing:extended=1.0;
-  nails_height:extended=2.0;    // default nail 2mm tall
-  nails_toprad:extended=0.175;  // default top 0.35mm dia
-  nails_botrad:extended=0.275;  // default bottom 0.55mm dia
-
-  bl_x:extended=0.3;   // MINIBO backlash mm on X
-  bl_y:extended=0.3;   // MINIBO backlash mm on Y
-  bl_z:extended=0.4;   // MINIBO backlash mm on Z
-
-    // default custom rail section is BS-95R   inches full-size ...
-
-  custom_section_name_str:string='my special rail';
-
-  custom_rail_depth:extended=5.71875;
-
-  custom_rail_head_width:extended=2.75;
-
-  custom_rail_corner_rad:extended=0.5;
-
-  custom_rail_foot_width:extended=2.75;
-
-  custom_rail_fish_angle:extended=2.75;
-
-  custom_rail_web_top:extended=1.9375;       //  from rail top to intersection fish angle on rail centre-line
-  custom_rail_web_bottom:extended=1.3125;    //  from rail bottom to intersection fish angle on rail centre-line
-
-  custom_rail_web_thick:extended=0.75;
-
-  //----
-
-  rail_section_option:integer=0;
-
-  fdm_hot_shrinkage_x:extended=1.002;  // Neptune 2S    was 1.0028 BIBO
-  fdm_hot_shrinkage_y:extended=1.002;
-  fdm_hot_shrinkage_z:extended=1.0;
-
-  fdm_cold_shrinkage_x:extended=0.993;
-  fdm_cold_shrinkage_y:extended=0.995;
-  fdm_cold_shrinkage_z:extended=1.0;
-
-  resin_shrinkage_x:extended=1.0075;  // 0.75%  241b  was 1.0025;
-  resin_shrinkage_y:extended=1.0075;  // 0.75%  241b  was 1.0025;
-  resin_shrinkage_z:extended=1.0075;  // 0.75%  241b  was 1.0025;
-
-  cad_shrinkage_x:extended=1.0;
-  cad_shrinkage_y:extended=1.0;
-  cad_shrinkage_z:extended=1.0;
-
-  stl_rot_x:extended=0;   // 234d STL output rotation ...
-  stl_rot_y:extended=0;
-  stl_rot_k:extended=0;
-
-  chair_web_adjustment:extended=0;
-
   _3d:boolean=False;        // 2-D init.
 
   dxf_showing_settings:boolean=False;  // 241c
@@ -862,12 +789,13 @@ var
   mod_timbers_for_scale_factor:extended=1.0;  //0.653;
   mod_depths_adjustment:extended=1.0;
 
-  output_extents_left,output_extents_bot,output_extents_right,output_extents_top:double;  // 555a  MW 20-AUG-2024
+  custom_3d_save:boolean=False;
 
   procedure init_rail_section;
 
   procedure export_templates_dxf;
 
+  procedure load_custom_3d_dxf_data(file_str:string);
   function dxf_3dface_pex(p1:Tpex; z1:extended; p2:Tpex; z2:extended; p3:Tpex; z3:extended; p4:Tpex; z4:extended; layer,blanked_edges:integer):string;
 
   function dxf_3dface(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4:extended; layer,blanked_edges:integer):string;    // DXF make up a four-cornered 3-D face.
@@ -900,6 +828,10 @@ var
   user_save_path_dxf:string='';
   user_save_path_stl:string='';
 
+  user_save_custom_path:string='';  // 228a..
+  user_load_custom_path:string='';
+
+
   layer_str:array[0..35] of string;       //  36 layers 236d
   line_type_str:array[0..5] of string;
 
@@ -921,6 +853,43 @@ var
   x_shrinkage_factor:extended=1.0;
   y_shrinkage_factor:extended=1.0;
   z_shrinkage_factor:extended=1.0;
+
+  fdm_hot_shrinkage_x:extended=1.002;  // Neptune 2S    was 1.0028 BIBO
+  fdm_hot_shrinkage_y:extended=1.002;
+  fdm_hot_shrinkage_z:extended=1.0;
+
+  fdm_cold_shrinkage_x:extended=0.993;
+  fdm_cold_shrinkage_y:extended=0.995;
+  fdm_cold_shrinkage_z:extended=1.0;
+
+  resin_shrinkage_x:extended=1.0075;  // 0.75%  241b  was 1.0025;
+  resin_shrinkage_y:extended=1.0075;  // 0.75%  241b  was 1.0025;
+  resin_shrinkage_z:extended=1.0075;  // 0.75%  241b  was 1.0025;
+
+  cad_shrinkage_x:extended=1.0;
+  cad_shrinkage_y:extended=1.0;
+  cad_shrinkage_z:extended=1.0;
+
+    // default custom rail section is BS-95R   inches full-size ...
+
+  custom_section_name_str:string='my special rail';
+
+  custom_rail_depth:extended=5.71875;
+
+  custom_rail_head_width:extended=2.75;
+
+  custom_rail_corner_rad:extended=0.5;
+
+  custom_rail_foot_width:extended=2.75;
+
+  custom_rail_fish_angle:extended=2.75;
+
+  custom_rail_web_top:extended=1.9375;       //  from rail top to intersection fish angle on rail centre-line
+  custom_rail_web_bottom:extended=1.3125;    //  from rail bottom to intersection fish angle on rail centre-line
+
+  custom_rail_web_thick:extended=0.75;
+
+  //----
 
   rail_foot_z:extended=0;
 
@@ -950,6 +919,8 @@ var
   sprue_top_z:extended=0;
   out_flange_top_z:extended=0;
 
+  fw_mod_for_gw:extended=0;
+
   beefed_up_chairs:boolean=False;
   fill_below_key:boolean=False;
 
@@ -958,9 +929,15 @@ var
   outer_beefing:extended=0;  // additional depth behind ribs outer jaw
   inner_beefing:extended=0;  // additional depth behind ribs inner jaw
 
+  chair_web_adjustment:extended=0;
+
   flange_extra:extended=0.5;  // inches +ve increase flange clearance on inner chair jaws
 
+  rail_section_option:integer=0;
 
+  bl_x:extended=0.3;   // MINIBO backlash mm on X
+  bl_y:extended=0.3;   // MINIBO backlash mm on Y
+  bl_z:extended=0.4;   // MINIBO backlash mm on Z
 
        // DXF colour codes ...
 
@@ -971,6 +948,10 @@ var
   bolthead_3d_colour:integer=9;     // silver
   plug_3d_colour:integer=254;       // light grey
   support_3d_colour:integer=9;      // silver
+
+  stl_rot_x:extended=0;   // 234d STL output rotation ...
+  stl_rot_y:extended=0;
+  stl_rot_k:extended=0;
 
   ckms_fl:extended=0;   // 237b ...
   ckms_fk:extended=0;
@@ -991,6 +972,13 @@ var
   number_slide_chairs:integer=0;
   number_block_slide_chairs:integer=0;
   number_block_heel_chairs:integer=0;
+
+
+  nailx_spacing:extended=1.0;   // mm  for bed of nails support
+  naily_spacing:extended=1.0;
+  nails_height:extended=2.0;    // default nail 2mm tall
+  nails_toprad:extended=0.175;  // default top 0.35mm dia
+  nails_botrad:extended=0.275;  // default bottom 0.55mm dia
 
   preview_3d_app_str:string='3D-Tool-Free.exe';
   preview_2d_app_str:string='inkscape.exe';
@@ -1328,8 +1316,6 @@ var
 
   d_mod_level:extended;
 
-  out_d:double;  // 555a
-
 begin
 
   if ABS(d)>50000      // 235a  kludge temp bug fix  catch uninitialised value   50 metres output limit
@@ -1377,32 +1363,13 @@ begin
 
   if creating_block_str<>'' then shift:=0;  // 227a no shift for definition of a block being created
 
-  out_d:=d*pz+shift;   // output data
-
   if dxf_form.inches_radio_button.Checked=True
-     then out_str:=FormatFloat('0.000000',out_d/25.4)+'|'
-     else out_str:=FormatFloat('0.0000',out_d)+'|';
+     then out_str:=FormatFloat('0.000000',(d*pz+shift)/25.4)+'|'
+     else out_str:=FormatFloat('0.0000',d*pz+shift)+'|';
 
-  // DXF format uses dot for decimal point regardless of regional settings.
+  // DXF format uses dot for decimal point regardless of regional settings..
 
   RESULT:=StringReplace(out_str,',','.',[]);
-
-  if creating_block_str=''   // not defining a block
-     then begin
-            case axis of    //  555a  MW 20-AUG-2024
-
-                   1: begin    // X
-                        if out_d<output_extents_left then output_extents_left:=out_d;
-                        if out_d>output_extents_right then output_extents_right:=out_d;
-                      end;
-
-                   2: begin    // Y
-                        if out_d<output_extents_bot then output_extents_bot:=out_d;
-                        if out_d>output_extents_top then output_extents_top:=out_d;
-                      end;
-
-            end;//case
-          end;
 end;
 //___________________________________________________________________________________________
 
@@ -5998,11 +5965,6 @@ begin
 
   repeat
 
-    output_extents_left:=maxfp;       // 555a  init extents..
-    output_extents_bot:=maxfp;
-    output_extents_right:=0-maxfp;
-    output_extents_top:=0-maxfp;
-
     with dxf_form do begin
 
       if dxf_showing_settings=False
@@ -6013,7 +5975,7 @@ begin
                 dxf_3d_page_control.Visible:=False;
                 exp_panel.Visible:=False;
                 ClientWidth:=320;
-                ClientHeight:=640;
+                ClientHeight:=460;
               end;
 
 
@@ -6021,7 +5983,7 @@ begin
 
       do_show_modal(dxf_form);     // 212a  ShowModal
 
-      if (ModalResult<>mrOK) and (ModalResult<>mrYes) and (ModalResult<>mrRetry) then EXIT;
+      if (ModalResult<>mrOK) and (ModalResult<>mrYes) then EXIT;
 
 
       if (group_option_radio.Checked=True) and (any_selected=0)
@@ -6035,8 +5997,7 @@ begin
                    all_option_radio.Checked:=True;           // radio item.
               end;
 
-                  // 555a ...
-
+      // 555b                                                                  // 555b
       if (group_option_radio.Checked=True) and (_3d=True)
            then begin
 
@@ -6070,6 +6031,8 @@ begin
 
 
                end;
+
+      // 555b
 
       if brick_option_radio.Checked=True
            then begin
@@ -6194,132 +6157,124 @@ begin
 
       if z_datum_underside_checkbox.Checked=True then z_shift:=z_shift+rail_section_data_mm.rail_depth_mm+(seat_thick+timber_thick)*inscale;
 
-      if ModalResult=mrRetry      // show output size   555a  MW 21-AUG-2024
+      if ModalResult=mrYes      // 239a
          then begin
                 dxf_filename:=exe_str+'internal\pre\preview.dxf';
 
-                stl:=False;
+                stl:=_3d;
+
+                if stl=True
+                   then stl_filename:=exe_str+'internal\pre\preview.stl'
+                   else stl_filename:='';
               end
          else begin
-                if ModalResult=mrYes      // 239a
-                   then begin
-                          dxf_filename:=exe_str+'internal\pre\preview.dxf';
 
-                          stl:=_3d;
+                with save_dialog do begin                          // set up the save dialog.
 
-                          if stl=True
-                             then stl_filename:=exe_str+'internal\pre\preview.stl'
-                             else stl_filename:='';
-                        end
-                   else begin
+                  if _3d=False     // 2-D is DXF only
+                     then begin
+                            stl:=False;
 
-                          with save_dialog do begin                          // set up the save dialog.
-
-                            if _3d=False     // 2-D is DXF only
+                            if inches_radio_button.Checked=True
                                then begin
-                                      stl:=False;
-
-                                      if inches_radio_button.Checked=True
-                                         then begin
-                                                Title:='    export  DXF  file  ( in  inches )  as ...';
-                                                f_str:=' in';
-                                              end
-                                         else begin
-                                                Title:='    export  DXF  file  ( in  mm )  as ...';
-                                                f_str:=' mm';
-                                              end;
-
-                                      if user_save_file_name_dxf<>'' then InitialDir:=ExtractFilePath(user_save_file_name_dxf)   // use his previous DXF folder.
-                                                                     else InitialDir:=exe_str+'DXF-FILES\';                      // or the default one.
-
-                                      Filter:='DXF files (*.dxf)|*.dxf';
-                                      FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+f_str+'.dxf';
+                                      Title:='    export  DXF  file  ( in  inches )  as ...';
+                                      f_str:=' in';
                                     end
-                               else begin                                        // 3-D ...
-                                      if stl_radio.Checked=True    // STL only
-                                         then begin
-                                                stl:=_3d;
-
-                                                Title:='    export  STL  file  ( in  mm )  as ...';
-
-                                                if user_save_file_name_stl<>'' then InitialDir:=ExtractFilePath(user_save_file_name_stl)   // use his previous folder.
-                                                                               else InitialDir:=exe_str+'STL-FILES-RAW\';                  // or the default one.
-
-                                                Filter:='STL files (*.stl)|*.stl';
-                                                FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+'.stl';
-                                              end
-                                         else if dxf_radio.Checked=True    // DXF only
-                                                 then begin
-                                                        stl:=False;
-
-                                                        if inches_radio_button.Checked=True
-                                                           then begin
-                                                                  Title:='    export  DXF  file  ( in  inches )  as ...';
-                                                                  f_str:=' in';
-                                                                end
-                                                           else begin
-                                                                  Title:='    export  DXF  file  ( in  mm )  as ...';
-                                                                  f_str:=' mm';
-                                                                end;
-
-                                                        if user_save_file_name_dxf<>'' then InitialDir:=ExtractFilePath(user_save_file_name_dxf)   // use his previous folder.
-                                                                                       else InitialDir:=exe_str+'DXF-FILES\';                      // or the default one.
-
-                                                        Filter:='DXF files (*.dxf)|*.dxf';
-                                                        FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+f_str+'.dxf';
-                                                      end
-                                                 else begin                // both_radio   DXF and STL wanted
-                                                        stl:=_3d;
-
-                                                        if inches_radio_button.Checked=True
-                                                           then begin
-                                                                  Title:='    export  DXF / STL  file  ( in  inches )  as ...';
-                                                                  f_str:=' in';
-                                                                end
-                                                           else begin
-                                                                  Title:='    export  DXF / STL  file  ( in  mm )  as ...';
-                                                                  f_str:=' mm';
-                                                                end;
-
-                                                        if user_save_file_name_dxf<>'' then InitialDir:=ExtractFilePath(user_save_file_name_dxf)   // use his previous folder.
-                                                                                       else InitialDir:=exe_str+'DXF-FILES\';                      // or the default one.
-
-                                                        Filter:='DXF files (*.dxf)|*.dxf';
-                                                        FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+f_str+'.dxf';
-                                                      end;
+                               else begin
+                                      Title:='    export  DXF  file  ( in  mm )  as ...';
+                                      f_str:=' mm';
                                     end;
 
-                            showing_dialog:=True;   // 212a Wine bug
+                            if user_save_file_name_dxf<>'' then InitialDir:=ExtractFilePath(user_save_file_name_dxf)   // use his previous DXF folder.
+                                                           else InitialDir:=exe_str+'DXF-FILES\';                      // or the default one.
 
-                            if Execute=False     // do the file dialog
+                            Filter:='DXF files (*.dxf)|*.dxf';
+                            FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+f_str+'.dxf';
+                          end
+                     else begin                                        // 3-D ...
+                            if stl_radio.Checked=True    // STL only
                                then begin
-                                      showing_dialog:=False;   // 212a Wine bug
-                                      EXIT;
-                                    end;
+                                      stl:=_3d;
 
+                                      Title:='    export  STL  file  ( in  mm )  as ...';
+
+                                      if user_save_file_name_stl<>'' then InitialDir:=ExtractFilePath(user_save_file_name_stl)   // use his previous folder.
+                                                                     else InitialDir:=exe_str+'STL-FILES-RAW\';                  // or the default one.
+
+                                      Filter:='STL files (*.stl)|*.stl';
+                                      FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+'.stl';
+                                    end
+                               else if dxf_radio.Checked=True    // DXF only
+                                       then begin
+                                              stl:=False;
+
+                                              if inches_radio_button.Checked=True
+                                                 then begin
+                                                        Title:='    export  DXF  file  ( in  inches )  as ...';
+                                                        f_str:=' in';
+                                                      end
+                                                 else begin
+                                                        Title:='    export  DXF  file  ( in  mm )  as ...';
+                                                        f_str:=' mm';
+                                                      end;
+
+                                              if user_save_file_name_dxf<>'' then InitialDir:=ExtractFilePath(user_save_file_name_dxf)   // use his previous folder.
+                                                                             else InitialDir:=exe_str+'DXF-FILES\';                      // or the default one.
+
+                                              Filter:='DXF files (*.dxf)|*.dxf';
+                                              FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+f_str+'.dxf';
+                                            end
+                                       else begin                // both_radio   DXF and STL wanted
+                                              stl:=_3d;
+
+                                              if inches_radio_button.Checked=True
+                                                 then begin
+                                                        Title:='    export  DXF / STL  file  ( in  inches )  as ...';
+                                                        f_str:=' in';
+                                                      end
+                                                 else begin
+                                                        Title:='    export  DXF / STL  file  ( in  mm )  as ...';
+                                                        f_str:=' mm';
+                                                      end;
+
+                                              if user_save_file_name_dxf<>'' then InitialDir:=ExtractFilePath(user_save_file_name_dxf)   // use his previous folder.
+                                                                             else InitialDir:=exe_str+'DXF-FILES\';                      // or the default one.
+
+                                              Filter:='DXF files (*.dxf)|*.dxf';
+                                              FileName:=remove_invalid_str(Copy(Trim(box_project_title_str),1,fname_trunc)+FormatDateTime(' yy_mm_dd hhmm ss',Date+Time))+f_str+'.dxf';
+                                            end;
+                          end;
+
+                  showing_dialog:=True;   // 212a Wine bug
+
+                  if Execute=False     // do the file dialog
+                     then begin
                             showing_dialog:=False;   // 212a Wine bug
+                            EXIT;
+                          end;
 
-                            FileName:=lower_case_filename(FileName);   // 0.79.a   to underscores and lower case.
+                  showing_dialog:=False;   // 212a Wine bug
 
-                            dxf_filename:=ChangeFileExt(FileName,'.dxf');
-                            stl_filename:=ChangeFileExt(FileName,'.stl');
+                  FileName:=lower_case_filename(FileName);   // 0.79.a   to underscores and lower case.
 
-                          end;//with dialog
+                  dxf_filename:=ChangeFileExt(FileName,'.dxf');
+                  stl_filename:=ChangeFileExt(FileName,'.stl');
 
-                          if invalid_85a_file_name(dxf_filename)=True then EXIT;
-                          if invalid_85a_file_name(stl_filename)=True then EXIT;
+                end;//with dialog
 
-                          user_save_file_name_stl:=stl_filename;
-                          user_save_file_name_dxf:=dxf_filename;
+                if invalid_85a_file_name(dxf_filename)=True then EXIT;
+                if invalid_85a_file_name(stl_filename)=True then EXIT;
 
-                          if (_3d=True) and (stl_radio.Checked=True)  // overrides if STL file only wanted ..
-                             then begin
-                                    dxf_filename:=exe_str+'internal\dxf\dummy.dxf';    // 234d  dummy DXF file created if STL only
-                                    user_save_file_name_dxf:='';
-                                  end;
+                user_save_file_name_stl:=stl_filename;
+                user_save_file_name_dxf:=dxf_filename;
 
-                        end;//normal export, not preview
-              end;
+                if (_3d=True) and (stl_radio.Checked=True)  // overrides if STL file only wanted ..
+                   then begin
+                          dxf_filename:=exe_str+'internal\dxf\dummy.dxf';    // 234d  dummy DXF file created if STL only
+                          user_save_file_name_dxf:='';
+                        end;
+
+              end;//normal export, not preview
 
       if classic_templot=False then store_and_background(False,True);  // 0.93.a Quick mode - first store and zero existing control template
 
@@ -7176,17 +7131,6 @@ begin
                   CONTINUE;
                 end;
 
-        Screen.Cursor:=crDefault;
-
-        if ModalResult=mrRetry   // show output size       555a  MW 21-AUG-2024
-           then begin
-                  show_modal_message('                The overall exported size will be :'
-                     +#13+#13+'   overall width = '+FormatFloat('0.00',ABS(output_extents_right-output_extents_left))+' mm'
-                         +#13+'  overall height = '+FormatFloat('0.00',ABS(output_extents_top-output_extents_bot))+' mm');
-                  CONTINUE;
-                end;
-
-
         if ModalResult=mrYes   // preview
            then begin
                   Application.ProcessMessages;
@@ -7210,30 +7154,29 @@ begin
 
                             preview_dxf;
                           end;
+
+                  Screen.Cursor:=crDefault;
+
                   CONTINUE;
                 end;
 
+        Screen.Cursor:=crDefault;
 
         if (_3d=True) and (stl_radio.Checked=True)
            then report_str:=''
-           else report_str:='Created DXF file:||`0'+dxf_filename+'`f||';
-
-        report_str:=report_str+'     The overall exported size is :'
-                     +'|         <B>overall width = '+FormatFloat('0.00',ABS(output_extents_right-output_extents_left))+' mm</B>'
-                     +'|        <B>overall height = '+FormatFloat('0.00',ABS(output_extents_top-output_extents_bot))+' mm</B>';
+           else report_str:='Created DXF file:||`0'+dxf_filename+'`f';
 
         if stl=True
            then begin
                   report_str:=report_str+'||Created STL file:||`0'+stl_filename+'`f'
                                         +'||STL files from Templot need to be finalized by a mesh-fixing repair process before they can be used for 3D printing.'
                                         +'||If you have the `03D Builder`3 app installed on your system you can open the STL file for easy mesh fixing by clicking the green bar below.'
-                                        +'||green_panel_begin tree.gif  The free `03D Builder`3 app is pre-installed in most versions of Windows but if not it can be easily obtained'
-                                        +' from the Microsoft App Store.||Click the top blue bar to get it.green_panel_end'
+                                        +'||green_panel_begin tree.gif  The `03D Builder`3 app can be easily obtained and installed from the Microsoft App Store.||Click the top blue bar to get it.green_panel_end'
                                         +'|If not, click the option to access a free online mesh-fixing service instead.'
                                         +'||Refer to the Templot Club user forum for more information.';                          // 241b
 
                   get_builder_str:='get  3D Builder';
-                  continue_str:='open  STL  file  in  3D  Builder  for  mesh  fixing';
+                  continue_str:='open  STL  file  in  3D  Buider  for  mesh  fixing';
                   repair_str:='continue  without  mesh  fixing';
                   online_str:='visit  free  online  mesh-fixing  service';
                 end
@@ -7366,7 +7309,7 @@ procedure Tdxf_form.ok_panelClick(Sender: TObject);
 
 var
   old:extended;
-  str,not_plug_str:string;
+  str:string;
 
 begin
   floating_warned:=False;  // init  235a
@@ -7412,19 +7355,6 @@ begin
 
   if doing_tools=False
      then begin
-
-            if (Sender=preview_button) or (Sender=preview_panel)
-               then not_plug_str:='continue  preview  for  CAD'
-               else not_plug_str:='continue  DXF  export  for  CAD';
-
-            if (Sender<>overall_size_button) and (reset_both_bullet_shape.Visible=True)
-                 then begin
-                        if alert(3,'    no  plug  track  set',
-                                  'If exporting files for Templot plug track, please first select one of the 3D or 2D LASER options.',
-                                  '','','',not_plug_str,'OK  -  cancel  this','',0)=5
-                           then EXIT;
-                      end;
-
               // needed for rebuild ...
 
             old:=fw_tweak_xing+fw_tweak_check;
@@ -7498,78 +7428,11 @@ begin
                                     z_shrinkage_factor:=cad_shrinkage_z;
                                   end;
 
-
-    if (Sender=overall_size_button) and (reset_both_bullet_shape.Visible=True)
-       then begin
-              show_modal_message('For Templot plug track please first select one of the'+#13+'3D or 2D LASER options to find the overall output size.'
-                        +#13+#13+'This will apply the relevant shrinkage setting to the dimensions.');
-              ModalResult:=mrNone;
-            end
-       else begin
-              if (Sender=preview_button) or (Sender=preview_panel)
-                 then ModalResult:=mrYes
-                 else if (Sender=overall_size_button)
-                      then ModalResult:=mrRetry
-                      else ModalResult:=mrOK;
-            end;
+  if (Sender=preview_button) or (Sender=preview_panel)
+     then ModalResult:=mrYes
+     else ModalResult:=mrOK;
 end;
 //______________________________________________________________________________
-
-procedure Tdxf_form.all_slots_buttonClick(Sender: TObject);    // MW 29-07-2024  555a
-
-begin
-  chairs_form.export_slots_button.Click;
-
-  chairs_form.modify_button.Tag:=1;           // no alerts
-  chairs_form.modify_button.Click;
-  chairs_form.modify_button.Tag:=0;           // reset
-
-  show_modal_message('All chairs on all background templates'+#13+'have been changed to outer jaw slots.');
-end;
-//______________________________________________________________________________
-
-procedure Tdxf_form.all_loose_jaws_buttonClick(Sender: TObject);  // MW 29-07-2024  555a
-
-begin
-  chairs_form.export_loose_only_button.Click;
-
-  chairs_form.modify_button.Tag:=1;           // no alerts
-  chairs_form.modify_button.Click;
-  chairs_form.modify_button.Tag:=0;           // reset
-  show_modal_message('All chairs on all background templates'+#13+'have been changed to export loose jaws only.');
-end;
-//______________________________________________________________________________
-
-procedure Tdxf_form.all_solid_jaws_buttonClick(Sender: TObject);  // MW 29-07-2024  555a
-
-begin
-  chairs_form.export_solid_button.Click;
-
-  chairs_form.modify_button.Tag:=1;           // no alerts
-  chairs_form.modify_button.Click;
-  chairs_form.modify_button.Tag:=0;           // reset
-  show_modal_message('All chairs on all background templates'+#13+'have been changed to solid outer jaws.');
-end;
-
-procedure Tdxf_form.overall_size_buttonClick(Sender: TObject);
-begin
-
-end;
-
-//______________________________________________________________________________
-{
-procedure Tdxf_form.overall_size_buttonClick(Sender: TObject);   // 555a  bug fix for DXF overall size calc   MW 21-AUG-2024
-
-begin
-  if reset_both_bullet_shape.Visible=True
-     then begin
-            show_modal_message('Please select one of the 3D or 2D LASER options to find the overall output size.');
-            ModalResult:=mrNone;
-          end
-     else ModalResult:=mrRetry;
-end;
-//______________________________________________________________________________
-}
 
 procedure Tdxf_form.rebuild_now_buttonClick(Sender: TObject);
 
@@ -9473,9 +9336,7 @@ begin
 
                    498: if (_3d=True) or (dxf_form.sockets_combo.ItemIndex=0)      // 498 sockets for laser cutting,  actual size    see also 9997
                            then CONTINUE                                           // not in 3-D
-                           else layer:=23;
-
-                   // 2-D chair socket in timber, actual size
+                           else layer:=23;                                         // 2-D chair socket in timber, actual size
 
       480..483,488,489: if _3d=False then CONTINUE     // not in 2-D
                                      else layer:=22;   // dxf 3D key markers
@@ -11222,7 +11083,7 @@ var
   s:string;
   arm,diamond:extended;
 
-  z,z1,z2,brick_bot_z,slabs_top_z,splints_top_z,walls_top_z,clips_top_z,clips_foot_z,fence_top_z:extended;
+  z,z1,z2,brick_bot_z,slabs_top_z,splints_top_z,walls_top_z,clips_top_z,clips_foot_z:extended;
 
   shapes_z2,shapes_z3:extended;
 
@@ -11508,7 +11369,7 @@ var
 
                 ////////////////////////////////////////////////////////////////
 
-                procedure do_clip(caged:boolean; offset,z1,z2,z3:extended);
+                procedure do_clip(brim_fence:boolean; offset,z1,z2:extended);
 
                 begin
 
@@ -11581,7 +11442,7 @@ var
                             p4.y:=p1.y;
 
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
 
                                       p1a.x:=x1-clip_length;   // for brim fence clear
@@ -11590,7 +11451,7 @@ var
                                       p2a.x:=p1a.x;
                                       p2a.y:=p1a.y+3*inscale;  // brim fence 3" wide   232c
 
-                                      p3a.x:=p3.x+3*inscale;
+                                      p3a.x:=p3.x+3.5*inscale;
                                       p3a.y:=p2a.y;
 
                                       p4a.x:=p3a.x;
@@ -11610,7 +11471,7 @@ var
 
                             write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // clip tommy north
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
                                       p1:=p1a;
                                       p2:=p2a;
@@ -11619,7 +11480,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence north
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence north
                                     end;
 
                             if offset=0    // ignore chamered ends if doing foot
@@ -11656,7 +11517,7 @@ var
                             p4.x:=p3.x;
                             p4.y:=p1.y;
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
 
                                       p1a.x:=x1-clip_length;   // for brim fence clear
@@ -11665,7 +11526,7 @@ var
                                       p2a.x:=p1a.x;
                                       p2a.y:=p1a.y-3*inscale;  // brim fence 3" wide   232c
 
-                                      p3a.x:=p3.x+3*inscale;
+                                      p3a.x:=p3.x+3.5*inscale;
                                       p3a.y:=p2a.y;
 
                                       p4a.x:=p3a.x;
@@ -11686,7 +11547,7 @@ var
                             write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // clip tommy south
 
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
                                       p1:=p1a;
                                       p2:=p2a;
@@ -11695,7 +11556,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence south
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence south
 
 
                                       p1:=p1b;
@@ -11705,17 +11566,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence outer
-
-
-                                      p1.x:=p1b.x-15*inscale;     // 555a  MW 17-AUG-2024 ...
-                                      p2.x:=p2b.x-15*inscale;
-                                      p3.x:=p3b.x-15*inscale;
-                                      p4.x:=p4b.x-15*inscale;
-
-                                      rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
-
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence inner (buried)
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence outer
 
                                     end;
 
@@ -11739,8 +11590,7 @@ var
                                     end;
 
                             p1.x:=x1+clip_hole_mm/2;
-                            p1.y:=y1-clip_shaft_width*inscale/2+offset;                                                          
-
+                            p1.y:=y1-clip_shaft_width*inscale/2+offset;
 
                             p2.x:=p1.x;
                             p2.y:=y1+clip_shaft_width*inscale/2-offset;
@@ -11774,7 +11624,7 @@ var
 
                              //-----
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
 
                                       p1a.x:=p2.x-5.5*inscale;   // for brim fence clear
@@ -11803,7 +11653,7 @@ var
 
                             write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // clip arm north
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
                                       p1:=p1a;
                                       p2:=p2a;
@@ -11812,7 +11662,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence north
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence north
                                     end;
 
                             p1.x:=x1-clip_sides_clear*inscale-offset;
@@ -11829,7 +11679,7 @@ var
 
                              //-----
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
 
                                       p1a.x:=p2.x-5.5*inscale;   // for brim fence clear
@@ -11860,7 +11710,7 @@ var
                             write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // clip arm south
 
 
-                            if (caged=True) and (dxf_form.caged_clip_checkbox.Checked=True)      // 232c
+                            if (brim_fence=True) and (dxf_form.brim_fence_checkbox.Checked=True)      // 232c
                                then begin
                                       p1:=p1a;
                                       p2:=p2a;
@@ -11869,7 +11719,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence south
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence south
 
 
                                       p1:=p1b;
@@ -11879,17 +11729,7 @@ var
 
                                       rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
 
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence outer
-
-
-                                      p1.x:=p1b.x+15.5*inscale;     // 555a  MW 17-AUG-2024 ...
-                                      p2.x:=p2b.x+15.5*inscale;
-                                      p3.x:=p3b.x+15.5*inscale;
-                                      p4.x:=p4b.x+15.5*inscale;
-
-                                      rotate_4p(rot_k,x1,y1,p1,p2,p3,p4);
-
-                                      write_3d_solid_rectangle(p1,p2,p3,p4,z3,z2,29);    // brim fence inner (buried)
+                                      write_3d_solid_rectangle(p1,p2,p3,p4,z1,z2,29);    // brim fence outer
 
                                     end;
 
@@ -12034,8 +11874,6 @@ begin
 
               clips_top_z:=brick_bot_z+clip_depth_mm;           // 228b
               clips_foot_z:=brick_bot_z+clip_foot_depth_mm;     // 228b
-
-              fence_top_z:=clips_top_z;  // 555a
 
             end;//with
 
@@ -12380,8 +12218,8 @@ begin
                                     and ((now_shape.is_brick=False) or (now_shape.wrap_offset<>dxf_form.marker_colour_panel.Color))
                                        then CONTINUE;      // not a brick or wrong brick colour
 
-                                    do_clip(True,clip_foot_offset_mm,clips_foot_z,brick_bot_z,fence_top_z);     // foot part with offset to prevent elephant's foot
-                                    do_clip(False,0,clips_top_z,clips_foot_z,fence_top_z);                      // main part above  555a
+                                    do_clip(True,clip_foot_offset_mm,clips_foot_z,brick_bot_z);     // foot part with offset to prevent elephant's foot
+                                    do_clip(False,0,clips_top_z,clips_foot_z);                      // main part above
 
                                   end
                              else begin         // 2-D target mark..
@@ -12909,8 +12747,6 @@ begin
   chairs_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=False;
 
-  jaws_panel.Visible:=False;
-
   _3d_fdm_radiobutton.Checked:=True;    // assume FDM
   _3d_options_click(False);
 
@@ -12955,8 +12791,6 @@ begin
   stl_radio.Enabled:=False;
   dxf_stl_both_radio.Enabled:=False;
 
-  jaws_panel.Visible:=False;
-
   preview_panel.Color:=$0090D0FF;                    // sand
   preview_panel.Caption:='   preview  2-D  export';
 
@@ -12997,8 +12831,6 @@ begin
 
   rail_label.Visible:=True;
 
-  jaws_panel.Visible:=True;
-
   _3d_resin_radiobutton.Checked:=True;    // assume resin
   _3d_options_click(False);
 
@@ -13023,8 +12855,6 @@ begin
   timbers_laser_bullet_shape.Visible:=False;
   chairs_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=True;
-
-  jaws_panel.Visible:=False;
 
 end;
 //______________________________________________________________________________
@@ -13613,17 +13443,659 @@ begin
 end;
 //______________________________________________________________________________
 
+procedure load_custom_3d_dxf_data(file_str:string);
+
+var
+  sk4_str:string;
+
+  xml_doc:TNativeXml;
+
+  data_node:TXmlNode;
+
+begin
+  if file_str=''
+     then begin
+            with dxf_form.custom_load_dialog do begin
+
+              if user_load_custom_path=''
+                 then InitialDir:=exe_str+'DXF-FILES\'
+                 else InitialDir:=user_load_custom_path;
+
+              Title:='    load  custom  data  from ...';
+              Filter:='custom data (.sk4)|*.sk4';
+              DefaultExt:='.sk4';
+
+            end;//with
+
+            if dxf_form.custom_load_dialog.Execute=True
+               then sk4_str:=dxf_form.custom_load_dialog.FileName
+               else EXIT;
+          end
+     else sk4_str:=file_str;
+
+  if FileExists(sk4_str)=False
+     then begin
+            show_modal_message('error: file does not exist');
+            user_load_custom_path:='';
+            EXIT;
+          end
+     else user_load_custom_path:=ExtractFilePath(sk4_str);  // for next time
+
+
+  xml_doc:=TNativeXml.Create;
+
+  xml_doc.LoadFromFile(sk4_str);
+
+  data_node:=xml_doc.Root.FindNode('DATA');
+
+  with data_node do begin
+
+    custom_section_name_str:=ReadString('custom_section_name_str','');
+
+    custom_rail_depth:=ReadFloat('custom_rail_depth',0);
+    custom_rail_head_width:=ReadFloat('custom_rail_head_width',0);
+
+    custom_rail_corner_rad:=ReadFloat('custom_rail_corner_rad',0);
+    custom_rail_foot_width:=ReadFloat('custom_rail_foot_width',0);
+
+    custom_rail_fish_angle:=ReadFloat('custom_rail_fish_angle',0);
+
+    if custom_rail_fish_angle<minfp then custom_rail_fish_angle:=2.75;
+
+    custom_rail_web_thick:=ReadFloat('custom_rail_web_thick',0);
+
+    custom_rail_web_top:=ReadFloat('custom_rail_web_top',0);
+    custom_rail_web_bottom:=ReadFloat('custom_rail_web_bottom',0);
+
+// 555b
+
+    if NodeIndexOf(FindNode('seat_thick'))<>-1
+       then seat_thick:=ReadFloat('seat_thick',1.75);                                           // 555b
+
+    if NodeIndexOf(FindNode('timber_thick'))<>-1
+       then timber_thick:=ReadFloat('timber_thick',10.08);                                      // 555b
+
+    if NodeIndexOf(FindNode('soleplate_thick'))<>-1
+       then soleplate_thick:=ReadFloat('soleplate_thick',0.48);                                 // 555b
+
+    if NodeIndexOf(FindNode('soleplate_width'))<>-1
+       then soleplate_width:=ReadFloat('soleplate_width',9);                                    // 555b
+
+    if NodeIndexOf(FindNode('soleplate_rib'))<>-1
+       then soleplate_rib:=ReadFloat('soleplate_rib',3);                                        // 555b
+
+    if NodeIndexOf(FindNode('switch_slider_rib_width_mm'))<>-1
+       then switch_slider_rib_width_mm:=ReadFloat('switch_slider_rib_width_mm',1.2);            // 555b
+
+    if NodeIndexOf(FindNode('switch_slider_rib_top_depth'))<>-1
+       then switch_slider_rib_top_depth:=ReadFloat('switch_slider_rib_top_depth',1.44);         // 555b
+
+    if NodeIndexOf(FindNode('switch_slider_rib_mid_depth'))<>-1
+       then switch_slider_rib_mid_depth:=ReadFloat('switch_slider_rib_mid_depth',2.88);         // 555b
+
+    if NodeIndexOf(FindNode('switch_slider_rib_bottom_depth'))<>-1
+       then switch_slider_rib_bottom_depth:=ReadFloat('switch_slider_rib_bottom_depth',5.76);   // 555b
+
+    if NodeIndexOf(FindNode('sprue_thick'))<>-1
+       then sprue_thick:=ReadFloat('sprue_thick',5.76);                                         // 555b
+
+    if NodeIndexOf(FindNode('sprue_length'))<>-1
+       then sprue_length:=ReadFloat('sprue_length',18);                                         // 555b
+
+    if NodeIndexOf(FindNode('sprue_width'))<>-1
+       then sprue_width:=ReadFloat('sprue_width',4);                                            // 555b
+
+    if NodeIndexOf(FindNode('sprue_runner_width'))<>-1
+       then sprue_runner_width:=ReadFloat('sprue_runner_width',8);                              // 555b
+
+    if NodeIndexOf(FindNode('web_length'))<>-1
+       then web_length:=ReadFloat('web_length',18);                                             // 555b
+
+    if NodeIndexOf(FindNode('web_width'))<>-1
+       then web_width:=ReadFloat('web_width',12);                                               // 555b
+
+    if NodeIndexOf(FindNode('web_width_flexi'))<>-1
+       then web_width_flexi:=ReadFloat('web_width_flexi',8);                                    // 555b
+
+    if NodeIndexOf(FindNode('web_integrity_overlap'))<>-1
+       then web_integrity_overlap:=ReadFloat('web_integrity_overlap',0.25);                     // 555b
+
+    if NodeIndexOf(FindNode('flange_integrity_overlap'))<>-1
+       then flange_integrity_overlap:=ReadFloat('flange_integrity_overlap',0.25);               // 555b
+
+    if NodeIndexOf(FindNode('side_flange_width_mm'))<>-1
+       then side_flange_width_mm:=ReadFloat('side_flange_width_mm',1.0);                        // 555b
+
+    if NodeIndexOf(FindNode('end_flange_width'))<>-1
+       then end_flange_width:=ReadFloat('end_flange_width',5);                                  // 555b
+
+     if NodeIndexOf(FindNode('flange_offset'))<>-1
+       then flange_offset:=ReadFloat('flange_offset',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('flange_depth'))<>-1
+       then flange_depth:=ReadFloat('flange_depth',2.88);                                       // 555b
+
+    if NodeIndexOf(FindNode('dropper_ridge_spacing_top_mm'))<>-1
+       then dropper_ridge_spacing_top_mm:=ReadFloat('dropper_ridge_spacing_top_mm',0.4);        // 555b
+
+    if NodeIndexOf(FindNode('dropper_ridge_spacing_bottom_mm'))<>-1
+       then dropper_ridge_spacing_bottom_mm:=ReadFloat('dropper_ridge_spacing_bottom_mm',0.6);  // 555b
+
+    if NodeIndexOf(FindNode('dropper_ridge_height'))<>-1
+       then dropper_ridge_height:=ReadFloat('dropper_ridge_height',2.16);                       // 555b
+
+
+    // brick connector clips
+
+    if NodeIndexOf(FindNode('clip_shaft_width'))<>-1
+       then clip_shaft_width:=ReadFloat('clip_shaft_width',13.5);                               // 555b
+
+    if NodeIndexOf(FindNode('clip_top_width'))<>-1
+       then clip_top_width:=ReadFloat('clip_top_width',30);                                    // 555b
+
+    if NodeIndexOf(FindNode('clip_top_length'))<>-1
+       then clip_top_length:=ReadFloat('clip_top_length',4);                                   // 555b
+
+    if NodeIndexOf(FindNode('clip_top_corner_mm'))<>-1
+       then clip_top_corner_mm:=ReadFloat('clip_top_corner_mm',0.08);                          // 555b
+
+    if NodeIndexOf(FindNode('clip_arms_width'))<>-1
+       then clip_arms_width:=ReadFloat('clip_arms_width',6);                                   // 555b
+
+    if NodeIndexOf(FindNode('clip_outers_width'))<>-1
+       then clip_outers_width:=ReadFloat('clip_outers_width',13);                              // 555b
+
+    if NodeIndexOf(FindNode('clip_outers_length'))<>-1
+       then clip_outers_length:=ReadFloat('clip_outers_length',4);                             // 555b
+
+    if NodeIndexOf(FindNode('clip_ends_clear'))<>-1
+       then clip_ends_clear:=ReadFloat('clip_ends_clear',0);                                   // 555b
+
+    if NodeIndexOf(FindNode('clip_sides_clear'))<>-1
+       then clip_sides_clear:=ReadFloat('clip_sides_clear',0.15);                              // 555b
+
+    if NodeIndexOf(FindNode('clip_hole_mm'))<>-1
+       then clip_hole_mm:=ReadFloat('clip_hole_mm',1.0);                                       // 555b
+
+    if NodeIndexOf(FindNode('clip_depth_mm'))<>-1
+       then clip_depth_mm:=ReadFloat('clip_depth_mm',1.8);                                     // 555b
+
+    if NodeIndexOf(FindNode('clip_foot_depth_mm'))<>-1
+       then clip_foot_depth_mm:=ReadFloat('clip_foot_depth_mm',0.36);                          // 555b
+
+    if NodeIndexOf(FindNode('clip_foot_offset_mm'))<>-1
+       then clip_foot_offset_mm:=ReadFloat('clip_foot_offset_mm',0.3);                         // 555b
+
+
+    // splints
+
+    if NodeIndexOf(FindNode('splint_depth'))<>-1
+       then splint_depth:=ReadFloat('splint_depth',2.88);                                      // 555b
+
+    if NodeIndexOf(FindNode('splint_width'))<>-1
+       then splint_width:=ReadFloat('splint_width',9);                                         // 555b
+
+    if NodeIndexOf(FindNode('slab_depth'))<>-1
+       then slab_depth:=ReadFloat('slab_depth',2.88);                                          // 555b
+
+    if NodeIndexOf(FindNode('label_tab_width'))<>-1
+       then label_tab_width:=ReadFloat('label_tab_width',15);                                  // 555b
+
+    if NodeIndexOf(FindNode('label_char_thickness'))<>-1
+       then label_char_thickness:=ReadFloat('label_char_thickness',1.8);                      // 555b
+
+    // sockets
+
+    if NodeIndexOf(FindNode('plugsock_length_mod'))<>-1
+       then plugsock_length_mod:=ReadFloat('plugsock_length_mod',0);                          // 555b
+
+    if NodeIndexOf(FindNode('plugsock_width_mod'))<>-1
+       then plugsock_width_mod:=ReadFloat('plugsock_width_mod',0);                            // 555b
+
+    if NodeIndexOf(FindNode('socket_chamfer'))<>-1
+       then socket_chamfer:=ReadFloat('socket_chamfer',0.15);                                 // 555b
+
+    if NodeIndexOf(FindNode('socket_chamfer_depth'))<>-1
+       then socket_chamfer_depth:=ReadFloat('socket_chamfer_depth',0.36);                     // 555b
+
+    if NodeIndexOf(FindNode('socket_depth'))<>-1
+       then socket_depth:=ReadFloat('socket_depth',8.64);                                     // 555b
+
+    // snap fit chairs
+
+    if NodeIndexOf(FindNode('snap_socket_fit_sides_sl'))<>-1
+       then snap_socket_fit_sides_sl:=ReadFloat('snap_socket_fit_sides_sl',0.06);             // 555b
+
+    if NodeIndexOf(FindNode('snap_socket_fit_sides_timb'))<>-1
+       then snap_socket_fit_sides_timb:=ReadFloat('snap_socket_fit_sides_timb',0.05);         // 555b
+
+    if NodeIndexOf(FindNode('snap_socket_fit_ends'))<>-1
+       then snap_socket_fit_ends:=ReadFloat('snap_socket_fit_ends',0.04);                     // 555b
+
+    if NodeIndexOf(FindNode('snap_socket_undercut'))<>-1
+       then snap_socket_undercut:=ReadFloat('snap_socket_undercut',7/16);                     // 555b
+
+    if NodeIndexOf(FindNode('snap_undercut_depth'))<>-1
+       then snap_undercut_depth:=ReadFloat('snap_undercut_depth',1.44);                       // 555b
+
+    if NodeIndexOf(FindNode('snap_clearcut_depth'))<>-1
+       then snap_clearcut_depth:=ReadFloat('snap_clearcut_depth',6);                          // 555b
+
+    // clip socket chairs
+
+    if NodeIndexOf(FindNode('clip_socket_fit_sides_sl'))<>-1
+       then clip_socket_fit_sides_sl:=ReadFloat('clip_socket_fit_sides_sl',0.06);             // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_fit_sides_timb'))<>-1
+       then clip_socket_fit_sides_timb:=ReadFloat('clip_socket_fit_sides_timb',0.05);         // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_fit_ends'))<>-1
+       then clip_socket_fit_ends:=ReadFloat('clip_socket_fit_ends',0.01);                     // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_undercut'))<>-1
+       then clip_socket_undercut:=ReadFloat('clip_socket_undercut',7/16);                     // 555b
+
+    if NodeIndexOf(FindNode('clip_undercut_depth'))<>-1
+       then clip_undercut_depth:=ReadFloat('clip_undercut_depth',1.44);                       // 555b
+
+    if NodeIndexOf(FindNode('clip_clearcut_depth'))<>-1
+       then clip_clearcut_depth:=ReadFloat('clip_clearcut_depth',5.5);                        // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_top_depth'))<>-1
+       then clip_socket_flap_top_depth:=ReadFloat('clip_socket_flap_top_depth',2.52);         // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_top_length'))<>-1
+       then clip_socket_flap_top_length:=ReadFloat('clip_socket_flap_top_length',3.69);       // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_jut_length'))<>-1
+       then clip_socket_flap_jut_length:=ReadFloat('clip_socket_flap_jut_length',1.1);        // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_rear_length'))<>-1
+       then clip_socket_flap_rear_length:=ReadFloat('clip_socket_flap_rear_length',0.1);      // 555b
+
+    if NodeIndexOf(FindNode('clip_socket_flap_clear_width'))<>-1
+       then clip_socket_flap_clear_width:=ReadFloat('clip_socket_flap_clear_width',1.5);      // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_end_space'))<>-1
+       then clip_tang_end_space:=ReadFloat('clip_tang_end_space',5/16);                       // 555b
+
+    // press fit chairs
+
+    if NodeIndexOf(FindNode('press_socket_fit_sides_sl'))<>-1
+       then press_socket_fit_sides_sl:=ReadFloat('press_socket_fit_sides_sl',0.05);           // 555b
+
+    if NodeIndexOf(FindNode('press_socket_fit_sides_timb'))<>-1
+       then press_socket_fit_sides_timb:=ReadFloat('press_socket_fit_sides_timb',0.04);       // 555b
+
+       // negative interference fit ...
+
+    if NodeIndexOf(FindNode('press_short_socket_fit_ends'))<>-1
+       then press_short_socket_fit_ends:=ReadFloat('press_short_socket_fit_ends',-0.03);      // 555b
+
+    if NodeIndexOf(FindNode('press_socket_fit_ends'))<>-1
+       then press_socket_fit_ends:=ReadFloat('press_socket_fit_ends',-0.02);                  // 555b
+
+    if NodeIndexOf(FindNode('press_long_socket_fit_ends'))<>-1
+       then press_long_socket_fit_ends:=ReadFloat('press_long_socket_fit_ends',-0.01);        // 555b
+
+    if NodeIndexOf(FindNode('press_very_long_socket_fit_ends'))<>-1
+       then press_very_long_socket_fit_ends:=ReadFloat('press_very_long_socket_fit_ends',-0.01); // 555b
+
+    // ------------
+
+    if NodeIndexOf(FindNode('socket_indent'))<>-1
+       then socket_indent:=ReadFloat('socket_indent',1/3);                                    // 555b
+
+    // snap fit plugs
+
+    if NodeIndexOf(FindNode('snap_plug_overcut'))<>-1
+       then snap_plug_overcut:=ReadFloat('snap_plug_overcut',3/8);                            // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_overcut_depth'))<>-1
+       then snap_plug_overcut_depth:=ReadFloat('snap_plug_overcut_depth',2.5);                // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_taper_depth'))<>-1
+       then snap_plug_taper_depth:=ReadFloat('snap_plug_taper_depth',2);                      // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_inset_depth'))<>-1
+       then snap_plug_inset_depth:=ReadFloat('snap_plug_inset_depth',3.5);                    // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_total_depth'))<>-1
+       then snap_plug_total_depth:=ReadFloat('snap_plug_total_depth',7.5);                    // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_extended_depth'))<>-1
+       then snap_plug_extended_depth:=ReadFloat('snap_plug_extended_depth',2.5);              // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_inset_clear_upper'))<>-1
+       then snap_plug_inset_clear_upper:=ReadFloat('snap_plug_inset_clear_upper',0.25);       // 555b
+
+    if NodeIndexOf(FindNode('snap_plug_inset_clear_bottom'))<>-1
+       then snap_plug_inset_clear_bottom:=ReadFloat('snap_plug_inset_clear_bottom',7/16);     // 555b
+
+
+    // clip fit plugs
+
+    if NodeIndexOf(FindNode('clip_plug_taper_depth'))<>-1
+       then clip_plug_taper_depth:=ReadFloat('clip_plug_taper_depth',2);                      // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_inset_depth'))<>-1
+       then clip_plug_inset_depth:=ReadFloat('clip_plug_inset_depth',3.5);                    // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_total_depth'))<>-1
+       then clip_plug_total_depth:=ReadFloat('clip_plug_total_depth',7.75);                   // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_extended_depth'))<>-1
+       then clip_plug_extended_depth:=ReadFloat('clip_plug_extended_depth',8.375);            // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_inset_clear_upper'))<>-1
+       then clip_plug_inset_clear_upper:=ReadFloat('clip_plug_inset_clear_upper',0.25);       // 555b
+
+    if NodeIndexOf(FindNode('clip_plug_inset_clear_bottom'))<>-1
+       then clip_plug_inset_clear_bottom:=ReadFloat('clip_plug_inset_clear_bottom',7/16);     // 555b
+
+       // clip tangs
+
+    if NodeIndexOf(FindNode('clip_tang_overcut'))<>-1
+       then clip_tang_overcut:=ReadFloat('clip_tang_overcut',1/2);                            // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_roof_front_depth'))<>-1
+       then clip_tang_roof_front_depth:=ReadFloat('clip_tang_roof_front_depth',5/4);          // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_roof_back_depth'))<>-1
+       then clip_tang_roof_back_depth:=ReadFloat('clip_tang_roof_back_depth',2);              // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_floor_depth'))<>-1
+       then clip_tang_floor_depth:=ReadFloat('clip_tang_floor_depth',6);                      // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_default_depth'))<>-1
+       then clip_tang_default_depth:=ReadFloat('clip_tang_default_depth',2.4);                // 555b
+
+    if NodeIndexOf(FindNode('clip_tang_overcut_depth'))<>-1
+       then clip_tang_overcut_depth:=ReadFloat('clip_tang_overcut_depth',2.4);                // 555b
+
+       // ----------
+
+    // press fit plugs
+
+    if NodeIndexOf(FindNode('press_plug_taper_depth'))<>-1
+       then press_plug_taper_depth:=ReadFloat('press_plug_taper_depth',2);                    // 555b
+
+    if NodeIndexOf(FindNode('press_plug_inset_depth'))<>-1
+       then press_plug_inset_depth:=ReadFloat('press_plug_inset_depth',3.5);                  // 555b
+
+    if NodeIndexOf(FindNode('press_plug_total_depth'))<>-1
+       then press_plug_total_depth:=ReadFloat('press_plug_total_depth',7.75);                 // 555b
+
+    if NodeIndexOf(FindNode('press_plug_extended_depth'))<>-1
+       then press_plug_extended_depth:=ReadFloat('press_plug_extended_depth',8.375);          // 555b
+
+    if NodeIndexOf(FindNode('press_plug_inset_clear_upper'))<>-1
+       then press_plug_inset_clear_upper:=ReadFloat('press_plug_inset_clear_upper',0.25);     // 555b
+
+    if NodeIndexOf(FindNode('press_plug_inset_clear_bottom'))<>-1
+       then press_plug_inset_clear_bottom:=ReadFloat('press_plug_inset_clear_bottom',7/16);   // 555b
+
+
+    // plugs
+
+    if NodeIndexOf(FindNode('locator_plug_depth'))<>-1
+       then locator_plug_depth:=ReadFloat('locator_plug_depth',36);                           // 555b
+
+    if NodeIndexOf(FindNode('plug_corner_clear_fdm'))<>-1
+       then plug_corner_clear_fdm:=ReadFloat('plug_corner_clear_fdm',0.75);                   // 555b
+
+    if NodeIndexOf(FindNode('plug_corner_clear_cnc'))<>-1
+       then plug_corner_clear_cnc:=ReadFloat('plug_corner_clear_cnc',2.25);                   // 555b
+
+    if NodeIndexOf(FindNode('plug_end_width_fdm'))<>-1
+       then plug_end_width_fdm:=ReadFloat('plug_end_width_fdm',1.5);                          // 555b
+
+    if NodeIndexOf(FindNode('plug_end_width_cnc'))<>-1
+       then plug_end_width_cnc:=ReadFloat('plug_end_width_cnc',1.0);                          // 555b
+
+    if NodeIndexOf(FindNode('plug_fit_sides'))<>-1
+       then plug_fit_sides:=ReadFloat('plug_fit_sides',0);                                    // 555b
+
+    if NodeIndexOf(FindNode('plug_fit_ends'))<>-1
+       then plug_fit_ends:=ReadFloat('plug_fit_ends',0);                                      // 555b
+
+    // pyramids
+
+    if NodeIndexOf(FindNode('pyramid_height_low'))<>-1
+       then pyramid_height_low:=ReadFloat('pyramid_height_low',3.0);                          // 555b
+
+    if NodeIndexOf(FindNode('pyramid_height_high'))<>-1
+       then pyramid_height_high:=ReadFloat('pyramid_height_high',7.0);                        // 555b
+
+    if NodeIndexOf(FindNode('pyramid_taper'))<>-1
+       then pyramid_taper:=ReadFloat('pyramid_taper',1.25);                                   // 555b
+
+    if NodeIndexOf(FindNode('pyramid_top_end_inset'))<>-1
+       then pyramid_top_end_inset:=ReadFloat('pyramid_top_end_inset',3);                      // 555b
+
+    if NodeIndexOf(FindNode('pyramid_top_side_inset'))<>-1
+       then pyramid_top_side_inset:=ReadFloat('pyramid_top_side_inset',2);                    // 555b
+
+    if NodeIndexOf(FindNode('shrink_gauge_spacing'))<>-1
+       then shrink_gauge_spacing:=ReadFloat('shrink_gauge_spacing',3);                        // 555b
+
+    // loose jaw pins
+
+    if NodeIndexOf(FindNode('pyramid_height_pin'))<>-1
+       then pyramid_height_pin:=ReadFloat('pyramid_height_pin',1.0);                          // 555b
+
+    if NodeIndexOf(FindNode('pin_slot_halfwide'))<>-1
+       then pin_slot_halfwide:=ReadFloat('pin_slot_halfwide',1.8);                            // 555b
+
+    if NodeIndexOf(FindNode('pin_slot_length'))<>-1
+       then pin_slot_length:=ReadFloat('pin_slot_length',1.8);                                // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_clear_sides'))<>-1
+       then loose_pin_clear_sides:=ReadFloat('loose_pin_clear_sides',0.04);                   // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_clear_front'))<>-1
+       then loose_pin_clear_front:=ReadFloat('loose_pin_clear_front',0.04);                   // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_clear_back'))<>-1
+       then loose_pin_clear_back:=ReadFloat('loose_pin_clear_back',0.04);                     // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_bottom_taper_ins'))<>-1
+       then loose_pin_bottom_taper_ins:=ReadFloat('loose_pin_bottom_taper_ins',0.09);         // 555b
+
+    if NodeIndexOf(FindNode('key_thicken'))<>-1
+       then key_thicken:=ReadFloat('key_thicken',0.05);                                       // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_depth_clear'))<>-1
+       then loose_pin_depth_clear:=ReadFloat('loose_pin_depth_clear',1/8);                    // 555b
+
+    if NodeIndexOf(FindNode('loose_pin_bottom_chamfer_clear'))<>-1
+       then loose_pin_bottom_chamfer_clear:=ReadFloat('loose_pin_bottom_chamfer_clear',1.75); // 555b
+
+    if NodeIndexOf(FindNode('slot_angle'))<>-1
+       then slot_angle:=ReadFloat('slot_angle',5*Pi/180);                                     // 555b
+
+    // raft
+
+    if NodeIndexOf(FindNode('raft_thick'))<>-1
+       then raft_thick:=ReadFloat('raft_thick',0.05);                                         // 555b
+
+    if NodeIndexOf(FindNode('raft_flange'))<>-1
+       then raft_flange:=ReadFloat('raft_flange',0.25);                                       // 555b
+
+    if NodeIndexOf(FindNode('raft_label_char_thickness'))<>-1
+       then raft_label_char_thickness:=ReadFloat('raft_label_char_thickness',1.0);            // 555b
+
+    if NodeIndexOf(FindNode('alignment_plate_thick_mm'))<>-1
+       then alignment_plate_thick_mm:=ReadFloat('alignment_plate_thick_mm',3.0);              // 555b
+
+    // filament
+
+    if NodeIndexOf(FindNode('filament_dia_mm'))<>-1
+       then filament_dia_mm:=ReadFloat('filament_dia_mm',1.75);                               // 555b
+
+    if NodeIndexOf(FindNode('filament_adjust'))<>-1
+       then filament_adjust:=ReadFloat('filament_adjust',0);                                  // 555b
+
+    // flangeways
+
+    if NodeIndexOf(FindNode('fw_correction_xing'))<>-1
+       then fw_correction_xing:=ReadFloat('fw_correction_xing',0);                            // 555b
+
+    if NodeIndexOf(FindNode('fw_correction_check'))<>-1
+       then fw_correction_check:=ReadFloat('fw_correction_check',0);                          // 555b
+
+    if NodeIndexOf(FindNode('fw_tweak_xing'))<>-1
+       then fw_tweak_xing:=ReadFloat('fw_tweak_xing',0);                                      // 555b
+
+    if NodeIndexOf(FindNode('fw_tweak_check'))<>-1
+       then fw_tweak_check:=ReadFloat('fw_tweak_check',0);                                    // 555b
+
+    // kerfs
+
+    if NodeIndexOf(FindNode('cutter_kerf_mm'))<>-1
+       then cutter_kerf_mm:=ReadFloat('cutter_kerf_mm',0.2);                                  // 555b
+
+    if NodeIndexOf(FindNode('kerf_extra_undercut_mm'))<>-1
+       then kerf_extra_undercut_mm:=ReadFloat('kerf_extra_undercut_mm',0);                    // 555b
+
+    // nibs and snibs
+
+    if NodeIndexOf(FindNode('nib_width'))<>-1
+       then nib_width:=ReadFloat('nib_width',0.6);                                            // 555b
+
+    if NodeIndexOf(FindNode('nib_length'))<>-1
+       then nib_length:=ReadFloat('nib_length',0.6);                                          // 555b
+
+    if NodeIndexOf(FindNode('tsn_snib_space_mm'))<>-1
+       then tsn_snib_space_mm:=ReadFloat('tsn_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('tsf_snib_space_mm'))<>-1
+       then tsf_snib_space_mm:=ReadFloat('tsf_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('msn_snib_space_mm'))<>-1
+       then msn_snib_space_mm:=ReadFloat('msn_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('msf_snib_space_mm'))<>-1
+       then msf_snib_space_mm:=ReadFloat('msf_snib_space_mm',0.3);                            // 555b
+
+    if NodeIndexOf(FindNode('snib1_extent'))<>-1
+       then snib1_extent:=ReadFloat('snib1_extent',6);                                        // 555b
+
+    if NodeIndexOf(FindNode('snib2_extent_t'))<>-1
+       then snib2_extent_t:=ReadFloat('snib2_extent_t',15.5);                                 // 555b
+
+    if NodeIndexOf(FindNode('snib2_extent_p'))<>-1
+       then snib2_extent_p:=ReadFloat('snib2_extent_p',10);                                   // 555b
+
+    if NodeIndexOf(FindNode('snib2_extent_e'))<>-1
+       then snib2_extent_e:=ReadFloat('snib2_extent_e',12.5);                                 // 555b
+
+
+    // nails
+
+    if NodeIndexOf(FindNode('nails_height'))<>-1
+       then nails_height:=ReadFloat('nails_height',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('nails_toprad'))<>-1
+       then nails_toprad:=ReadFloat('nails_toprad',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('nails_botrad'))<>-1
+       then nails_botrad:=ReadFloat('nails_botrad',0);                                        // 555b
+
+    if NodeIndexOf(FindNode('nailx_spacing'))<>-1
+       then nailx_spacing:=ReadFloat('nailx_spacing',0);                                      // 555b
+
+    if NodeIndexOf(FindNode('naily_spacing'))<>-1
+       then naily_spacing:=ReadFloat('naily_spacing',0);                                      // 555b
+
+
+     // shrinkage FDM - heated bed
+
+    if NodeIndexOf(FindNode('fdm_hot_shrinkage_x'))<>-1
+       then fdm_hot_shrinkage_x:=ReadFloat('fdm_hot_shrinkage_x',0);                          // 555b
+
+    if NodeIndexOf(FindNode('fdm_hot_shrinkage_y'))<>-1
+       then fdm_hot_shrinkage_y:=ReadFloat('fdm_hot_shrinkage_y',0);                          // 555b
+
+    if NodeIndexOf(FindNode('fdm_hot_shrinkage_z'))<>-1
+       then fdm_hot_shrinkage_z:=ReadFloat('fdm_hot_shrinkage_z',0);                          // 555b
+
+    // shrinkage FDM - cold bed
+
+    if NodeIndexOf(FindNode('fdm_cold_shrinkage_x'))<>-1
+       then fdm_cold_shrinkage_x:=ReadFloat('fdm_cold_shrinkage_x',0);                        // 555b
+
+    if NodeIndexOf(FindNode('fdm_cold_shrinkage_y'))<>-1
+       then fdm_cold_shrinkage_y:=ReadFloat('fdm_cold_shrinkage_y',0);                        // 555b
+
+    if NodeIndexOf(FindNode('fdm_cold_shrinkage_z'))<>-1
+       then fdm_cold_shrinkage_z:=ReadFloat('fdm_cold_shrinkage_z',0);                        // 555b
+
+    // shrinkage Resin
+
+    if NodeIndexOf(FindNode('resin_shrinkage_x'))<>-1
+       then resin_shrinkage_x:=ReadFloat('resin_shrinkage_x',0);                              // 555b
+
+    if NodeIndexOf(FindNode('resin_shrinkage_y'))<>-1
+       then resin_shrinkage_y:=ReadFloat('resin_shrinkage_y',0);                              // 555b
+
+    if NodeIndexOf(FindNode('resin_shrinkage_z'))<>-1
+       then resin_shrinkage_z:=ReadFloat('resin_shrinkage_z',0);                              // 555b
+
+    // other
+
+    if NodeIndexOf(FindNode('chair_web_adjustment'))<>-1
+       then chair_web_adjustment:=ReadFloat('chair_web_adjustment',0);                        // 555b
+
+// 555b
+
+    rail_section_option:=ReadInteger('rail_option',0);    // 244d preserve legacy files after variable name change
+
+  end;//with node
+
+  xml_doc.Free;
+
+  with dxf_form do begin
+
+    chair_adjust_edit.Text:=FloatToStr(chair_web_adjustment);
+
+    case rail_section_option of
+        0: bs95r_radiobutton.Checked:=True;
+        1: emgs_75_rail_radiobutton.Checked:=True;
+        2: smp_75_rail_radiobutton.Checked:=True;
+        3: peco_124_rail_radiobutton.Checked:=True;
+        4: cl_131_rail_radiobutton.Checked:=True;
+
+       99: begin
+             custom_rail_radiobutton.Checked:=True;
+             custom_rail_radiobutton.Caption:='custom: '+custom_section_name_str;
+           end;
+    end;//case
+  end;//with
+  
+  show_modal_message('Your custom data has been loaded from'+#13+#13+sk4_str);
+end;
+//______________________________________________________________________________
+
 procedure Tdxf_form.load_custom_buttonClick(Sender: TObject);
 
 begin
-  load_custom_3d_data('');
+  load_custom_3d_dxf_data('');
 end;
 //______________________________________________________________________________
 
 procedure Tdxf_form.save_custom_buttonClick(Sender: TObject);
 
 begin
-  save_custom_3d_data;
+  try
+    chair_web_adjustment:=StrToFloat(Trim(chair_adjust_edit.Text));
+  except
+    show_modal_message('error: chair fit adjustment must be a valid number with no spaces or other text');
+    EXIT;
+  end;
+
+  custom_3d_save:=True;
+  do_show_modal(custom_3d_form);
 end;
 //______________________________________________________________________________
 
@@ -14762,8 +15234,6 @@ begin
   rail_section_button.Click;
 end;
 //______________________________________________________________________________
-
-
 
 initialization
 

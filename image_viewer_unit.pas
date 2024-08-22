@@ -38,7 +38,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ShellApi, Clipbrd,
-  ExtCtrls, StdCtrls, Menus;
+  ExtCtrls, StdCtrls, Menus, emf_unit;
+
+
 
 type
   Timage_viewer_form = class(TForm)
@@ -83,7 +85,7 @@ type
 var
   image_viewer_form: Timage_viewer_form;
 
-  procedure show_an_image_file(file_str:string);
+  procedure show_an_image_file(emf:boolean; file_str:string; emf_image:Temf);      // 555a
 
 implementation
 
@@ -97,15 +99,55 @@ var
 
 //______________________________________________________________________________
 
-procedure show_an_image_file(file_str:string);
+procedure show_an_image_file(emf:boolean; file_str:string; emf_image:Temf);
+
+var
+  memory_met_dc:HDC;
+  emf_rect:TRect;
 
 begin
-  try
-    image_viewer_form.viewer_image.Picture.LoadFromFile(file_str);
-  except
-    show_modal_message('Sorry, unable to display the image.');
-    EXIT;
-  end;//try
+  if emf=True              // MW 14-AUG-2024
+     then begin
+            emf_rect:=Rect(0,0,emf_image.emf_width_dots,emf_image.emf_height_dots);
+
+            memory_met_dc:=SetEnhMetaFileBits(Length(emf_image.emf_bytes), emf_image.emf_bytes[0]);
+
+            if memory_met_dc=0
+               then begin
+                      show_modal_message('Sorry, unable to display the EMF image.');
+                      EXIT;
+                    end
+               else begin
+                      with image_viewer_form.viewer_image.Picture do begin
+
+                        Bitmap.Width:=emf_image.emf_width_dots;
+                        Bitmap.Height:=emf_image.emf_height_dots;
+
+                        with Bitmap.Canvas do begin     // blank the picture area first...
+                          Brush.Color:=clWhite;
+                          Brush.Style:=bsSolid;
+                          FillRect(Rect(0,0,Bitmap.Width,Bitmap.Height));
+                        end;//with
+
+                        if PlayEnhMetaFile(Bitmap.Canvas.Handle, memory_met_dc, emf_rect)=False
+                           then begin
+                                  show_modal_message('Sorry, unable to display the metafile image.');
+                                  DeleteEnhMetaFile(memory_met_dc);
+                                  EXIT;
+                                end;
+                      end;//with
+                    end;
+
+            DeleteEnhMetaFile(memory_met_dc);   // finished
+          end
+     else begin
+            try
+              image_viewer_form.viewer_image.Picture.LoadFromFile(file_str);
+            except
+              show_modal_message('Sorry, unable to display the image.');
+              EXIT;
+            end;//try
+          end;
 
   show_modal_message('The image will be displayed full size. You may need to scroll the viewer to see anything.');
 

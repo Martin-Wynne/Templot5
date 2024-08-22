@@ -181,10 +181,8 @@ uses
   info_unit, colour_unit, bgnd_unit, bgkeeps_unit, help_sheet,
   stay_visible_unit, panning_unit, shove_timber, grid_unit, edit_memo_unit,
   print_settings_unit, print_now_box, export_unit, rail_options_unit, platform_unit, check_diffs_unit,
-  data_memo_unit,
-
-  trackbed_unit, make_slip_unit, image_viewer_unit,
-  bitmap_viewer_unit, detail_mode_unit, brick_unit;  // 214b
+  data_memo_unit, trackbed_unit, make_slip_unit, image_viewer_unit,
+  bitmap_viewer_unit, detail_mode_unit, brick_unit, emf_unit;
 
 type                               // 227a
   Tsheet_id=class(TObject)
@@ -687,10 +685,7 @@ var
 
   max_bitmap:integer;      // 223d
 
-(*
-  pv_metafile:TMetafile;          // 223d
-  pv_canvas:TMetaFileCanvas;      // 223d
-*)
+  emf_set:Temf_set;
 
   cur_cal:Tcal_data;
   cal_ok:boolean;
@@ -768,6 +763,9 @@ var
 
   ident_margin:integer;  // 225d ..
   ident_str:string;
+
+  memory_met_dc:HDC;     // 555a
+  emf_rect:TRect;
 
 
               /////////////////////////////
@@ -2139,15 +2137,16 @@ try
                                         end;
 
                                   mrNo: begin         // preview button clicked     223d
+
                                           print_form.page_panel.Caption:='preparing  page   '+button_str+'  ...';
 
                                           if (print_form.metafile_checkbox.Checked=True) and ((print_form.picture_stretch_radio.Checked=False) or (print_form.preview_special_checkbox.Checked=True))   // picture shapes won't appear in metafile if they extend beyond page, or try anyway
                                              then begin
 
-(*
-                                                    pv_canvas:=TMetaFileCanvas.Create(pv_metafile,0);     // don't need reference device, size already set
-                                                    output_canvas:=pv_canvas;
-*)
+                                                    emf_set:=begin_mem_emf(preview_ppi,printer_width_indexmax_dots+1,printer_length_indexmax_dots+1);   // 555a  MW 14-AUG-2024
+                                                    if emf_set.emf_valid=True
+                                                       then output_canvas:=emf_set.emf_canvas
+                                                       else EXIT;
                                                   end
                                              else begin
                                                     max_bitmap:=printer_width_indexmax_dots*printer_length_indexmax_dots;
@@ -2848,42 +2847,36 @@ try
            then begin
                   if (print_form.metafile_checkbox.Checked=True) and ((print_form.picture_stretch_radio.Checked=False) or (print_form.preview_special_checkbox.Checked=True))
                      then begin
-(*
-                            if Assigned(pv_canvas)=True
+                            if emf_set.emf_valid=True
                                then begin
-                                      pv_canvas.Free;   // creates the metafile record when the metafile canvas is freed
-                                      pv_canvas:=Nil;   // so can re-use
-                                    end;
+                                      dot_for_dot_width:=emf_set.emf_width_dots;
+                                      dot_for_dot_height:=emf_set.emf_height_dots;
+                                    end
+                               else EXIT;
 
-                            dot_for_dot_width:=pv_metafile.Width;
-                            dot_for_dot_height:=pv_metafile.Height;
+                            if emf_set.emf_width_dots<1 then EXIT;  // zero division potection
 
-                            preview_image_aspect_ratio:=pv_metafile.Width/pv_metafile.Height;
-*)
+                            preview_image_aspect_ratio:=emf_set.emf_height_dots/emf_set.emf_width_dots;
 
                             with bitmap_viewer_form do begin
 
-                              ClientWidth:=Screen.Width*7 div 8;    // do this first, and reduce it later (AutoScroll fix) ...
+                              src_label.Caption:='emf';
 
-                              ClientHeight:=Screen.Height*7 div 8;
+                              ClientWidth:=bvform_wide;    // reset startup sizes (scaled)
+                              ClientHeight:=bvform_high;
 
-                              bitmap_image.Height:=preview_scrollbox.Height-2;    // single-line borders on scrollbox
-                              bitmap_image.Width:=Round(bitmap_image.Height*preview_image_aspect_ratio);
+                              if ClientHeight>Screen.Height*9 div 10 then ClientHeight:=Screen.Height*9 div 10;
 
-                              ClientWidth:=bitmap_image.Width+2;  // single-line borders on scrollbox
-
-                              if ClientWidth>(Screen.Width*7 div 8) then ClientWidth:=Screen.Width*7 div 8;
-
-                              close_panel.Left:=ClientWidth-110;
-
-                              zoom_trackbar.Position:=15;                          // default
-
-                              preview_image_default_height:=bitmap_image.Height;
-
-                              // OT2024 bitmap_image.Picture.Metafile:=pv_metafile;
-
+                              preview_image.Width:=ClientWidth-10;
+                              preview_image.Height:=Round(preview_image.Width*preview_image_aspect_ratio);
 
                               Left:=(Screen.Width-ClientWidth) div 2;   // centre it
+
+                              zoom_trackbar.Position:=15;                           // default zoom
+                              preview_image_default_height:=preview_image.Height;   // for zooming
+
+                              if finish_play_emf(preview_image.Picture.Bitmap, emf_set)=False
+                                 then EXIT;
 
                               Caption:='   page  '+button_str+'  preview   -   printer  page : '+IntToStr(dot_for_dot_width)+' x '+IntToStr(dot_for_dot_height)+' dots   -   printer  resolution : '+IntToStr(preview_ppi)+' DPI';
 
@@ -2894,8 +2887,6 @@ try
                               zoom_trackbar.Enabled:=True;
 
                               print_panel.Caption:='    print  page  '+button_str;
-
-                              close_panel.Left:=ClientWidth-100;
 
                             end;//with
 
@@ -2908,7 +2899,7 @@ try
 
 
                           end
-                     else begin
+                     else begin                                                         // show bitmap instead of EMF
                             if (output_bitmap.Width<>0) and (output_bitmap.Height<>0)            // no div 0
                                then begin
 
@@ -2917,29 +2908,26 @@ try
                                       dot_for_dot_width:=output_bitmap.Width;
                                       dot_for_dot_height:=output_bitmap.Height;
 
-                                      preview_image_aspect_ratio:=output_bitmap.Width/output_bitmap.Height;
+                                      preview_image_aspect_ratio:=emf_set.emf_height_dots/emf_set.emf_width_dots;
 
                                       with bitmap_viewer_form do begin
 
-                                        ClientWidth:=Screen.Width*7 div 8;    // do this first, and reduce it later (AutoScroll fix) ...
+                                        src_label.Caption:='bmp';
 
-                                        ClientHeight:=Screen.Height*7 div 8;
+                                        ClientWidth:=bvform_wide;    // reset startup sizes (scaled)
+                                        ClientHeight:=bvform_high;
 
-                                        bitmap_image.Height:=preview_scrollbox.Height-2;    // single-line borders on scrollbox
-                                        bitmap_image.Width:=Round(bitmap_image.Height*preview_image_aspect_ratio);
+                                        if ClientHeight>Screen.Height*9 div 10 then ClientHeight:=Screen.Height*9 div 10;
 
-                                        ClientWidth:=bitmap_image.Width+2;  // single-line borders on scrollbox
-
-                                        if ClientWidth>(Screen.Width*7 div 8) then ClientWidth:=Screen.Width*7 div 8;
-
-                                        close_panel.Left:=ClientWidth-110;
-
-                                        zoom_trackbar.Position:=15;                          // default
-                                        preview_image_default_height:=bitmap_image.Height;
-
-                                        bitmap_image.Picture.Bitmap:=output_bitmap;
+                                        preview_image.Width:=ClientWidth-10;
+                                        preview_image.Height:=Round(preview_image.Width*preview_image_aspect_ratio);
 
                                         Left:=(Screen.Width-ClientWidth) div 2;   // centre it
+
+                                        zoom_trackbar.Position:=15;                           // default zoom
+                                        preview_image_default_height:=preview_image.Height;   // for zooming
+
+                                        preview_image.Picture.Bitmap:=output_bitmap;
 
                                         Caption:='   page  '+button_str+'  preview   -   printer  page : '+IntToStr(output_bitmap.Width)+' x '+IntToStr(output_bitmap.Height)+' pixels   -   printer  resolution : '+IntToStr(preview_ppi)+' DPI';
 
@@ -3009,8 +2997,6 @@ finally
   print_form.Close;
 
   output_bitmap.Free;   // 223d
-
-  // OT2024 pv_metafile.Free;     // 223d
 
 end;//try
 

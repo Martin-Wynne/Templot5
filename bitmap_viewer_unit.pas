@@ -41,7 +41,11 @@ uses
   StdCtrls, ExtCtrls, ComCtrls;
 
 type
+
+  { Tbitmap_viewer_form }
+
   Tbitmap_viewer_form = class(TForm)
+    src_label: TLabel;
     zoom_trackbar: TTrackBar;
     Label1: TLabel;
     close_panel: TPanel;
@@ -49,7 +53,7 @@ type
     dot_for_dot_checkbox: TCheckBox;
     Label2: TLabel;
     preview_scrollbox: TScrollBox;
-    bitmap_image: TImage;
+    preview_image: TImage;
     Label3: TLabel;
     Label4: TLabel;
     print_panel: TPanel;
@@ -74,15 +78,21 @@ type
 var
   bitmap_viewer_form: Tbitmap_viewer_form;
 
-  preview_image_aspect_ratio:extended=0.75;
-  preview_image_default_height:integer=650;
+  preview_image_aspect_ratio:extended=4/3;
+  preview_image_default_height:integer=992;
 
   dot_for_dot_width:integer=4800;
   dot_for_dot_height:integer=7000;
 
+  bvform_wide:integer=700;
+  bvform_high:integer=1080;
+
 implementation
 
 {$R *.lfm}
+
+uses
+  math_unit;
 
 var
   pos_down_x:integer=0;
@@ -97,9 +107,12 @@ var
 procedure Tbitmap_viewer_form.FormCreate(Sender: TObject);
 
 begin
-  ClientWidth:=600;
-  ClientHeight:=728;
+  ClientWidth:=700;
+  ClientHeight:=1080;
   AutoScroll:=False;
+
+  bvform_wide:=ClientWidth;     // 555a    for startup scaling
+  bvform_high:=ClientHeight;
 
   DoubleBuffered:=True;
   preview_scrollbox.DoubleBuffered:=True;
@@ -124,8 +137,12 @@ var
 begin
   zoom_power:=15-zoom_trackbar.Position;     // in reverse to fix mouse wheel direction
 
-  bitmap_image.Height:=Round(preview_image_default_height*POWER(1.2,zoom_power));     // 1.2 arbitrary = +/-20% per step
-  bitmap_image.Width:=Round(bitmap_image.Height*preview_image_aspect_ratio);
+  try
+    preview_image.Height:=Round(preview_image_default_height*POWER(1.2,zoom_power));     // 1.2 arbitrary = +/-20% per step
+    preview_image.Width:=Round(preview_image.Height/preview_image_aspect_ratio);
+  except
+    do_nothing;
+  end;
 end;
 //______________________________________________________________________________
 
@@ -144,8 +161,8 @@ begin
   if dot_for_dot_checkbox.Checked
      then begin
             zoom_trackbar.Enabled:=False;
-            bitmap_image.Height:=dot_for_dot_height;
-            bitmap_image.Width:=dot_for_dot_width;
+            preview_image.Height:=dot_for_dot_height;
+            preview_image.Width:=dot_for_dot_width;
           end
      else begin
             zoom_trackbar.Enabled:=True;

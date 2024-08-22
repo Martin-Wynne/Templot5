@@ -13,7 +13,7 @@ object heave_chairs_form: Theave_chairs_form
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -2713
+  Font.Height = -3391
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -621,7 +621,7 @@ object heave_chairs_form: Theave_chairs_form
     Left = 762
     Height = 340
     Top = 18
-    Width = 150
+    Width = 172
     BorderStyle = bsNone
     Enabled = False
     Font.Color = clBlack
@@ -1938,10 +1938,10 @@ object heave_chairs_form: Theave_chairs_form
     end
   end
   object Label4: TLabel
-    Left = 920
+    Left = 940
     Height = 200
-    Top = 90
-    Width = 120
+    Top = 72
+    Width = 100
     AutoSize = False
     Caption = 'switch and crossing chairs not listed here are matched to their location on the rail and cannot be used elsewhere'
     Font.Color = clBlue

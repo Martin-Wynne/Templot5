@@ -200,6 +200,8 @@ var
   n,i:integer;
   ydiff:extended;
 
+  xleft,xright,ytop,ybot:extended;
+
 begin
   RESULT:=False;    // init...
   corners[0]:=corner1;
@@ -207,16 +209,42 @@ begin
   corners[2]:=corner3;
   corners[3]:=corner4;
 
+  xleft:=maxfp;
+  xright:=0-maxfp;
+
+  ybot:=maxfp;
+  ytop:=0-maxfp;
+
+
+  for n:=0 to 3 do begin        // find polygon bounds       555a  MW 17-AUG-2024
+
+    if corners[n].x>xright then xright:=corners[n].x;
+    if corners[n].x<xleft then xleft:=corners[n].x;
+
+    if corners[n].y>ytop then ytop:=corners[n].y;
+    if corners[n].y<ybot then ybot:=corners[n].y;
+
+  end;//next
+
+  if p.x>=(xright-minfp) then EXIT;    // p is beyond bounds
+  if p.x<=(xleft+minfp) then EXIT;     // p is before bounds
+
+  if p.y>=(ytop-minfp) then EXIT;    // p is above bounds
+  if p.y<=(ybot+minfp) then EXIT;    // p is below bounds
+
     // find intersections of horizontal line stretching to the right of p with any side...
 
   try
-    n:=3;                         // any two different corners...
+    n:=3;        // any two different corners...
+
     for i:=0 to 3 do begin
 
       if ((p.y>corners[i].y) and (p.y<corners[n].y)) or ((p.y>corners[n].y) and (p.y<corners[i].y))
          then begin
                 ydiff:=corners[n].y-corners[i].y;
-                if ABS(ydiff)<minfp then CONTINUE; // prevent div zero - horizontal side can't intersect
+
+                if ABS(ydiff)<minfp
+                   then CONTINUE;    // prevent div zero - horizontal side can't intersect
 
                 if p.x<((corners[n].x-corners[i].x)*(p.y-corners[i].y)/ydiff+corners[i].x)    // intersection?
 
@@ -224,7 +252,8 @@ begin
               end;
 
       n:=i;   // do all 4 sides
-    end;
+
+    end;//next
 
   except
     RESULT:=False;

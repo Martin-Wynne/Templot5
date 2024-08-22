@@ -41,6 +41,9 @@ uses
   StdCtrls, Buttons, Menus, ExtCtrls, ComCtrls, FileCtrl;
 
 type
+
+  { Tcontrol_room_form }
+
   Tcontrol_room_form = class(TForm)
     control_room_menu_bar: TMainMenu;
     help_menu: TMenuItem;
@@ -146,7 +149,6 @@ type
     graphics_24_bit_limits_menu_entry: TMenuItem;
     graphics_32_bit_limits_menu_entry: TMenuItem;
     graphics_limits_help_menu_entry: TMenuItem;
-    logo_panel: TPanel;
     logo_image: TImage;
     recent_button: TButton;
     recent_menu_entry: TMenuItem;
@@ -4982,16 +4984,41 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure do_open_source_bang(str:string);  // OT2024
+procedure do_t2_swap;
 
 begin
-  ShowMessage('              '+Application.Title+'   first release July 2024'
-   +#13+#13+'The function you have selected is not available in this first release of '+Application.Title+':'
-   +#13+#13+'                '+str
-   +#13+#13+'This release of '+Application.Title+' may not be suitable for practical use.'
-   +#13+#13+'A full working version of Templot2 is available (free) from the Templot web site.');
+  do_nothing;
 end;
+//______________________________________________________________________________
 
+procedure t2_swap_help;
+
+begin
+  help(0,'Please refer to the Templot Club user forum.','');
+end;
+//______________________________________________________________________________
+
+procedure do_open_source_bang(str:string);  // OT2024
+
+var
+  i:integer;
+
+begin
+  i:=alert(2,'   Function  not  yet  available  here.',
+             '||         `0<I>'+Application.Title+'</I>`9  early release 2024'
+             +'|||Sorry, the function you have selected is not available in this early release of '+Application.Title+':'
+             +'||               <B>'+str+'</B>'
+             +'||To use this function you need to swap back to <B>Templot2</B> - click the blue bar below.',
+               '','','','swap  back  to  using  Templot2','cancel','more  information',0);
+  case i of
+       4: do_t2_swap;
+
+       6: t2_swap_help;
+
+     else EXIT;
+  end;//case
+end;
+//______________________________________________________________________________
 
 initialization
 

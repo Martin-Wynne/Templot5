@@ -21544,7 +21544,8 @@ begin
                       else xtb_hd:=xtb;   // turnout
                     end;
 
-            if (turnout_road_crossing_rail_flag=True) or (main_road_crossing_rail_flag=True)  // not if no switch blades.
+            if ((turnout_road_crossing_rail_flag=True) or (main_road_crossing_rail_flag=True))  // not if no switch blades.
+            and (xtb>startx)                                                                    // not if blanked   555a  MW 21-AUG-2024
                then begin
                       p1.x:=xtb_hd-tbw;
                       p1.y:=g+tbh;  // 226c  was g+tbe;

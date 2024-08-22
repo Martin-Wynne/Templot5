@@ -11,7 +11,7 @@ object pad_form: Tpad_form
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -118
+  Font.Height = -231
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -1798,21 +1798,6 @@ object pad_form: Tpad_form
     ParentFont = False
     TabOrder = 20
     Visible = False
-  end
-  object trial_button: TButton
-    Left = 1256
-    Height = 20
-    Top = 8
-    Width = 36
-    Anchors = [akTop, akRight]
-    Caption = 'trial'
-    Font.Color = clNavy
-    Font.Height = -13
-    Font.Name = 'Arial'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 21
-    OnClick = trial_buttonClick
   end
   object pad_menu_bar: TMainMenu
     Left = 252
