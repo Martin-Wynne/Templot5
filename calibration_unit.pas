@@ -1,8 +1,9 @@
 
 (*
+================================================================================
 
-    This file is part of Templot3, a computer program for the design of model railway track.
-    Copyright (C) 2018  Martin Wynne.  email: martin@templot.com
+    This file is part of OpenTemplot2024, a computer program for the design of model railway track.
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
 
     This program is free software: you may redistribute it and/or modify
@@ -33,9 +34,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls
-
-  , LCLtype;     // OT-FIRST
+  StdCtrls, ExtCtrls, LCLtype;
 
 type
   Tcalibration_form = class(TForm)
@@ -87,12 +86,12 @@ const
   cal_prompt_str:string='      Printer  Calibration'
 
    +'||For the maximum dimensional accuracy of your printed templates it is usually necessary to calibrate the printer.'
-   +'||This involves carefully measuring a printed test pattern, and then entering the sizes, so that Templot0 can adjust'
+   +'||This involves carefully measuring a printed test pattern, and then entering the sizes, so that Templot can adjust'
    +' the subsequent printing of your templates accordingly.'
    +'||If this printer has been calibrated previously, the calibration information can be re-entered directly, or reloaded from a file.'
    +'||You can choose to calibrate any or all of your printers, and switch between them without losing the calibration information for each.'
    +' This allows you to to do quick trial templates on one printer and the final construction templates on another, for example.'
-   +'||If the printer being used is uncalibrated, Templot0 will mark the printed templates with a warning. They may be acceptably accurate'
+   +'||If the printer being used is uncalibrated, Templot will mark the printed templates with a warning. They may be acceptably accurate'
    +' for trial planning purposes.'
    +'||For the final construction templates, calibration is strongly recommended, and for maximum accuracy it is important to use the same'
    +' type of paper for both the calibration test print and the finished templates.'
@@ -128,24 +127,24 @@ uses
 const
   cal_help_str:string='      Printer  Calibration  -  Factors  Known'
 
-   +'||If you have previously performed a calibration for this printer and this type and thickness of paper, Templot0 will'
+   +'||If you have previously performed a calibration for this printer and this type and thickness of paper, Templot will'
    +' have printed out the relevant correction factors on the proof sheet. You can therefore enter them again now, thus saving the need to do'
    +' a fresh calibration test print. But take care to enter the figures correctly as invalid correction factors will render your templates'
    +' unusable. In most cases the correction factors will be figures close to 100 %, for example figures such as 102.43 % or 99.72 %.'
    +'||Bear in mind that the existing factors are only valid for this printer and the SAME type and thickness of paper. If you'
    +' are using a new batch of paper, it is recommended that you do a fresh calibration.'
-   +'||( Templot0 can detect if you change the printer, but NOT if you change the type of paper. To ensure accurate templates'
+   +'||( Templot can detect if you change the printer, but NOT if you change the type of paper. To ensure accurate templates'
    +' make sure that you always use paper that matches the current calibration settings ! )'
    +'||If you have previously saved the calibration factors to a file you can simply reload them.'
-   +'||(If you have added, removed or swapped printers on your computer since the file was saved Templot0 may or may not report an error,'
+   +'||(If you have added, removed or swapped printers on your computer since the file was saved Templot may or may not report an error,'
    +' but either way you should print a proof sheet to check, and if necessary re-calibrate and save a fresh file.)';
 
   save_help_str:string='      Save  Calibration'
 
-  +'||You can save your calibration results to a file, so that they can be quickly reloaded when you next run Templot0.'
+  +'||You can save your calibration results to a file, so that they can be quickly reloaded when you next run Templot.'
   +'||Bear in mind that the settings are only valid for the type of paper that you have used for the calibration, so for each printer you will'
   +' probably want to save different calibration files for different papers.'
-  +'||( It is useful to include the paper type in the name of the file. Templot0 will suggest as a file name the name of the printer suffixed "-papertype".'
+  +'||( It is useful to include the paper type in the name of the file. Templot will suggest as a file name the name of the printer suffixed "-papertype".'
   +'  Change this to, for example, "-tracing" if this calibration is for tracing paper.)';
 
 var
@@ -173,7 +172,7 @@ begin
 
   try
 
-    { OT-FIRST
+    { OT2024
 
     if Win32Platform=VER_PLATFORM_WIN32_NT   // running under Windows NT...
       then begin
@@ -192,23 +191,25 @@ begin
 
             //  (first make sure PrinterIndex is within our list range) ...
 
-             while printer_list.Count<Printer.Printers.Count do begin              // should never do this...
-                 n:=printer_list.AddObject('unknown printer',Tprint_cal.Create);
+    while printer_list.Count<Printer.Printers.Count do begin              // should never do this...
+         n:=printer_list.AddObject('unknown printer',Tprint_cal.Create);
 
-                 with Tprint_cal(printer_list.Objects[n]).cal_data do begin
-                    printer_impact:=-1;                                            // type not yet known.
-                    printer_calibrated:=False;
-                    printer_head_factor:=1.0;
-                    printer_roller_factor:=1.0;
-                 end;//with
+         with Tprint_cal(printer_list.Objects[n]).cal_data do begin
+            printer_impact:=-1;                                            // type not yet known.
+            printer_calibrated:=False;
+            printer_head_factor:=1.0;
+            printer_roller_factor:=1.0;
+         end;//with
 
-             end;//while
-             n:=Printer.PrinterIndex;
-             if n>(printer_list.Count-1) then n:=printer_list.Count-1;
+    end;//while
 
-             index:=n;
-             RESULT:=True;
-           { OT-FIRST end;}
+    n:=Printer.PrinterIndex;
+    if n>(printer_list.Count-1) then n:=printer_list.Count-1;
+
+    index:=n;
+    RESULT:=True;
+
+           { OT2024 end;}
   except
     index:=0;
     RESULT:=False;
@@ -227,8 +228,8 @@ begin
   if no_printer_available=True
      then begin
             alert(6,'   no  printers',
-                    '||Templot0 is unable to locate a printer on this system.'
-                   +'||If you have recently installed a printer, please save your work and restart Templot0.',
+                    '||Templot is unable to locate a printer on this system.'
+                   +'||If you have recently installed a printer, please save your work and restart Templot.',
                     '','','','','','O K',0);
             EXIT;
           end;
@@ -378,18 +379,18 @@ const
    +'||The INNER dimensions of the frame (containing the picture) should be approximately 90 mm wide by approximately 120 mm high.'
    +'||The frame outlines should be rectangular with straight edges and square corners.'
    +'|----------------------------------------------------------------'
-   +'|If the size of the frame differs SIGNIFICANTLY from these sizes, Templot0 can make the necessary corrections, but there may be'
+   +'|If the size of the frame differs SIGNIFICANTLY from these sizes, Templot can make the necessary corrections, but there may be'
    +' something odd about your printer or its setup.'
    +' If other Windows applications have been using the printer without problems, you should refer to your printer documentation, check everything, restart your computer with no'
    +' other applications running, and try a fresh calibration test print. If you get the same result, but the frame outlines are otherwise correctly rectangular and undistorted'
    +' you should proceed with the calibration.'
-   +'||If the test print failed completely, or the frame outlines are missing or distorted, Templot0 will not be able to draw your templates until this printer problem has been resolved.'
+   +'||If the test print failed completely, or the frame outlines are missing or distorted, Templot will not be able to draw your templates until this printer problem has been resolved.'
    +'|----------------------------------------------------------------'
    +'|Lay the test sheet on a flat surface in good light and measure the exact dimensions of the frame as accurately as possible.'
    +'||You can choose to measure either the outer or the inner sizes of the frame, it is not necessary to do both. If you are using an engineer''s caliper it will be more convenient to measure the smaller inner dimensions.'
    +' If you are using a steel rule, you should preferably measure the outer dimensions for greater accuracy. If your printer has drawn lines of significant thickness (width) make your measurements to the centre of them.'
 
-   +'||Templot0 expects the dimensions to be entered in millimetres, so if you are measuring in inches you should either multiply your meaurements by 25.4 , or you can prefix your inches figure with a letter i like this example dimension:  i7.095'
+   +'||Templot expects the dimensions to be entered in millimetres, so if you are measuring in inches you should either multiply your meaurements by 25.4 , or you can prefix your inches figure with a letter i like this example dimension:  i7.095'
    +'||Alternatively the metric calculator tool can do the conversion for you, and the result in millimetres can be copied and pasted directly into the entry form.'
 
    +'||Eyesight permitting, try to estimate the dimension to the nearest 1/10th of a millimetre (0.1 mm) or 5 thou (0.005 inches) for good accuracy. If this is not possible, a measurement to the nearest 1/4 of a millimetre (0.25 mm)'
@@ -464,7 +465,7 @@ begin
 
       i:=alert(7,'    printer  calibration  -  test  print',
                  '|Printer calibration for  '+prstr
-                +'||Templot0 will now print a test sheet on this printer.'
+                +'||Templot will now print a test sheet on this printer.'
                 +'||Is the printer switched on and set for best quality printing on A4 or US-Letter size paper (or larger)?',
                  '','','please  read  this  first','do  printer  setup ...','cancel  calibration','O K  -  print  test  sheet',3);
       case i of
@@ -478,25 +479,17 @@ begin
     Printer.Orientation:=poPortrait;
     if Application.Terminated=False then Application.ProcessMessages;
 
-    { OT-FIRST
-    width_dots:=GetDeviceCaps(Printer.Handle, HORZRES);    // printer page-width in dots.
-    length_dots:=GetDeviceCaps(Printer.Handle, VERTRES);   // printer page-length in dots.
+    width_dots:=Printer.PageWidth;    // printer page-width in dots
+    length_dots:=Printer.PageHeight;  // printer page-length in dots
 
-    width_dpi:=GetDeviceCaps(Printer.Handle, LOGPIXELSX);  // dpi across width.
-    length_dpi:=GetDeviceCaps(Printer.Handle, LOGPIXELSY); // dpi down length.
-    }
-
-    width_dots:=Printer.PageWidth;    // printer page-width in dots.    // OT-FIRST
-    length_dots:=Printer.PageHeight;  // printer page-length in dots.   // OT-FIRST
-
-    width_dpi:=Printer.XDPI;  // dpi across width.  // OT-FIRST
-    length_dpi:=Printer.YDPI; // dpi down length.   // OT-FIRST
+    width_dpi:=Printer.XDPI;  // dpi across width
+    length_dpi:=Printer.YDPI; // dpi down length
 
 
     if (width_dpi<1) or (length_dpi<1) or (width_dots<1) or (length_dots<1)   // division by zero, or negative.
        then begin
               alert(0,'   printer  software  problem ..',
-                      '|||Templot0 is unable to access your printer software.'
+                      '|||Templot is unable to access your printer software.'
                      +'||Please check your printer installation.',
                       '','','','','cancel  calibration','',0);
               EXIT;
@@ -606,7 +599,7 @@ begin
         TextOut(web_note_left,web_note_top,' For further information please refer to the Templot web site at');
 
         Font.Style:=[fsBold];
-        TextOut(web_url_left,web_url_top,'templot.com');
+        TextOut(web_url_left,web_url_top,'85a.uk/templot');
         Font.Style:=[];
 
         MoveTo(l_left,l_top); LineTo(s_left,s_top);        // draw corner mitres (only for decoration!)...
@@ -614,7 +607,7 @@ begin
         MoveTo(l_left,l_bottom); LineTo(s_left,s_bottom);
         MoveTo(l_right,l_bottom); LineTo(s_right,s_bottom);
 
-        if Tprint_cal(printer_list.Objects[prindex]).cal_data.printer_impact=0     // not impact printer or plotter.
+        if Tprint_cal(printer_list.Objects[prindex]).cal_data.printer_impact<1     // inkjet/laser printer or not known
            then begin
                   with inner_rect do begin
                     left:=picture_left;
@@ -770,7 +763,7 @@ procedure proof_sheet;         // print a calibration proof sheet.
 
 const
   proof_str:string='      Calibration  Proof  Sheet'
-   +'||Templot0 will print a proof sheet to confirm that the calibration of this printer for this type of paper is correct, and that templates printed'
+   +'||Templot will print a proof sheet to confirm that the calibration of this printer for this type of paper is correct, and that templates printed'
    +' on this paper using this printer will be dimensionally accurate.'
    +'||Provided the paper is equally smooth on both sides, to save paper the proof sheet can be printed on the back of the test sheet, so that the two are kept together for future reference.'
    +'||The proof pattern is in the shape of a cross comprising :'
@@ -819,7 +812,7 @@ begin
                 j:=alert(6,'    calibration  proof  sheet',
                            '||There is no calibration information for'
                            +'|'+prstr
-                           +'||A proof sheet cannot be printed. If this is your intended printer for Templot0 you should calibrate it now.',
+                           +'||A proof sheet cannot be printed. If this is your intended printer for Templot you should calibrate it now.',
                             '','','more  information','change  printer  ( printer  setup ...)','cancel','calibrate  this  printer  now',3);
                 case j of
                     3: alert_help(0,cal_prompt_str,'');
@@ -889,7 +882,7 @@ begin
     if (cur_cal.printer_calibrated=False) or (cur_cal.printer_head_factor<minfp) or (cur_cal.printer_roller_factor<minfp)
        then begin
               alert(0,'      proof  sheet  error',
-                      '||Sorry, an internal error has occurred in Templot0.'
+                      '||Sorry, an internal error has occurred in Templot.'
                      +'||Unable to print proof sheet.'
                      +'||Please quote error code 193',
                      '','','','','cancel  proof  sheet','',0);
@@ -899,24 +892,16 @@ begin
     Printer.Orientation:=poPortrait;
     if Application.Terminated=False then Application.ProcessMessages;
 
-    { OT-FIRST
-    width_dots:=GetDeviceCaps(Printer.Handle, HORZRES);    // printer page-width in dots.
-    length_dots:=GetDeviceCaps(Printer.Handle, VERTRES);   // printer page-length in dots.
+    width_dots:=Printer.PageWidth;    // printer page-width in dots
+    length_dots:=Printer.PageHeight;  // printer page-length in dots
 
-    width_dpi:=GetDeviceCaps(Printer.Handle, LOGPIXELSX);  // dpi across width.
-    length_dpi:=GetDeviceCaps(Printer.Handle, LOGPIXELSY); // dpi down length.
-    }
-
-    width_dots:=Printer.PageWidth;    // printer page-width in dots.    // OT-FIRST
-    length_dots:=Printer.PageHeight;  // printer page-length in dots.   // OT-FIRST
-
-    width_dpi:=Printer.XDPI;  // dpi across width.  // OT-FIRST
-    length_dpi:=Printer.YDPI; // dpi down length.   // OT-FIRST
+    width_dpi:=Printer.XDPI;  // dpi across width
+    length_dpi:=Printer.YDPI; // dpi down length
 
     if (width_dpi<1) or (length_dpi<1) or (width_dots<1) or (length_dots<1)   // division by zero, or negative.
        then begin
               alert(0,'   printer  software  problem ..',
-                      '|||Templot0 is unable to access your printer software.'
+                      '|||Templot is unable to access your printer software.'
                      +'||Please check your printer installation.',
                       '','','','','cancel  proof  sheet','',0);
               EXIT;
@@ -1104,7 +1089,7 @@ begin
                   i:=i+n; TextOut(d_notes_left,i,'refer to the Templot web site at');
 
                   Font.Style:=[fsBold];
-                  i:=i+n+(n div 2); TextOut(d_notes_left,i,'templot.com');
+                  i:=i+n+(n div 2); TextOut(d_notes_left,i,'85a.uk/templot');
                   Font.Style:=[];
                   Font.Size:=8;
                   TextOut(0,i,' TEMPLOT  v: '+FormatFloat('0.00',program_version/100));
@@ -1129,7 +1114,7 @@ begin
               +'||Are these lengths correct ?',
                '','','','?  help','no  -  re-calibrate  printer','yes  -  printer  calibration  successful',4);
       case i of
-          4: alert_help(0,'If the proof sheets shows "PAGE SIZE PROBLEM", Templot0 has been unable to draw the normal proof sheet on this printer'
+          4: alert_help(0,'If the proof sheets shows "PAGE SIZE PROBLEM", Templot has been unable to draw the normal proof sheet on this printer'
                          +' because the page size is too small to accommodate it. Was the paper size set to A4 or LETTER (or larger) in your printer setup?'
                          +'||Ignore the instructions about measuring the bars of a cross, but check that the drawn grid lines are exactly 25 mm apart in both directions.'
                          +'||If so, click PRINTER CALIBRATION SUCCESSFUL.'
@@ -1217,7 +1202,7 @@ begin
   if printer_list.Count<1
      then begin
             alert(6,'      no  printers',
-                    '||||Templot0 has not found any printers on your system.',
+                    '||||Templot has not found any printers on your system.',
                     '','','','','cancel','',0);
             EXIT;
           end;

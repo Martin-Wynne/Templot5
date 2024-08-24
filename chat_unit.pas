@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -195,18 +195,20 @@ begin
   Printer.Orientation:=poLandscape;
   if Application.Terminated=False then Application.ProcessMessages;
 
-  // Templot0 getting printer resolution
+  // Templot getting printer resolution
+
   width_dpi:=Printer.XDPI;
   length_dpi:=Printer.YDPI;
 
   // papersize dimensions
+
   width_dots:=Printer.PaperSize.Width;
   length_dots:=Printer.PaperSize.Height;
 
   if (width_dpi<1) or (length_dpi<1) or (width_dots<1) or (length_dots<1)   // division by zero, or negative.
      then begin
             alert(0,'   printer  software  problem ..',
-                    '|||Templot0 is unable to access your printer software.'
+                    '|||Templot is unable to access your printer software.'
                    +'||Please check your printer installation.',
                     '','','','','cancel  printing','',0);
 

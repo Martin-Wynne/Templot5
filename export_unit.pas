@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -1080,7 +1080,7 @@ begin
                       'Image files in detail mode can be used to illustrate your track plan but should not be used as track construction templates.'
                      +' They are difficult to print to an exact size and unlikely to be sufficiently accurate.'
                      +'||To create track construction templates you can do any of these instead:'
-                     +'||1. print them directly from Templot0.'
+                     +'||1. print them directly from Templot.'
                      +'||2. create a PDF file, and print it using a PDF Reader program with page scaling set to "none" (important).'
                      +'||3. export a DXF file and print it via a CAD program.| ',
                       '','','','','cancel','continue  -  create  image  file  in  detail  mode ...',0);
@@ -1346,7 +1346,7 @@ const
   img_help_str:string='    `0Exporting  Image  Files`9'
   +'||Please export image files in PNG format rather than JPG format.'
   +'||green_panel_begin tree.gif PNG format will create a smaller file size with 100% image quality.'
-  +'||JPG format is unsuitable for computer-generated graphics such as Templot0 templates. The JPG format is intended only for photographic images from a camera or a scanner.'
+  +'||JPG format is unsuitable for computer-generated graphics such as Templot templates. The JPG format is intended only for photographic images from a camera or a scanner.'
   +'||If you prefer to use JPG format, you can change the setting for file size and image quality by clicking the `0set JPG image quality`z button below.green_panel_end';
 
 begin

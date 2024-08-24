@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -2021,7 +2021,7 @@ try
 
         bottom_str:=bottom_str+'    '+DateToStr(Date)+'  '+TimeToStr(Time);
 
-        top_str:=' TEMPLOT  v:'+round_str(program_version/100,2)+version_build+'  85a.uk/templot  This drawing contains design elements and data © Martin Wynne.';
+        top_str:=' TEMPLOT  v:'+round_str(program_version/100,2)+version_build+'  85a.uk/templot  This drawing contains design elements and data © Martin Wynne and OpenTemplot contributors.';
         if box_project_title_str<>'' then top_str:=top_str+'   Project : '+box_project_title_str;
 
         button_str:=Chr(sheet_across+97)+'/'+IntToStr(sheet_down+1);

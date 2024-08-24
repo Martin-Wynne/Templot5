@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -62,6 +62,8 @@ type
     blue_corner_panel: TPanel;
     overall_size_button: TButton;
     quick_change_panel: TPanel;
+    marlin_radio: TRadioButton;
+    klipper_radio: TRadioButton;
     rail_label: TLabel;
     rail_section_button: TButton;
     reset_both_bullet_shape: TShape;
@@ -6337,7 +6339,7 @@ begin
                   AssignFile(stl_file,stl_filename);
                   Rewrite(stl_file);                    // open a new file  (or overwrite existing).
 
-                  Write(stl_file,'solid Templot (c) Martin Wynne');  // STL header
+                  Write(stl_file,'solid Templot (c) Martin Wynne and OpenTemplot contributors');  // STL header
                 end;
 
         doing_entities:=False;   // init not yet
@@ -7161,7 +7163,7 @@ begin
 
         if stl=True       // 227a
            then begin
-                  Write(stl_file,insert_crlf_str('|endsolid Templot (c) Martin Wynne'));
+                  Write(stl_file,insert_crlf_str('|endsolid Templot (c) Martin Wynne and OpenTemplot contributors'));
                   CloseFile(stl_file);
 
                   if stl_block_list.Count>0 then for n:=0 to stl_block_list.Count-1 do TObjectList(stl_block_list.Objects[n]).Free;
@@ -12911,6 +12913,9 @@ begin
 
   jaws_panel.Visible:=False;
 
+  marlin_radio.Visible:=True;
+  klipper_radio.Visible:=True;
+
   _3d_fdm_radiobutton.Checked:=True;    // assume FDM
   _3d_options_click(False);
 
@@ -12957,6 +12962,9 @@ begin
 
   jaws_panel.Visible:=False;
 
+  marlin_radio.Visible:=False;
+  klipper_radio.Visible:=False;
+
   preview_panel.Color:=$0090D0FF;                    // sand
   preview_panel.Caption:='   preview  2-D  export';
 
@@ -12999,6 +13007,9 @@ begin
 
   jaws_panel.Visible:=True;
 
+  marlin_radio.Visible:=False;
+  klipper_radio.Visible:=False;
+
   _3d_resin_radiobutton.Checked:=True;    // assume resin
   _3d_options_click(False);
 
@@ -13025,6 +13036,9 @@ begin
   reset_both_bullet_shape.Visible:=True;
 
   jaws_panel.Visible:=False;
+
+  marlin_radio.Visible:=False;
+  klipper_radio.Visible:=False;
 
 end;
 //______________________________________________________________________________
