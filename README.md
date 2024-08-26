@@ -20,7 +20,7 @@ The official website for Templot can be found at https://85a.uk/templot
 8. The compiled executable will be in the `TEMPLOT5_OUTPUT` folder in the repo directory.
 
 More detailed instructions (with screen captures) can be found on the Templot website:
-* https://85a.uk/templot/club/index.php?threads/opentemplot2024.839/post-11725 (basic build)
-* https://85a.uk/templot/club/index.php?posts/11781 (updating the HtmlViewer component)
+* https://85a.uk/templot/club/index.php?posts/11725 (basic build)
+* https://85a.uk/templot/club/index.php?posts/11785 (updating the HtmlViewer component)
 
 
