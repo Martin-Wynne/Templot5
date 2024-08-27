@@ -35,20 +35,26 @@ unit file_viewer;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, FileCtrl, ComCtrls, Grids, Outline, DirOutln, ExtCtrls,
-  Htmlview;
+  Windows, LCLIntf, LCLType, LMessages,
+  Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls,
+  FileCtrl, ComCtrls, Grids, Outline, ExtCtrls, ShellCtrls,
+  Htmlview, HtmlGlobals;
 
 type
+
+  { Tfile_viewer_form }
+
   Tfile_viewer_form = class(TForm)
-    folder_listbox: TDirectoryListBox;
-    disk_drive_combo: TDriveComboBox;
-    Label1: TLabel;
-    Label2: TLabel;
+    copy_html_button: TButton;
+    drive_tree: TShellTreeView;
     help_shape: TShape;
     help_button: TButton;
     html_file_viewer: THTMLViewer;
     blue_corner_panel: TPanel;
+    folder_tree: TShellTreeView;				// 555A SC 26-AUG-2024 replaces TdirecoryListBox
+    Label1: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     size_updown: TUpDown;
     controls_panel: TPanel;
     found_label: TLabel;
@@ -66,14 +72,18 @@ type
     escape_label: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    procedure copy_html_buttonClick(Sender: TObject);
+    procedure drive_treeClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure folder_listboxClick(Sender: TObject);
+    procedure folder_treeClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure help_buttonClick(Sender: TObject);
     procedure close_buttonClick(Sender: TObject);
     procedure FormKeyDown(Sender:TObject; var Key:Word; Shift:TShiftState);
     procedure FormActivate(Sender: TObject);
+    procedure html_file_viewerHotSpotClick(Sender: TObject; const SRC: ThtString; var Handled: Boolean);
     procedure refresh_buttonClick(Sender: TObject);
     procedure open_folder_buttonClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
@@ -132,16 +142,20 @@ var
 
 implementation
 
-{$R *.DFM}
+{$BOOLEVAL ON}
+
+{$R *.lfm}
 
 uses
-  ShellAPI,control_room,pad_unit,grid_unit,math_unit,PNGImage, panning_unit,
+  control_room,pad_unit,grid_unit,math_unit, panning_unit,
   shove_timber,rail_options_unit,platform_unit,check_diffs_unit,
-  data_memo_unit,stay_visible_unit,info_unit,keep_select,help_sheet,alert_unit;
+  data_memo_unit,stay_visible_unit,info_unit,keep_select,help_sheet,alert_unit,
+
+  Clipbrd;
 
 const
-  html_header_str:string='<HTML><HEAD><TITLE>Templot file viewer</TITLE></HEAD><BODY><TABLE ALIGN="CENTER" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;">';
-  html_footer_str:string='</TABLE></BODY></HTML>';
+  html_table_header_str:string='<HTML><HEAD><TITLE>Templot file viewer</TITLE><STYLE>body { text-align:center; width:auto; } a:hover { color:#ff0000; text-decoration:none; } </STYLE></HEAD><BODY ALIGN="CENTER"><TABLE ALIGN="CENTER" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;">';
+  html_table_footer_str:string='</TABLE></BODY></HTML>';
 
 var
   saved_pad_width,saved_pad_height:integer;
@@ -168,16 +182,13 @@ var
 
   some_selected:boolean=False;
 
-  procedure show_files_as_bitmaps;forward;
+  //procedure show_files_as_bitmaps;forward;    T5 FIXME    MW 27-AUG-2024
+
   procedure do_full_view;forward;
 
 //______________________________________________________________________________
 
 procedure show_files_as_png;     // 208d
-
-  // deprecated in 208e - use bitmap objects instead of PNG image files - see show_files_as_bitmaps;
-
-  // user can choose option in program menu on control room - this is slower but uses less RAM.
 
 var
   i,n:integer;
@@ -187,7 +198,7 @@ var
   screen_rect,print_rect:TRect;
 
   create_bitmap:TBitmap;
-  create_png:TPNGObject;
+  create_png:TPortableNetworkGraphic;
 
   img_file_name_str:string;  // name part
   img_file_str:string;       // including full path
@@ -220,12 +231,15 @@ var
               //////////////////////////////////////////////////////////////////
 
 begin
+
+  //showmessage('sbc png images');
   with file_viewer_form do begin
 
       // no changes while building list
 
-    disk_drive_combo.Enabled:=False;
-    folder_listbox.Enabled:=False;
+    // 555a SC 26-AUG-2024
+	// disk_drive_combo.Enabled:=False;
+    folder_tree.Enabled:=False;
     refresh_button.Enabled:=False;
     images_clickable_checkbox.Enabled:=False;
     name_labels_checkbox.Enabled:=False;
@@ -250,9 +264,12 @@ begin
     readme_list.Clear;
 
     fv_tag_list.Clear;
+	
 
-
-    dir_str:=folder_listbox.Directory+'\';   // add trailing slash
+	// 555a SC 26-AUG-2024
+    // replace .Directory with .Path
+    // dir_str:=folder_tree.Directory+'\';   // add trailing slash
+    dir_str:=folder_tree.Path;               //+'\';   // add trailing slash
 
        // build the lists ...
 
@@ -309,7 +326,7 @@ begin
                        +'<BR><BR>&nbsp; &nbsp; you can stop the process by pressing the <SPAN STYLE="COLOR:BLUE; FONT-FAMILY:''COURIER NEW''; FONT-SIZE:17PX;"><B>ESC</B></SPAN> key</TD></TR>'
          else html_str:='';
 
-      html_str:=html_header_str+html_top_str+html_str+html_footer_str;
+      html_str:=html_table_header_str+html_top_str+html_str+html_table_footer_str;
 
       use_bmp_image_streams:=False;  // normal load images from file
 
@@ -408,7 +425,7 @@ begin
                   img_name_list.Add(img_file_str);
 
                   create_bitmap:=TBitmap.Create;
-                  create_png:=TPNGObject.Create;
+                  create_png:=TPortableNetworkGraphic.Create;
 
                   try
                     create_bitmap.Width:=pad_form.ClientWidth;
@@ -483,7 +500,7 @@ begin
 
                 progress_bar.Position:=0;
 
-                html_str:=html_header_str+html_top_str;
+                html_str:=html_table_header_str+html_top_str;
 
                 if readme_list.Count=1 then num_files_str:=' file'
                                        else num_files_str:=' files';
@@ -539,22 +556,23 @@ begin
 
                 end;//next
 
-                html_str:=html_str+html_footer_str;
+                html_str:=html_str+html_table_footer_str;
 
                 use_bmp_image_streams:=False;  // normal load images from file
 
                 html_file_viewer.LoadFromString(html_str);
 
                 repeat
-                  windows_cursor_count:=ShowCursor(True);   // Windows SDK
-                until windows_cursor_count>-1;              // ensure visible
+                   windows_cursor_count:=ShowCursor(True);   // Windows SDK
+                 until windows_cursor_count>-1;              // ensure visible
 
                 refresh_button.Caption:='refresh  list';
               end;//if count>0
 
     finally
-      disk_drive_combo.Enabled:=True;
-      folder_listbox.Enabled:=True;
+	  // 555a SC 26-AUG-2024
+      // disk_drive_combo.Enabled:=True;
+      folder_tree.Enabled:=True;
       refresh_button.Enabled:=True;
       images_clickable_checkbox.Enabled:=True;
       name_labels_checkbox.Enabled:=True;
@@ -594,9 +612,9 @@ begin
 
   fv_tag_list:=TStringList.Create;
 
-  folder_str:=ExtractFilePath(Application.ExeName)+'BOX-FILES';    // exe_str not yet set
+  drive_tree.Root:='';
 
-  if DirectoryExists(folder_str)=True then folder_listbox.Directory:=folder_str;
+  folder_tree.Root:=ExtractFilePath(Application.ExeName);
 
   html_create_str:='<P ALIGN="CENTER"><BR><BR><BR><IMG SRC="'+ExtractFilePath(Application.ExeName)+'internal\hlp\wait_signal_trans.gif"></P>'
                   +'<P ALIGN="CENTER" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;"><BR><BR>to see all the .box files in the selected disk drive and folder</P>'
@@ -605,12 +623,9 @@ begin
                   +'<P ALIGN="CENTER" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;"><BR><BR>for more information click the [ <A HREF="fv_help.85a">? help</A> ] button</P>'
                   +'<P ALIGN="CENTER" STYLE="FONT-SIZE:12PX;"><BR><BR><BR><BR>to avoid seeing this message every time tick the [ <A HREF="fv_instant.85a">instant show files</A> ] tickbox</P>';
 
-  use_bmp_image_streams:=False;  // normal load images from file
-
-  html_file_viewer.LoadFromString(html_create_str);
+  use_bmp_image_streams:=False;  // init normal load images from file
 
   bmp_stream:=TMemoryStream.Create;
-
 end;
 //______________________________________________________________________________
 
@@ -624,11 +639,25 @@ begin
 
   controls_panel.Top:=ClientHeight-controls_panel.Height;
 
-  folder_listbox.Height:=controls_panel.Top-folder_listbox.Top-images_label.Height;
+  folder_tree.Height:=controls_panel.Top-folder_tree.Top-images_label.Height*2;
 end;
 //______________________________________________________________________________
 
-procedure Tfile_viewer_form.folder_listboxClick(Sender: TObject);
+procedure Tfile_viewer_form.drive_treeClick(Sender: TObject);
+
+begin
+  folder_tree.Root:=drive_tree.Path;
+end;
+//______________________________________________________________________________
+
+procedure Tfile_viewer_form.copy_html_buttonClick(Sender: TObject);
+
+begin
+  Clipboard.AsText:=html_file_viewer.DocumentSource;
+end;
+//______________________________________________________________________________
+
+procedure Tfile_viewer_form.folder_treeClick(Sender: TObject);
 
 var
   search_record_box:TSearchRec;
@@ -640,13 +669,15 @@ var
 begin
   if no_onresize=True then EXIT;   // ??? scaling appears to cause a click
 
-  folder_listbox.OpenCurrent;   // mimics a double-click to open the folder
+  // 555a SC 26-AUG-2024
+  // folder_tree.OpenCurrent;   // mimics a double-click to open the folder
+  // folder_tree.AutoExpand;   // mimics a double-click to open the folder
 
   if instant_show_checkbox.Checked=True     // 208g
      then begin
             if control_room_form.viewer_png_menu_entry.Checked=True
-               then show_files_as_png
-               else show_files_as_bitmaps;
+               then show_files_as_png;
+               //else show_files_as_bitmaps;   T5 FIXME    MW 27-AUG-2024
           end
      else begin                                     // 208g
             refresh_button.Caption:='show  files';
@@ -654,8 +685,10 @@ begin
             escape_label.Hide;
             count_label.Hide;
             found_label.Hide;
-
-            dir_str:=folder_listbox.Directory+'\';   // add trailing slash
+			
+			// 555a SC 26-AUG-2024
+			//  dir_str:=folder_tree.Directory+'\';   // add trailing slash
+			dir_str:=folder_tree.Path;                //+'\';   // add trailing slash
 
             file_count:=0; // init
 
@@ -670,7 +703,7 @@ begin
 
             FindClose(search_record_box);
 
-            top_str:='<TABLE ALIGN="CENTER" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;">'
+            top_str:=do_html_header('Templot File Viewer')+'<TABLE ALIGN="CENTER" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;">'
                     +'<TR><TD NOWRAP STYLE="COLOR:#9900FF; FONT-SIZE:18PX; FONT-WEIGHT:BOLD; FONT-STYLE:ITALIC;"> &nbsp; '+IntToStr(file_count)+' &nbsp;.box &nbsp;files &nbsp;in &nbsp;this &nbsp;folder</TD></TR>'
                     +'<TR><TD> &nbsp; &nbsp; '+dir_str+'</TD></TR>'
                     +'<TR><TD ALIGN="RIGHT"><HR NOSHADE STYLE="COLOR:GRAY; HEIGHT:6PX;"></TD></TR></TABLE>';
@@ -688,7 +721,7 @@ var
   file_str:string;
 
 begin
-  file_str:=file_viewer_form.folder_listbox.Directory+'\'+box_file_list.Strings[n];
+  file_str:=file_viewer_form.folder_tree.Path+'\'+box_file_list.Strings[n];
   reload_specified_file(False,False,file_str);
 
   file_viewer_form.Close;
@@ -701,7 +734,7 @@ var
   file_str:string;
 
 begin
-  file_str:=file_viewer_form.folder_listbox.Directory+'\'+box_file_list.Strings[n];
+  file_str:=file_viewer_form.folder_tree.Path+'\'+box_file_list.Strings[n];
   reload_specified_file(False,True,file_str);
 
   file_viewer_form.Close;
@@ -740,8 +773,14 @@ var
 begin
 
   old_name_str:=box_file_list.Strings[n];
+  
+  
+  // 555a SC 26-AUG-2024
+  // dir_str:=file_viewer_form.folder_listbox.Directory+'\';
 
-  dir_str:=file_viewer_form.folder_listbox.Directory+'\';
+  file_viewer_form.Caption:=file_viewer_form.folder_tree.Path+old_name_str;      // mw1
+
+  dir_str:=file_viewer_form.folder_tree.Path;
 
   with math_form do begin
 
@@ -816,7 +855,14 @@ var
   file_str:string;
 
 begin
-  file_str:=file_viewer_form.folder_listbox.Directory+'\'+box_file_list.Strings[n];
+  // 555a SC 26-AUG-2024
+  // file_str:=file_viewer_form.folder_listbox.Directory+'\'+box_file_list.Strings[n];
+
+  file_str:=file_viewer_form.folder_tree.Path+box_file_list.Strings[n];
+  
+  // 555a SC 26-AUG-2024
+  // if  OpenDocument(PChar('explorer.exe')) { *Converted from ShellExecute* }<=32
+  // if OpenDocument(ExtractFilePath(file_str))=False // { *Converted from ShellExecute* }<=32
 
   if ShellExecute(0, nil, PChar('explorer.exe'), PChar('/select,'+file_str), nil, SW_SHOWNORMAL)<=32
      then show_modal_message('Sorry, unable to open the containing folder.')
@@ -830,7 +876,7 @@ var
   file_str,path_str,update_str,dir_str:string;
   i,saved_width,saved_pos:integer;
 
-  img_png:TPNGObject;
+  img_png:TPortableNetworkGraphic;
 
   img_str:string;
 
@@ -842,7 +888,9 @@ begin
 
   if alert_box.ClientWidth<692 then alert_box.ClientWidth:=692;     // to show 680 image
 
-  dir_str:=file_viewer_form.folder_listbox.Directory+'\';
+  // 555a SC 26-AUG-2024
+  // dir_str:=file_viewer_form.folder_listbox.Directory+'\';
+  dir_str:=file_viewer_form.folder_tree.Path;    //+'\';
 
   if showing_as_png_files=True
      then img_str:=img_name_list.Strings[n]
@@ -851,7 +899,7 @@ begin
 
             img_str:=exe_str+'internal\fview\fv_deletion_confirm.png';
 
-            img_png:=TPNGObject.Create;
+            img_png:=TPortableNetworkGraphic.Create;
 
             img_png.Assign(Tbitmap(box_file_list.Objects[n]));
             img_png.SaveToFile(img_str);
@@ -945,6 +993,11 @@ begin
   bmp_stream.Free;
 
 end;
+
+procedure Tfile_viewer_form.FormShow(Sender: TObject);
+begin
+end;
+
 //______________________________________________________________________________
 
 procedure no_readme_help(none:boolean);
@@ -1036,7 +1089,7 @@ end;
 procedure Tfile_viewer_form.FormActivate(Sender: TObject);
 
 var
-  top_str,dir_str:string;
+  top_str,dir_str,folder_str:string;
 
   file_count:integer;
 
@@ -1046,9 +1099,18 @@ begin
   pad_form.Hide;  // no trackpad while viewer in use
   keep_form.Hide; // nor storage box
 
+  folder_str:=exe_str+'BOX-FILES';
+
+    // 555a SC 26-AUG-2024   replace .Directory with .Path
+    // if DirectoryExists(folder_str)=True then folder_tree.Directory:=folder_str;
+
+  if DirectoryExists(folder_str)=True then folder_tree.Path:=folder_str;
+
   if fv_has_been_active=False    // first time only
      then begin
-            dir_str:=folder_listbox.Directory+'\';   // add trailing slash
+			// 555a SC 26-AUG-2024
+			//  dir_str:=folder_tree.Directory+'\';   // add trailing slash
+			dir_str:=folder_tree.Path; //     +'\';   // add trailing slash
 
             file_count:=0; // init
 
@@ -1070,13 +1132,13 @@ begin
 
             use_bmp_image_streams:=False;  // normal load images from file
 
-            html_file_viewer.LoadFromString(top_str+html_create_str);
+            html_file_viewer.LoadFromString(do_html_header('Templot file viewer')+top_str+html_create_str);
 
             if instant_show_checkbox.Checked=True   // 208g
                then begin
                       if control_room_form.viewer_png_menu_entry.Checked=True
-                         then show_files_as_png
-                         else show_files_as_bitmaps;
+                         then show_files_as_png;
+                         //else show_files_as_bitmaps;  T5 FIXME    MW 27-AUG-2024
                     end
                else refresh_button.Caption:='show  files';
           end;
@@ -1085,10 +1147,17 @@ begin
 
     // bug fix for THTMLViewer -- prevent middle mouse button scrolling from using our custom cursors...
 
-  Screen.Cursors[adjust_ns_cursor_invert]:=LoadCursor(0,IDC_SIZENS);      // use N-S arrows scrolling instead.
-  Screen.Cursors[adjust_we_cursor_invert]:=LoadCursor(0,IDC_SIZENS);
-  Screen.Cursors[mouse_action_cursor]:=LoadCursor(0,IDC_SIZENS);
+	Screen.Cursors[adjust_ns_cursor_invert]:=LoadCursor(0,IDC_SIZENS);      // use N-S arrows scrolling instead.
+	Screen.Cursors[adjust_we_cursor_invert]:=LoadCursor(0,IDC_SIZENS);
+	Screen.Cursors[mouse_action_cursor]:=LoadCursor(0,IDC_SIZENS);
 
+end;
+//______________________________________________________________________________
+
+procedure Tfile_viewer_form.html_file_viewerHotSpotClick(Sender: TObject; const SRC: ThtString; var Handled: Boolean);
+
+begin
+  do_html_hotspot(SRC);
 end;
 //______________________________________________________________________________
 
@@ -1103,14 +1172,21 @@ begin
   Screen.Cursors[mouse_action_cursor]:=LoadCursor(HInstance,'CURSOR_MOUSE_ACTION');
 
 end;
+
+procedure Tfile_viewer_form.html_file_viewerImageRequest(Sender: TObject;
+  const SRC: String; var Stream: TMemoryStream);
+begin
+
+end;
+
 //______________________________________________________________________________
 
 procedure Tfile_viewer_form.refresh_buttonClick(Sender: TObject);
 
 begin
   if control_room_form.viewer_png_menu_entry.Checked=True
-     then show_files_as_png
-     else show_files_as_bitmaps;
+     then show_files_as_png;
+     //else show_files_as_bitmaps;     T5 FIXME    MW 27-AUG-2024
 end;
 //______________________________________________________________________________
 
@@ -1121,13 +1197,18 @@ var
 
 begin
   html_file_viewer.SetFocus;    // for return
+  
+  // 555a SC 26-AUG-2024
+  // dir_str:=file_viewer_form.folder_listbox.Directory+'\';
 
-  dir_str:=file_viewer_form.folder_listbox.Directory+'\';
+  dir_str:=file_viewer_form.folder_tree.Path; //+'\';
+  
+  // 555a SC 26-AUG-2024
+  // if  OpenDocument(PChar(dir_str)) { *Converted from ShellExecute* }<=32
 
-  if ShellExecute(0,'explore',PChar(dir_str),nil,nil,SW_SHOWNORMAL)<=32
+  if OpenDocument(dir_str)=False
      then show_modal_message('Sorry, unable to open the folder.')
      else external_window_showing:=True;
-
 end;
 //______________________________________________________________________________
 
@@ -1162,6 +1243,8 @@ begin
           end;
 end;
 //______________________________________________________________________________
+
+(* T5 FIXME    MW 27-AUG-2024
 
 procedure show_files_as_bitmaps;
 
@@ -1207,14 +1290,17 @@ var
               //////////////////////////////////////////////////////////////////
 
 begin
+
+  //showmessage('sbc bmp');
   some_selected:=False;   // init
 
   with file_viewer_form do begin
 
       // no changes while building list
-
-    disk_drive_combo.Enabled:=False;
-    folder_listbox.Enabled:=False;
+	  
+	// 555a SC 26-AUG-2024
+    // sbc disk_drive_combo.Enabled:=False;
+    folder_tree.Enabled:=False;
     refresh_button.Enabled:=False;
     images_clickable_checkbox.Enabled:=False;
     name_labels_checkbox.Enabled:=False;
@@ -1249,12 +1335,15 @@ begin
 
     fv_tag_list.Clear;
 
-    dir_str:=folder_listbox.Directory+'\';   // add trailing slash
+	// 555a SC 26-AUG-2024
+    // dir_str:=folder_tree.Directory+'\';   // add trailing slash
+	dir_str:=folder_tree.Path+'\';   // add trailing slash
 
        // build the lists ...
 
     if FindFirst(dir_str+'*.box',0,search_record_box)=0
        then begin
+              //showmessage('sbc add file to list');
               add_file_to_box_lists(search_record_box);
 
               while FindNext(search_record_box)=0 do add_file_to_box_lists(search_record_box);
@@ -1306,7 +1395,7 @@ begin
                        +'<BR><BR>&nbsp; &nbsp; you can stop the process by pressing the <SPAN STYLE="COLOR:BLUE; FONT-FAMILY:''COURIER NEW''; FONT-SIZE:17PX;"><B>ESC</B></SPAN> key</TD></TR>'
          else html_str:='';
 
-      html_str:=html_header_str+html_top_str+html_str+html_footer_str;
+      html_str:=html_table_header_str+html_top_str+html_str+html_table_footer_str;
 
       use_bmp_image_streams:=False;  // normal load images from file
 
@@ -1321,6 +1410,7 @@ begin
 
                 showing_as_png_files:=False;
 
+                //showmessage('sbc 1380 caption bitmaps');
                 images_label.Caption:='bitmaps';
 
                 escape_label.Show;
@@ -1391,6 +1481,7 @@ begin
 
                   fv_tag_list.Add(tag_str);
 
+                  //showmessage('sbc create bitmap');
                   create_bitmap:=TBitmap.Create;
 
                   create_bitmap.Width:=screenshot_width;
@@ -1460,7 +1551,7 @@ begin
                 use_bmp_image_streams:=False; // restore normal image files
 
                 spacebar_count:=-1;  // init
-
+				
                 repeat
                   windows_cursor_count:=ShowCursor(True);
                 until windows_cursor_count>-1;              // ensure visible
@@ -1469,8 +1560,9 @@ begin
               end;//if count>0
 
     finally
-      disk_drive_combo.Enabled:=True;
-      folder_listbox.Enabled:=True;
+	  // 555a SC 26-AUG-2024
+      // sbc disk_drive_combo.Enabled:=True;
+      folder_tree.Enabled:=True;
       refresh_button.Enabled:=True;
       images_clickable_checkbox.Enabled:=True;
       name_labels_checkbox.Enabled:=True;
@@ -1483,7 +1575,9 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tfile_viewer_form.html_file_viewerImageRequest(Sender:TObject; const SRC:String; var Stream:TMemoryStream);
+//  T5 FIXME    MW 27-AUG-2024
+
+procedure Tfile_viewer_form.html_file_viewerImageRequest(Sender:TObject; const SRC:AnsiString; var Stream:TMemoryStream);
 
 var
   n:integer;
@@ -1510,6 +1604,7 @@ begin
   Stream:=bmp_stream;
 end;
 //______________________________________________________________________________
+*)
 
 procedure Tfile_viewer_form.FormClose(Sender:TObject; var Action:TCloseAction);
 
@@ -1537,7 +1632,7 @@ begin
 
     progress_bar.Position:=0;
 
-    html_str:=html_header_str+html_top_str;
+    html_str:=html_table_header_str+html_top_str;
 
     if readme_list.Count=1 then num_files_str:=' file'
                            else num_files_str:=' files';
@@ -1595,9 +1690,11 @@ begin
 
     end;//next
 
-    html_str:=html_str+html_footer_str;
+    html_str:=html_str+html_table_footer_str;
 
-    use_bmp_image_streams:=True;  // use OnImageRequest to get the images
+    //use_bmp_image_streams:=True;  // use OnImageRequest to get the images  T5 FIXME    MW 27-AUG-2024
+
+    use_bmp_image_streams:=False;   // 55a MW 27-AUG-2024
 
     html_file_viewer.LoadFromString(html_str);
 

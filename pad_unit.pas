@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -4964,7 +4964,7 @@ implementation
 
 uses
 
-  ShellAPI, Math, Printers, FileCtrl,  trial_unit,
+  ShellAPI, Math, Printers, FileCtrl,
 
   control_room, grid_unit, switch_select, help_sheet, alert_unit, math_unit,
   xing_select, entry_sheet, info_unit, print_unit, gauge_unit, keep_select,
@@ -4975,7 +4975,7 @@ uses
   rail_options_unit, print_settings_unit, print_now_box, startup_unit, bgkeeps_unit,
 
   export_unit, platform_unit, math2_unit,
-  check_diffs_unit, image_viewer_unit, mouse_colour_unit, { OT 2024 file_viewer,} prefs_unit,
+  check_diffs_unit, image_viewer_unit, mouse_colour_unit, file_viewer, prefs_unit,
   map_loader_unit, trackbed_unit, make_slip_unit, create_tandem,
   bitmap_viewer_unit, track_spacing_unit,
   detail_mode_unit, gaps_unit, lib_unit, intersect_unit, create_y_turnout,
@@ -27293,16 +27293,6 @@ begin
   keep_form.undo_delete_menu_entry.Click;
 end;
 //______________________________________________________________________________
-(* OT2024
-
-procedure Tpad_form.pad_file_viewer_menu_entryClick(Sender: TObject);   // 208d
-
-begin
-  keep_form_was_showing:=False;
-  do_show_modal(file_viewer_form);       // 212a  ShowModal
-end;
-//______________________________________________________________________________
-*)
 
 procedure Tpad_form.show_corner_info_menu_entryClick(Sender: TObject);     // 223d
 
@@ -30713,7 +30703,8 @@ end;
 procedure Tpad_form.pad_file_viewer_menu_entryClick(Sender: TObject);
 
 begin
-  do_open_source_bang('FILE VIEWER');  // OT2024
+  keep_form_was_showing:=False;
+  do_show_modal(file_viewer_form);
 end;
 //______________________________________________________________________________
 

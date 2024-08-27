@@ -200,6 +200,8 @@ var
 
   procedure more_info(php_code:integer);  // 226d
 
+  function do_html_header(title_str:string):string;   // 555a  MW 27-AUG-2024
+
 
 implementation
 
@@ -210,7 +212,7 @@ implementation
 uses
   math_unit, bgkeeps_unit, alert_unit, control_room, colour_unit, preview_unit, print_unit, calibration_unit,
   stay_visible_unit, grid_unit, jotter_unit, pad_unit, keep_select, chat_unit, entry_sheet, prefs_unit,
-  mint_unit, track_spacing_unit;
+  file_viewer, mint_unit, track_spacing_unit;
 
 var
   no_onresize:boolean=False;
@@ -1179,8 +1181,6 @@ begin
 
            // then the file viewer  208d ...
 
-(* // OT2024
-
   if Copy(new_url,1,9)='fv_reload'
      then begin
             n:=StrToInt(StringReplace(Copy(new_url,10,255),'.85a','',[rfReplaceAll, rfIgnoreCase]));  // 255 = to end of string
@@ -1238,7 +1238,7 @@ begin
 
   if new_url='fv_instant.85a'            then begin file_viewer_form.instant_show_checkbox.Checked:=True;  EXIT; end;   // 209a
 
-*)
+
 
   if new_url='go_to_templot_explained.85a'    then begin go_to_templot_companion_page('templot_explained.php'); EXIT; end;   // 215a
 
@@ -1666,6 +1666,13 @@ procedure more_info(php_code:integer);  // 226d
 
 begin
   online_help_click(inttostr(php_code));
+end;
+//______________________________________________________________________________
+
+function do_html_header(title_str:string):string;   // 555a  MW 27-AUG-2024
+
+begin
+  RESULT:='<HTML><HEAD><TITLE>'+title_str+'</TITLE><STYLE> body { text-align:center; } a:hover { color:#ff0000; text-decoration:none; } </STYLE></HEAD><BODY>';
 end;
 //______________________________________________________________________________
 

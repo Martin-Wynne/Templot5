@@ -87,7 +87,7 @@ uses
   check_diffs_unit in 'check_diffs_unit.pas' {check_diffs_form},
   image_viewer_unit in 'image_viewer_unit.pas' {image_viewer_form},
   mouse_colour_unit in 'mouse_colour_unit.pas' {mouse_colour_form},
-// OT2024  file_viewer in 'file_viewer.pas' {file_viewer_form},
+  file_viewer in 'file_viewer.pas' {file_viewer_form},
   map_loader_unit in 'map_loader_unit.pas' {map_loader_form},
   trackbed_unit in 'trackbed_unit.pas' {trackbed_form},
   make_slip_unit in 'make_slip_unit.pas' {make_slip_form},
@@ -203,7 +203,7 @@ begin
   Application.CreateForm(Tcheck_diffs_form, check_diffs_form);
   Application.CreateForm(Timage_viewer_form, image_viewer_form);
   Application.CreateForm(Tmouse_colour_form, mouse_colour_form);
-// OT2024	  Application.CreateForm(Tfile_viewer_form, file_viewer_form);
+  Application.CreateForm(Tfile_viewer_form, file_viewer_form);
   Application.CreateForm(Tmap_loader_form, map_loader_form);
   Application.CreateForm(Ttrackbed_form, trackbed_form);
   Application.CreateForm(Tmake_slip_form, make_slip_form);
@@ -239,7 +239,6 @@ begin
   control_room_form.Enabled:=True;
 
   do_dpi_aware_scaling(0);   // 211b
-
   Application.Run;
 
 

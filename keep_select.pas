@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -556,7 +556,7 @@ interface
     procedure sort_by_type_menu_entryClick(Sender: TObject);
     procedure sort_by_info_menu_entryClick(Sender: TObject);
     procedure reset_all_id_numbers_menu_entryClick(Sender: TObject);
-    // OT2024 procedure file_viewer_menu_entryClick(Sender: TObject);
+    procedure file_viewer_menu_entryClick(Sender: TObject);
     procedure sort_group_templates_last_menu_entryClick(Sender: TObject);
     procedure centre_line_offset_options_as_stored_menu_entryClick(Sender: TObject);
     procedure centre_line_offset_options_as_control_menu_entryClick(Sender: TObject);
@@ -709,7 +709,7 @@ implementation
 uses  ShellAPI, Math, control_room, switch_select, help_sheet, alert_unit, math_unit,
   xing_select, entry_sheet, gauge_unit, colour_unit, info_unit, chat_unit, print_unit, bgnd_unit,
   dxf_unit, grid_unit, Clipbrd, edit_memo_unit, wait_message, shove_timber,
-  jotter_unit, print_settings_unit, data_memo_unit, {OT2024 MetafilePrinter,} {file_viewer,} panning_unit,
+  jotter_unit, print_settings_unit, data_memo_unit, {OT2024 MetafilePrinter,} file_viewer, panning_unit,
   lib_unit, gaps_unit, brick_unit, xml_unit;   // 242a
 
 
@@ -1322,9 +1322,10 @@ begin
     save_done:=False;
     backup_wanted:=True;
 
+  finally
+    if list_position>keeps_list.Count-1 then list_position:=keeps_list.Count-1;  // if deleted the last template..   555a MW  23-AUG-2024
     current_state(-1);
 
-  finally
     lib_form.lib_listbox.Visible:=(any_library>0);      // 234a
     redraw(True);
   end;//try  
@@ -6239,7 +6240,7 @@ with keep_form do begin
 	      // ensure list_position within bounds before using to update Keepform_listbox.ItemIndex
 	      // occurs having deleted last item in list
 
-	      if list_position>keeps_list.count-1 then list_position:=keeps_list.count-1;
+	      if list_position>keeps_list.Count-1 then list_position:=keeps_list.Count-1;
               
 	      // 555a sc 22-aug-2024
 			  
@@ -13402,7 +13403,7 @@ begin
   current_state(-1);
 end;
 //______________________________________________________________________________
-(* OT2024
+
 procedure Tkeep_form.file_viewer_menu_entryClick(Sender: TObject);
 
 begin
@@ -13410,7 +13411,6 @@ begin
   do_show_modal(file_viewer_form);
 end;
 //______________________________________________________________________________
-*)
 
 function get_readme_notes:string;    // 208d
 

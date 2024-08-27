@@ -11,7 +11,7 @@ object pad_form: Tpad_form
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -231
+  Font.Height = -289
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True

@@ -1,0 +1,411 @@
+object file_viewer_form: Tfile_viewer_form
+  Cursor = crArrow
+  Left = 296
+  Height = 748
+  Top = 133
+  Width = 1000
+  Caption = '          Templot5  BOX  file  viewer'
+  ClientHeight = 748
+  ClientWidth = 1000
+  Color = 15794175
+  DesignTimePPI = 120
+  Font.Color = clBlack
+  Font.Height = -1736
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  FormStyle = fsStayOnTop
+  KeyPreview = True
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnResize = FormResize
+  Position = poScreenCenter
+  LCLVersion = '3.4.0.0'
+  Scaled = False
+  object help_shape: TShape
+    Left = 210
+    Height = 28
+    Top = 6
+    Width = 64
+    Pen.Color = clLime
+  end
+  object Label3: TLabel
+    Left = 40
+    Height = 25
+    Top = 8
+    Width = 165
+    AutoSize = False
+    Caption = 'BOX file viewer'
+    Font.Color = 16711808
+    Font.Height = -18
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 24
+    Height = 45
+    Top = 44
+    Width = 228
+    AutoSize = False
+    Caption = 'Use this viewer to find or load your BOX data files.'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    WordWrap = True
+  end
+  object help_button: TButton
+    Left = 213
+    Height = 22
+    Top = 9
+    Width = 58
+    Caption = '? help'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    OnClick = help_buttonClick
+  end
+  object html_file_viewer: THtmlViewer
+    Left = 280
+    Height = 748
+    Top = 0
+    Width = 720
+    BorderStyle = htNone
+    DefBackground = 15794175
+    DefFontColor = clBlack
+    DefFontName = 'Arial'
+    DefFontSize = 8
+    DefOverLinkColor = clRed
+    DefPreFontName = 'Courier New'
+    DefVisitedLinkColor = clBlue
+    HistoryMaxCount = 10
+    HtOptions = [htOverLinksActive, htPrintTableBackground, htPrintMonochromeBlack]
+    ImageCacheCount = 0
+    MarginHeight = 0
+    MarginWidth = 4
+    NoSelect = False
+    PrintMarginBottom = 1
+    PrintMarginLeft = 1
+    PrintMarginRight = 1
+    PrintMarginTop = 1
+    PrintScale = 1.25
+    OnHotSpotClick = html_file_viewerHotSpotClick
+    ShowHint = True
+    TabOrder = 1
+    TabStop = True
+    OnMouseMove = html_file_viewerMouseMove
+    object mouse_hover_panel: TPanel
+      Left = 144
+      Height = 22
+      Top = 96
+      Width = 90
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Caption = 'reload this file'
+      Color = clWhite
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 4
+      Visible = False
+    end
+  end
+  object blue_corner_panel: TPanel
+    Left = 0
+    Height = 27
+    Top = 0
+    Width = 19
+    BevelOuter = bvNone
+    ClientHeight = 27
+    ClientWidth = 19
+    Color = clBlue
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+    TabStop = True
+    object size_updown: TUpDown
+      Tag = 4
+      Left = 0
+      Height = 24
+      Hint = ' enlarge / reduce  control  panel  '
+      Top = 0
+      Width = 16
+      Max = 10
+      Min = 1
+      OnClick = size_updownClick
+      ParentShowHint = False
+      Position = 4
+      ShowHint = True
+      TabOrder = 0
+    end
+  end
+  object controls_panel: TPanel
+    Left = 0
+    Height = 208
+    Top = 536
+    Width = 278
+    BevelOuter = bvNone
+    ClientHeight = 208
+    ClientWidth = 278
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 2
+    object found_label: TLabel
+      Left = 180
+      Height = 18
+      Top = 50
+      Width = 75
+      AutoSize = False
+      Caption = 'files found'
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+      Visible = False
+    end
+    object count_label: TLabel
+      Left = 126
+      Height = 18
+      Top = 50
+      Width = 50
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '0'
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
+    end
+    object images_label: TLabel
+      Left = 0
+      Height = 6
+      Top = 192
+      Width = 18
+      AutoSize = False
+      Caption = 'files'
+      Font.Color = clGray
+      Font.Height = -5
+      Font.Name = 'Arial'
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object escape_label: TLabel
+      Left = 18
+      Height = 18
+      Top = 68
+      Width = 220
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'press ESC to stop searching'
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Arial'
+      ParentFont = False
+      Visible = False
+    end
+    object progress_bar: TProgressBar
+      Left = 2
+      Height = 16
+      Top = 28
+      Width = 266
+      Smooth = True
+      TabOrder = 2
+    end
+    object refresh_button: TButton
+      Left = 166
+      Height = 25
+      Top = 0
+      Width = 100
+      Caption = 'show  files'
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = refresh_buttonClick
+    end
+    object open_folder_button: TButton
+      Left = 2
+      Height = 21
+      Top = 0
+      Width = 142
+      Caption = 'open folder in Windows'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 1
+      OnClick = open_folder_buttonClick
+    end
+    object images_clickable_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 130
+      Width = 128
+      Caption = 'images clickable'
+      Checked = True
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 5
+      OnClick = refresh_buttonClick
+    end
+    object name_labels_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 158
+      Width = 159
+      Caption = 'template name labels'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = refresh_buttonClick
+    end
+    object instant_show_checkbox: TCheckBox
+      Left = 12
+      Height = 20
+      Top = 102
+      Width = 130
+      Caption = 'instant show files'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnClick = instant_show_checkboxClick
+    end
+    object close_panel: TPanel
+      Left = 202
+      Height = 24
+      Top = 172
+      Width = 60
+      Alignment = taLeftJustify
+      Caption = '  hide'
+      ClientHeight = 24
+      ClientWidth = 60
+      Color = clYellow
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 6
+      OnClick = close_buttonClick
+      object close_button: TButton
+        Left = 42
+        Height = 14
+        Top = 8
+        Width = 14
+        Caption = '  '
+        Default = True
+        TabOrder = 0
+        OnClick = close_buttonClick
+      end
+    end
+    object copy_html_button: TButton
+      Left = 32
+      Height = 18
+      Top = 188
+      Width = 76
+      Caption = 'copy  HTML'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      TabOrder = 7
+      OnClick = copy_html_buttonClick
+    end
+  end
+  object folder_tree: TShellTreeView
+    Left = 12
+    Height = 274
+    Top = 248
+    Width = 256
+    ExpandSignType = tvestArrowFill
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    FileSortType = fstNone
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 4
+    OnClick = folder_treeClick
+    ObjectTypes = [otFolders]
+  end
+  object drive_tree: TShellTreeView
+    Left = 12
+    Height = 106
+    Top = 116
+    Width = 256
+    ExpandSignType = tvestArrowFill
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    FileSortType = fstNone
+    ParentFont = False
+    ScrollBars = ssAutoBoth
+    TabOrder = 5
+    OnClick = drive_treeClick
+    ObjectTypes = [otFolders]
+  end
+  object Label5: TLabel
+    Left = 20
+    Height = 18
+    Top = 96
+    Width = 121
+    AutoSize = False
+    Caption = 'select  a  drive :'
+    Font.Color = 16711808
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 20
+    Height = 18
+    Top = 228
+    Width = 121
+    AutoSize = False
+    Caption = 'select  a  folder :'
+    Font.Color = 16711808
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+end

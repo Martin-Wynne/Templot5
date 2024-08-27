@@ -12,7 +12,7 @@ object keep_form: Tkeep_form
   Color = 14211272
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -20
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -199,10 +199,10 @@ object keep_form: Tkeep_form
   end
   object brick_template_checkbox: TCheckBox
     Left = 8
-    Height = 23
+    Height = 28
     Hint = ' timbering brick template '
     Top = 328
-    Width = 69
+    Width = 81
     Caption = 'brick: '
     ParentShowHint = False
     ShowHint = True
@@ -211,9 +211,9 @@ object keep_form: Tkeep_form
   end
   object delete_to_control_radiobutton: TRadioButton
     Left = 510
-    Height = 23
+    Height = 28
     Top = 436
-    Width = 67
+    Width = 78
     Caption = 'delete'
     TabOrder = 3
     Visible = False
@@ -840,7 +840,7 @@ object keep_form: Tkeep_form
     Top = 388
     Width = 126
     Caption = '     group select '
-    ClientHeight = 73
+    ClientHeight = 68
     ClientWidth = 122
     ParentBackground = False
     TabOrder = 18
@@ -1249,18 +1249,18 @@ object keep_form: Tkeep_form
   end
   object copy_to_control_radiobutton: TRadioButton
     Left = 510
-    Height = 23
+    Height = 28
     Top = 388
-    Width = 59
+    Width = 67
     Caption = 'copy'
     TabOrder = 1
     Visible = False
   end
   object wipe_to_control_radiobutton: TRadioButton
     Left = 510
-    Height = 23
+    Height = 28
     Top = 412
-    Width = 57
+    Width = 64
     Caption = 'wipe'
     Checked = True
     TabOrder = 2
@@ -1652,6 +1652,7 @@ object keep_form: Tkeep_form
       object file_viewer_menu_entry: TMenuItem
         Caption = 'file  viewer'
         GroupIndex = 12
+        OnClick = file_viewer_menu_entryClick
       end
       object reload_menu_entry: TMenuItem
         Caption = 'load / &reload ...'

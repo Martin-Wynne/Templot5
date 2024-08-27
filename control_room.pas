@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -254,6 +254,7 @@ type
     procedure aspect_distortion_menu_entryClick(Sender: TObject);
     procedure auto_terms_menu_entryClick(Sender: TObject);
     procedure custom_terms_menu_entryClick(Sender: TObject);
+    procedure room_file_viewer_menu_entryClick(Sender: TObject);
     procedure step_size_menu_entryClick(Sender: TObject);
     procedure cancel_all_distortions_menu_entryClick(Sender: TObject);
     procedure re_org_menu_entryClick(Sender: TObject);
@@ -262,6 +263,7 @@ type
     procedure test_menu_entryClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure distortion_help_menu_entryClick(Sender: TObject);
+    procedure viewer_buttonClick(Sender: TObject);
     procedure x_scaling_menu_entryClick(Sender: TObject);
     procedure y_scaling_menu_entryClick(Sender: TObject);
     procedure mirror_x_menu_entryClick(Sender: TObject);
@@ -742,7 +744,7 @@ uses
   shove_timber, stay_visible_unit, action_unit, mint_unit, jotter_unit, print_settings_unit,
   prefs_unit, edit_memo_unit, platform_unit,
   data_memo_unit, check_diffs_unit, rail_options_unit,
-  export_unit, { OT2024 file_viewer,} wait_message, trackbed_unit, make_slip_unit, create_tandem,
+  export_unit, file_viewer, wait_message, trackbed_unit, make_slip_unit, create_tandem,
   map_loader_unit, gaps_unit, lib_unit, intersect_unit, brick_unit,
   heave_chairs, custom_3d_unit;
 
@@ -3047,6 +3049,13 @@ const
 begin
   if help(0,distortion_help_str,'DXF  distortions  chat')=1 then chat(chat_str);
 end;
+//______________________________________________________________________________
+
+procedure Tcontrol_room_form.viewer_buttonClick(Sender: TObject);
+
+begin
+  room_file_viewer_menu_entry.Click;
+end;
 //___________________________________________________________________________________________
 
 procedure Tcontrol_room_form.x_scaling_menu_entryClick(Sender: TObject);
@@ -4538,7 +4547,7 @@ begin
                           else make_on_click_mode_menu_entry.Checked:=True;
 end;
 //______________________________________________________________________________
-(* OT2024
+
 procedure Tcontrol_room_form.room_file_viewer_menu_entryClick(Sender: TObject);    // 208d
 
 begin
@@ -4546,6 +4555,8 @@ begin
   do_show_modal(file_viewer_form);  // 212a
 end;
 //______________________________________________________________________________
+
+(*    555a  FIXME MW 27-AUG-2024
 
 procedure Tcontrol_room_form.viewer_bitmaps_menu_entryClick(Sender:TObject);  // 208e
 

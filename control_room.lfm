@@ -13,7 +13,7 @@ object control_room_form: Tcontrol_room_form
   DesignTimePPI = 120
   Enabled = False
   Font.Color = clBlack
-  Font.Height = -1736
+  Font.Height = -4239
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
   Menu = control_room_menu_bar
@@ -447,6 +447,7 @@ object control_room_form: Tcontrol_room_form
     ParentFont = False
     TabOrder = 6
     Visible = False
+    OnClick = viewer_buttonClick
   end
   object storage_box_button: TButton
     Left = 314
@@ -737,6 +738,7 @@ object control_room_form: Tcontrol_room_form
       end
       object room_file_viewer_menu_entry: TMenuItem
         Caption = 'box  file  &viewer'
+        OnClick = room_file_viewer_menu_entryClick
       end
       object reload_menu_entry: TMenuItem
         Caption = 'load / &reload / add  box  file ...'
@@ -1039,12 +1041,14 @@ object control_room_form: Tcontrol_room_form
         GroupIndex = 90
         object viewer_bitmaps_menu_entry: TMenuItem
           Caption = 'images  in  &memory'
-          Checked = True
+          Enabled = False
           GroupIndex = 10
           RadioItem = True
         end
         object viewer_png_menu_entry: TMenuItem
           Caption = 'images  as  &files'
+          Checked = True
+          Enabled = False
           GroupIndex = 10
           RadioItem = True
         end
@@ -1054,6 +1058,7 @@ object control_room_form: Tcontrol_room_form
         end
         object file_viewer_help_menu_entry: TMenuItem
           Caption = '?  &help'
+          Enabled = False
           GroupIndex = 20
         end
       end
