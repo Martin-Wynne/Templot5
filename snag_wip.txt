@@ -1,0 +1,29 @@
+    SNAG/WIP LIST
+_______________________________
+
+
+T5 CONVERSION:
+_____________
+
+sketchboard
+scanner
+file-viewer: image borders/red clickable
+
+
+
+
+
+NEW WORK:
+_________
+
+plug track: slab & bracket 
+
+
+
+
+
+
+LONG-STANDING BUGS/ISSUES:
+_________________________
+
+XTC connectors - re-instate now open source
