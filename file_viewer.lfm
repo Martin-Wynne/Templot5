@@ -1,16 +1,16 @@
 object file_viewer_form: Tfile_viewer_form
   Cursor = crArrow
   Left = 296
-  Height = 748
+  Height = 743
   Top = 133
   Width = 1000
   Caption = '          Templot5  BOX  file  viewer'
-  ClientHeight = 748
+  ClientHeight = 743
   ClientWidth = 1000
   Color = 15794175
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -1736
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -380,7 +380,7 @@ object file_viewer_form: Tfile_viewer_form
     ScrollBars = ssAutoBoth
     TabOrder = 5
     OnClick = drive_treeClick
-    ObjectTypes = [otFolders]
+    ObjectTypes = []
   end
   object Label5: TLabel
     Left = 20
