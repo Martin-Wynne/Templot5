@@ -34,3 +34,7 @@ logs/
 # Application bundle for Mac OS
 *.app/
 
+# Application output folders
+TEMPLOT5_OUTPUT/
+
+
