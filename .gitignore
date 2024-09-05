@@ -34,7 +34,7 @@ logs/
 # Application bundle for Mac OS
 *.app/
 
-# Application output folders
-TEMPLOT5_OUTPUT/
+# Generated exe
+templot_5.exe
 
 
