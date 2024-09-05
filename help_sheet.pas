@@ -1150,7 +1150,20 @@ begin
   if ShellExecute(0,'open',PChar(url_str),nil,nil,SW_SHOWNORMAL)<=32
      then show_modal_message('Sorry, unable to open your browser window and connect to the Templot web site.'
                      +#13+#13+'Please check your internet connection.');
+end;
+//______________________________________________________________________________
 
+procedure club_help_click(ref_number_str:string);    // 555a  MW
+
+var
+  url_str:string;
+
+begin
+  url_str:='https://85a.uk/templot/club/index.php?posts/'+ref_number_str;
+
+  if ShellExecute(0,'open',PChar(url_str),nil,nil,SW_SHOWNORMAL)<=32
+     then show_modal_message('Sorry, unable to open your browser window and connect to the Templot Club web site.'
+                    +#13+#13+'Please check your internet connection.');
 end;
 //______________________________________________________________________________
 
@@ -1178,6 +1191,11 @@ begin
            // first test for online help. link = online_ref123.85a  ..
 
   if Copy(new_url,1,10)='online_ref'     then begin online_help_click(Copy(new_url,11,3));  EXIT; end;  // 0.93.a
+
+           // club link = club_ref1234.85a  ..
+
+  if Copy(new_url,1,8)='club_ref'  then begin club_help_click(Copy(new_url,9,255));  EXIT; end;  // 555a MW
+
 
            // then the file viewer  208d ...
 
@@ -1672,7 +1690,7 @@ end;
 function do_html_header(title_str:string):string;   // 555a  MW 27-AUG-2024
 
 begin
-  RESULT:='<HTML><HEAD><TITLE>'+title_str+'</TITLE><STYLE> body { text-align:center; } a:hover { color:#ff0000; text-decoration:none; } </STYLE></HEAD><BODY>';
+  RESULT:='<HTML><HEAD><TITLE>'+title_str+'</TITLE><STYLE> body { text-align:center; } a:hover { color:red; text-decoration:none; } a > img :hover { border:2px solid red; } </STYLE></HEAD><BODY>';
 end;
 //______________________________________________________________________________
 

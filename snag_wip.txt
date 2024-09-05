@@ -27,3 +27,4 @@ LONG-STANDING BUGS/ISSUES:
 _________________________
 
 XTC connectors - re-instate now open source
+decimal separaror character in map URLs
