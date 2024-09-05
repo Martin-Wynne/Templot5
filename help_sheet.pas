@@ -1194,8 +1194,12 @@ begin
 
            // club link = club_ref1234.85a  ..
 
-  if Copy(new_url,1,8)='club_ref'  then begin club_help_click(Copy(new_url,9,255));  EXIT; end;  // 555a MW
-
+  if Copy(new_url,1,8)='club_ref'     // 555a MW
+     then begin
+            new_url:=StringReplace(new_url,'.85a','',[rfIgnoreCase]);
+            club_help_click(Copy(new_url,9,255));
+            EXIT;
+          end;
 
            // then the file viewer  208d ...
 
