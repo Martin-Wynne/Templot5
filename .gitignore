@@ -34,3 +34,7 @@ logs/
 # Application bundle for Mac OS
 *.app/
 
+# Generated exe
+templot_5.exe
+
+
