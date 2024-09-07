@@ -7,7 +7,7 @@ _____________
 
 sketchboard
 scanner
-file-viewer: image borders/red clickable
+file-viewer: image borders/red when clickable
 
 
 

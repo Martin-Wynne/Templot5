@@ -10,7 +10,7 @@ object mint_form: Tmint_form
   Color = 15663103
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -13
+  Font.Height = -16
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True

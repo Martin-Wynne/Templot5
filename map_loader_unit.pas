@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -40,7 +40,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Clipbrd,
 
-{OT2024}  HTTPSend;
+  HTTPSend;
 
 type
 
@@ -148,7 +148,7 @@ type
     procedure location_groupboxMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure lon_editEnter(Sender: TObject);
     procedure os_letters_editEnter(Sender: TObject);
-{OT2024}    procedure load_tiles_buttonClick(Sender: TObject);
+    procedure load_tiles_buttonClick(Sender: TObject);
     procedure background_shapes_buttonClick(Sender: TObject);
     procedure Label24Click(Sender: TObject);
     procedure Label25Click(Sender: TObject);
@@ -185,7 +185,7 @@ type
     procedure zoom_to_map_buttonClick(Sender: TObject);
     procedure nls_county_radio_buttonClick(Sender: TObject);
     procedure nls_natgrid50_radio_buttonClick(Sender: TObject);
-{OT2024}    procedure clarity_buttonClick(Sender: TObject);
+    procedure clarity_buttonClick(Sender: TObject);
     procedure os_coverage_buttonClick(Sender: TObject);
     procedure nls_coverage_buttonClick(Sender: TObject);
     procedure nls_natgrid25_radio_buttonClick(Sender: TObject);
@@ -226,7 +226,6 @@ var
 
   function format_his_name:string;
 
-{OT2024}
   function parse_url(str:string; var zoom_level:integer; var lat_lon:Tlat_lon):boolean;
 
   function parse_os_grid(modx,mody:extended; letter_str,easting_str,northing_str:string):Tos_grid;
@@ -240,7 +239,7 @@ implementation
 
 uses
   Math, control_room, bgnd_unit, pad_unit, grid_unit, math_unit, entry_sheet, alert_unit, help_sheet, gauge_unit,
-{OT2024}  map_clarity_unit;
+  map_clarity_unit;
 
 var
   xtile_min,ytile_min,xtile_max,ytile_max:integer;
@@ -499,6 +498,7 @@ var
   n:integer;
 
   load_picture:TPicture;
+  tile_stream:TMemoryStream;
 
 begin
 
@@ -554,7 +554,9 @@ begin
 *)
         rotated_picture:=TPicture.Create;
 
-        load_picture:=TPicture.Create; //0.93.a
+        load_picture:=TPicture.Create;
+
+        tile_stream:=TMemoryStream.Create;
 
         try
           case map_src_code of
@@ -564,15 +566,22 @@ begin
                     else load_picture.LoadFromFile(exe_str+'internal\empty_picture.bmp');        // ??? invalid map_src_code for tiled maps
           end;//case
 
-          image_bitmap.Assign(load_picture.Graphic);
+          tile_stream.Clear;
 
-          image_bitmap.PixelFormat:=pf24bit;  // for deeper zooming  (was probably 32 bit)
+          load_picture.Bitmap.SaveToStream(tile_stream);   // 555a MW this method needed to convert from 8-bit tile
+
+          tile_stream.Position:=0;
+
+          image_bitmap.LoadFromStream(tile_stream);
+
+          image_bitmap.PixelFormat:=pf24bit;  // for deeper zooming
 
           image_width:=image_bitmap.Width;
           image_height:=image_bitmap.Height;
 
         finally
           load_picture.Free;
+          tile_stream.Free;
         end;//try
       end;//with
     end;//with
@@ -599,7 +608,8 @@ var
   http_count:integer;
 
   http_result:Boolean;
-{OT2024}  http_sender:THTTPSend;
+  http_sender:THTTPSend;
+
   file_str:string;
 
   no_tile_str:string;
@@ -620,8 +630,6 @@ var
 
               begin
                 RESULT:=False;    // init
-
-                {// OT2024}
 
                    // 0=NLS historic 25-inch (tiled)      1=NLS 50-inch (tiled)       2=Thunderforest(tiled)     3=OpenStreetMap(tiled)     4=NLS 60-inch (tiled)
 
@@ -1116,7 +1124,6 @@ begin
   redraw(True);
 end;
 //______________________________________________________________________________
-{OT2024}
 
 function parse_url(str:string; var zoom_level:integer; var lat_lon:Tlat_lon):boolean;
 
@@ -1271,7 +1278,6 @@ begin
 end;
 //______________________________________________________________________________
 
-
 procedure map_buttons_click(tiled:boolean);
 
 const
@@ -1329,6 +1335,8 @@ var
   url_str:string;
 
   seconds:integer;
+
+  img_stream:TMemoryStream;
 
 begin
   new_shape:=init_bgnd_shape;  // 234b
@@ -1733,6 +1741,8 @@ begin
 
             load_picture:=TPicture.Create; //0.93.a
 
+            img_stream:=TMemoryStream.Create;
+
             try
               case map_src_code of
                 0,1,4,5,6,7: load_picture.LoadFromFile(exe_str+'internal\tile\nls_copyright.png');        // NLS PNG
@@ -1741,9 +1751,15 @@ begin
                         else load_picture.LoadFromFile(exe_str+'internal\empty_picture.bmp');        // ??? invalid map_src_code for tiled maps
               end;//case
 
-              image_bitmap.Assign(load_picture.Graphic);
+              img_stream.Clear;
 
-              image_bitmap.PixelFormat:=pf24bit;
+              load_picture.Bitmap.SaveToStream(img_stream);   // 555a MW this method needed for 8-bit png
+
+              img_stream.Position:=0;
+
+              image_bitmap.LoadFromStream(img_stream);
+
+              image_bitmap.PixelFormat:=pf24bit;  // for deeper zooming
 
               image_width:=image_bitmap.Width;
               image_height:=image_bitmap.Height;
@@ -1757,6 +1773,7 @@ begin
 
             finally
               load_picture.Free;
+              img_stream.Free;
             end;//try
 
           end;//with image shape
@@ -2868,7 +2885,6 @@ begin
   if map_exists=True then zoom_to_map;
 end;
 //______________________________________________________________________________
-// OT2024
 
 procedure Tmap_loader_form.clarity_buttonClick(Sender: TObject);
 

@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -117,6 +117,7 @@ begin
     if smp_75_rail_radiobutton.Checked=True then rail_section_option:=2;
     if peco_124_rail_radiobutton.Checked=True then rail_section_option:=3;
     if cl_131_rail_radiobutton.Checked=True then rail_section_option:=4;
+    if cl_125_rail_radiobutton.Checked=True then rail_section_option:=5;
 
     if custom_rail_radiobutton.Checked=True then rail_section_option:=99;
 
@@ -171,7 +172,8 @@ begin
     WriteFloat('custom_rail_web_bottom',custom_rail_web_bottom,0);
 
     WriteFloat('seat_thick',seat_thick,0);                                           // 555b
-    WriteFloat('timber_thick',timber_thick,0);                                       // 555b
+    WriteFloat('normal_timber_thick',normal_timber_thick,0);   //  MW
+    WriteFloat('cot_timber_thick',cot_timber_thick,0);         //  MW
 
     WriteFloat('soleplate_thick',soleplate_thick,0);                                 // 555b
     WriteFloat('soleplate_width',soleplate_width,0);                                 // 555b
@@ -197,7 +199,9 @@ begin
     WriteFloat('side_flange_width_mm',side_flange_width_mm,0);                       // 555b
     WriteFloat('end_flange_width',end_flange_width,0);                               // 555b
     WriteFloat('flange_offset',flange_offset,0);                                     // 555b
-    WriteFloat('flange_depth',flange_depth,0);                                       // 555b
+
+    WriteFloat('normal_flange_depth',normal_flange_depth,0);  // MW
+    WriteFloat('cot_flange_depth',cot_flange_depth,0);        // MW
 
     WriteFloat('dropper_ridge_spacing_top_mm',dropper_ridge_spacing_top_mm,0);       // 555b
     WriteFloat('dropper_ridge_spacing_bottom_mm',dropper_ridge_spacing_bottom_mm,0); // 555b
@@ -212,8 +216,8 @@ begin
     WriteFloat('clip_arms_width',clip_arms_width,0);                                 // 555b
     WriteFloat('clip_outers_width',clip_outers_width,0);                             // 555b
     WriteFloat('clip_outers_length',clip_outers_length,0);                           // 555b
-    WriteFloat('clip_ends_clear',clip_ends_clear,0);                                 // 555b
-    WriteFloat('clip_sides_clear',clip_sides_clear,0);                               // 555b
+    WriteFloat('clip_ends_clear_mm',clip_ends_clear_mm,0);        // MW
+    WriteFloat('clip_sides_clear_mm',clip_sides_clear_mm,0);      // MW
     WriteFloat('clip_hole_mm',clip_hole_mm,0);                                       // 555b
     WriteFloat('clip_depth_mm',clip_depth_mm,0);                                     // 555b
     WriteFloat('clip_foot_depth_mm',clip_foot_depth_mm,0);                           // 555b
@@ -221,13 +225,18 @@ begin
 
     // splints
 
-    WriteFloat('splint_depth',splint_depth,0);                                       // 555b
+    WriteFloat('normal_splint_depth',normal_splint_depth,0);      // MW
+    WriteFloat('cot_splint_depth',cot_splint_depth,0);            // MW
+
     WriteFloat('splint_width',splint_width,0);                                       // 555b
 
-    WriteFloat('slab_depth',slab_depth,0);                                           // 555b
+    WriteFloat('normal_slab_depth',normal_slab_depth,0);          // MW
+    WriteFloat('cot_slab_depth',cot_slab_depth,0);                // MW
 
     WriteFloat('label_tab_width',label_tab_width,0);                                 // 555b
-    WriteFloat('label_char_thickness',label_char_thickness,0);                       // 555b
+
+    WriteFloat('normal_label_char_thickness',normal_label_char_thickness,0);     // MW
+    WriteFloat('cot_label_char_thickness',cot_label_char_thickness,0);           // MW
 
     WriteFloat('plugsock_length_mod',plugsock_length_mod,0);                         // 555b
     WriteFloat('plugsock_width_mod',plugsock_width_mod,0);                           // 555b
@@ -451,6 +460,10 @@ begin
 
     WriteFloat('fdm_hot_shrinkage_z',fdm_hot_shrinkage_z,0);                         // 555b
 
+    WriteFloat('fdm_rail_foot_factor',fdm_rail_foot_factor,0);                       // FDM chairs (COT track)  MW
+
+    WriteFloat('fdm_rail_web_factor',fdm_rail_web_factor,0);                         // FDM chairs (COT track)  MW
+
     // shrinkage FDM - cold bed
 
     WriteFloat('fdm_cold_shrinkage_x',fdm_cold_shrinkage_x,0);                       // 555b
@@ -602,8 +615,11 @@ begin
     if NodeIndexOf(FindNode('seat_thick'))<>-1
        then seat_thick:=ReadFloat('seat_thick',1.75);                                           // 555b
 
-    if NodeIndexOf(FindNode('timber_thick'))<>-1
-       then timber_thick:=ReadFloat('timber_thick',10.08);                                      // 555b
+    if NodeIndexOf(FindNode('normal_timber_thick'))<>-1
+       then normal_timber_thick:=ReadFloat('normal_timber_thick',0);  // MW
+
+    if NodeIndexOf(FindNode('cot_timber_thick'))<>-1
+       then cot_timber_thick:=ReadFloat('cot_timber_thick',0);        // MW
 
     if NodeIndexOf(FindNode('soleplate_thick'))<>-1
        then soleplate_thick:=ReadFloat('soleplate_thick',0.48);                                 // 555b
@@ -662,8 +678,11 @@ begin
      if NodeIndexOf(FindNode('flange_offset'))<>-1
        then flange_offset:=ReadFloat('flange_offset',0);                                        // 555b
 
-    if NodeIndexOf(FindNode('flange_depth'))<>-1
-       then flange_depth:=ReadFloat('flange_depth',2.88);                                       // 555b
+    if NodeIndexOf(FindNode('normal_flange_depth'))<>-1
+       then normal_flange_depth:=ReadFloat('normal_flange_depth',0);     //  MW
+
+    if NodeIndexOf(FindNode('cot_flange_depth'))<>-1
+       then cot_flange_depth:=ReadFloat('cot_flange_depth',0);           //  MW
 
     if NodeIndexOf(FindNode('dropper_ridge_spacing_top_mm'))<>-1
        then dropper_ridge_spacing_top_mm:=ReadFloat('dropper_ridge_spacing_top_mm',0.4);        // 555b
@@ -698,11 +717,11 @@ begin
     if NodeIndexOf(FindNode('clip_outers_length'))<>-1
        then clip_outers_length:=ReadFloat('clip_outers_length',4);                             // 555b
 
-    if NodeIndexOf(FindNode('clip_ends_clear'))<>-1
-       then clip_ends_clear:=ReadFloat('clip_ends_clear',0);                                   // 555b
+    if NodeIndexOf(FindNode('clip_ends_clear_mm'))<>-1
+       then clip_ends_clear_mm:=ReadFloat('clip_ends_clear_mm',0);     // MW
 
-    if NodeIndexOf(FindNode('clip_sides_clear'))<>-1
-       then clip_sides_clear:=ReadFloat('clip_sides_clear',0.15);                              // 555b
+    if NodeIndexOf(FindNode('clip_sides_clear_mm'))<>-1
+       then clip_sides_clear_mm:=ReadFloat('clip_sides_clear_mm',0);   // MW
 
     if NodeIndexOf(FindNode('clip_hole_mm'))<>-1
        then clip_hole_mm:=ReadFloat('clip_hole_mm',1.0);                                       // 555b
@@ -717,22 +736,31 @@ begin
        then clip_foot_offset_mm:=ReadFloat('clip_foot_offset_mm',0.3);                         // 555b
 
 
-    // splints
+    // splints / slabs / brick labels
 
-    if NodeIndexOf(FindNode('splint_depth'))<>-1
-       then splint_depth:=ReadFloat('splint_depth',2.88);                                      // 555b
+    if NodeIndexOf(FindNode('normal_splint_depth'))<>-1
+       then normal_splint_depth:=ReadFloat('normal_splint_depth',0);      // MW
+
+    if NodeIndexOf(FindNode('cot_splint_depth'))<>-1
+       then cot_splint_depth:=ReadFloat('cot_splint_depth',0);            // MW
 
     if NodeIndexOf(FindNode('splint_width'))<>-1
        then splint_width:=ReadFloat('splint_width',9);                                         // 555b
 
-    if NodeIndexOf(FindNode('slab_depth'))<>-1
-       then slab_depth:=ReadFloat('slab_depth',2.88);                                          // 555b
+    if NodeIndexOf(FindNode('normal_slab_depth'))<>-1
+       then normal_slab_depth:=ReadFloat('normal_slab_depth',0);          // MW
+
+    if NodeIndexOf(FindNode('cot_slab_depth'))<>-1
+       then cot_slab_depth:=ReadFloat('cot_slab_depth',0);                // MW
 
     if NodeIndexOf(FindNode('label_tab_width'))<>-1
        then label_tab_width:=ReadFloat('label_tab_width',15);                                  // 555b
 
-    if NodeIndexOf(FindNode('label_char_thickness'))<>-1
-       then label_char_thickness:=ReadFloat('label_char_thickness',1.8);                      // 555b
+    if NodeIndexOf(FindNode('normal_label_char_thickness'))<>-1
+       then normal_label_char_thickness:=ReadFloat('normal_label_char_thickness',0);  // MW
+
+    if NodeIndexOf(FindNode('cot_label_char_thickness'))<>-1
+       then cot_label_char_thickness:=ReadFloat('cot_label_char_thickness',0);        // MW
 
     // sockets
 
@@ -749,7 +777,7 @@ begin
        then socket_chamfer_depth:=ReadFloat('socket_chamfer_depth',0.36);                     // 555b
 
     if NodeIndexOf(FindNode('socket_depth'))<>-1
-       then socket_depth:=ReadFloat('socket_depth',8.64);                                     // 555b
+       then socket_depth:=ReadFloat('socket_depth',10.08);                                     // 555b
 
     // snap fit chairs
 
@@ -1110,6 +1138,13 @@ begin
     if NodeIndexOf(FindNode('fdm_hot_shrinkage_z'))<>-1
        then fdm_hot_shrinkage_z:=ReadFloat('fdm_hot_shrinkage_z',0);                          // 555b
 
+    if NodeIndexOf(FindNode('fdm_rail_foot_factor'))<>-1
+       then fdm_rail_foot_factor:=ReadFloat('fdm_rail_foot_factor',0);                        // FDM chairs (COT track)  MW
+
+    if NodeIndexOf(FindNode('fdm_rail_web_factor'))<>-1
+       then fdm_rail_web_factor:=ReadFloat('fdm_rail_web_factor',0);                          // FDM chairs (COT track)  MW
+
+
     // shrinkage FDM - cold bed
 
     if NodeIndexOf(FindNode('fdm_cold_shrinkage_x'))<>-1
@@ -1178,6 +1213,7 @@ begin
         2: smp_75_rail_radiobutton.Checked:=True;
         3: peco_124_rail_radiobutton.Checked:=True;
         4: cl_131_rail_radiobutton.Checked:=True;
+        5: dxf_form.cl_125_rail_radiobutton.Checked:=True;
 
        99: begin
              custom_rail_radiobutton.Checked:=True;

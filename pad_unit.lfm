@@ -11,7 +11,7 @@ object pad_form: Tpad_form
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -289
+  Font.Height = -564
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -4338,6 +4338,35 @@ object pad_form: Tpad_form
           Caption = ' '
           Enabled = False
           GroupIndex = 90
+        end
+        object MenuItem2: TMenuItem
+          Caption = 'chair  prototype'
+          object MenuItem3: TMenuItem
+            Caption = 'REA'
+            Checked = True
+            GroupIndex = 10
+            RadioItem = True
+          end
+          object MenuItem4: TMenuItem
+            Caption = 'GWR'
+            RadioItem = True
+          end
+          object MenuItem5: TMenuItem
+            Caption = 'LSWR'
+            RadioItem = True
+          end
+          object MenuItem6: TMenuItem
+            Caption = 'MR'
+            GroupIndex = 10
+            RadioItem = True
+          end
+          object MenuItem7: TMenuItem
+            Caption = ' '
+          end
+        end
+        object MenuItem1: TMenuItem
+          Caption = ' '
+          Enabled = False
         end
         object N713: TMenuItem
           Caption = '-'

@@ -326,10 +326,6 @@ type
     procedure classic_templot_mode_menu_entryClick(Sender: TObject);
     procedure make_on_click_mode_menu_entryClick(Sender: TObject);
     procedure click_mode_options_menu_entryClick(Sender: TObject);
-// OT2024    procedure room_file_viewer_menu_entryClick(Sender: TObject);
-// OT2024    procedure viewer_bitmaps_menu_entryClick(Sender: TObject);
-// OT2024    procedure viewer_png_menu_entryClick(Sender: TObject);
-// OT2024    procedure file_viewer_help_menu_entryClick(Sender: TObject);
     procedure previous_labels_menu_entryClick(Sender: TObject);
     procedure screen_scaling_menu_entryClick(Sender: TObject);
     procedure use_wine_fonts_menu_entryClick(Sender: TObject);
@@ -1853,7 +1849,18 @@ begin
                      '','','','','','O K',0);
           end;
 
-
+  if POS(' ',exe_str)<>0
+     then begin
+            alert(3,'   Templot   -   Space  in  Program  Path',
+                     'You have installed Templot in a location on your computer where the path to it contains one or more spaces in the folder names:||'
+                    +exe_str
+                    +'||As explained on the installation dialog, this is likely to cause problems when saving and loading files.'
+                    +'||You can install Templot anywhere on your computer or on a USB memory stick, but the entire path to it must not contain any spaces.'
+                    +'If you need spaces in the folder names, please<B>_</B>use<B>_</B>underscores<B>_</B>instead.'
+                    +'||The default location for Templot is:'
+                    +'||C:\TEMPLOT_DEV',
+                     '','','','','','O K',0);
+          end;
 
   create_bitmaps;
   if Application.Terminated=True then EXIT;   // he quit on "no memory for bitmaps" alert
@@ -2254,7 +2261,9 @@ var
   about_str:string;
 
 begin
-  about_str:='<P ALIGN="CENTER" STYLE="margin-top:0px;"><IMG SRC="'+exe_str+'internal\hlp\templot2_logo_shadow_262_74_8bit.png"></P>'
+  about_str:='<HTML><HEAD><TITLE>About Templot</TITLE><STYLE>body a:hover { color:red; } </STYLE></HEAD>'
+            +'<BODY>'
+            +'<P ALIGN="CENTER" STYLE="margin-top:0px;"><IMG SRC="'+exe_str+'internal\hlp\templot5_logo.png"></P>'
             +'<P ALIGN="CENTER" STYLE="margin-top:0px; color:blue; font-family:''Trebuchet MS''; font-size:19px; font-weight:bold; font-style:italic;">precision track design for model railways</P>'
             +'<P ALIGN="CENTER" STYLE="color:#dd6600; font-size:16px; font-weight:bold;">track &nbsp;plan &nbsp;design&nbsp; &nbsp; • &nbsp; &nbsp;precision &nbsp;construction &nbsp;templates</P>'
             +'<HR NOSHADE>'

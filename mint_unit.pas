@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -344,7 +344,9 @@ var
 
 
 begin
-  html_str:='<TABLE STYLE="font-family:'''+arial_str+'''"><TR><TD STYLE="padding-left:22px; padding-bottom:16px; font-size:13px; color:#000000; line-height:125%;">'
+  html_str:='<HTML><HEAD><TITLE>Quick Set (Mint New)</TITLE><STYLE>body a:hover { color:red; } </STYLE></HEAD>'
+       +'<BODY>'
+       +'<TABLE STYLE="font-family:'''+arial_str+'''"><TR><TD STYLE="padding-left:22px; padding-bottom:16px; font-size:13px; color:#000000; line-height:125%;">'
        +'Use the quick controls on the right to set a new mint control template which matches the most common UK-pattern bullhead turnout sizes.'
        +'<BR><BR>A mint turnout template has no approach track, and 2 sleepers of exit track.</TD></TR>'
 

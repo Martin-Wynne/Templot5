@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -1450,7 +1450,7 @@ uses
   grid_unit, xing_select, jotter_unit, shove_timber, entry_sheet, bgnd_unit,
   switch_select, wait_message, print_unit, enter_timber,
   calibration_unit, export_unit, platform_unit, data_memo_unit,
-  math2_unit, check_diffs_unit, rail_options_unit, {file_viewer,} chairs_unit,
+  math2_unit, check_diffs_unit, rail_options_unit, file_viewer, chairs_unit,
   trackbed_unit, create_tandem, track_spacing_unit, gaps_unit,
   brick_unit, heave_chairs, pdf_laz_unit;
 
@@ -23922,17 +23922,22 @@ type
                            //  0=ignore
 
                            //  1=S1 chair
+
                            //  2=P chair
 
                            //  3=
 
                            //  4=
 
-                           //  5=L1 bridge chair, 6=M1 bridge chair
+                           //  5=L1 bridge chair
+
+                           //  6=M1 bridge chair
 
                            //  7=S1J joint chair
 
-                           //  8=S1O half-bolted chair outer, 9=S1N half-bolted chair inner
+                           //  8=S1O half-bolted chair outer
+
+                           //  9=S1N half-bolted chair inner
 
                            //  10=SC fictional 4-bolt chair
 
@@ -23941,6 +23946,9 @@ type
                            //  13=switch block heel chair type 3 (inside key)  E F switches 1PR and 2PR
 
                            //  14-15-16  // check rail chairs  flare-in, parallel, flare-out    237a
+
+
+
 
                            //  98=FG dummy chair  foot groove        234a
                            //  99=RG dummy chair  rail head groove   234a
@@ -27224,9 +27232,9 @@ var
                               if joint_timber<>0
                                  then dir:=joint_timber;    // 233d over-ride key direction for joint timbers
 
-                              if chair_key_max_offset<0.5   // central key wanted
+                              if chair_key_max_offset<0.25   // central key wanted
                                  then offset:=0
-                                 else offset:=dir*((chair_key_max_offset-0.5)*Random+0.5)*inscale;    // offset range 1/2"..max"
+                                 else offset:=dir*((chair_key_max_offset-0.25)*Random+0.25)*inscale;    // offset range 1/4"..max"    555a was 1/2" MW
 
                               pt1.x:=pt1.x-offset;     // modify insertion point for offset along the rail...
                               pt2.x:=pt2.x-offset;
@@ -29768,7 +29776,7 @@ begin
                         ynso:=yns-flange_offset*inscale+flange_integrity_overlap*inscale;
                         yfso:=yfs+flange_offset*inscale-flange_integrity_overlap*inscale;
 
-                        if dxf_form.flanges_combo.ItemIndex<>0
+                        if (dxf_form.flanges_combo.ItemIndex<>0) or ((dxf_form.cot_radio.Checked=True) and (dxf_form.cot_flanges_checkbox.Checked=True))
                            then begin
 
                                   // add timber outer side flanges (8 marks each side)
@@ -29898,7 +29906,8 @@ begin
                                           end;
                                 end;
 
-                        if (dxf_form.flanges_combo.ItemIndex<>0)  and (dxf_form.end_flanges_checkbox.Checked=True)
+                        if ( (dxf_form.flanges_combo.ItemIndex<>0) or ((dxf_form.cot_radio.Checked=True) and (dxf_form.cot_flanges_checkbox.Checked=True)) )
+                        and (dxf_form.end_flanges_checkbox.Checked=True)
                            then begin
 
                                   // add timber outer end flanges (8 marks each end)
@@ -30123,13 +30132,15 @@ begin
                                                                       then flexi:=FRAC(tbn/6)-0.417;
                                           end;
 
-                                  if (dxf_form.flanges_combo.ItemIndex<>0) and (dxf_form.end_flanges_checkbox.Checked=True)
+                                  if ( (dxf_form.flanges_combo.ItemIndex<>0) or ((dxf_form.cot_radio.Checked=True) and (dxf_form.cot_flanges_checkbox.Checked=True)) )
+                                  and (dxf_form.end_flanges_checkbox.Checked=True)
                                      then web_end_offset:=(end_flange_width+flange_offset)*inscale
                                      else web_end_offset:=flange_offset*inscale;
 
                                        // near side ...
 
-                                  if (dxf_form.flanges_combo.ItemIndex<>0) and (n_flange_wanted=True)
+                                  if ( (dxf_form.flanges_combo.ItemIndex<>0) or ((dxf_form.cot_radio.Checked=True) and (dxf_form.cot_flanges_checkbox.Checked=True)) )
+                                  and (n_flange_wanted=True)
                                      then web_side_offset:=side_flange_width_mm+flange_offset*inscale
                                      else web_side_offset:=flange_offset*inscale;
 
@@ -30217,7 +30228,8 @@ begin
 
                                   // far side ( 8 marks) ...
 
-                                  if (dxf_form.flanges_combo.ItemIndex<>0) and (f_flange_wanted=True)
+                                  if ( (dxf_form.flanges_combo.ItemIndex<>0) or ((dxf_form.cot_radio.Checked=True) and (dxf_form.cot_flanges_checkbox.Checked=True)) )
+                                  and (f_flange_wanted=True)
                                      then web_side_offset:=side_flange_width_mm+flange_offset*inscale
                                      else web_side_offset:=flange_offset*inscale;
 
@@ -32160,7 +32172,7 @@ begin
 
       with exp_info do begin    // experimental stuff
 
-        chair_key_max_offset:=chair_key_max_offset_infile;    // 233a
+        normal_chair_key_max_offset:=chair_key_max_offset_infile;    // 233a
 
         fw_modify_for_gw:=fw_modify_for_gw_infile;  // 239a modify check flangeway for gauge-widening
 
@@ -32804,7 +32816,7 @@ begin
 
       with exp_info do begin    // experimental stuff
 
-        chair_key_max_offset_infile:=chair_key_max_offset;    // 233a
+        chair_key_max_offset_infile:=normal_chair_key_max_offset;    // 233a
 
         fw_modify_for_gw_infile:=fw_modify_for_gw;  // 239a modify check flangeway for gauge-widening
 

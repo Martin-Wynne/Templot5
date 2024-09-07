@@ -1694,7 +1694,7 @@ end;
 function do_html_header(title_str:string):string;   // 555a  MW 27-AUG-2024
 
 begin
-  RESULT:='<HTML><HEAD><TITLE>'+title_str+'</TITLE><STYLE> body { text-align:center; } a:hover { color:red; text-decoration:none; } a > img :hover { border:2px solid red; } </STYLE></HEAD><BODY>';
+  RESULT:='<HTML><HEAD><TITLE>'+title_str+'</TITLE><STYLE> body { text-align:center; } a:hover { color:red; } a > img :hover { border:2px solid red; } </STYLE></HEAD><BODY>';
 end;
 //______________________________________________________________________________
 

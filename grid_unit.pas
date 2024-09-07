@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -295,7 +295,7 @@ uses
   control_room, pad_unit, bgnd_unit, bgkeeps_unit, math_unit, math, preview_unit,
   colour_unit, help_sheet, shove_timber, keep_select, print_settings_unit,
   export_unit, entry_sheet, alert_unit,
-  action_unit, { OT2024 file_viewer,} dxf_unit, brick_unit;
+  action_unit, file_viewer, dxf_unit, brick_unit;
 
 {$R *.lfm}
 //_________________________________________________________________________________________
@@ -1342,12 +1342,13 @@ begin
                                                                                                     end;
                                                                                           end
                                                                                      else begin
+*)
                                                                                             pad_form.bgnd_shape_image.Picture.Graphic:=Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgimage.image_shape.image_bitmap;
                                                                                             if Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgnd_shape.show_transparent=True  // 0.93.a moved into file
                                                                                                then CopyMode:=cmSrcAnd    // transparent (if on white background)
                                                                                                else CopyMode:=cmSrcCopy;  // normal
-                                                                                          end;
-*)
+                                                                                          //end;
+
                                                                                   CopyRect(raster_rect,bunched_bitmap.Canvas,bunched_raster_rect);
 
                                                                                   CopyMode:=cmSrcCopy;   // reset normal for destination Canvas.
@@ -1388,12 +1389,13 @@ begin
                                                                                                     end;
                                                                                           end
                                                                                      else begin
+*)
                                                                                             pad_form.bgnd_shape_image.Picture.Graphic:=Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgimage.image_shape.image_bitmap;
                                                                                             if Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgnd_shape.show_transparent=True  // 0.93.a moved into file
                                                                                                then CopyMode:=cmSrcAnd    // transparent (if on white background)
                                                                                                else CopyMode:=cmSrcCopy;  // normal
-                                                                                          end;
-*)
+                                                                                          //end;
+
 
                                                                                   CopyRect(raster_rect,bunched_bitmap.Canvas,bunched_raster_rect);
 
@@ -1437,12 +1439,13 @@ begin
                                                                                   end;
                                                                         end
                                                                    else begin
+*)
                                                                           pad_form.bgnd_shape_image.Picture.Graphic:=Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgimage.image_shape.image_bitmap;
                                                                           if Tbgshape(bgnd_form.bgnd_shapes_listbox.Items.Objects[i]).bgnd_shape.show_transparent=True  // 0.93.a moved into file
                                                                              then CopyMode:=cmSrcAnd    // transparent (if on white background)
                                                                              else CopyMode:=cmSrcCopy;  // normal
-                                                                        end;
-*)
+                                                                        //end;
+
 
                                                                 StretchDraw(raster_rect,pad_form.bgnd_shape_image.Picture.Graphic);   // needs TGraphic parameter to work reliably.
 
@@ -1640,13 +1643,13 @@ begin
                                             // claws part ...
 
 
-                                        with infill_points_pex[0] do begin x:=p1.x-(clip_outers_length+clip_sides_clear)*inscale; y:=p1.y+clip_shaft_width*inscale/2; end;
+                                        with infill_points_pex[0] do begin x:=p1.x-(clip_outers_length)*inscale-clip_sides_clear_mm; y:=p1.y+clip_shaft_width*inscale/2; end;
 
-                                        with infill_points_pex[1] do begin x:=infill_points_pex[0].x;   y:=p1.y+(clip_top_width/2+clip_ends_clear+clip_arms_width)*inscale; end;
+                                        with infill_points_pex[1] do begin x:=infill_points_pex[0].x;   y:=p1.y+(clip_top_width/2+clip_arms_width)*inscale+clip_ends_clear_mm; end;
 
                                         with infill_points_pex[2] do begin x:=p1.x+clip_length;         y:=infill_points_pex[1].y; end;
 
-                                        with infill_points_pex[3] do begin x:=infill_points_pex[2].x;   y:=p1.y-(clip_top_width/2+clip_ends_clear+clip_arms_width)*inscale; end;
+                                        with infill_points_pex[3] do begin x:=infill_points_pex[2].x;   y:=p1.y-(clip_top_width/2+clip_arms_width)*inscale-clip_ends_clear_mm; end;
 
                                         with infill_points_pex[4] do begin x:=infill_points_pex[0].x;   y:=infill_points_pex[3].y; end;
 
@@ -1654,11 +1657,11 @@ begin
 
                                         with infill_points_pex[6] do begin x:=p1.x;                     y:=infill_points_pex[5].y; end;
 
-                                        with infill_points_pex[7] do begin x:=p1.x;                     y:=p1.y-(clip_top_width/2+clip_ends_clear)*inscale; end;
+                                        with infill_points_pex[7] do begin x:=p1.x;                     y:=p1.y-(clip_top_width/2)*inscale-clip_ends_clear_mm; end;
 
-                                        with infill_points_pex[8] do begin x:=p1.x+(clip_top_length+clip_sides_clear)*inscale;  y:=infill_points_pex[7].y; end;
+                                        with infill_points_pex[8] do begin x:=p1.x+(clip_top_length)*inscale+clip_sides_clear_mm;  y:=infill_points_pex[7].y; end;
 
-                                        with infill_points_pex[9] do begin x:=infill_points_pex[8].x;   y:=p1.y+(clip_top_width/2+clip_ends_clear)*inscale; end;
+                                        with infill_points_pex[9] do begin x:=infill_points_pex[8].x;   y:=p1.y+(clip_top_width/2)*inscale+clip_ends_clear_mm; end;
 
                                         with infill_points_pex[10] do begin x:=p1.x;                    y:=infill_points_pex[9].y; end;
 
@@ -3367,7 +3370,7 @@ begin
 
            // 218d set limit rectangle ...
 
-  if (pad_form.show_bgnd_keeps_in_rect_menu_entry.Checked=True) { OT2024 and (file_viewer_form.Showing=False)} and (output_rectangle_width>0) and (output_rectangle_height>0)
+  if (pad_form.show_bgnd_keeps_in_rect_menu_entry.Checked=True) and (file_viewer_form.Showing=False) and (output_rectangle_width>0) and (output_rectangle_height>0)
      then begin
             draw_export_rectangle_flag:=True;
 

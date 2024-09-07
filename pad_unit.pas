@@ -49,6 +49,13 @@ type
   { Tpad_form }
 
   Tpad_form = class(TForm)
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
     OO3D_menu_entry: TMenuItem;
     pad_menu_bar: TMainMenu;
     main_menu: TMenuItem;
@@ -3357,7 +3364,6 @@ type
     procedure peg_on_ip_menu_entryClick(Sender: TObject);
     procedure v_crossings_help_menu_entryClick(Sender: TObject);
     procedure undo_deleted_template_menu_entryClick(Sender: TObject);
-// OT2024    procedure pad_file_viewer_menu_entryClick(Sender: TObject);
     procedure retain_length_on_mint_menu_entryClick(Sender: TObject);
     procedure show_margin_coordinates_menu_entryClick(Sender: TObject);
     procedure adjustable_turnout_road_menu_entryClick(Sender: TObject);
@@ -4919,7 +4925,8 @@ var
 
   custom_switch_opening:extended=4.25;    // 232c  inches full-size  4.25"
 
-  chair_key_max_offset:extended=1.5;      // 238a  was 1.75       233a  inches full-size  1.5" (key 6" long projects 2.5" from chair jaw 4" wide)
+  normal_chair_key_max_offset:extended=1.5;      // 238a  was 1.75       233a  inches full-size  1.5" (key 6" long projects 2.5" from chair jaw 4" wide)
+  cot_chair_key_max_offset:extended=0.75;        // 555a MW
 
   fw_modify_for_gw:extended=0;  // 239a modify check flangeway for gauge-widening    3D chairing only -- no effect in 2D
 
@@ -12935,7 +12942,9 @@ end;
 procedure Tpad_form.read_first_menu_entryClick(Sender: TObject);
 
 const
-  templot_help_str:string='<HR NOSHADE>'
+  templot_help_str:string='<HTML><HEAD><TITLE>Please read This First</TITLE><STYLE>body a:hover { color:red; } </STYLE></HEAD>'
+    +'<BODY>'
+    +'<HR NOSHADE>'
     +'<P CLASS="spacer">&nbsp;</P><P>Thank you for adopting Templot track design as part of your model railway hobby. I hope that you enjoy using Templot and find it a useful addition to your modelling resources.</P>'
 
     +'<P CLASS="spacer">&nbsp;</P>'
@@ -12972,7 +12981,7 @@ var
 begin
   logo_str:='<P CLASS="spacer">&nbsp;</P>'
            +'<TABLE WIDTH="90%" ALIGN="CENTER"><TR>'
-           +'<TD ROWSPAN="2" VALIGN="BOTTOM"><IMG SRC="'+exe_str+'internal\hlp\templot2_logo_shadow_262_74_8bit.png"></TD>'
+           +'<TD ROWSPAN="2" VALIGN="BOTTOM"><IMG SRC="'+exe_str+'internal\hlp\templot5_logo.png"></TD>'
            +'<TD ROWSPAN="2">&nbsp; &nbsp; &nbsp;</TD>'
            +'<TD CLASS="mainheading" ALIGN="CENTER">welcome &nbsp;to &nbsp;Templot</TD>'
            +'</TR><TR>'
@@ -27989,13 +27998,15 @@ var
   od:Toutdim;
 
 begin
-  n:=putdim('please refer to Templot Club forum',2,'chair  key  off-centre  by  max  ( full-size  inches )',chair_key_max_offset,True,True,False,False);   // no negative, no preset, zero ok, don't terminate on zero.
+     putdim('please refer to Templot Club forum',2,'NORMAL  key  off-centre  by  max  ( full-size  inches )',normal_chair_key_max_offset,True,True,False,False);   // no negative, no preset, zero ok, don't terminate on zero.
+  n:=putdim('please refer to Templot Club forum',2,'COT  key  off-centre  by  max  ( full-size  inches )',cot_chair_key_max_offset,True,True,False,False);      // no negative, no preset, zero ok, don't terminate on zero.
 
-  if n<>0 then EXIT;
+  if n<>1 then EXIT;
 
   if getdims('chair  key  off-centre  maximum ...','',pad_form,n,od)=True
      then begin
-            chair_key_max_offset:=od[0];
+            normal_chair_key_max_offset:=od[0];
+            cot_chair_key_max_offset:=od[1];         // 555a MW
           end;
 end;
 //______________________________________________________________________________

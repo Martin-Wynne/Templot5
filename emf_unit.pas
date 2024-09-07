@@ -34,7 +34,7 @@ interface
 
 uses
   Windows, Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Messages;
+  ExtCtrls, ComCtrls, EditBtn, Messages;
 
 type
 

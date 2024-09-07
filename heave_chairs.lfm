@@ -1,9 +1,8 @@
 object heave_chairs_form: Theave_chairs_form
-  Left = 43
+  Left = 621
   Height = 654
-  Top = 24
+  Top = 318
   Width = 1052
-  HorzScrollBar.Visible = False
   VertScrollBar.Tracking = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
@@ -13,7 +12,7 @@ object heave_chairs_form: Theave_chairs_form
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -3391
+  Font.Height = -30
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -804,9 +803,9 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit4_checkboxMouseUp
     end
     object sc4_size_button: TButton
-      Left = 206
+      Left = 130
       Height = 20
-      Top = 56
+      Top = 28
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -883,6 +882,17 @@ object heave_chairs_form: Theave_chairs_form
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
+    object chair_family4_label: TLabel
+      Left = 232
+      Height = 19
+      Hint = ' click to change prototype '
+      Top = 60
+      Width = 34
+      Caption = 'REA'
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = chair_family_labelClick
+    end
   end
   object rail3_groupbox: TGroupBox
     Left = 40
@@ -901,7 +911,7 @@ object heave_chairs_form: Theave_chairs_form
     ParentFont = False
     TabOrder = 1
     object chair3_type_label: TLabel
-      Left = 128
+      Left = 132
       Height = 22
       Top = 56
       Width = 76
@@ -996,9 +1006,9 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit3_checkboxMouseUp
     end
     object sc3_size_button: TButton
-      Left = 206
+      Left = 130
       Height = 20
-      Top = 56
+      Top = 28
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -1074,6 +1084,17 @@ object heave_chairs_form: Theave_chairs_form
       Font.Name = 'Arial'
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
+    end
+    object chair_family3_label2: TLabel
+      Left = 232
+      Height = 19
+      Hint = ' click to change prototype '
+      Top = 60
+      Width = 34
+      Caption = 'REA'
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = chair_family_labelClick
     end
   end
   object rail2_groupbox: TGroupBox
@@ -1188,9 +1209,9 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit2_checkboxMouseUp
     end
     object sc2_size_button: TButton
-      Left = 206
+      Left = 130
       Height = 20
-      Top = 56
+      Top = 28
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -1266,6 +1287,17 @@ object heave_chairs_form: Theave_chairs_form
       Font.Name = 'Arial'
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
+    end
+    object chair_family2_label2: TLabel
+      Left = 232
+      Height = 19
+      Hint = ' click to change prototype '
+      Top = 60
+      Width = 34
+      Caption = 'REA'
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = chair_family_labelClick
     end
   end
   object rail1_groupbox: TGroupBox
@@ -1380,9 +1412,9 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit1_checkboxMouseUp
     end
     object sc1_size_button: TButton
-      Left = 206
+      Left = 130
       Height = 20
-      Top = 56
+      Top = 28
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -1458,6 +1490,17 @@ object heave_chairs_form: Theave_chairs_form
       Font.Name = 'Arial'
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
+    end
+    object chair_family1_label2: TLabel
+      Left = 232
+      Height = 19
+      Hint = ' click to change prototype '
+      Top = 60
+      Width = 34
+      Caption = 'REA'
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = chair_family_labelClick
     end
   end
   object hide_panel: TPanel
@@ -1939,8 +1982,8 @@ object heave_chairs_form: Theave_chairs_form
   end
   object Label4: TLabel
     Left = 940
-    Height = 200
-    Top = 72
+    Height = 140
+    Top = 12
     Width = 100
     AutoSize = False
     Caption = 'switch and crossing chairs not listed here are matched to their location on the rail and cannot be used elsewhere'
@@ -1985,5 +2028,47 @@ object heave_chairs_form: Theave_chairs_form
     Font.Height = -13
     Font.Name = 'Arial'
     ParentFont = False
+  end
+  object chair_proto_combo: TComboBox
+    Left = 940
+    Height = 26
+    Top = 208
+    Width = 100
+    Color = clWhite
+    DropDownCount = 10
+    Font.Color = clBlue
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ItemHeight = 18
+    ItemIndex = 0
+    Items.Strings = (
+      'REA'
+      'GWR'
+      'LSWR'
+      'MR'
+    )
+    ParentFont = False
+    ParentShowHint = False
+    Style = csDropDownList
+    TabOrder = 8
+    Text = 'REA'
+    Visible = False
+    OnChange = rail4_comboChange
+  end
+  object chair_proto_label: TLabel
+    Left = 942
+    Height = 44
+    Top = 160
+    Width = 90
+    AutoSize = False
+    Caption = 'chair prototype :'
+    Font.Color = clBlack
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Visible = False
+    WordWrap = True
   end
 end

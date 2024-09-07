@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -46,7 +46,11 @@ uses
     //A temporary fix is to list StdCtrls before Windows in the unit uses clause.
 
 type
+
+  { Tgauge_form }
+
   Tgauge_form = class(TForm)
+    copy_list_button: TButton;
     ok_button: TButton;
     blue_corner_panel: TPanel;
     how_panel: TPanel;
@@ -81,6 +85,7 @@ type
     copy_button: TButton;
     chat_button: TButton;
     ok_panel: TPanel;
+    procedure copy_list_buttonClick(Sender: TObject);
     procedure how_panelClick(Sender: TObject);
     procedure ok_buttonClick(Sender: TObject);
     procedure gauge_listboxClick(Sender: TObject);
@@ -2183,6 +2188,17 @@ begin
 *)
 end;
 //________________________________________________________________________________________
+
+
+procedure Tgauge_form.copy_list_buttonClick(Sender: TObject);
+
+begin
+  with gauge_listbox do begin
+    if (ItemIndex<0) or (ItemIndex>(Items.Count-1)) then EXIT;
+    Clipboard.AsText:=Items.Text;
+  end;//with
+end;
+//______________________________________________________________________________
 
 procedure Tgauge_form.copy_buttonClick(Sender: TObject);
 

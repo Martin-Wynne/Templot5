@@ -12,7 +12,7 @@ object gauge_form: Tgauge_form
   Color = 14215392
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -33
+  Font.Height = -20
   Font.Name = 'Courier New'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -36,9 +36,9 @@ object gauge_form: Tgauge_form
     ParentFont = False
   end
   object info_header_label: TLabel
-    Left = 630
+    Left = 628
     Height = 60
-    Top = 414
+    Top = 396
     Width = 91
     Alignment = taCenter
     AutoSize = False
@@ -303,7 +303,7 @@ object gauge_form: Tgauge_form
     object custom_a_button: TButton
       Left = 7
       Height = 23
-      Top = 22
+      Top = 4
       Width = 25
       Caption = '&a'
       Font.Color = clBlack
@@ -317,7 +317,7 @@ object gauge_form: Tgauge_form
     object custom_b_button: TButton
       Left = 37
       Height = 23
-      Top = 22
+      Top = 4
       Width = 25
       Caption = '&b'
       Font.Color = clBlack
@@ -331,7 +331,7 @@ object gauge_form: Tgauge_form
     object custom_c_button: TButton
       Left = 66
       Height = 23
-      Top = 22
+      Top = 4
       Width = 25
       Caption = '&c'
       Font.Color = clBlack
@@ -345,7 +345,7 @@ object gauge_form: Tgauge_form
     object custom_d_button: TButton
       Left = 95
       Height = 23
-      Top = 22
+      Top = 4
       Width = 25
       Caption = '&d'
       Font.Color = clBlack
@@ -521,9 +521,9 @@ object gauge_form: Tgauge_form
     OnClick = print_buttonClick
   end
   object bold_panel: TPanel
-    Left = 630
+    Left = 628
     Height = 26
-    Top = 470
+    Top = 452
     Width = 94
     BevelOuter = bvNone
     BorderStyle = bsSingle
@@ -610,5 +610,22 @@ object gauge_form: Tgauge_form
     ShowHint = True
     TabOrder = 11
     OnClick = chat_panelClick
+  end
+  object copy_list_button: TButton
+    Left = 630
+    Height = 23
+    Hint = ' copy  full  list  to  clipboard '
+    Top = 488
+    Width = 94
+    Caption = 'copy  list'
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 18
+    OnClick = copy_list_buttonClick
   end
 end

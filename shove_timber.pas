@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -2401,8 +2401,8 @@ begin
             EXIT;
           end;
 
-  heave_chairs_form.Left:=shove_timber_form.Left+shove_timber_form.Width+60;      // 60 arbitrary
-  heave_chairs_form.Top:=shove_timber_form.Top;
+  //heave_chairs_form.Left:=shove_timber_form.Left+shove_timber_form.Width+60;      // 60 arbitrary
+  //heave_chairs_form.Top:=shove_timber_form.Top;
 
   heave_chairs_form.Show;
 

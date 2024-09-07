@@ -154,7 +154,7 @@ uses
   Clipbrd;
 
 const
-  html_table_header_str:string='<HTML><HEAD><TITLE>Templot file viewer</TITLE><STYLE>body { text-align:center; width:auto; } a:hover { color:#ff0000; text-decoration:none; } </STYLE></HEAD><BODY ALIGN="CENTER"><TABLE ALIGN="CENTER" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;">';
+  html_table_header_str:string='<HTML><HEAD><TITLE>Templot file viewer</TITLE><STYLE>body { text-align:center; width:auto; } a:hover { color:red; } a > img :hover { border:2px solid red; } </STYLE></HEAD><BODY ALIGN="CENTER"><TABLE ALIGN="CENTER" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="FONT-SIZE:15PX; FONT-WEIGHT:BOLD;">';
   html_table_footer_str:string='</TABLE></BODY></HTML>';
 
 var
@@ -525,8 +525,8 @@ begin
                   next_str:='<TR><TD COLSPAN="3" STYLE="PADDING-TOP:0PX;">';
 
                   if images_clickable_checkbox.Checked=True
-                     then next_str:=next_str+'<A HREF="fv_reload'+IntToStr(n)+'.85a"><IMG SRC="'+img_name_list.Strings[n]+'" BORDER="1"></A>'
-                     else next_str:=next_str+'<IMG SRC="'+img_name_list.Strings[n]+'" BORDER="1">';
+                     then next_str:=next_str+'<A HREF="fv_reload'+IntToStr(n)+'.85a"><IMG SRC="'+img_name_list.Strings[n]+'" BORDER="1" STYLE="border:1px solid blue;"></A>'
+                     else next_str:=next_str+'<IMG SRC="'+img_name_list.Strings[n]+'" BORDER="1" STYLE="border:1px solid black;">';
 
                   next_str:=next_str+'</TD></TR>'
 

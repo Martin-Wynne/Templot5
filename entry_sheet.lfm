@@ -10,7 +10,7 @@ object data_entry_form: Tdata_entry_form
   Color = 14211264
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -76
+  Font.Height = -95
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -91,6 +91,7 @@ object data_entry_form: Tdata_entry_form
     Font.Name = 'Arial'
     ParentColor = False
     ParentFont = False
+    Transparent = False
   end
   object wine_label: TLabel
     Cursor = crHandPoint
@@ -111,6 +112,7 @@ object data_entry_form: Tdata_entry_form
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    Transparent = False
     Visible = False
     OnClick = wine_labelClick
   end
@@ -131,6 +133,7 @@ object data_entry_form: Tdata_entry_form
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
+    Transparent = False
   end
   object restore_all_button: TButton
     Left = 400

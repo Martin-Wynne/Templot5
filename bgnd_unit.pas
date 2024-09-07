@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -4238,8 +4238,8 @@ begin
       with header_node do begin
 
         if bricks_only<>0
-           then WriteString('program_name','Templot2 background 3-D brick shapes, saved from version '+round_str(program_version/100,2)+version_build,'')
-           else WriteString('program_name','Templot2 background shapes, saved from version '+round_str(program_version/100,2)+version_build,'');
+           then WriteString('program_name','Templot5 background 3-D brick shapes, saved from version '+round_str(program_version/100,2)+version_build,'')
+           else WriteString('program_name','Templot5 background shapes, saved from version '+round_str(program_version/100,2)+version_build,'');
 
         WriteInteger('program_version',program_version,0);
 
@@ -5075,6 +5075,9 @@ begin
   ClientWidth:=690;
   ClientHeight:=700;
   AutoScroll:=True;
+
+  shape_page_control.ActivePage:=new_tab_sheet;
+  shapes_pages.ActivePage:=options_sheet;
 
   if Screen.PixelsPerInch>120
      then begin

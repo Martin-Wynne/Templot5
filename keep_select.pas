@@ -2173,7 +2173,7 @@ begin
                           end;//with
 
                         end;
-
+{
                 if (templot_version<245) and (pre_245_msg_shown=False)  // 245a
                    then begin
 
@@ -2186,6 +2186,7 @@ begin
                           pre_245_msg_shown:=True;
 
                         end;
+}
 
 
                 templot_version:=program_version;      // file now corresponds to current.

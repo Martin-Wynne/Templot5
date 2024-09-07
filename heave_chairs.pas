@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -45,6 +45,9 @@ type
   { Theave_chairs_form }
 
   Theave_chairs_form = class(TForm)
+    chair_family3_label2: TLabel;
+    chair_family2_label2: TLabel;
+    chair_family1_label2: TLabel;
     export_checkbox1: TCheckBox;
     export_checkbox2: TCheckBox;
     frame_label: TLabel;
@@ -54,11 +57,14 @@ type
     Label19: TLabel;
     Label20: TLabel;
     Label21: TLabel;
+    chair_family4_label: TLabel;
+    chair_proto_label: TLabel;
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
     loose_checkbox0: TCheckBox;
+    chair_proto_combo: TComboBox;
     rail_numbers_image: TImage;
     Label1: TLabel;
     rail4_groupbox: TGroupBox;
@@ -140,6 +146,7 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label18: TLabel;
+    procedure chair_family_labelClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure hide_buttonClick(Sender: TObject);
     procedure rail1_comboChange(Sender: TObject);
@@ -214,6 +221,14 @@ begin
   ClientHeight:=654;
 
   AutoScroll:=True;
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.chair_family_labelClick(Sender: TObject);
+
+begin
+  chair_proto_combo.Visible:=True;
+  chair_proto_label.Visible:=True;
 end;
 //______________________________________________________________________________
 

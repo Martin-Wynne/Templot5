@@ -3,7 +3,7 @@
 ================================================================================
 
     This file is part of OpenTemplot2024, a computer program for the design of model railway track.
-    Copyright (C) 2024  Martin Wynne.  email: martin@85a.uk
+    Copyright (C) 2024  Martin Wynne and OpenTemplot contributors.    email: martin@85a.uk
 
     This program is free software: you may redistribute it and/or modify
     it under the terms of the GNU General Public Licence as published by
@@ -113,7 +113,9 @@ var
 function prepare_prefs_html_str:string;
 
 const
-  html_header_str:string='<P CLASS="heading">Saved &nbsp;Program &nbsp;Preferences'
+  html_header_str:string='<HTML><HEAD><TITLE>Saved Program Preferences</TITLE><STYLE>body a:hover { color:red; } </STYLE></HEAD>'
+  +'<BODY>'
+  +'<P CLASS="heading">Saved &nbsp;Program &nbsp;Preferences'
   +'<BR>&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;'
   +'<SPAN CLASS="alert">please scroll this page to read all of it&nbsp; &nbsp; &nbsp; click the <SPAN STYLE="color:blue;">blue links</SPAN> to make your settings</SPAN></P>'
 
