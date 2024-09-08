@@ -1,7 +1,7 @@
 object map_clarity_form: Tmap_clarity_form
-  Left = 279
+  Left = 1
   Height = 455
-  Top = 268
+  Top = 158
   Width = 878
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
@@ -62,12 +62,18 @@ object map_clarity_form: Tmap_clarity_form
     Top = 404
     Width = 860
     AutoSize = False
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object Label2: TLabel
     Left = 696
-    Height = 16
+    Height = 32
     Top = 288
-    Width = 249
+    Width = 150
+    AutoSize = False
     Caption = 'the selected tile, or other picture shape'
     Color = 15794175
     Font.Color = clBlack
@@ -132,14 +138,15 @@ object map_clarity_form: Tmap_clarity_form
     TabOrder = 0
     OnClick = go_buttonClick
   end
-  object interpolation_groupbox: TGroupBox
+  object interpolation_panel: TPanel
     Left = 10
-    Height = 162
+    Height = 156
     Top = 44
-    Width = 412
-    Caption = ' interpolation :  '
-    ClientHeight = 141
-    ClientWidth = 408
+    Width = 400
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 152
+    ClientWidth = 396
     Color = 16772829
     Font.Color = 10485760
     Font.Height = -14
@@ -150,9 +157,9 @@ object map_clarity_form: Tmap_clarity_form
     ParentFont = False
     TabOrder = 1
     object Label3: TLabel
-      Left = 12
+      Left = 8
       Height = 20
-      Top = 24
+      Top = 20
       Width = 388
       AutoSize = False
       Caption = 'interpolation is available for tiled maps only, on original tiles only'
@@ -162,13 +169,13 @@ object map_clarity_form: Tmap_clarity_form
       ParentFont = False
     end
     object GroupBox4: TGroupBox
-      Left = 16
-      Height = 104
-      Top = 48
-      Width = 133
+      Left = 20
+      Height = 96
+      Top = 44
+      Width = 110
       Caption = ' resolution :  '
-      ClientHeight = 83
-      ClientWidth = 129
+      ClientHeight = 75
+      ClientWidth = 106
       Font.Color = 10485760
       Font.Height = -13
       Font.Name = 'Arial'
@@ -177,40 +184,55 @@ object map_clarity_form: Tmap_clarity_form
       ParentFont = False
       TabOrder = 0
       object res_x2_radio: TRadioButton
-        Left = 16
+        Left = 6
         Height = 20
-        Top = 24
+        Top = 0
         Width = 40
         Caption = 'x 2'
+        Font.Color = 10485760
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 0
       end
       object res_x3_radio: TRadioButton
-        Left = 16
+        Left = 6
         Height = 20
-        Top = 50
+        Top = 26
         Width = 40
         Caption = 'x 3'
         Checked = True
+        Font.Color = 10485760
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 1
         TabStop = True
       end
       object res_x4_radio: TRadioButton
-        Left = 16
+        Left = 6
         Height = 20
-        Top = 76
+        Top = 52
         Width = 85
         Caption = 'x 4  (slow)'
+        Font.Color = 10485760
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 2
       end
     end
     object GroupBox5: TGroupBox
-      Left = 180
-      Height = 104
-      Top = 48
-      Width = 200
+      Left = 190
+      Height = 96
+      Top = 44
+      Width = 170
       Caption = ' filter :  '
-      ClientHeight = 83
-      ClientWidth = 196
+      ClientHeight = 75
+      ClientWidth = 166
       Font.Color = 10485760
       Font.Height = -13
       Font.Name = 'Arial'
@@ -219,40 +241,68 @@ object map_clarity_form: Tmap_clarity_form
       ParentFont = False
       TabOrder = 1
       object triangle_radio: TRadioButton
-        Left = 16
+        Left = 6
         Height = 20
-        Top = 24
+        Top = 0
         Width = 67
         Caption = 'smooth'
         Checked = True
+        Font.Color = 10485760
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 0
         TabStop = True
       end
       object mitchell_radio: TRadioButton
-        Left = 16
+        Left = 6
         Height = 20
-        Top = 50
+        Top = 26
         Width = 98
         Caption = 'very smooth'
+        Font.Color = 10485760
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 1
       end
       object spline_radio: TRadioButton
-        Left = 16
+        Left = 6
         Height = 20
-        Top = 76
+        Top = 52
         Width = 149
         Caption = 'extra smooth  (slow)'
+        Font.Color = 10485760
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 2
       end
     end
+    object Label7: TLabel
+      Left = 0
+      Height = 16
+      Top = 0
+      Width = 110
+      Caption = ' interpolation :  '
+      Font.Color = 10485760
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object two_tone_groupbox: TGroupBox
+  object two_tone_panel: TPanel
     Left = 434
     Height = 198
     Top = 8
     Width = 260
-    Caption = ' 2-tone reduction :  '
-    ClientHeight = 177
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 194
     ClientWidth = 256
     Color = 16777198
     Font.Color = clGreen
@@ -329,7 +379,12 @@ object map_clarity_form: Tmap_clarity_form
       Position = 160
       TickMarks = tmTopLeft
       TickStyle = tsNone
+      Font.Color = clGreen
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
       OnEnter = threshold_trackbarEnter
+      ParentFont = False
       TabOrder = 0
     end
     object threshold_panel: TPanel
@@ -339,8 +394,13 @@ object map_clarity_form: Tmap_clarity_form
       Width = 61
       BevelOuter = bvNone
       Color = 10526880
+      Font.Color = clGreen
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
       ParentBackground = False
       ParentColor = False
+      ParentFont = False
       TabOrder = 1
     end
     object high_colour_panel: TPanel
@@ -437,6 +497,18 @@ object map_clarity_form: Tmap_clarity_form
         OnClick = match_trackpad_grid_buttonClick
       end
     end
+    object Label10: TLabel
+      Left = 4
+      Height = 16
+      Top = 0
+      Width = 137
+      Caption = ' 2-tone reduction :  '
+      Font.Color = clGreen
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object map_name_listbox: TListBox
     Left = 444
@@ -456,14 +528,15 @@ object map_clarity_form: Tmap_clarity_form
     TabOrder = 5
     OnClick = map_name_listboxClick
   end
-  object function_groupbox: TGroupBox
+  object function_panel: TPanel
     Left = 166
     Height = 180
     Top = 218
-    Width = 256
-    Caption = ' function :  '
-    ClientHeight = 159
-    ClientWidth = 252
+    Width = 244
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 176
+    ClientWidth = 240
     Color = 15794175
     Font.Color = clMaroon
     Font.Height = -14
@@ -553,6 +626,18 @@ object map_clarity_form: Tmap_clarity_form
       ParentFont = False
       TabOrder = 5
     end
+    object Label9: TLabel
+      Left = 4
+      Height = 16
+      Top = 0
+      Width = 78
+      Caption = ' function :  '
+      Font.Color = clMaroon
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object undo_button: TButton
     Left = 700
@@ -560,6 +645,11 @@ object map_clarity_form: Tmap_clarity_form
     Top = 376
     Width = 56
     Caption = 'undo'
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 11
     OnClick = undo_buttonClick
   end
@@ -584,7 +674,12 @@ object map_clarity_form: Tmap_clarity_form
     Top = 294
     Width = 21
     Color = 15794175
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentColor = False
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 9
@@ -613,6 +708,11 @@ object map_clarity_form: Tmap_clarity_form
     Top = 260
     Width = 166
     Caption = 'background  shapes ...'
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 8
     OnClick = bgnd_shapes_buttonClick
   end
@@ -630,13 +730,14 @@ object map_clarity_form: Tmap_clarity_form
     TabOrder = 6
     OnClick = help_buttonClick
   end
-  object low_contrast_groupbox: TGroupBox
+  object low_contrast_panel: TPanel
     Left = 10
     Height = 180
     Top = 218
     Width = 136
-    Caption = ' low-contrast  '
-    ClientHeight = 159
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 176
     ClientWidth = 132
     Color = 16777198
     Font.Color = clGreen
@@ -648,12 +749,12 @@ object map_clarity_form: Tmap_clarity_form
     ParentFont = False
     TabOrder = 3
     object Label4: TLabel
-      Left = 12
+      Left = 4
       Height = 20
       Top = 16
       Width = 100
       AutoSize = False
-      Caption = 'base shade :'
+      Caption = ' base shade :'
       Font.Color = clGreen
       Font.Height = -14
       Font.Name = 'Arial'
@@ -728,13 +829,30 @@ object map_clarity_form: Tmap_clarity_form
       ParentFont = False
       TabOrder = 4
     end
+    object Label8: TLabel
+      Left = 4
+      Height = 16
+      Top = 0
+      Width = 99
+      Caption = ' low-contrast  '
+      Font.Color = clGreen
+      Font.Height = -14
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object progress_bar: TProgressBar
     Left = 660
     Height = 12
     Top = 348
     Width = 192
+    Font.Color = clGreen
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     Max = 256
+    ParentFont = False
     Step = 1
     TabOrder = 12
   end

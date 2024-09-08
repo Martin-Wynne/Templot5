@@ -57,11 +57,18 @@ uses
   StdCtrls, ExtCtrls, ComCtrls;
 
 type
+
+  { Tmap_clarity_form }
+
   Tmap_clarity_form = class(TForm)
     go_button: TButton;
     Label1: TLabel;
-    interpolation_groupbox: TGroupBox;
-    two_tone_groupbox: TGroupBox;
+    interpolation_panel: Tpanel;
+    Label10: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    two_tone_panel: Tpanel;
     map_list_label: TLabel;
     map_name_listbox: TListBox;
     GroupBox4: TGroupBox;
@@ -81,7 +88,7 @@ type
     colour2_label: TLabel;
     low_colour_panel: TPanel;
     low_colour_button: TButton;
-    function_groupbox: TGroupBox;
+    function_panel: Tpanel;
     datestamp_label: TLabel;
     undo_button: TButton;
     reset_button: TButton;
@@ -101,7 +108,7 @@ type
     Label3: TLabel;
     Shape1: TShape;
     help_button: TButton;
-    low_contrast_groupbox: TGroupBox;
+    low_contrast_panel: Tpanel;
     black_radio: TRadioButton;
     dark_grey_radio: TRadioButton;
     medium_grey_radio: TRadioButton;
@@ -254,7 +261,7 @@ begin
   canv:=TControlCanvas.Create;
   canv.Control:=threshold_trackbar;
 
-  canv.pen.Color:=two_tone_groupbox.Color;
+  canv.pen.Color:=two_tone_panel.Color;
   canv.Brush.Style:=bsClear;
 
   focus_rect:=Rect(0,0,threshold_trackbar.Width,threshold_trackbar.Height);
@@ -285,7 +292,7 @@ begin
   canv:=TControlCanvas.Create;
   canv.Control:=threshold_trackbar;
 
-  canv.pen.Color:=two_tone_groupbox.Color;
+  canv.pen.Color:=two_tone_panel.Color;
   canv.Brush.Style:=bsClear;
 
   focus_rect:=Rect(0,0,threshold_trackbar.Width,threshold_trackbar.Height);
