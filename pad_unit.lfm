@@ -1,17 +1,18 @@
 object pad_form: Tpad_form
   Left = 8
-  Height = 745
+  Height = 748
   Top = 12
-  Width = 1300
+  Width = 1360
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
+  AllowDropFiles = True
   Caption = '          trackpad'
-  ClientHeight = 745
-  ClientWidth = 1300
+  ClientHeight = 748
+  ClientWidth = 1360
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -564
+  Font.Height = -39
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -83,9 +84,9 @@ object pad_form: Tpad_form
     Visible = False
   end
   object time_now_panel: TPanel
-    Left = 1170
+    Left = 1230
     Height = 29
-    Top = 713
+    Top = 716
     Width = 88
     Anchors = [akRight, akBottom]
     BevelOuter = bvNone
@@ -301,11 +302,11 @@ object pad_form: Tpad_form
     Left = 0
     Height = 32
     Top = 4
-    Width = 1176
+    Width = 1168
     BevelOuter = bvNone
     BorderWidth = 1
     ClientHeight = 32
-    ClientWidth = 1176
+    ClientWidth = 1168
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Verdana'
@@ -1162,7 +1163,7 @@ object pad_form: Tpad_form
   end
   object reminder_memo1: TMemo
     Cursor = crArrow
-    Left = 1150
+    Left = 1210
     Height = 52
     Top = 222
     Width = 144
@@ -1187,7 +1188,7 @@ object pad_form: Tpad_form
   end
   object reminder_memo2: TMemo
     Cursor = crArrow
-    Left = 1150
+    Left = 1210
     Height = 52
     Top = 288
     Width = 144
@@ -1212,7 +1213,7 @@ object pad_form: Tpad_form
   end
   object reminder_memo3: TMemo
     Cursor = crArrow
-    Left = 1150
+    Left = 1210
     Height = 52
     Top = 354
     Width = 144
@@ -1237,7 +1238,7 @@ object pad_form: Tpad_form
   end
   object reminder_memo4: TMemo
     Cursor = crArrow
-    Left = 1150
+    Left = 1210
     Height = 52
     Top = 420
     Width = 144
@@ -1262,7 +1263,7 @@ object pad_form: Tpad_form
   end
   object reminder_memo5: TMemo
     Cursor = crArrow
-    Left = 1150
+    Left = 1210
     Height = 52
     Top = 486
     Width = 144
@@ -1286,10 +1287,10 @@ object pad_form: Tpad_form
     OnClick = reminder_memo5Click
   end
   object scaling_trackbar: TTrackBar
-    Left = 1276
+    Left = 1336
     Height = 160
     Hint = ' change program size to suit your screen '
-    Top = 585
+    Top = 588
     Width = 24
     Max = 7
     Min = 1
@@ -1306,10 +1307,10 @@ object pad_form: Tpad_form
     TabOrder = 9
   end
   object scaling_help_static: TStaticText
-    Left = 1276
+    Left = 1336
     Height = 20
     Hint = 'what''s this?'
-    Top = 565
+    Top = 568
     Width = 24
     Alignment = taCenter
     Anchors = [akRight, akBottom]
@@ -1326,11 +1327,11 @@ object pad_form: Tpad_form
     Left = 0
     Height = 27
     Top = 36
-    Width = 1176
+    Width = 1168
     BevelOuter = bvNone
     BorderWidth = 1
     ClientHeight = 27
-    ClientWidth = 1176
+    ClientWidth = 1168
     Font.Color = clBlack
     Font.Height = -12
     Font.Name = 'Verdana'
@@ -1621,9 +1622,9 @@ object pad_form: Tpad_form
     end
   end
   object scaling_labels_panel: TPanel
-    Left = 1104
+    Left = 1164
     Height = 160
-    Top = 585
+    Top = 588
     Width = 172
     Anchors = [akRight, akBottom]
     BevelOuter = bvNone
@@ -1798,6 +1799,57 @@ object pad_form: Tpad_form
     ParentFont = False
     TabOrder = 20
     Visible = False
+  end
+  object T2_panel: TPanel
+    Left = 1256
+    Height = 54
+    Top = 0
+    Width = 108
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 50
+    ClientWidth = 104
+    Color = clWhite
+    Font.Color = clNavy
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 21
+    OnClick = T2_panelClick
+    OnMouseMove = T2_panelMouseMove
+    object Label12: TLabel
+      Left = 8
+      Height = 20
+      Top = 2
+      Width = 80
+      AutoSize = False
+      Caption = 'swap  to'
+      Font.Color = clNavy
+      Font.Height = -17
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = T2_panelClick
+    end
+    object Label13: TLabel
+      Left = 0
+      Height = 22
+      Top = 24
+      Width = 102
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Templot2'
+      Font.Color = clBlue
+      Font.Height = -20
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = T2_panelClick
+    end
   end
   object pad_menu_bar: TMainMenu
     Left = 252

@@ -48,6 +48,9 @@ type
     control_room_menu_bar: TMainMenu;
     help_menu: TMenuItem;
     about_templot_version_menu_entry: TMenuItem;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    swap_to_t2_menu_entry: TMenuItem;
     open_panel: TPanel;
     open_button: TButton;
     pad_button: TButton;
@@ -260,6 +263,7 @@ type
     procedure re_org_menu_entryClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
     procedure number_format_menu_entryClick(Sender: TObject);
+    procedure swap_to_t2_menu_entryClick(Sender: TObject);
     procedure test_menu_entryClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure distortion_help_menu_entryClick(Sender: TObject);
@@ -718,6 +722,7 @@ var
   procedure open_MyPictures;    // 214a
   procedure open_MyDocuments;   // 214a
 
+  procedure create_backup_file(final:boolean);
 
   procedure do_open_source_bang(str:string);  // OT2024
 
@@ -761,7 +766,6 @@ var
   md5_str:string='';  // 217a
 
   procedure check_colours;forward;
-  procedure create_backup_file(final:boolean);forward;
 
   function cleared_bgnd:boolean;forward;
  
@@ -2076,10 +2080,21 @@ begin
   if (gauge_i=t_T55_i) and (keeps_list.Count<1) and (FileExists(default_file_str)=True)   // T-55 startup check in case box is empty after reloading file having control template only.
      then reload_specified_file(False,False,default_file_str);
 
-  default_file_str:=exe_str+'SHAPE-FILES\start.bgs3';
+
+  default_file_str:=exe_str+'t2_t5.bgs3';    // swapping from T5
 
   if (bgnd_form.bgnd_shapes_listbox.Items.Count<1) and (FileExists(default_file_str)=True)
-     then load_shapes(default_file_str,False,False,False);
+     then begin
+            load_shapes(default_file_str,False,False,False);
+            DeleteFile(default_file_str);                     // one-time only
+          end
+     else begin
+            default_file_str:=exe_str+'SHAPE-FILES\start.bgs3';
+
+            if (bgnd_form.bgnd_shapes_listbox.Items.Count<1) and (FileExists(default_file_str)=True)
+               then load_shapes(default_file_str,False,False,False);
+          end;
+
 
   if running_under_wine=True
      then begin
@@ -2880,7 +2895,14 @@ begin
     end;//case
   until i<>2;
 end;
-//_______________________________________________________________________________________
+//______________________________________________________________________________
+
+procedure Tcontrol_room_form.swap_to_t2_menu_entryClick(Sender: TObject);
+
+begin
+  t2_swap;
+end;
+//______________________________________________________________________________
 
 procedure check_colours;      // check colour depth for more than 8-bit.
 

@@ -49,6 +49,8 @@ type
   { Tpad_form }
 
   Tpad_form = class(TForm)
+    Label12: TLabel;
+    Label13: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
@@ -59,6 +61,7 @@ type
     OO3D_menu_entry: TMenuItem;
     pad_menu_bar: TMainMenu;
     main_menu: TMenuItem;
+    T2_panel: TPanel;
     print_menu: TMenuItem;
     print_screen_menu_entry: TMenuItem;
     print_control_template_menu_entry: TMenuItem;
@@ -2402,6 +2405,8 @@ type
     procedure lock_scaling_menu_entryClick(Sender: TObject);
     procedure lock_scaling_at_menu_entryClick(Sender: TObject);
     procedure align_colour_menu_entryClick(Sender: TObject);
+    procedure T2_panelClick(Sender: TObject);
+    procedure T2_panelMouseMove(Sender: TObject; Shift: TShiftState; X,Y: Integer);
     procedure timber_colour_menu_entryClick(Sender: TObject);
     procedure show_info_menu_entryClick(Sender: TObject);
     procedure printer_setup_menu_entryClick(Sender: TObject);
@@ -4961,6 +4966,8 @@ var
 
   procedure do_hi_colour_schemes(i:integer);  // 224a
 
+  procedure t2_swap;
+
 //===================================================================================
 
 implementation
@@ -5531,6 +5538,86 @@ procedure Tpad_form.align_colour_menu_entryClick(Sender: TObject);
 
 begin
   align_colour:=get_colour('choose  a  colour  for  the  control  template  radial  end  marks  on  the  pad',align_colour);
+end;
+//______________________________________________________________________________
+
+procedure t2_swap;
+
+var
+  swap_str,t2_str:string;
+
+  t2t5_list:TStringList;
+
+  // use emergency backup mechanism for T5 swap
+
+begin
+  create_backup_file(False);    // ensure ebk files up to date and include latest contol template changes
+
+  Application.ProcessMessages;
+
+  t2t5_list:=TStringList.Create;
+  t2t5_list.Clear;
+  t2t5_list.Add('from T%');
+  t2t5_list.SaveToFile(exe_str+'t2t5.txt');    // if file exists, flags ebk files are for T5 swap, reload without asking
+  t2t5_list.Free;
+
+
+     // background shapes ...
+
+  swap_str:=exe_str+'t2_t5.bgs3';
+
+  DeleteFile(swap_str);   // remove previous if any
+
+  if bgnd_form.bgnd_shapes_listbox.Items.Count>0
+     then begin
+            if save_all_shapes_to_file(swap_str,0,control_room_form.bgs3_readable_menu_entry.Checked)=False    // readable/compact XML format
+               then begin
+                      show_modal_message('error1: Sorry, unable to swap background shapes to Templot2.');
+                      EXIT;
+                    end;
+            try
+              repeat
+                Application.ProcessMessages;
+              until FileExists(swap_str)=True;
+            except
+              show_modal_message('error2: Sorry, unable to swap background shapes to Templot2.');
+              EXIT;
+            end;
+          end;
+
+
+  on_idle_can_run:=False;
+  under_way:=False;
+  prog_running:=False;
+
+  t2_str:=exe_str+'templot_2.exe';
+
+  if ShellExecute(0,'open',PChar(t2_str),nil,nil,SW_SHOWNORMAL)<=32
+     then begin
+            show_modal_message('error: Sorry, unable to start Templot2.');
+
+            on_idle_can_run:=True;
+            under_way:=True;
+            prog_running:=True;
+
+            EXIT;
+          end;
+
+  Application.Terminate;
+end;
+  //______________________________________________________________________________
+
+procedure Tpad_form.T2_panelClick(Sender: TObject);
+
+begin
+    t2_swap;
+end;
+//______________________________________________________________________________
+
+procedure Tpad_form.T2_panelMouseMove(Sender: TObject; Shift: TShiftState; X,Y: Integer);
+
+begin
+  T2_panel.BorderStyle:=bsNone;
 end;
 //____________________________________________________________________________________________
 
@@ -6110,6 +6197,8 @@ procedure Tpad_form.FormMouseMove(Sender:TObject; Shift:TShiftState; X, Y:Intege
 
           // !!! N.B. also comes here on Mouse UP (after doing MouseUp).
 begin
+  T2_panel.BorderStyle:=bsSingle;
+
   pad_mouse_move(Shift,X,Y);
 end;
 //___________________________________________________________________________________________
@@ -12651,8 +12740,8 @@ begin
   xing_indicator_panel.DoubleBuffered:=True;
   colour_panel.DoubleBuffered:=True;
 
-  ClientWidth:=1300;     // can be changed on program panel / control room  216a
-  ClientHeight:=720;
+  ClientWidth:=1360;     // can be changed on program panel / control room  216a
+  ClientHeight:=748;
 
   Font.Size:=8;    // for lo-res screens.  n.b. can't write  "pad_form.Font"  until after pad_form is created.
 
@@ -29357,7 +29446,7 @@ begin
     top_toolbar_panel.Top:=make_slip_form.Top-2;
 
     if Screen.Width>(make_slip_form.Width+top_toolbar_panel.Width)
-       then top_toolbar_panel.Left:=make_slip_form.Left+make_slip_form.Width;
+       then top_toolbar_panel.Left:=make_slip_form.Left+make_slip_form.Width+6;
 
     if toolbars_2rows=False         // 1 long row
        then begin

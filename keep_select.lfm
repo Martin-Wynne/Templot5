@@ -12,7 +12,7 @@ object keep_form: Tkeep_form
   Color = 14211272
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -15
+  Font.Height = -19
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -34,6 +34,7 @@ object keep_form: Tkeep_form
     Top = 422
     Width = 10
     Pen.Color = clWhite
+    Visible = False
   end
   object slider_ref_label: TLabel
     Left = 208

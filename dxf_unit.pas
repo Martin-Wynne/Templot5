@@ -48,6 +48,7 @@ type
     all_loose_jaws_button: TButton;
     all_slots_button: TButton;
     all_solid_jaws_button: TButton;
+    caged_clip_checkbox: TCheckBox;
     cot_loose_jaws_checkbox: TCheckBox;
     cot_timber_depth_button: TButton;
     cot_spacer_blocks_checkbox: TCheckBox;
@@ -223,7 +224,6 @@ type
     timbout_kerf_combo: TComboBox;
     sockets_kerf_style_combo: TComboBox;
     sockets_kerf_combo: TComboBox;
-    caged_clip_checkbox: TCheckBox;
     sprue_kerf_checkbox: TCheckBox;
     grbl_file_dialog: TOpenDialog;
     _3d_colours_button: TButton;

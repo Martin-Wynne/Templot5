@@ -6525,6 +6525,7 @@ with keep_form do begin
             this_is_panel.Visible:=True;
 
             slider_ref_label.Visible:=True;
+            slider_shape.Visible:=True;
 
             slider_number_label.Visible:=True;
 
@@ -6681,6 +6682,7 @@ with keep_form do begin
             this_is_panel.Visible:=False;
 
             slider_ref_label.Visible:=False;
+            slider_shape.Visible:=False;
 
             slider_number_label.Visible:=False;
 

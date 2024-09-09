@@ -690,6 +690,8 @@ var
 
   procedure add_any_line_shape(line_ends:Tlinepex);  // 237b utility
 
+  function save_all_shapes_to_file(file_str:string; bricks_only:integer; readable:boolean):boolean;     // 225a  new BGS3 XML format  25-NOV-2019
+
 //______________________________________________________________________________
 
 implementation

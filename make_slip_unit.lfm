@@ -1,18 +1,18 @@
 object make_slip_form: Tmake_slip_form
-  Left = 2
+  Left = 0
   Height = 20
   Hint = ' drag this panel to set toolbars position - click to set number of rows  '
   Top = 2
-  Width = 158
+  Width = 72
   BorderIcons = []
   BorderStyle = bsToolWindow
   Caption = ' toolbars'
   ClientHeight = 20
-  ClientWidth = 158
+  ClientWidth = 152
   Color = clWhite
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -20
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate

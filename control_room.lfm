@@ -13,7 +13,7 @@ object control_room_form: Tcontrol_room_form
   DesignTimePPI = 120
   Enabled = False
   Font.Color = clBlack
-  Font.Height = -10350
+  Font.Height = -12938
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
   Menu = control_room_menu_bar
@@ -679,6 +679,18 @@ object control_room_form: Tcontrol_room_form
       Caption = '&session'
       Enabled = False
       OnClick = session_menuClick
+      object MenuItem2: TMenuItem
+        Caption = ' '
+        Enabled = False
+      end
+      object swap_to_t2_menu_entry: TMenuItem
+        Caption = 'SWAP  TO  TEMPLOT2'
+        OnClick = swap_to_t2_menu_entryClick
+      end
+      object MenuItem1: TMenuItem
+        Caption = ' '
+        Enabled = False
+      end
       object project_title_menu_entry: TMenuItem
         Caption = 'project  box  &title ...'
         OnClick = project_title_menu_entryClick

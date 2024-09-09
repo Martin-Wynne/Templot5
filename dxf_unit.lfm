@@ -10,7 +10,7 @@ object dxf_form: Tdxf_form
   Color = 16051416
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -897791
+  Font.Height = -1122239
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnActivate = FormActivate
@@ -528,14 +528,14 @@ object dxf_form: Tdxf_form
     Height = 782
     Top = 0
     Width = 840
-    ActivePage = combos_tabsheet
+    ActivePage = export_tabsheet
     Font.Color = clBlack
     Font.Height = -15
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 5
+    TabIndex = 0
     TabOrder = 7
     Visible = False
     Options = [nboMultiLine]
@@ -2412,6 +2412,21 @@ object dxf_form: Tdxf_form
         Checked = True
         State = cbChecked
         TabOrder = 16
+      end
+      object caged_clip_checkbox: TCheckBox
+        Left = 216
+        Height = 20
+        Top = 306
+        Width = 83
+        Caption = 'with cage'
+        Checked = True
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 17
       end
     end
     object support_tabsheet: TTabSheet
@@ -4447,8 +4462,9 @@ object dxf_form: Tdxf_form
         Left = 510
         Height = 20
         Top = 582
-        Width = 99
-        Caption = 'end  flanges'
+        Width = 144
+        AutoSize = False
+        Caption = 'with  end  flanges'
         Checked = True
         State = cbChecked
         TabOrder = 47
@@ -4628,52 +4644,39 @@ object dxf_form: Tdxf_form
         OnDropDown = rails_comboDropDown
         OnExit = rails_comboChange
       end
-      object caged_clip_checkbox: TCheckBox
-        Left = 510
-        Height = 20
-        Top = 630
-        Width = 83
-        Caption = 'with cage'
-        Checked = True
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
-        State = cbChecked
-        TabOrder = 56
-      end
       object sprue_kerf_checkbox: TCheckBox
         Left = 510
         Height = 20
         Top = 558
-        Width = 69
+        Width = 80
+        AutoSize = False
         Caption = 'on  kerf'
         Checked = True
         State = cbChecked
-        TabOrder = 57
+        TabOrder = 56
       end
       object _3d_colours_button: TButton
-        Left = 642
-        Height = 24
+        Left = 628
+        Height = 26
         Top = 44
-        Width = 144
-        Caption = '3-D  chair  c&olours ...'
+        Width = 192
+        Caption = '3-D  DXF  chair  c&olours ...'
         Font.Color = clBlack
         Font.Height = -13
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 58
+        TabOrder = 57
         OnClick = _3d_colours_buttonClick
       end
       object kerf_plus_undercut_checkbox: TCheckBox
         Left = 510
         Height = 20
         Top = 446
-        Width = 107
-        Caption = 'plus undercut'
-        TabOrder = 59
+        Width = 120
+        AutoSize = False
+        Caption = 'with  undercut'
+        TabOrder = 58
       end
     end
     object kerf_tabsheet: TTabSheet
@@ -5486,14 +5489,14 @@ object dxf_form: Tdxf_form
     Title = '      export  DXF  file  as ...'
     DefaultExt = '.dxf'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofEnableSizing]
-    Left = 886
-    Top = 524
+    Left = 960
+    Top = 160
   end
   object grbl_file_dialog: TOpenDialog
     Title = 'modify  G  code  for  GRBL ...'
     DefaultExt = '.nc'
     Options = [ofHideReadOnly, ofShowHelp, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 616
-    Top = 560
+    Left = 956
+    Top = 256
   end
 end
