@@ -2488,6 +2488,8 @@ var
                                                      WriteFloat('heave_rail_chairs['+IntToStr(r)+']hv_sc_halfwide',hv_sc_halfwide,0);
 
                                                      WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_flip',hv_flip,False);              // key flipped
+                                                     WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_omit_key',hv_omit_key,False);      // key omitted     556 MW
+
                                                      WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_customized',hv_customized,False);  // chair customized
                                                      WriteInteger('heave_rail_chairs['+IntToStr(r)+']hv_plug',hv_plug,0);                  // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
@@ -4721,6 +4723,8 @@ var
                                                                                              hv_sc_halfwide:=ReadFloat('heave_rail_chairs['+IntToStr(r)+']hv_sc_halfwide',0);
 
                                                                                              hv_flip:=ReadBool(      'heave_rail_chairs['+IntToStr(r)+']hv_flip',False);        // key flipped
+                                                                                             hv_omit_key:=ReadBool(  'heave_rail_chairs['+IntToStr(r)+']hv_omit_key',False);    // key omitted     // 556 MW
+
                                                                                              hv_customized:=ReadBool('heave_rail_chairs['+IntToStr(r)+']hv_customized',False);  // chair customized
                                                                                              hv_plug:=ReadInteger(   'heave_rail_chairs['+IntToStr(r)+']hv_plug',0);            // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 

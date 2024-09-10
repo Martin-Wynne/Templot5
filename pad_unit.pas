@@ -3869,6 +3869,8 @@ type
                       hv_sc_halfwide:extended;
 
                       hv_flip:boolean;               // key flipped
+                      hv_omit_key:boolean;           // key omitted    556 MW
+
                       hv_customized:boolean;         // chair customized
                       hv_plug:integer;               // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 

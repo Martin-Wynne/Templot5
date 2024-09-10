@@ -12,7 +12,7 @@ object heave_chairs_form: Theave_chairs_form
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -30
+  Font.Height = -118
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -739,7 +739,7 @@ object heave_chairs_form: Theave_chairs_form
       Top = 90
       Width = 120
       Color = clWhite
-      DropDownCount = 10
+      DropDownCount = 50
       Font.Color = clBlue
       Font.Height = -15
       Font.Name = 'Arial'
@@ -775,10 +775,11 @@ object heave_chairs_form: Theave_chairs_form
       OnChange = rail4_comboChange
     end
     object flip_key4_checkbox: TCheckBox
-      Left = 214
+      Left = 210
       Height = 20
       Top = 28
-      Width = 67
+      Width = 78
+      AutoSize = False
       Caption = 'flip key'
       Enabled = False
       Font.Color = clBlack
@@ -803,7 +804,7 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit4_checkboxMouseUp
     end
     object sc4_size_button: TButton
-      Left = 130
+      Left = 124
       Height = 20
       Top = 28
       Width = 74
@@ -819,7 +820,7 @@ object heave_chairs_form: Theave_chairs_form
     object customized4_checkbox: TCheckBox
       Left = 260
       Height = 20
-      Top = 0
+      Top = -16
       Width = 21
       Font.Color = clBlack
       Font.Height = -13
@@ -846,7 +847,7 @@ object heave_chairs_form: Theave_chairs_form
     object customize4_button: TButton
       Left = 166
       Height = 20
-      Top = 0
+      Top = -16
       Width = 90
       Caption = 'customize ...'
       Font.Color = 16744448
@@ -860,7 +861,7 @@ object heave_chairs_form: Theave_chairs_form
     object show_customized4_button: TButton
       Left = 124
       Height = 20
-      Top = 0
+      Top = -16
       Width = 40
       Caption = 'show'
       Font.Color = 16744448
@@ -892,6 +893,21 @@ object heave_chairs_form: Theave_chairs_form
       ParentShowHint = False
       ShowHint = True
       OnClick = chair_family_labelClick
+    end
+    object omit_key4_checkbox: TCheckBox
+      Left = 210
+      Height = 20
+      Top = 8
+      Width = 78
+      AutoSize = False
+      Caption = 'omit key'
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      OnMouseUp = omit_key4_checkboxMouseUp
     end
   end
   object rail3_groupbox: TGroupBox
@@ -942,7 +958,7 @@ object heave_chairs_form: Theave_chairs_form
       Top = 90
       Width = 120
       Color = clWhite
-      DropDownCount = 10
+      DropDownCount = 50
       Font.Color = clBlue
       Font.Height = -15
       Font.Name = 'Arial'
@@ -978,10 +994,11 @@ object heave_chairs_form: Theave_chairs_form
       OnChange = rail3_comboChange
     end
     object flip_key3_checkbox: TCheckBox
-      Left = 214
+      Left = 210
       Height = 20
       Top = 28
-      Width = 67
+      Width = 78
+      AutoSize = False
       Caption = 'flip key'
       Enabled = False
       Font.Color = clBlack
@@ -1006,7 +1023,7 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit3_checkboxMouseUp
     end
     object sc3_size_button: TButton
-      Left = 130
+      Left = 124
       Height = 20
       Top = 28
       Width = 74
@@ -1022,7 +1039,7 @@ object heave_chairs_form: Theave_chairs_form
     object customized3_checkbox: TCheckBox
       Left = 260
       Height = 20
-      Top = 0
+      Top = -16
       Width = 21
       Font.Color = clBlack
       Font.Height = -13
@@ -1049,7 +1066,7 @@ object heave_chairs_form: Theave_chairs_form
     object customize3_button: TButton
       Left = 166
       Height = 20
-      Top = 0
+      Top = -16
       Width = 90
       Caption = 'customize ...'
       Font.Color = 16744448
@@ -1063,7 +1080,7 @@ object heave_chairs_form: Theave_chairs_form
     object show_customized3_button: TButton
       Left = 124
       Height = 20
-      Top = 0
+      Top = -16
       Width = 40
       Caption = 'show'
       Font.Color = 16744448
@@ -1095,6 +1112,21 @@ object heave_chairs_form: Theave_chairs_form
       ParentShowHint = False
       ShowHint = True
       OnClick = chair_family_labelClick
+    end
+    object omit_key3_checkbox: TCheckBox
+      Left = 210
+      Height = 20
+      Top = 8
+      Width = 78
+      AutoSize = False
+      Caption = 'omit key'
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      OnMouseUp = omit_key3_checkboxMouseUp
     end
   end
   object rail2_groupbox: TGroupBox
@@ -1145,7 +1177,7 @@ object heave_chairs_form: Theave_chairs_form
       Top = 90
       Width = 120
       Color = clWhite
-      DropDownCount = 10
+      DropDownCount = 50
       Font.Color = clBlue
       Font.Height = -15
       Font.Name = 'Arial'
@@ -1181,10 +1213,11 @@ object heave_chairs_form: Theave_chairs_form
       OnChange = rail2_comboChange
     end
     object flip_key2_checkbox: TCheckBox
-      Left = 214
+      Left = 210
       Height = 20
       Top = 28
-      Width = 67
+      Width = 78
+      AutoSize = False
       Caption = 'flip key'
       Enabled = False
       Font.Color = clBlack
@@ -1209,7 +1242,7 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit2_checkboxMouseUp
     end
     object sc2_size_button: TButton
-      Left = 130
+      Left = 124
       Height = 20
       Top = 28
       Width = 74
@@ -1225,7 +1258,7 @@ object heave_chairs_form: Theave_chairs_form
     object customized2_checkbox: TCheckBox
       Left = 260
       Height = 20
-      Top = 0
+      Top = -16
       Width = 21
       Font.Color = clBlack
       Font.Height = -13
@@ -1252,7 +1285,7 @@ object heave_chairs_form: Theave_chairs_form
     object customize2_button: TButton
       Left = 166
       Height = 20
-      Top = 0
+      Top = -16
       Width = 90
       Caption = 'customize ...'
       Font.Color = 16744448
@@ -1266,7 +1299,7 @@ object heave_chairs_form: Theave_chairs_form
     object show_customized2_button: TButton
       Left = 124
       Height = 20
-      Top = 0
+      Top = -16
       Width = 40
       Caption = 'show'
       Font.Color = 16744448
@@ -1298,6 +1331,21 @@ object heave_chairs_form: Theave_chairs_form
       ParentShowHint = False
       ShowHint = True
       OnClick = chair_family_labelClick
+    end
+    object omit_key2_checkbox: TCheckBox
+      Left = 210
+      Height = 20
+      Top = 8
+      Width = 78
+      AutoSize = False
+      Caption = 'omit key'
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      OnMouseUp = omit_key2_checkboxMouseUp
     end
   end
   object rail1_groupbox: TGroupBox
@@ -1348,7 +1396,7 @@ object heave_chairs_form: Theave_chairs_form
       Top = 90
       Width = 120
       Color = clWhite
-      DropDownCount = 10
+      DropDownCount = 50
       Font.Color = clBlue
       Font.Height = -15
       Font.Name = 'Arial'
@@ -1384,10 +1432,11 @@ object heave_chairs_form: Theave_chairs_form
       OnChange = rail1_comboChange
     end
     object flip_key1_checkbox: TCheckBox
-      Left = 214
+      Left = 210
       Height = 20
       Top = 28
-      Width = 67
+      Width = 78
+      AutoSize = False
       Caption = 'flip key'
       Enabled = False
       Font.Color = clBlack
@@ -1412,7 +1461,7 @@ object heave_chairs_form: Theave_chairs_form
       OnMouseUp = omit1_checkboxMouseUp
     end
     object sc1_size_button: TButton
-      Left = 130
+      Left = 124
       Height = 20
       Top = 28
       Width = 74
@@ -1428,7 +1477,7 @@ object heave_chairs_form: Theave_chairs_form
     object customized1_checkbox: TCheckBox
       Left = 260
       Height = 20
-      Top = 0
+      Top = -16
       Width = 21
       Font.Color = clBlack
       Font.Height = -13
@@ -1455,7 +1504,7 @@ object heave_chairs_form: Theave_chairs_form
     object customize1_button: TButton
       Left = 166
       Height = 20
-      Top = 0
+      Top = -16
       Width = 90
       Caption = 'customize ...'
       Font.Color = 16744448
@@ -1469,7 +1518,7 @@ object heave_chairs_form: Theave_chairs_form
     object show_customized1_button: TButton
       Left = 124
       Height = 20
-      Top = 0
+      Top = -16
       Width = 40
       Caption = 'show'
       Font.Color = 16744448
@@ -1501,6 +1550,21 @@ object heave_chairs_form: Theave_chairs_form
       ParentShowHint = False
       ShowHint = True
       OnClick = chair_family_labelClick
+    end
+    object omit_key1_checkbox: TCheckBox
+      Left = 210
+      Height = 20
+      Top = 8
+      Width = 78
+      AutoSize = False
+      Caption = 'omit key'
+      Font.Color = 16744448
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      OnMouseUp = omit_key1_checkboxMouseUp
     end
   end
   object hide_panel: TPanel

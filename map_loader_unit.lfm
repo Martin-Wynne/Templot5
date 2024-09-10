@@ -11,7 +11,7 @@ object map_loader_form: Tmap_loader_form
   Color = 16775412
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -75
+  Font.Height = -118
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -1092,6 +1092,7 @@ object map_loader_form: Tmap_loader_form
     Hint = ' select the county containing your location set below '
     Top = 218
     Width = 188
+    DropDownCount = 30
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'Arial'
@@ -1172,6 +1173,7 @@ object map_loader_form: Tmap_loader_form
     Hint = ' if your map crosses a county boundary '
     Top = 218
     Width = 188
+    DropDownCount = 30
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'Arial'

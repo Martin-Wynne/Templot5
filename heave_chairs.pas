@@ -48,12 +48,16 @@ type
     chair_family3_label2: TLabel;
     chair_family2_label2: TLabel;
     chair_family1_label2: TLabel;
+    omit_key4_checkbox: TCheckBox;
     export_checkbox1: TCheckBox;
     export_checkbox2: TCheckBox;
     frame_label: TLabel;
     include_checkbox0: TCheckBox;
     include_checkbox1: TCheckBox;
     include_checkbox2: TCheckBox;
+    omit_key3_checkbox: TCheckBox;
+    omit_key2_checkbox: TCheckBox;
+    omit_key1_checkbox: TCheckBox;
     Label19: TLabel;
     Label20: TLabel;
     Label21: TLabel;
@@ -149,6 +153,14 @@ type
     procedure chair_family_labelClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure hide_buttonClick(Sender: TObject);
+    procedure omit_key1_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure omit_key2_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure omit_key3_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure omit_key4_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure rail1_comboChange(Sender: TObject);
     procedure rail2_comboChange(Sender: TObject);
     procedure rail3_comboChange(Sender: TObject);
@@ -742,6 +754,50 @@ begin
 end;
 //______________________________________________________________________________
 
+procedure omit_key_for_rail(r:integer);   // 556 MW
+
+var
+  n:integer;
+
+begin
+  n:=find_shove(current_shove_str,True);               // new if needed
+  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
+     then begin
+            with current_shoved_timbers[n] do begin
+
+              shove_data.sv_code:=1;                                       // 0=empty slot, -1=omit this timber,  1=shove this timber.
+
+              heave_rail_chairs[r].hv_omit_key:=True;   // omit key
+
+              sv_str:=current_shove_str;
+
+              redraw(False);  // sets labels
+
+            end;//with
+
+            shove_buttons(True,0,n);
+          end;
+end;
+//______________________________________________________________________________
+
+procedure reset_omitted_key_for_rail(r:integer);   // 556 MW
+
+var
+  n:integer;
+
+begin
+  n:=find_shove(current_shove_str,False);                   // new slot not needed
+  if (n>=0) and (n<Length(current_shoved_timbers))          // valid slot.
+     then begin
+            current_shoved_timbers[n].heave_rail_chairs[r].hv_omit_key:=False;
+
+            redraw(False);       // sets labels
+
+            shove_buttons(True,0,n);
+          end;
+end;
+//______________________________________________________________________________
+
 procedure omit_chair_for_rail(r:integer);
 
 var
@@ -787,6 +843,41 @@ begin
 end;
 //______________________________________________________________________________
 
+procedure Theave_chairs_form.omit_key4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  if omit_key4_checkbox.Checked=True
+     then omit_key_for_rail(4)
+     else reset_omitted_key_for_rail(14);
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.omit_key3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  if omit_key3_checkbox.Checked=True
+     then omit_key_for_rail(3)
+     else reset_omitted_key_for_rail(3);
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.omit_key2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  if omit_key2_checkbox.Checked=True
+     then omit_key_for_rail(2)
+     else reset_omitted_key_for_rail(2);
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.omit_key1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  if omit_key1_checkbox.Checked=True
+     then omit_key_for_rail(1)
+     else reset_omitted_key_for_rail(1);
+end;
+//______________________________________________________________________________
 
 procedure Theave_chairs_form.omit4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
@@ -914,6 +1005,10 @@ begin
                    then rail1_combo.ItemIndex:=-1
                    else rail1_combo.ItemIndex:=get_itemindex_for_combos(heave_rail_chairs[1].hv_ch);
 
+                omit_key4_checkbox.Checked:=heave_rail_chairs[4].hv_omit_key;     // // 556 MW...
+                omit_key3_checkbox.Checked:=heave_rail_chairs[3].hv_omit_key;
+                omit_key2_checkbox.Checked:=heave_rail_chairs[2].hv_omit_key;
+                omit_key1_checkbox.Checked:=heave_rail_chairs[1].hv_omit_key;
 
                 customized4_checkbox.Checked:=heave_rail_chairs[4].hv_customized;
                 customized3_checkbox.Checked:=heave_rail_chairs[3].hv_customized;
@@ -952,6 +1047,11 @@ begin
             rail3_combo.ItemIndex:=-1;
             rail2_combo.ItemIndex:=-1;
             rail1_combo.ItemIndex:=-1;
+
+            omit_key4_checkbox.Checked:=False;
+            omit_key3_checkbox.Checked:=False;
+            omit_key2_checkbox.Checked:=False;
+            omit_key1_checkbox.Checked:=False;
 
             customized4_checkbox.Checked:=False;
             customized3_checkbox.Checked:=False;
