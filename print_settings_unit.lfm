@@ -1,19 +1,19 @@
 object print_settings_form: Tprint_settings_form
-  Left = 334
-  Height = 632
-  Top = 234
-  Width = 480
+  Left = 32
+  Height = 647
+  Top = 114
+  Width = 594
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '       output  elements'
-  ClientHeight = 632
-  ClientWidth = 480
+  ClientHeight = 647
+  ClientWidth = 594
   Color = 15792376
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -16
+  Font.Height = -12
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -38,7 +38,7 @@ object print_settings_form: Tprint_settings_form
     Left = 0
     Height = 4
     Top = 628
-    Width = 480
+    Width = 594
     AutoSize = False
     Font.Color = clGray
     Font.Height = -7
@@ -55,7 +55,7 @@ object print_settings_form: Tprint_settings_form
   object Label1: TLabel
     Left = 12
     Height = 40
-    Top = 408
+    Top = 432
     Width = 461
     AutoSize = False
     Caption = 'The above settings apply to detail-mode output for printed templates, PDF files, image files, and sketchboard trackplan items. Not in diagram mode.'
@@ -66,9 +66,9 @@ object print_settings_form: Tprint_settings_form
     WordWrap = True
   end
   object Label2: TLabel
-    Left = 144
+    Left = 170
     Height = 16
-    Top = 298
+    Top = 322
     Width = 197
     AutoSize = False
     Caption = '(for print and PDF only, at 100% size)'
@@ -80,7 +80,7 @@ object print_settings_form: Tprint_settings_form
   object Label3: TLabel
     Left = 350
     Height = 16
-    Top = 530
+    Top = 554
     Width = 122
     AutoSize = False
     Caption = '(for print and PDF only)'
@@ -92,7 +92,7 @@ object print_settings_form: Tprint_settings_form
   object Label4: TLabel
     Left = 12
     Height = 30
-    Top = 484
+    Top = 508
     Width = 450
     AutoSize = False
     Caption = 'The above settings also apply in diagram-mode output.'
@@ -105,7 +105,7 @@ object print_settings_form: Tprint_settings_form
   object Label5: TLabel
     Left = 12
     Height = 34
-    Top = 556
+    Top = 580
     Width = 452
     AutoSize = False
     Caption = 'To control the order in which these non-template elements are output, select the options on the background shapes dialog (general options tab).'
@@ -116,9 +116,9 @@ object print_settings_form: Tprint_settings_form
     WordWrap = True
   end
   object Label6: TLabel
-    Left = 172
+    Left = 170
     Height = 16
-    Top = 326
+    Top = 350
     Width = 193
     AutoSize = False
     Caption = '(for print and PDF only, at 100% size)'
@@ -170,7 +170,7 @@ object print_settings_form: Tprint_settings_form
   object Shape2: TShape
     Left = 20
     Height = 3
-    Top = 508
+    Top = 532
     Width = 440
     Brush.Color = clSilver
     Pen.Color = clSilver
@@ -191,7 +191,7 @@ object print_settings_form: Tprint_settings_form
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 22
+    TabOrder = 21
     object size_updown: TUpDown
       Tag = 4
       Left = 0
@@ -257,7 +257,7 @@ object print_settings_form: Tprint_settings_form
   object output_radial_centres_checkbox: TCheckBox
     Left = 344
     Height = 22
-    Top = 351
+    Top = 375
     Width = 122
     AutoSize = False
     Caption = 'radial  centres'
@@ -266,12 +266,12 @@ object print_settings_form: Tprint_settings_form
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 16
+    TabOrder = 15
   end
   object output_bgnd_shapes_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 527
+    Top = 551
     Width = 164
     AutoSize = False
     Caption = 'background  shapes'
@@ -282,12 +282,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 20
+    TabOrder = 19
   end
   object output_fb_foot_lines_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 239
+    Top = 263
     Width = 276
     AutoSize = False
     Caption = 'rail-foot  edges  on  flat-bottom  rails'
@@ -298,12 +298,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 10
+    TabOrder = 9
   end
   object output_radial_ends_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 267
+    Top = 291
     Width = 145
     AutoSize = False
     Caption = 'radial  end  marks'
@@ -314,12 +314,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 11
+    TabOrder = 10
   end
   object output_switch_labels_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 295
+    Top = 319
     Width = 116
     AutoSize = False
     Caption = 'switch  labels'
@@ -330,12 +330,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 12
+    TabOrder = 11
   end
   object output_sketchboard_items_checkbox: TCheckBox
     Left = 204
     Height = 20
-    Top = 527
+    Top = 551
     Width = 136
     Caption = 'sketchboard items'
     Checked = True
@@ -345,12 +345,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 21
+    TabOrder = 20
   end
   object output_xing_labels_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 323
+    Top = 347
     Width = 146
     AutoSize = False
     Caption = 'V-crossing  labels'
@@ -361,12 +361,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 13
+    TabOrder = 12
   end
   object output_symbols_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 379
+    Top = 403
     Width = 444
     AutoSize = False
     Caption = 'construction  symbols  :  feed  droppers,  isolation  gaps,  stickers'
@@ -377,7 +377,7 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 17
+    TabOrder = 16
   end
   object output_timber_centres_checkbox: TCheckBox
     Left = 44
@@ -413,9 +413,9 @@ object print_settings_form: Tprint_settings_form
     OnClick = output_timber_numbers_checkboxClick
   end
   object output_timber_extensions_checkbox: TCheckBox
-    Left = 212
+    Left = 44
     Height = 22
-    Top = 159
+    Top = 207
     Width = 248
     AutoSize = False
     Caption = 'timber-outline  extension  marks'
@@ -447,7 +447,7 @@ object print_settings_form: Tprint_settings_form
   object output_guide_marks_checkbox: TCheckBox
     Left = 28
     Height = 22
-    Top = 351
+    Top = 375
     Width = 111
     AutoSize = False
     Caption = 'guide  marks'
@@ -458,12 +458,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 14
+    TabOrder = 13
   end
   object output_switch_drive_checkbox: TCheckBox
     Left = 170
     Height = 22
-    Top = 351
+    Top = 375
     Width = 150
     AutoSize = False
     Caption = 'switch-drive  mark'
@@ -474,12 +474,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 15
+    TabOrder = 14
   end
   object output_timb_id_prefix_checkbox: TCheckBox
     Left = 60
     Height = 22
-    Top = 207
+    Top = 231
     Width = 191
     AutoSize = False
     Caption = 'with  template  ID  prefix'
@@ -490,12 +490,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 9
+    TabOrder = 8
   end
   object output_platforms_checkbox: TCheckBox
     Left = 28
     Height = 20
-    Top = 455
+    Top = 479
     Width = 80
     Caption = 'platforms'
     Checked = True
@@ -505,12 +505,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 18
+    TabOrder = 17
   end
   object output_trackbed_edges_checkbox: TCheckBox
     Left = 164
     Height = 22
-    Top = 455
+    Top = 479
     Width = 234
     AutoSize = False
     Caption = 'trackbed edges / ballast / cess'
@@ -521,26 +521,12 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 19
-  end
-  object output_chairs_checkbox: TCheckBox
-    Left = 336
-    Height = 20
-    Top = 183
-    Width = 111
-    Caption = 'chair  outlines'
-    Enabled = False
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Arial'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 8
+    TabOrder = 18
   end
   object close_panel: TPanel
-    Left = 380
+    Left = 500
     Height = 27
-    Top = 594
+    Top = 584
     Width = 90
     Alignment = taLeftJustify
     Caption = '  continue'
@@ -566,6 +552,143 @@ object print_settings_form: Tprint_settings_form
       Default = True
       TabOrder = 0
       OnClick = close_buttonClick
+    end
+  end
+  object chairing_group: TPanel
+    Left = 340
+    Height = 126
+    Top = 159
+    Width = 240
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    ClientHeight = 122
+    ClientWidth = 236
+    Color = clAqua
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 22
+    object chair_group_label: TLabel
+      Left = 4
+      Height = 16
+      Top = 0
+      Width = 90
+      Caption = 'chair options :'
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object pcic_colour_panel: TPanel
+      Left = 8
+      Height = 26
+      Top = 46
+      Width = 65
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 22
+      ClientWidth = 61
+      Color = 12903679
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      OnClick = pcic_colour_panelClick
+      object output_chairs_checkbox: TCheckBox
+        Left = 42
+        Height = 20
+        Top = 2
+        Width = 21
+        Color = clWhite
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+    object chair_outlines: TLabel
+      Left = 80
+      Height = 16
+      Top = 50
+      Width = 86
+      Caption = 'chair outlines'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+      Transparent = False
+    end
+    object plic_colour_panel: TPanel
+      Left = 8
+      Height = 26
+      Top = 84
+      Width = 65
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ClientHeight = 22
+      ClientWidth = 61
+      Color = 16777200
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+      OnClick = plic_colour_panelClick
+      object chair_labels_checkbox: TCheckBox
+        Left = 42
+        Height = 20
+        Top = 2
+        Width = 21
+        Enabled = False
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+    object chair_labels: TLabel
+      Left = 80
+      Height = 16
+      Top = 88
+      Width = 74
+      Caption = 'chair labels'
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 10
+      Height = 15
+      Top = 28
+      Width = 62
+      Caption = 'Infill colour'
+      Font.Color = clPurple
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
   end
 end

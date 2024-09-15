@@ -513,8 +513,8 @@ var
   max_export_y:integer=16000;
   min_export_y:integer=-16000;
 
-  program_version:integer=555;     // this program version number (*100, e.g Templot v:1.3 = 130).
-  version_build:string='.a';       // sub-build letter for this version.
+  program_version:integer=556;     // this program version number (*100, e.g Templot v:1.3 = 130). started 10-09-2024 MW  released:
+  version_build:string='';         // sub-build letter for this version no longer used  10-09-2024
 
   loaded_version:integer=50000;   // init the loaded data file versions..
   later_file:boolean=False;

@@ -1366,6 +1366,8 @@ begin
                       hv_sc_halfwide:=0;
 
                       hv_flip:=False;           // key flipped
+                      hv_omit_key:=False;       // key omitted    // 556 MW
+
                       hv_customized:=False;     // chair customized
                       hv_plug:=0;               // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
@@ -2462,6 +2464,7 @@ begin
         OR hv_omit           // chair on rail
         OR (hv_ch<>0)        // modified chair code
         OR hv_flip           // key flipped
+        OR hv_omit_key       // key omitted        // 556 MW
         OR hv_customized     // chair customized
         OR (hv_plug<>0)      // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 

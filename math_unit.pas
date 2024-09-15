@@ -23981,7 +23981,7 @@ type
                end;//record
 
 var
-  n,o:integer;
+  n,rnum,o:integer;
 
   p1,p2,p3,p4,p5,p6:Tpex;
 
@@ -24090,7 +24090,7 @@ var
 
   xdiff,ydiff:extended;
 
-  socket_code,label_code,label_code_mod:integer;       // MW 03-08-2024  555a
+  socket_code,label_code,label_code_mod:integer;       // MW 03-08-202drawtimber4  555a
 
   xnso,xfso,ynso,yfso:extended;
 
@@ -24112,6 +24112,8 @@ var
   chair2_wanted,
   chair3_wanted,
   chair4_wanted:boolean;
+
+  key_wanted:array[1..4] of boolean;      // 556  MW
 
   swap_s1j,pt_chairs:boolean;  // 237c
 
@@ -27183,6 +27185,8 @@ var
 
                               if cpi.keys_on_outer_jaws_pi=False then EXIT;   // 238a  keys not wanted
 
+                              if key_wanted[rail_code]=False then EXIT;  // 556 MW  key omitted in chair heaving
+
                               current_jaw_options:=Copy(get_current_jaw_options);   // 244a
 
                               get_chair_options;  // get chi list index    238a
@@ -29216,6 +29220,7 @@ begin
   chair3_wanted:=True;
   chair4_wanted:=True;
 
+  for rnum:=1 to 4 do key_wanted[rnum]:=True;  // init   556 MW ...
 
   outline_wanted:=True;
 
@@ -29267,6 +29272,8 @@ begin
                             chair2_wanted:= NOT heave_rail_chairs[2].hv_omit;
                             chair3_wanted:= NOT heave_rail_chairs[3].hv_omit;
                             chair4_wanted:= NOT heave_rail_chairs[4].hv_omit;
+
+                            for rnum:=1 to 4 do key_wanted[rnum]:= NOT heave_rail_chairs[rnum].hv_omit_key;     // 556 MW ...
 
                           end;//with
 
@@ -36075,6 +36082,8 @@ begin
          hv_sc_halfwide:=0;
 
          hv_flip:=False;        // key flipped
+         hv_omit_key:=False;    // key omitted
+
          hv_customized:=False;  // chair customized
          hv_plug:=0;            // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
