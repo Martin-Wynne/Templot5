@@ -84,6 +84,9 @@ begin
     Caption:='    Templot  colours ...';
     colour_label.Caption:='  '+str+' ...';
     colour_form.colour_dialog.Color:=colour;
+
+    colour_form.colour_dialog.Title:='  '+str+' ...';	// SC 15-SEP-2024 556
+
     Show;
     BringToFront;
 
