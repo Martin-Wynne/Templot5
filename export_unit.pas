@@ -578,7 +578,7 @@ Temf=record                           // 555a       MW 12-AUG-2024
                           EXIT;
                         end;
 
-                showmessage('1  '+inttostr(met_size));
+                //showmessage('1  '+inttostr(met_size));
 
                 try
                   GetMem(p,met_size);    // get memory buffer for it
@@ -596,7 +596,7 @@ Temf=record                           // 555a       MW 12-AUG-2024
                           EXIT;
                         end;
 
-                showmessage('2  '+inttostr(met_copied));
+                //showmessage('2  '+inttostr(met_copied));
 
                 SetLength(emf_bytes, met_copied);
 
@@ -607,7 +607,7 @@ Temf=record                           // 555a       MW 12-AUG-2024
                   s:=s+Inttostr(emf_bytes[n]);
                 end;
 
-                showmessage('3 '+s);
+                //showmessage('3 '+s);
 
                 FreeMem(p);   // free the buffer
 

@@ -1,19 +1,19 @@
 object print_settings_form: Tprint_settings_form
-  Left = 32
-  Height = 647
-  Top = 114
-  Width = 594
+  Left = 753
+  Height = 650
+  Top = 406
+  Width = 900
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '       output  elements'
-  ClientHeight = 647
-  ClientWidth = 594
+  ClientHeight = 650
+  ClientWidth = 900
   Color = 15792376
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -12
+  Font.Height = -119
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -21,14 +21,14 @@ object print_settings_form: Tprint_settings_form
   LCLVersion = '3.4.0.0'
   Scaled = False
   object top_label: TLabel
-    Left = 32
-    Height = 20
-    Top = 4
-    Width = 433
+    Left = 20
+    Height = 19
+    Top = 44
+    Width = 468
     AutoSize = False
-    Caption = 'Select the template elements to be included in the output. '
+    Caption = 'select the template elements to be included in the output :'
     Font.Color = 16711808
-    Font.Height = -15
+    Font.Height = -17
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
@@ -37,8 +37,8 @@ object print_settings_form: Tprint_settings_form
   object datestamp_label: TLabel
     Left = 0
     Height = 4
-    Top = 628
-    Width = 594
+    Top = 646
+    Width = 900
     AutoSize = False
     Font.Color = clGray
     Font.Height = -7
@@ -53,9 +53,9 @@ object print_settings_form: Tprint_settings_form
     AutoSize = False
   end
   object Label1: TLabel
-    Left = 12
+    Left = 16
     Height = 40
-    Top = 432
+    Top = 456
     Width = 461
     AutoSize = False
     Caption = 'The above settings apply to detail-mode output for printed templates, PDF files, image files, and sketchboard trackplan items. Not in diagram mode.'
@@ -66,9 +66,9 @@ object print_settings_form: Tprint_settings_form
     WordWrap = True
   end
   object Label2: TLabel
-    Left = 170
+    Left = 174
     Height = 16
-    Top = 322
+    Top = 350
     Width = 197
     AutoSize = False
     Caption = '(for print and PDF only, at 100% size)'
@@ -78,9 +78,9 @@ object print_settings_form: Tprint_settings_form
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 350
+    Left = 354
     Height = 16
-    Top = 554
+    Top = 578
     Width = 122
     AutoSize = False
     Caption = '(for print and PDF only)'
@@ -90,9 +90,9 @@ object print_settings_form: Tprint_settings_form
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 12
+    Left = 16
     Height = 30
-    Top = 508
+    Top = 532
     Width = 450
     AutoSize = False
     Caption = 'The above settings also apply in diagram-mode output.'
@@ -103,9 +103,9 @@ object print_settings_form: Tprint_settings_form
     WordWrap = True
   end
   object Label5: TLabel
-    Left = 12
+    Left = 24
     Height = 34
-    Top = 580
+    Top = 604
     Width = 452
     AutoSize = False
     Caption = 'To control the order in which these non-template elements are output, select the options on the background shapes dialog (general options tab).'
@@ -116,9 +116,9 @@ object print_settings_form: Tprint_settings_form
     WordWrap = True
   end
   object Label6: TLabel
-    Left = 170
+    Left = 174
     Height = 16
-    Top = 350
+    Top = 374
     Width = 193
     AutoSize = False
     Caption = '(for print and PDF only, at 100% size)'
@@ -128,10 +128,10 @@ object print_settings_form: Tprint_settings_form
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 192
+    Left = 220
     Height = 85
-    Top = 64
-    Width = 274
+    Top = 88
+    Width = 268
     AutoSize = False
     Caption = 'Only generated elements can be in the output.  If in doubt refer to the generator menu settings, the detail-mode options, and any template-specific settings.'
     Font.Color = clBlue
@@ -142,9 +142,9 @@ object print_settings_form: Tprint_settings_form
     WordWrap = True
   end
   object Label8: TLabel
-    Left = 180
+    Left = 184
     Height = 16
-    Top = 187
+    Top = 211
     Width = 145
     AutoSize = False
     Caption = '(for print and PDF only)'
@@ -154,23 +154,23 @@ object print_settings_form: Tprint_settings_form
     ParentFont = False
   end
   object Label9: TLabel
-    Left = 28
-    Height = 18
-    Top = 28
-    Width = 448
+    Left = 76
+    Height = 16
+    Top = 8
+    Width = 568
     AutoSize = False
-    Caption = 'These settings have no effect on the screen display or DXF/STL files.'
+    Caption = 'These output settings have no effect on the screen display or DXF/STL files.'
     Font.Color = clBlue
-    Font.Height = -13
+    Font.Height = -14
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
     WordWrap = True
   end
   object Shape2: TShape
-    Left = 20
+    Left = 24
     Height = 3
-    Top = 532
+    Top = 556
     Width = 440
     Brush.Color = clSilver
     Pen.Color = clSilver
@@ -206,9 +206,9 @@ object print_settings_form: Tprint_settings_form
     end
   end
   object output_rails_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 52
+    Top = 76
     Width = 51
     AutoSize = False
     Caption = 'rails'
@@ -222,9 +222,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 1
   end
   object output_centrelines_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 107
+    Top = 131
     Width = 149
     AutoSize = False
     Caption = 'track  centre-lines'
@@ -238,9 +238,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 3
   end
   object output_timbering_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 135
+    Top = 159
     Width = 88
     AutoSize = False
     Caption = 'timbering'
@@ -255,9 +255,9 @@ object print_settings_form: Tprint_settings_form
     OnClick = output_timbering_checkboxClick
   end
   object output_radial_centres_checkbox: TCheckBox
-    Left = 344
+    Left = 348
     Height = 22
-    Top = 375
+    Top = 399
     Width = 122
     AutoSize = False
     Caption = 'radial  centres'
@@ -269,9 +269,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 15
   end
   object output_bgnd_shapes_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 551
+    Top = 575
     Width = 164
     AutoSize = False
     Caption = 'background  shapes'
@@ -285,9 +285,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 19
   end
   object output_fb_foot_lines_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 263
+    Top = 287
     Width = 276
     AutoSize = False
     Caption = 'rail-foot  edges  on  flat-bottom  rails'
@@ -301,9 +301,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 9
   end
   object output_radial_ends_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 291
+    Top = 315
     Width = 145
     AutoSize = False
     Caption = 'radial  end  marks'
@@ -317,9 +317,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 10
   end
   object output_switch_labels_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 319
+    Top = 343
     Width = 116
     AutoSize = False
     Caption = 'switch  labels'
@@ -333,9 +333,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 11
   end
   object output_sketchboard_items_checkbox: TCheckBox
-    Left = 204
+    Left = 208
     Height = 20
-    Top = 551
+    Top = 575
     Width = 136
     Caption = 'sketchboard items'
     Checked = True
@@ -348,9 +348,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 20
   end
   object output_xing_labels_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 347
+    Top = 371
     Width = 146
     AutoSize = False
     Caption = 'V-crossing  labels'
@@ -364,9 +364,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 12
   end
   object output_symbols_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 403
+    Top = 427
     Width = 444
     AutoSize = False
     Caption = 'construction  symbols  :  feed  droppers,  isolation  gaps,  stickers'
@@ -380,9 +380,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 16
   end
   object output_timber_centres_checkbox: TCheckBox
-    Left = 44
+    Left = 48
     Height = 22
-    Top = 159
+    Top = 183
     Width = 159
     AutoSize = False
     Caption = 'timber  centre-lines'
@@ -396,9 +396,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 5
   end
   object output_timber_numbers_checkbox: TCheckBox
-    Left = 44
+    Left = 48
     Height = 22
-    Top = 183
+    Top = 207
     Width = 136
     AutoSize = False
     Caption = 'timber  numbers'
@@ -413,9 +413,9 @@ object print_settings_form: Tprint_settings_form
     OnClick = output_timber_numbers_checkboxClick
   end
   object output_timber_extensions_checkbox: TCheckBox
-    Left = 44
+    Left = 48
     Height = 22
-    Top = 207
+    Top = 231
     Width = 248
     AutoSize = False
     Caption = 'timber-outline  extension  marks'
@@ -429,9 +429,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 6
   end
   object output_rail_joints_checkbox: TCheckBox
-    Left = 48
+    Left = 52
     Height = 22
-    Top = 76
+    Top = 100
     Width = 86
     AutoSize = False
     Caption = 'rail joints'
@@ -445,9 +445,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 2
   end
   object output_guide_marks_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 22
-    Top = 375
+    Top = 399
     Width = 111
     AutoSize = False
     Caption = 'guide  marks'
@@ -461,9 +461,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 13
   end
   object output_switch_drive_checkbox: TCheckBox
-    Left = 170
+    Left = 174
     Height = 22
-    Top = 375
+    Top = 399
     Width = 150
     AutoSize = False
     Caption = 'switch-drive  mark'
@@ -477,9 +477,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 14
   end
   object output_timb_id_prefix_checkbox: TCheckBox
-    Left = 60
+    Left = 64
     Height = 22
-    Top = 231
+    Top = 255
     Width = 191
     AutoSize = False
     Caption = 'with  template  ID  prefix'
@@ -493,9 +493,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 8
   end
   object output_platforms_checkbox: TCheckBox
-    Left = 28
+    Left = 32
     Height = 20
-    Top = 479
+    Top = 503
     Width = 80
     Caption = 'platforms'
     Checked = True
@@ -508,9 +508,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 17
   end
   object output_trackbed_edges_checkbox: TCheckBox
-    Left = 164
+    Left = 168
     Height = 22
-    Top = 479
+    Top = 503
     Width = 234
     AutoSize = False
     Caption = 'trackbed edges / ballast / cess'
@@ -524,9 +524,9 @@ object print_settings_form: Tprint_settings_form
     TabOrder = 18
   end
   object close_panel: TPanel
-    Left = 500
+    Left = 796
     Height = 27
-    Top = 584
+    Top = 608
     Width = 90
     Alignment = taLeftJustify
     Caption = '  continue'
@@ -554,16 +554,114 @@ object print_settings_form: Tprint_settings_form
       OnClick = close_buttonClick
     end
   end
-  object chairing_group: TPanel
-    Left = 340
-    Height = 126
-    Top = 159
-    Width = 240
+  object output_chair_labels_checkbox: TCheckBox
+    Left = 336
+    Height = 20
+    Top = 212
+    Width = 108
+    AutoSize = False
+    Caption = 'chair  labels'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 22
+  end
+  object output_omit_S1_labels_checkbox: TCheckBox
+    Left = 352
+    Height = 20
+    Top = 232
+    Width = 148
+    AutoSize = False
+    Caption = 'omit  on  S1  chairs'
+    Checked = True
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 23
+  end
+  object output_chairs_checkbox: TCheckBox
+    Left = 336
+    Height = 20
+    Top = 180
+    Width = 66
+    AutoSize = False
+    Caption = 'chairs'
+    Checked = True
+    Color = clWhite
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 24
+  end
+  object Shape1: TShape
+    Left = 506
+    Height = 599
+    Top = 40
+    Width = 2
+    Brush.Color = clBlack
+  end
+  object top_label1: TLabel
+    Left = 524
+    Height = 19
+    Top = 44
+    Width = 124
+    AutoSize = False
+    Caption = 'output styles :'
+    Font.Color = 16711808
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 524
+    Height = 16
+    Top = 72
+    Width = 340
+    AutoSize = False
+    Caption = 'ouput colours, infill patterns and line thicknesses : '
+    Font.Color = clBlue
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object chair_group_label: TLabel
+    Left = 528
+    Height = 16
+    Top = 136
+    Width = 120
+    AutoSize = False
+    Caption = 'chair colours :'
+    Font.Color = 16711808
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object plic_colour_panel: TPanel
+    Left = 544
+    Height = 29
+    Top = 200
+    Width = 204
+    Alignment = taLeftJustify
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    ClientHeight = 122
-    ClientWidth = 236
-    Color = clAqua
+    Caption = '  chair  label  infill'
+    ClientHeight = 25
+    ClientWidth = 200
+    Color = 16777200
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
@@ -571,124 +669,57 @@ object print_settings_form: Tprint_settings_form
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 22
-    object chair_group_label: TLabel
-      Left = 4
-      Height = 16
-      Top = 0
-      Width = 90
-      Caption = 'chair options :'
-      Font.Color = clPurple
-      Font.Height = -13
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object pcic_colour_panel: TPanel
-      Left = 8
-      Height = 26
-      Top = 46
-      Width = 65
-      BevelOuter = bvNone
-      BorderStyle = bsSingle
-      ClientHeight = 22
-      ClientWidth = 61
-      Color = 12903679
+    TabOrder = 25
+    OnClick = plic_colour_panelClick
+    object output_chair_label_colour_button: TButton
+      Left = 132
+      Height = 20
+      Top = 3
+      Width = 66
+      Caption = 'colour...'
       Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      TabOrder = 0
-      OnClick = pcic_colour_panelClick
-      object output_chairs_checkbox: TCheckBox
-        Left = 42
-        Height = 20
-        Top = 2
-        Width = 21
-        Color = clWhite
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentColor = False
-        ParentFont = False
-        TabOrder = 0
-      end
-    end
-    object chair_outlines: TLabel
-      Left = 80
-      Height = 16
-      Top = 50
-      Width = 86
-      Caption = 'chair outlines'
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      Layout = tlCenter
-      ParentFont = False
-      Transparent = False
-    end
-    object plic_colour_panel: TPanel
-      Left = 8
-      Height = 26
-      Top = 84
-      Width = 65
-      BevelOuter = bvNone
-      BorderStyle = bsSingle
-      ClientHeight = 22
-      ClientWidth = 61
-      Color = 16777200
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentColor = False
-      ParentFont = False
-      TabOrder = 1
-      OnClick = plic_colour_panelClick
-      object chair_labels_checkbox: TCheckBox
-        Left = 42
-        Height = 20
-        Top = 2
-        Width = 21
-        Enabled = False
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 0
-      end
-    end
-    object chair_labels: TLabel
-      Left = 80
-      Height = 16
-      Top = 88
-      Width = 74
-      Caption = 'chair labels'
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      Layout = tlCenter
-      ParentFont = False
-    end
-    object Label10: TLabel
-      Left = 10
-      Height = 15
-      Top = 28
-      Width = 62
-      Caption = 'Infill colour'
-      Font.Color = clPurple
       Font.Height = -12
       Font.Name = 'Arial'
       Font.Style = [fsBold]
       ParentFont = False
+      TabOrder = 0
+      OnClick = plic_colour_panelClick
+    end
+  end
+  object pcic_colour_panel: TPanel
+    Left = 544
+    Height = 29
+    Top = 161
+    Width = 204
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '    chair  infill'
+    ClientHeight = 25
+    ClientWidth = 200
+    Color = 12903679
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 26
+    OnClick = pcic_colour_panelClick
+    object output_chair_infill_colour_button: TButton
+      Left = 132
+      Height = 20
+      Top = 3
+      Width = 66
+      Caption = 'colour...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = pcic_colour_panelClick
     end
   end
 end

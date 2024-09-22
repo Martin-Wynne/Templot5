@@ -28,6 +28,20 @@
 
 *)
 
+(*
+"""
+================================================================================
+	Changes applied
+================================================================================
+	SC 19-SEP-2024 556
+		Add object output_omit_S1_labels_checkbox.Tcheckbox to chairing_group in print_settings_unit.lfm
+	sc 17-sep-2024 556.
+
+================================================================================
+"""
+*)
+
+
 unit print_settings_unit;
 
 {$MODE Delphi}
@@ -45,15 +59,16 @@ type
   { Tprint_settings_form }
 
   Tprint_settings_form = class(TForm)
-    chairing_group: TPanel;
     chair_group_label: TLabel;
-    chair_outlines: TLabel;
-    chair_labels_checkbox: TCheckBox;
-    chair_labels: TLabel;
     Label10: TLabel;
     output_chairs_checkbox: TCheckBox;
-    plic_colour_panel: TPanel;
+    output_chair_infill_colour_button: TButton;
+    output_chair_labels_checkbox: TCheckBox;
+    output_chair_label_colour_button: TButton;
+    output_omit_S1_labels_checkbox: TCheckBox;
     pcic_colour_panel: TPanel;
+    plic_colour_panel: TPanel;
+    Shape1: TShape;
     top_label: TLabel;
     blue_corner_panel: TPanel;
     size_updown: TUpDown;
@@ -91,6 +106,7 @@ type
     output_platforms_checkbox: TCheckBox;
     output_trackbed_edges_checkbox: TCheckBox;
     Shape2: TShape;
+    top_label1: TLabel;
     procedure pcic_colour_panelClick(Sender: TObject);
     procedure plic_colour_panelClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
@@ -191,14 +207,14 @@ var
 
   print_corner_page_numbers_font:TFont;  // 0.93.a
 
-  printchair_colour:integer=$0080B0E8;			// SC 13-SEP-2024
-  save_pcc:integer=$0080B0E8;				// SC 13-SEP-2024
+  printchair_colour:integer=$000050B0;
+  save_pcc:integer=$000050B0;
 
-  printchair_infill_colour:integer=$00D2FAFA;		// SC 13-SEP-2024
-  save_pcic:integer=$00D2FAFA;				// SC 13-SEP-2024
+  printchair_infill_colour:integer=$00E0E8FF;
+  save_pcic:integer=$00E0E8FF;
 
-  printlabel_Infill_colour:integer=$00C4E4FF;		// SC 13-SEP-2024
-  save_plic:integer=$00C4E4FF;				// SC 13-SEP-2024
+  printchair_label_infill_colour:integer=$00C4E4FF;
+  save_plic:integer=$00C4E4FF;
 
   out_factor:extended=1.0;     // output scaling factor.
 
@@ -234,32 +250,31 @@ begin
 
   size_updown.Tag:=size_updown.Position;                           // and save for the next click.
 end;
-
 //______________________________________________________________________________
 
 // SC 15-SEP-2024 556
 
 procedure Tprint_settings_form.pcic_colour_panelClick(Sender: TObject);
 
-          // print chair outline infill colour
-
+          // print chair infill colour
 var
   old:TColor;
 
 begin
   old:=pcic_colour_panel.Color;
-  pcic_colour_panel.Color:=get_colour('choose  a  chair  outline  infill  colour',pcic_colour_panel.Color);
+  pcic_colour_panel.Color:=get_colour('choose  a  chair  infill  colour',pcic_colour_panel.Color);
   if pcic_colour_panel.Color<>old
      then begin
-            output_chairs_checkbox.Checked:=True;        // colour changed, assume she wants to use it
-            save_pcic:=pcic_colour_panel.Color;          // assume it's for a chair outline infill
+            output_chairs_checkbox.Checked:=True;               // colour changed, assume she wants to use it
+            printchair_infill_colour:=pcic_colour_panel.Color;
+            save_pcic:=pcic_colour_panel.Color;
           end;
 end;
+//______________________________________________________________________________
 
 procedure Tprint_settings_form.plic_colour_panelClick(Sender: TObject);
 
-          // print chair outline infill colour
-
+          // print chair label infill colour
 var
   old:TColor;
 
@@ -268,22 +283,26 @@ begin
   plic_colour_panel.Color:=get_colour('choose  a  chair  label  infill  colour',plic_colour_panel.Color);
   if plic_colour_panel.Color<>old
      then begin
-            chair_labels_checkbox.Checked:=True;        // colour changed, assume she wants to use it
-            save_plic:=plic_colour_panel.Color;          // assume it's for a chair label infill
+            output_chair_labels_checkbox.Checked:=True;               // colour changed, assume she wants to use it
+            printchair_label_infill_colour:=plic_colour_panel.Color;
+            save_plic:=plic_colour_panel.Color;
           end;
 end;
 
 // sc 15-sep-2024 556
 
-//___________________________________________________________________________
+//______________________________________________________________________________
 
 procedure Tprint_settings_form.FormCreate(Sender: TObject);
 
 begin
-  ClientWidth:=594;
-  ClientHeight:=632;
+  ClientWidth:=900;
+  ClientHeight:=650;
 
   AutoScroll:=True;
+
+  pcic_colour_panel.Color:=printchair_infill_colour;
+  plic_colour_panel.Color:=printchair_label_infill_colour;
 end;
 //______________________________________________________________________________
 
