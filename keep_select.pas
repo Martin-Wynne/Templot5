@@ -2490,8 +2490,8 @@ var
                                                      WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_flip',hv_flip,False);              // key flipped
                                                      WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_omit_key',hv_omit_key,False);      // key omitted     556 MW
 
-                                                     WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_customized',hv_customized,False);  // chair customized
-                                                     WriteInteger('heave_rail_chairs['+IntToStr(r)+']hv_plug',hv_plug,0);                  // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+                                                     WriteBool(   'heave_rail_chairs['+IntToStr(r)+']hv_jaws',hv_jaws,False);      // jaws customized
+                                                     WriteInteger('heave_rail_chairs['+IntToStr(r)+']hv_plug',hv_plug,0);          // plug customized   0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit  4=force COT (no plug)
 
                                                      for o:=0 to HIGH(hv_jaw_options) do begin        // 0..3 number of rails in customizable chair
                                                        for w:=0 to HIGH(hv_jaw_options[o]) do begin   // 0..5 options per jaw  Tjaw_option
@@ -4725,8 +4725,8 @@ var
                                                                                              hv_flip:=ReadBool(      'heave_rail_chairs['+IntToStr(r)+']hv_flip',False);        // key flipped
                                                                                              hv_omit_key:=ReadBool(  'heave_rail_chairs['+IntToStr(r)+']hv_omit_key',False);    // key omitted     // 556 MW
 
-                                                                                             hv_customized:=ReadBool('heave_rail_chairs['+IntToStr(r)+']hv_customized',False);  // chair customized
-                                                                                             hv_plug:=ReadInteger(   'heave_rail_chairs['+IntToStr(r)+']hv_plug',0);            // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+                                                                                             hv_jaws:=ReadBool('heave_rail_chairs['+IntToStr(r)+']hv_jaws',False);     // jaws customized
+                                                                                             hv_plug:=ReadInteger(   'heave_rail_chairs['+IntToStr(r)+']hv_plug',0);   // plug customized   0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
                                                                                              for o:=0 to HIGH(hv_jaw_options) do begin        // 0..3 number of rails in customizable chair
                                                                                                for w:=0 to HIGH(hv_jaw_options[o]) do begin   // 0..5 options per jaw  Tjaw_option
@@ -8431,7 +8431,7 @@ begin
 
                       intarray_set(list_bgnd_marks[5],i,ptr^.tb_code);        // 237a ..
                       intarray_set(list_bgnd_marks[6],i,ptr^.dxf_chair_code);
-                      intarray_set(list_bgnd_marks[7],i,ptr^.options_bits);   // 555a
+                      intarray_set(list_bgnd_marks[7],i,ptr^.mark_bits);      // 555a
 
                       if ptr^.code=99 then timber_numbers_string:=timb_numbers_str;  // copy from control template
                     end;//for

@@ -1,7 +1,7 @@
 object print_settings_form: Tprint_settings_form
-  Left = 753
+  Left = 442
   Height = 650
-  Top = 406
+  Top = 49
   Width = 900
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
@@ -13,12 +13,12 @@ object print_settings_form: Tprint_settings_form
   Color = 15792376
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -119
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '3.4.0.0'
+  LCLVersion = '3.6.0.0'
   Scaled = False
   object top_label: TLabel
     Left = 20
@@ -568,7 +568,7 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 22
+    TabOrder = 23
   end
   object output_omit_S1_labels_checkbox: TCheckBox
     Left = 352
@@ -584,7 +584,7 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
     State = cbChecked
-    TabOrder = 23
+    TabOrder = 24
   end
   object output_chairs_checkbox: TCheckBox
     Left = 336
@@ -602,7 +602,7 @@ object print_settings_form: Tprint_settings_form
     ParentColor = False
     ParentFont = False
     State = cbChecked
-    TabOrder = 24
+    TabOrder = 22
   end
   object Shape1: TShape
     Left = 506
@@ -637,28 +637,172 @@ object print_settings_form: Tprint_settings_form
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object chair_group_label: TLabel
+  object infill_group_label: TLabel
     Left = 528
     Height = 16
-    Top = 136
+    Top = 96
     Width = 120
     AutoSize = False
-    Caption = 'chair colours :'
+    Caption = 'infill colours :'
     Font.Color = 16711808
     Font.Height = -14
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object plic_colour_panel: TPanel
+  object priccu_colour_panel: TPanel
     Left = 544
     Height = 29
-    Top = 200
+    Top = 120
     Width = 204
     Alignment = taLeftJustify
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    Caption = '  chair  label  infill'
+    Caption = '  rails  (control)'
+    ClientHeight = 25
+    ClientWidth = 200
+    Color = 8433896
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 25
+    OnClick = priccu_colour_panelClick
+    object output_railcu_infill_colour_button: TButton
+      Left = 132
+      Height = 20
+      Top = 3
+      Width = 66
+      Caption = 'colour...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = priccu_colour_panelClick
+    end
+  end
+  object pricbg_colour_panel: TPanel
+    Left = 544
+    Height = 29
+    Top = 154
+    Width = 204
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  rails  (background)'
+    ClientHeight = 25
+    ClientWidth = 200
+    Color = 15782068
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 26
+    OnClick = pricbg_colour_panelClick
+    object output_railbg_infill_colour_button: TButton
+      Left = 132
+      Height = 20
+      Top = 3
+      Width = 66
+      Caption = 'colour...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = pricbg_colour_panelClick
+    end
+  end
+  object pricbk_colour_panel: TPanel
+    Left = 544
+    Height = 29
+    Top = 188
+    Width = 204
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  rails  (brick)'
+    ClientHeight = 25
+    ClientWidth = 200
+    Color = clSilver
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 27
+    OnClick = pricbk_colour_panelClick
+    object output_railbg_infill_colour_button1: TButton
+      Left = 132
+      Height = 20
+      Top = 3
+      Width = 66
+      Caption = 'colour...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = pricbk_colour_panelClick
+    end
+  end
+  object pcic_colour_panel: TPanel
+    Left = 544
+    Height = 29
+    Top = 222
+    Width = 204
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  chairs'
+    ClientHeight = 25
+    ClientWidth = 200
+    Color = 12903679
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 28
+    OnClick = pcic_colour_panelClick
+    object output_chair_infill_colour_button: TButton
+      Left = 132
+      Height = 20
+      Top = 3
+      Width = 66
+      Caption = 'colour...'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = pcic_colour_panelClick
+    end
+  end
+  object plic_colour_panel: TPanel
+    Left = 544
+    Height = 29
+    Top = 254
+    Width = 204
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = '  chair  labels'
     ClientHeight = 25
     ClientWidth = 200
     Color = 16777200
@@ -669,7 +813,7 @@ object print_settings_form: Tprint_settings_form
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 25
+    TabOrder = 29
     OnClick = plic_colour_panelClick
     object output_chair_label_colour_button: TButton
       Left = 132
@@ -686,18 +830,18 @@ object print_settings_form: Tprint_settings_form
       OnClick = plic_colour_panelClick
     end
   end
-  object pcic_colour_panel: TPanel
+  object ptic_colour_panel: TPanel
     Left = 544
     Height = 29
-    Top = 161
+    Top = 290
     Width = 204
     Alignment = taLeftJustify
     BevelOuter = bvNone
     BorderStyle = bsSingle
-    Caption = '    chair  infill'
+    Caption = '  timbers'
     ClientHeight = 25
     ClientWidth = 200
-    Color = 12903679
+    Color = 14745599
     Font.Color = clBlack
     Font.Height = -13
     Font.Name = 'Arial'
@@ -705,9 +849,9 @@ object print_settings_form: Tprint_settings_form
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 26
-    OnClick = pcic_colour_panelClick
-    object output_chair_infill_colour_button: TButton
+    TabOrder = 30
+    OnClick = ptic_colour_panelClick
+    object output_timber_label_colour_button: TButton
       Left = 132
       Height = 20
       Top = 3
@@ -719,7 +863,7 @@ object print_settings_form: Tprint_settings_form
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
-      OnClick = pcic_colour_panelClick
+      OnClick = ptic_colour_panelClick
     end
   end
 end

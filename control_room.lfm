@@ -13,7 +13,7 @@ object control_room_form: Tcontrol_room_form
   DesignTimePPI = 120
   Enabled = False
   Font.Color = clBlack
-  Font.Height = -12938
+  Font.Height = -16173
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
   Menu = control_room_menu_bar

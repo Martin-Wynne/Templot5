@@ -45,9 +45,26 @@ type
   { Theave_chairs_form }
 
   Theave_chairs_form = class(TForm)
+   customized_label4: TLabel;
+   customized_label3: TLabel;
+   customized_label2: TLabel;
+   customized_label1: TLabel;
+   restore_button: TButton;
     chair_family3_label2: TLabel;
     chair_family2_label2: TLabel;
     chair_family1_label2: TLabel;
+    chair_radio3: TRadioButton;
+    chair_radio2: TRadioButton;
+    chair_radio1: TRadioButton;
+    clip_radio: TRadioButton;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label18: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
     omit_key4_checkbox: TCheckBox;
     export_checkbox1: TCheckBox;
     export_checkbox2: TCheckBox;
@@ -69,6 +86,11 @@ type
     Label8: TLabel;
     loose_checkbox0: TCheckBox;
     chair_proto_combo: TComboBox;
+    plug_panel: TPanel;
+    press_radio: TRadioButton;
+    cot_radio: TRadioButton;
+    plug_unlocked_radio: TRadioButton;
+    chair_radio4: TRadioButton;
     rail_numbers_image: TImage;
     Label1: TLabel;
     rail4_groupbox: TGroupBox;
@@ -85,6 +107,8 @@ type
     rail1_combo: TComboBox;
     flip_key1_checkbox: TCheckBox;
     rail_highlight_shape: TShape;
+    snap_radio: TRadioButton;
+    StaticText1: TStaticText;
     top_label: TLabel;
     omit4_checkbox: TCheckBox;
     omit3_checkbox: TCheckBox;
@@ -104,7 +128,7 @@ type
     rail3_big_number_label: TLabel;
     rail2_big_number_label: TLabel;
     rail1_big_number_label: TLabel;
-    customize_groupbox: TGroupBox;
+    customize_panel: TPanel;
     Label9: TLabel;
     Label13: TLabel;
     Label14: TLabel;
@@ -113,23 +137,13 @@ type
     Label17: TLabel;
     frame_main_rail: Tchair_frame;
     frame_2nd_rail: Tchair_frame;
-    GroupBox2: TGroupBox;
-    clip_radio: TRadioButton;
-    snap_radio: TRadioButton;
-    press_radio: TRadioButton;
-    customized4_checkbox: TCheckBox;
-    customized3_checkbox: TCheckBox;
-    customized2_checkbox: TCheckBox;
-    customized1_checkbox: TCheckBox;
     chair4_type_label: TLabel;
     chair3_type_label: TLabel;
     chair2_type_label: TLabel;
     chair1_type_label: TLabel;
     frame_3rd_rail: Tchair_frame;
     rail_label: TLabel;
-    no_change_radio: TRadioButton;
     frame_4th_rail: Tchair_frame;
-    customize_set_button: TButton;
     change4_checkbox: TCheckBox;
     change3_checkbox: TCheckBox;
     change2_checkbox: TCheckBox;
@@ -138,43 +152,28 @@ type
     normal_ch_label3: TLabel;
     normal_ch_label2: TLabel;
     normal_ch_label1: TLabel;
-    Label10: TLabel;
-    customize4_button: TButton;
-    customize3_button: TButton;
-    customize2_button: TButton;
-    customize1_button: TButton;
-    show_customized4_button: TButton;
-    show_customized3_button: TButton;
-    show_customized2_button: TButton;
-    show_customized1_button: TButton;
-    Label11: TLabel;
     Label12: TLabel;
-    Label18: TLabel;
     procedure chair_family_labelClick(Sender: TObject);
+    procedure chair_radio1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure chair_radio2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure chair_radio3MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure chair_radio4MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure FormCreate(Sender: TObject);
     procedure hide_buttonClick(Sender: TObject);
-    procedure omit_key1_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure omit_key2_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure omit_key3_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure omit_key4_checkboxMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure omit_key1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure omit_key2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure omit_key3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure omit_key4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure rail1_comboChange(Sender: TObject);
     procedure rail2_comboChange(Sender: TObject);
     procedure rail3_comboChange(Sender: TObject);
     procedure rail4_comboChange(Sender: TObject);
+    procedure restore_buttonClick(Sender: TObject);
     
     procedure sc4_size_buttonClick(Sender: TObject);
     procedure sc3_size_buttonClick(Sender: TObject);
     procedure sc2_size_buttonClick(Sender: TObject);
     procedure sc1_size_buttonClick(Sender: TObject);
-
-    procedure customized4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure customized3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure customized2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure customized1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
     procedure omit4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure omit3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -185,15 +184,8 @@ type
     procedure change3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure change2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure change1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure customize_set_buttonClick(Sender: TObject);
-    procedure customize4_buttonClick(Sender: TObject);
-    procedure customize3_buttonClick(Sender: TObject);
-    procedure customize2_buttonClick(Sender: TObject);
-    procedure customize1_buttonClick(Sender: TObject);
-    procedure show_customized4_buttonClick(Sender: TObject);
-    procedure show_customized3_buttonClick(Sender: TObject);
-    procedure show_customized2_buttonClick(Sender: TObject);
-    procedure show_customized1_buttonClick(Sender: TObject);
+
+    procedure plug_unlocked_radioMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     
   private
     { Private declarations }
@@ -209,6 +201,10 @@ var
 
   procedure heave_form_reset_all(no_timber_selected:boolean);         // 244a
   procedure heave_form_update(omit_code:integer);
+
+  procedure do_chair_selected(rail:integer);
+
+  procedure heave_form_set_customized_jaws;     // MouseUp from chair_frame_unit
 
 //______________________________________________________________________________
 
@@ -229,8 +225,8 @@ procedure Theave_chairs_form.FormCreate(Sender: TObject);
 begin
   pad_form.InsertControl(heave_chairs_form);
 
-  ClientWidth:=1052;
-  ClientHeight:=654;
+  ClientWidth:=1120;
+  ClientHeight:=674;
 
   AutoScroll:=True;
 end;
@@ -241,6 +237,134 @@ procedure Theave_chairs_form.chair_family_labelClick(Sender: TObject);
 begin
   chair_proto_combo.Visible:=True;
   chair_proto_label.Visible:=True;
+end;
+//______________________________________________________________________________
+
+procedure do_chair_selected(rail:integer);
+
+var
+  n:integer;
+
+begin
+  if (rail<1) or (rail>4) then EXIT;     // ???
+
+  heave_form_reset_all(False);   // init   reset all   False=timber number showing
+
+  with heave_chairs_form do begin
+
+    customize_panel.Enabled:=True;
+
+    case rail of
+      1: rail_highlight_shape.Top:=rail1_groupbox.Top+rail_highlight_shape.Left-rail1_groupbox.Left;  // default -8, allow for scaling..
+      2: rail_highlight_shape.Top:=rail2_groupbox.Top+rail_highlight_shape.Left-rail2_groupbox.Left;
+      3: rail_highlight_shape.Top:=rail3_groupbox.Top+rail_highlight_shape.Left-rail3_groupbox.Left;
+      4: rail_highlight_shape.Top:=rail4_groupbox.Top+rail_highlight_shape.Left-rail4_groupbox.Left;
+    end;//case
+
+    rail_highlight_shape.Visible:=True;
+
+    case rail of
+      1: chair_radio1.Checked:=True;    // in case called from click on label..
+      2: chair_radio2.Checked:=True;
+      3: chair_radio3.Checked:=True;
+      4: chair_radio4.Checked:=True;
+    end;//case
+
+    rail1_groupbox.Enabled:=False;  // init..
+    rail2_groupbox.Enabled:=False;
+    rail3_groupbox.Enabled:=False;
+    rail4_groupbox.Enabled:=False;
+
+    case rail of
+      1: rail1_groupbox.Enabled:=True;
+      2: rail2_groupbox.Enabled:=True;
+      3: rail3_groupbox.Enabled:=True;
+      4: rail4_groupbox.Enabled:=True;
+    end;//case
+
+    customizing_rail:=rail;
+
+    rail_label.Caption:='on  timber  '+current_shove_str+'  rail  '+IntToStr(rail);
+
+    n:=find_shove(current_shove_str,False);
+    if (n>=0) and (n<Length(current_shoved_timbers))     // valid existing shoved slot
+       then begin
+              with current_shoved_timbers[n].heave_rail_chairs[rail] do begin
+
+                if hv_jaws=True
+                   then begin;
+
+                           // jaw options...
+
+                         frame_main_rail.include_checkbox0.Checked:=hv_jaw_options[0][0];     // include inner jaw
+                         frame_main_rail.include_checkbox1.Checked:=hv_jaw_options[0][1];     // include outer jaw
+
+                         frame_main_rail.loose_checkbox0.Checked:=hv_jaw_options[0][2];       // outer jaw is loose
+
+                         frame_main_rail.export_checkbox1.Checked:=hv_jaw_options[0][3];      // export loose jaw only
+                         frame_main_rail.export_checkbox2.Checked:=hv_jaw_options[0][4];      // export rail seat
+
+                         frame_main_rail.include_checkbox2.Checked:=hv_jaw_options[0][5];     // include key on outer jaw
+
+
+                         frame_2nd_rail.include_checkbox0.Checked:=hv_jaw_options[1][0];     // include inner jaw
+                         frame_2nd_rail.include_checkbox1.Checked:=hv_jaw_options[1][1];     // include outer jaw
+
+                         frame_2nd_rail.loose_checkbox0.Checked:=hv_jaw_options[1][2];       // outer jaw is loose
+
+                         frame_2nd_rail.export_checkbox1.Checked:=hv_jaw_options[1][3];      // export loose jaw only
+                         frame_2nd_rail.export_checkbox2.Checked:=hv_jaw_options[1][4];      // export rail seat
+
+                         frame_2nd_rail.include_checkbox2.Checked:=hv_jaw_options[1][5];     // include key on outer jaw
+
+                        end;
+
+                  // plug options...
+
+                case hv_plug of   // 0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit  4=force COT (no plug)
+
+                  0: plug_unlocked_radio.Checked:=True;
+                  1: clip_radio.Checked:=True;
+                  2: snap_radio.Checked:=True;
+                  3: press_radio.Checked:=True;
+                  4: cot_radio.Checked:=True;
+
+                end;//case
+
+              end;//with
+
+              rail_label.Caption:='on  timber  '+current_shove_str+'  rail  '+IntToStr(rail);
+            end;
+
+  end;//with form
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.chair_radio1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  do_chair_selected(1);
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.chair_radio2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  do_chair_selected(2);
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.chair_radio3MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  do_chair_selected(3);
+end;
+//______________________________________________________________________________
+
+procedure Theave_chairs_form.chair_radio4MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+begin
+  do_chair_selected(4);
 end;
 //______________________________________________________________________________
 
@@ -521,6 +645,15 @@ begin
               top_label.Caption:='heave  chairs  on  timber';
             end;
 
+    rail_label.Caption:='';
+
+    chair_radio4.Checked:=False;
+    chair_radio3.Checked:=False;
+    chair_radio2.Checked:=False;
+    chair_radio1.Checked:=False;
+
+    rail_highlight_shape.Visible:=False;        // yellow bgnd
+
     omit4_checkbox.Checked:=False;
     omit3_checkbox.Checked:=False;
     omit2_checkbox.Checked:=False;
@@ -546,164 +679,67 @@ begin
     rail2_groupbox.Color:=$00FFFCF0;
     rail1_groupbox.Color:=$00FFFCF0;
 
-    customized4_checkbox.Checked:=False;
-    customized3_checkbox.Checked:=False;
-    customized2_checkbox.Checked:=False;
-    customized1_checkbox.Checked:=False;
-
     rail4_groupbox.Visible:=True;
     rail3_groupbox.Visible:=True;
     rail2_groupbox.Visible:=True;
     rail1_groupbox.Visible:=True;
 
-    customize_groupbox.Visible:=False;
+    rail4_groupbox.Enabled:=False;
+    rail3_groupbox.Enabled:=False;
+    rail2_groupbox.Enabled:=False;
+    rail1_groupbox.Enabled:=False;
+
+
+        // main running rail...
+
+    frame_main_rail.include_checkbox0.Checked:=False;     // include inner jaw
+    frame_main_rail.include_checkbox1.Checked:=False;     // include outer jaw
+
+    frame_main_rail.loose_checkbox0.Checked:=False;       // outer jaw is loose
+
+    frame_main_rail.export_checkbox1.Checked:=False;      // export loose jaw only
+    frame_main_rail.export_checkbox2.Checked:=False;      // export rail seat
+
+    frame_main_rail.include_checkbox2.Checked:=False;     // include key on outer jaw
+
+
+        // 2nd rail...
+
+    frame_2nd_rail.include_checkbox0.Checked:=False;     // include inner jaw
+    frame_2nd_rail.include_checkbox1.Checked:=False;     // include outer jaw
+
+    frame_2nd_rail.loose_checkbox0.Checked:=False;       // outer jaw is loose
+
+    frame_2nd_rail.export_checkbox1.Checked:=False;      // export loose jaw only
+    frame_2nd_rail.export_checkbox2.Checked:=False;      // export rail seat
+
+    frame_2nd_rail.include_checkbox2.Checked:=False;     // include key on outer jaw
+
+    plug_unlocked_radio.Checked:=True;
+
+    customize_panel.Enabled:=False;
 
   end;//with
 
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.customized4_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure Theave_chairs_form.restore_buttonClick(Sender: TObject);
 
 var
   n:integer;
 
 begin
-  if customized4_checkbox.Checked=True
-     then begin
-            customize4_button.Click;
-            EXIT;
-          end;
-
-  customizing_rail:=0;
-
   n:=find_shove(current_shove_str,False);              // new not needed
   if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
      then begin
-            with current_shoved_timbers[n].heave_rail_chairs[4] do begin
-              hv_customized:=False;
+            with current_shoved_timbers[n].heave_rail_chairs[customizing_rail] do begin
+              hv_jaws:=False;
               hv_plug:=0;
             end;//with
 
             shove_buttons(True,0,n);
           end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customized3_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-
-var
-  n:integer;
-
-begin
-  if customized3_checkbox.Checked=True
-     then begin
-            customize3_button.Click;
-            EXIT;
-          end;
-
-  customizing_rail:=0;
-
-  n:=find_shove(current_shove_str,False);              // new not needed
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[3] do begin
-              hv_customized:=False;
-              hv_plug:=0;
-            end;//with
-
-            shove_buttons(True,0,n);
-          end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customized2_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-
-var
-  n:integer;
-
-begin
-  if customized2_checkbox.Checked=True
-     then begin
-            customize2_button.Click;
-            EXIT;
-          end;
-
-  customizing_rail:=0;
-
-  n:=find_shove(current_shove_str,False);              // new not needed
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[2] do begin
-              hv_customized:=False;
-              hv_plug:=0;
-            end;//with
-
-            shove_buttons(True,0,n);
-          end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customized1_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-
-var
-  n:integer;
-
-begin
-  if customized1_checkbox.Checked=True
-     then begin
-            customize1_button.Click;
-            EXIT;
-          end;
-
-  customizing_rail:=0;
-
-  n:=find_shove(current_shove_str,False);              // new not needed
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[1] do begin
-              hv_customized:=False;
-              hv_plug:=0;
-            end;//with
-
-            shove_buttons(True,0,n);
-          end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customize4_buttonClick(Sender: TObject);
-
-begin
-  customizing_rail:=4;
-  rail_label.Caption:='on  timber  '+current_shove_str+'  rail  4';
-  customize_groupbox.Visible:=True;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customize3_buttonClick(Sender: TObject);
-
-begin
-  customizing_rail:=3;
-  rail_label.Caption:='on  timber  '+current_shove_str+'  rail  3';
-  customize_groupbox.Visible:=True;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customize2_buttonClick(Sender: TObject);
-
-begin
-  customizing_rail:=2;
-  rail_label.Caption:='on  timber  '+current_shove_str+'  rail  2';
-  customize_groupbox.Visible:=True;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.customize1_buttonClick(Sender: TObject);
-
-begin
-  customizing_rail:=1;
-  rail_label.Caption:='on  timber  '+current_shove_str+'  rail  1';
-  customize_groupbox.Visible:=True;
 end;
 //______________________________________________________________________________
 
@@ -918,13 +954,19 @@ end;
 procedure heave_form_update(omit_code:integer);    // called from shove_timber
 
 var
-  n:integer;
+  n,r:integer;
 
 begin
-  if omit_code=-1     // timber omitted
-     then begin
-            with heave_chairs_form do begin
+  redraw(False);  // update chair visibility
 
+  with heave_chairs_form do begin
+
+    rail_label.Caption:='';                  // nothing selected yet..
+    rail_highlight_shape.Visible:=False;
+    customize_panel.Enabled:=False;
+
+    if omit_code=-1     // timber omitted
+       then begin
               Caption:=heave_chairs_form.Caption+'  ( omitted )';
               top_label.Caption:='timber  '+current_shove_str+'  is  omitted';
 
@@ -933,14 +975,44 @@ begin
               rail2_groupbox.Visible:=False;
               rail1_groupbox.Visible:=False;
 
-              customize_groupbox.Visible:=False;
+              chair_radio4.Enabled:=False;
+              chair_radio3.Enabled:=False;
+              chair_radio2.Enabled:=False;
+              chair_radio1.Enabled:=False;
 
-            end;//with
+              chair_radio4.Checked:=False;
+              chair_radio3.Checked:=False;
+              chair_radio2.Checked:=False;
+              chair_radio1.Checked:=False;
 
-            EXIT;
-          end;
+              rail4_big_number_label.Enabled:=False;
+              rail3_big_number_label.Enabled:=False;
+              rail2_big_number_label.Enabled:=False;
+              rail1_big_number_label.Enabled:=False;
 
-  with heave_chairs_form do begin
+
+              EXIT;
+            end;
+
+    chair_radio4.Enabled:=rail4_groupbox.Visible;   // may be switched off in calculate_chairs_on_rails (math_unit)...
+    chair_radio3.Enabled:=rail3_groupbox.Visible;
+    chair_radio2.Enabled:=rail2_groupbox.Visible;
+    chair_radio1.Enabled:=rail1_groupbox.Visible;
+
+    rail4_big_number_label.Enabled:=rail4_groupbox.Visible;
+    rail3_big_number_label.Enabled:=rail3_groupbox.Visible;
+    rail2_big_number_label.Enabled:=rail2_groupbox.Visible;
+    rail1_big_number_label.Enabled:=rail1_groupbox.Visible;
+
+    rail4_groupbox.Enabled:=False;    // init..
+    rail3_groupbox.Enabled:=False;
+    rail2_groupbox.Enabled:=False;
+    rail1_groupbox.Enabled:=False;
+
+    customized_label4.Visible:=False;
+    customized_label3.Visible:=False;
+    customized_label2.Visible:=False;
+    customized_label1.Visible:=False;
 
     Caption:='      heave  chairs  on  timber  '+current_shove_str+'  . . .';
     top_label.Caption:='heave  chairs  on  timber  '+current_shove_str;
@@ -950,10 +1022,20 @@ begin
        then begin
               with current_shoved_timbers[n] do begin
 
+                if (customizing_rail>0) and (customizing_rail<5)
+                   then begin
+                          for r:=1 to 4 do customize_panel.Enabled:=customize_panel.Enabled or (heave_rail_chairs[r].hv_jaws) or (heave_rail_chairs[r].hv_plug<>0);
+
+                          customized_label4.Visible:=(heave_rail_chairs[4].hv_jaws) or (heave_rail_chairs[4].hv_plug<>0);
+                          customized_label3.Visible:=(heave_rail_chairs[3].hv_jaws) or (heave_rail_chairs[3].hv_plug<>0);
+                          customized_label2.Visible:=(heave_rail_chairs[2].hv_jaws) or (heave_rail_chairs[2].hv_plug<>0);
+                          customized_label1.Visible:=(heave_rail_chairs[1].hv_jaws) or (heave_rail_chairs[1].hv_plug<>0);
+                        end;
+
                 omit4_checkbox.Checked:=heave_rail_chairs[4].hv_omit;
 
                 if heave_rail_chairs[4].hv_omit=True
-                   then rail4_groupbox.Color:=$0099FFFF
+                   then rail4_groupbox.Color:=$00CCEEFF
                    else if heave_rail_chairs[4].hv_ch<>0
                            then rail4_groupbox.Color:=$00B8FFB8
                            else rail4_groupbox.Color:=$00FFFCF0;
@@ -961,7 +1043,7 @@ begin
                 omit3_checkbox.Checked:=heave_rail_chairs[3].hv_omit;
 
                 if heave_rail_chairs[3].hv_omit=True
-                   then rail3_groupbox.Color:=$0099FFFF
+                   then rail3_groupbox.Color:=$00CCEEFF
                    else if heave_rail_chairs[3].hv_ch<>0
                            then rail3_groupbox.Color:=$00B8FFB8
                            else rail3_groupbox.Color:=$00FFFCF0;
@@ -969,7 +1051,7 @@ begin
                 omit2_checkbox.Checked:=heave_rail_chairs[2].hv_omit;
 
                 if heave_rail_chairs[2].hv_omit=True
-                   then rail2_groupbox.Color:=$0099FFFF
+                   then rail2_groupbox.Color:=$00CCEEFF
                    else if heave_rail_chairs[2].hv_ch<>0
                            then rail2_groupbox.Color:=$00B8FFB8
                            else rail2_groupbox.Color:=$00FFFCF0;
@@ -977,7 +1059,7 @@ begin
                 omit1_checkbox.Checked:=heave_rail_chairs[1].hv_omit;
 
                 if heave_rail_chairs[1].hv_omit=True
-                   then rail1_groupbox.Color:=$0099FFFF
+                   then rail1_groupbox.Color:=$00CCEEFF
                    else if heave_rail_chairs[1].hv_ch<>0
                            then rail1_groupbox.Color:=$00B8FFB8
                            else rail1_groupbox.Color:=$00FFFCF0;
@@ -1010,18 +1092,6 @@ begin
                 omit_key2_checkbox.Checked:=heave_rail_chairs[2].hv_omit_key;
                 omit_key1_checkbox.Checked:=heave_rail_chairs[1].hv_omit_key;
 
-                customized4_checkbox.Checked:=heave_rail_chairs[4].hv_customized;
-                customized3_checkbox.Checked:=heave_rail_chairs[3].hv_customized;
-                customized2_checkbox.Checked:=heave_rail_chairs[2].hv_customized;
-                customized1_checkbox.Checked:=heave_rail_chairs[1].hv_customized;
-
-                show_customized4_button.Visible:=heave_rail_chairs[4].hv_customized;
-                show_customized3_button.Visible:=heave_rail_chairs[3].hv_customized;
-                show_customized2_button.Visible:=heave_rail_chairs[2].hv_customized;
-                show_customized1_button.Visible:=heave_rail_chairs[1].hv_customized;
-
-                customize_groupbox.Visible:=False;
-
               end;//with
 
           end
@@ -1053,21 +1123,9 @@ begin
             omit_key2_checkbox.Checked:=False;
             omit_key1_checkbox.Checked:=False;
 
-            customized4_checkbox.Checked:=False;
-            customized3_checkbox.Checked:=False;
-            customized2_checkbox.Checked:=False;
-            customized1_checkbox.Checked:=False;
-
-            show_customized1_button.Visible:=False;
-            show_customized2_button.Visible:=False;
-            show_customized3_button.Visible:=False;
-            show_customized4_button.Visible:=False;
-
-            customize_groupbox.Visible:=False;
-
           end;
 
-  end;//with
+  end;//with form
 end;
 //______________________________________________________________________________
 
@@ -1135,7 +1193,7 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.customize_set_buttonClick(Sender: TObject);
+procedure Theave_chairs_form.plug_unlocked_radioMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 var
   n:integer;
@@ -1148,36 +1206,19 @@ begin
      then begin
             with current_shoved_timbers[n] do begin
 
-              shove_data.sv_code:=1;                     // 0=empty slot, -1=omit this timber,  1=shove this timber.
+              shove_data.sv_code:=1;     // 0=empty slot, -1=omit this timber,  1=shove this timber.
 
               with heave_rail_chairs[customizing_rail] do begin
 
-                hv_customized:=True;         // chair customized
-
-                if no_change_radio.Checked=True
-                   then hv_plug:=0                     // 0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
-                   else if clip_radio.Checked=True
+                if Sender=cot_radio
+                   then hv_plug:=4                     // 0=normal 1=force clip-fit  2=force snap-fit  3=force press-fit  4=force COT (no plug)
+                   else if Sender=clip_radio
                            then hv_plug:=1
-                           else if snap_radio.Checked=True
+                           else if Sender=snap_radio
                                    then hv_plug:=2
-                                   else if press_radio.Checked=True
+                                   else if Sender=press_radio
                                            then hv_plug:=3
-                                           else hv_plug:=0;    // ???
-
-
-                        // main running rail...
-
-                hv_jaw_options[0][0]:=frame_main_rail.include_checkbox0.Checked;     // include inner jaw
-                hv_jaw_options[0][1]:=frame_main_rail.include_checkbox1.Checked;     // include outer jaw
-
-                hv_jaw_options[0][2]:=frame_main_rail.loose_checkbox0.Checked;       // outer jaw is loose
-
-                hv_jaw_options[0][3]:=frame_main_rail.export_checkbox1.Checked;      // export loose jaw only
-                hv_jaw_options[0][4]:=frame_main_rail.export_checkbox2.Checked;      // export rail seat
-
-                hv_jaw_options[0][5]:=frame_main_rail.include_checkbox2.Checked;     // include key on outer jaw
-
-                      //  hv_jaw_options[1..3] other rails in chair nyi 244a
+                                           else hv_plug:=0;     // plug_unlocked_radio clicked
 
               end;//with
 
@@ -1185,200 +1226,73 @@ begin
 
             end;//with
 
-            redraw(False);             // update labels
-
-            case customizing_rail of
-
-              1: customized1_checkbox.Checked:=True;
-              2: customized2_checkbox.Checked:=True;
-              3: customized3_checkbox.Checked:=True;
-              4: customized4_checkbox.Checked:=True;
-
-            end;//case
-
-            case customizing_rail of
-
-              1: show_customized1_button.Visible:=True;
-              2: show_customized2_button.Visible:=True;
-              3: show_customized3_button.Visible:=True;
-              4: show_customized4_button.Visible:=True;
-
-            end;//case
-
-            show_modal_message('The customized options have been set for the chair on timber '+current_shove_str+' at rail '+IntToStr(customizing_rail)+'.');
+            redraw(False);       // update calcs
 
             shove_buttons(True,0,n);
           end;
-
 end;
 //______________________________________________________________________________
 
-procedure Theave_chairs_form.show_customized4_buttonClick(Sender: TObject);
+procedure heave_form_set_customized_jaws;       // called from MouseUp in chair_frame_unit
 
 var
   n:integer;
 
 begin
-  n:=find_shove(current_shove_str,False);
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid existing shoved slot
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[4] do begin
+  if (customizing_rail<1) or (customizing_rail>4) then EXIT;    // no valid rail
 
-              if hv_customized=False then EXIT;
+    with heave_chairs_form do begin
 
-              frame_main_rail.include_checkbox0.Checked:=hv_jaw_options[0][0];     // include inner jaw
-              frame_main_rail.include_checkbox1.Checked:=hv_jaw_options[0][1];     // include outer jaw
+    n:=find_shove(current_shove_str,True);               // new if needed
+    if (n>=0) and (n<Length(current_shoved_timbers))     // valid slot.
+       then begin
+              with current_shoved_timbers[n] do begin
 
-              frame_main_rail.loose_checkbox0.Checked:=hv_jaw_options[0][2];       // outer jaw is loose
+                shove_data.sv_code:=1;                     // 0=empty slot, -1=omit this timber,  1=shove this timber.
 
-              frame_main_rail.export_checkbox1.Checked:=hv_jaw_options[0][3];      // export loose jaw only
-              frame_main_rail.export_checkbox2.Checked:=hv_jaw_options[0][4];      // export rail seat
+                with heave_rail_chairs[customizing_rail] do begin
 
-              frame_main_rail.include_checkbox2.Checked:=hv_jaw_options[0][5];     // include key on outer jaw
+                  hv_jaws:=True;         // chair customized
 
-              case hv_plug of         // 0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+                          // main running rail...
 
-                0: no_change_radio.Checked:=True;
-                1: clip_radio.Checked:=True;
-                2: snap_radio.Checked:=True;
-                3: press_radio.Checked:=True;
+                  hv_jaw_options[0][0]:=frame_main_rail.include_checkbox0.Checked;     // include inner jaw
+                  hv_jaw_options[0][1]:=frame_main_rail.include_checkbox1.Checked;     // include outer jaw
 
-              end;//case
+                  hv_jaw_options[0][2]:=frame_main_rail.loose_checkbox0.Checked;       // outer jaw is loose
 
-            end;//with
+                  hv_jaw_options[0][3]:=frame_main_rail.export_checkbox1.Checked;      // export loose jaw only
+                  hv_jaw_options[0][4]:=frame_main_rail.export_checkbox2.Checked;      // export rail seat
 
-            rail_label.Caption:='on  timber  '+current_shove_str+'  rail  4';
-
-            customizing_rail:=4;
-            customize_groupbox.Visible:=True;
-          end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.show_customized3_buttonClick(Sender: TObject);
-
-var
-  n:integer;
-
-begin
-  n:=find_shove(current_shove_str,False);
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid existing shoved slot
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[3] do begin
-
-              if hv_customized=False then EXIT;
-
-              frame_main_rail.include_checkbox0.Checked:=hv_jaw_options[0][0];     // include inner jaw
-              frame_main_rail.include_checkbox1.Checked:=hv_jaw_options[0][1];     // include outer jaw
-
-              frame_main_rail.loose_checkbox0.Checked:=hv_jaw_options[0][2];       // outer jaw is loose
-
-              frame_main_rail.export_checkbox1.Checked:=hv_jaw_options[0][3];      // export loose jaw only
-              frame_main_rail.export_checkbox2.Checked:=hv_jaw_options[0][4];      // export rail seat
-
-              frame_main_rail.include_checkbox2.Checked:=hv_jaw_options[0][5];     // include key on outer jaw
-
-              case hv_plug of         // 0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
-
-                0: no_change_radio.Checked:=True;
-                1: clip_radio.Checked:=True;
-                2: snap_radio.Checked:=True;
-                3: press_radio.Checked:=True;
-
-              end;//case
-
-            end;//with
-
-            rail_label.Caption:='on  timber  '+current_shove_str+'  rail  3';
-
-            customizing_rail:=3;
-            customize_groupbox.Visible:=True;
-          end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.show_customized2_buttonClick(Sender: TObject);
-
-var
-  n:integer;
-
-begin
-  n:=find_shove(current_shove_str,False);
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid existing shoved slot
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[2] do begin
-
-              if hv_customized=False then EXIT;
-
-              frame_main_rail.include_checkbox0.Checked:=hv_jaw_options[0][0];     // include inner jaw
-              frame_main_rail.include_checkbox1.Checked:=hv_jaw_options[0][1];     // include outer jaw
-
-              frame_main_rail.loose_checkbox0.Checked:=hv_jaw_options[0][2];       // outer jaw is loose
-
-              frame_main_rail.export_checkbox1.Checked:=hv_jaw_options[0][3];      // export loose jaw only
-              frame_main_rail.export_checkbox2.Checked:=hv_jaw_options[0][4];      // export rail seat
-
-              frame_main_rail.include_checkbox2.Checked:=hv_jaw_options[0][5];     // include key on outer jaw
-
-              case hv_plug of         // 0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
-
-                0: no_change_radio.Checked:=True;
-                1: clip_radio.Checked:=True;
-                2: snap_radio.Checked:=True;
-                3: press_radio.Checked:=True;
-
-              end;//case
-
-            end;//with
-
-            rail_label.Caption:='on  timber  '+current_shove_str+'  rail  2';
-
-            customizing_rail:=2;
-            customize_groupbox.Visible:=True;
-          end;
-end;
-//______________________________________________________________________________
-
-procedure Theave_chairs_form.show_customized1_buttonClick(Sender: TObject);
-
-var
-  n:integer;
-
-begin
-  n:=find_shove(current_shove_str,False);
-  if (n>=0) and (n<Length(current_shoved_timbers))     // valid existing shoved slot
-     then begin
-            with current_shoved_timbers[n].heave_rail_chairs[1] do begin
-
-              if hv_customized=False then EXIT;
-
-              frame_main_rail.include_checkbox0.Checked:=hv_jaw_options[0][0];     // include inner jaw
-              frame_main_rail.include_checkbox1.Checked:=hv_jaw_options[0][1];     // include outer jaw
-
-              frame_main_rail.loose_checkbox0.Checked:=hv_jaw_options[0][2];       // outer jaw is loose
-
-              frame_main_rail.export_checkbox1.Checked:=hv_jaw_options[0][3];      // export loose jaw only
-              frame_main_rail.export_checkbox2.Checked:=hv_jaw_options[0][4];      // export rail seat
-
-              frame_main_rail.include_checkbox2.Checked:=hv_jaw_options[0][5];     // include key on outer jaw
-
-              case hv_plug of         // 0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
-
-                0: no_change_radio.Checked:=True;
-                1: clip_radio.Checked:=True;
-                2: snap_radio.Checked:=True;
-                3: press_radio.Checked:=True;
-
-              end;//case
+                  hv_jaw_options[0][5]:=frame_main_rail.include_checkbox2.Checked;     // include key on outer jaw
 
 
-            end;//with
+                  hv_jaw_options[1][0]:=frame_2nd_rail.include_checkbox0.Checked;     // include inner jaw
+                  hv_jaw_options[1][1]:=frame_2nd_rail.include_checkbox1.Checked;     // include outer jaw
 
-            rail_label.Caption:='on  timber  '+current_shove_str+'  rail  1';
+                  hv_jaw_options[1][2]:=frame_2nd_rail.loose_checkbox0.Checked;       // outer jaw is loose
 
-            customizing_rail:=1;
-            customize_groupbox.Visible:=True;
-          end;
+                  hv_jaw_options[1][3]:=frame_2nd_rail.export_checkbox1.Checked;      // export loose jaw only
+                  hv_jaw_options[1][4]:=frame_2nd_rail.export_checkbox2.Checked;      // export rail seat
+
+                  hv_jaw_options[1][5]:=frame_2nd_rail.include_checkbox2.Checked;     // include key on outer jaw
+
+                        //  hv_jaw_options[2..3] other rails in chair nyi
+
+                end;//with
+
+                sv_str:=current_shove_str;
+
+              end;//with
+
+              redraw(False);             // update labels
+
+              shove_buttons(True,0,n);
+
+              do_chair_selected(customizing_rail);   // in case reset
+            end;
+
+  end;//with form
 end;
 //______________________________________________________________________________
 

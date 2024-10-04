@@ -1,7 +1,7 @@
 object help_form: Thelp_form
-  Left = 21
+  Left = 816
   Height = 680
-  Top = 20
+  Top = 482
   Width = 530
   HorzScrollBar.Smooth = True
   HorzScrollBar.Tracking = True
@@ -14,7 +14,7 @@ object help_form: Thelp_form
   Color = 15269887
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -39
+  Font.Height = -49
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   FormStyle = fsStayOnTop
@@ -88,22 +88,14 @@ object help_form: Thelp_form
     ClientHeight = 98
     ClientWidth = 530
     Color = 15263968
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
     ParentBackground = False
     ParentColor = False
+    ParentFont = False
     TabOrder = 0
-    object help_top_label: TLabel
-      Left = 6
-      Height = 35
-      Top = 38
-      Width = 505
-      AutoSize = False
-      Caption = 'Use the scroll bars or arrow keys to read all of these notes.  Drag a corner to enlarge this window.  Text can be selected with the mouse for copying.  Right-click for options.'
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Arial'
-      ParentFont = False
-      WordWrap = True
-    end
     object index_label: TLabel
       Left = 20
       Height = 25
@@ -177,23 +169,25 @@ object help_form: Thelp_form
       Top = 0
       Width = 206
       Caption = ' scroll  with  &arrow  keys :  '
-      ClientHeight = 16
+      ClientHeight = 17
       ClientWidth = 202
+      Color = 15263968
       Font.Color = clBlack
-      Font.Height = -13
+      Font.Height = -12
       Font.Name = 'Arial'
       Font.Style = [fsBold]
       ParentBackground = False
+      ParentColor = False
       ParentFont = False
       TabOrder = 6
       object slow_scroll_radiobutton: TRadioButton
-        Left = 4
+        Left = 12
         Height = 20
-        Top = 3
-        Width = 50
+        Top = -2
+        Width = 48
         Caption = '&slow'
         Font.Color = clBlack
-        Font.Height = -13
+        Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentFont = False
@@ -201,13 +195,13 @@ object help_form: Thelp_form
         OnClick = slow_scroll_radiobuttonClick
       end
       object fast_scroll_radiobutton: TRadioButton
-        Left = 142
+        Left = 150
         Height = 20
-        Top = 3
+        Top = -2
         Width = 43
         Caption = '&fast'
         Font.Color = clBlack
-        Font.Height = -13
+        Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentFont = False
@@ -215,14 +209,14 @@ object help_form: Thelp_form
         OnClick = fast_scroll_radiobuttonClick
       end
       object gentle_scroll_radiobutton: TRadioButton
-        Left = 70
+        Left = 78
         Height = 20
-        Top = 3
-        Width = 61
+        Top = -2
+        Width = 56
         Caption = 'g&entle'
         Checked = True
         Font.Color = clBlack
-        Font.Height = -13
+        Font.Height = -12
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentFont = False
@@ -264,9 +258,9 @@ object help_form: Thelp_form
       ParentFont = False
       TabOrder = 7
       object web_label: TLabel
-        Left = 0
+        Left = 4
         Height = 15
-        Top = 4
+        Top = 10
         Width = 360
         Alignment = taRightJustify
         AutoSize = False
@@ -278,11 +272,11 @@ object help_form: Thelp_form
       end
       object go_companion_label: TLabel
         Cursor = crHandPoint
-        Left = 362
+        Left = 366
         Height = 16
         Hint = ' go  to  Templot  web  site '
-        Top = 3
-        Width = 162
+        Top = 9
+        Width = 160
         AutoSize = False
         Caption = 'Templot  Companion  >>>'
         Font.Color = clBlue
@@ -354,6 +348,19 @@ object help_form: Thelp_form
       ShowHint = True
       TabOrder = 4
       OnClick = pdf_buttonClick
+    end
+    object help_top_label: TLabel
+      Left = 8
+      Height = 30
+      Top = 40
+      Width = 474
+      AutoSize = False
+      Caption = 'Use the scroll bars or arrow keys to read all of these notes.  Drag a corner to enlarge this window.  Text can be selected with the mouse for copying.  Right-click for options.'
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Arial'
+      ParentFont = False
+      WordWrap = True
     end
   end
   object more_button: TButton

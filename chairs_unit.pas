@@ -572,7 +572,8 @@ type
 
               AA_slab_plinth_thick:extended;  // 244e
 
-              chair_plinth_spacing:extended;
+              chair_plinth_spacing_sides:extended;
+              chair_plinth_spacing_ends:extended;   // 556a
 
               chair_edge_thick:extended;
 
@@ -1230,7 +1231,8 @@ begin
     SC_CC_chair_edge_thick:=0.375;
     X_chair_edge_thick:=0.375;
 
-    chair_plinth_spacing:=1.0;  // from chair outline to edge of plinth
+    chair_plinth_spacing_sides:=1.0;  // from chair outline to edge of plinth
+    chair_plinth_spacing_ends:=1.0;   // from chair outline to edge of plinth  556a
 
     seat_thickness:=1.75;     // seating thickness under rail
 
@@ -1615,8 +1617,6 @@ begin
 
   chair_frames[48]:=frame_SDP;
   chair_frames[49]:=frame_SDS;
-
-
 
 
 end;

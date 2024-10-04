@@ -13,7 +13,7 @@ object shove_timber_form: Tshove_timber_form
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -364
+  Font.Height = -455
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnClose = FormClose

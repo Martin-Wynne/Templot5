@@ -205,7 +205,7 @@ begin
 
     WriteFloat('dropper_ridge_spacing_top_mm',dropper_ridge_spacing_top_mm,0);       // 555b
     WriteFloat('dropper_ridge_spacing_bottom_mm',dropper_ridge_spacing_bottom_mm,0); // 555b
-    WriteFloat('dropper_ridge_height',dropper_ridge_height,0);                       // 555b
+    WriteFloat('dropper_ridge_height_mm',dropper_ridge_height_mm,0);                 // 556a
 
     // connector clips
 
@@ -299,7 +299,7 @@ begin
     WriteFloat('snap_plug_total_depth',snap_plug_total_depth,0);                     // 555b
     WriteFloat('snap_plug_extended_depth',snap_plug_extended_depth,0);               // 555b
 
-    WriteFloat('snap_plug_overcut',snap_plug_overcut,0);                             // 555b
+    WriteFloat('snap_plug_overcut_mm',snap_plug_overcut_mm,0);                       // 556a
     WriteFloat('snap_plug_overcut_depth',snap_plug_overcut_depth,0);                 // 555b
 
     WriteFloat('snap_plug_inset_clear_upper',snap_plug_inset_clear_upper,0);         // 234e
@@ -690,8 +690,8 @@ begin
     if NodeIndexOf(FindNode('dropper_ridge_spacing_bottom_mm'))<>-1
        then dropper_ridge_spacing_bottom_mm:=ReadFloat('dropper_ridge_spacing_bottom_mm',0.6);  // 555b
 
-    if NodeIndexOf(FindNode('dropper_ridge_height'))<>-1
-       then dropper_ridge_height:=ReadFloat('dropper_ridge_height',2.16);                       // 555b
+    if NodeIndexOf(FindNode('dropper_ridge_height_mm'))<>-1
+       then dropper_ridge_height_mm:=ReadFloat('dropper_ridge_height_mm',2.16);                 // 556a
 
 
     // brick connector clips
@@ -866,8 +866,8 @@ begin
 
     // snap fit plugs
 
-    if NodeIndexOf(FindNode('snap_plug_overcut'))<>-1
-       then snap_plug_overcut:=ReadFloat('snap_plug_overcut',3/8);                            // 555b
+    if NodeIndexOf(FindNode('snap_plug_overcut_mm'))<>-1
+       then snap_plug_overcut_mm:=ReadFloat('snap_plug_overcut_mm',0);                        // 556a
 
     if NodeIndexOf(FindNode('snap_plug_overcut_depth'))<>-1
        then snap_plug_overcut_depth:=ReadFloat('snap_plug_overcut_depth',2.5);                // 555b
@@ -1167,16 +1167,16 @@ begin
     if NodeIndexOf(FindNode('resin_shrinkage_z'))<>-1
        then resin_shrinkage_z:=ReadFloat('resin_shrinkage_z',0);                              // 555b
 
-    // minibo backlash correction
+    // 3D printer backlash correction
 
     if NodeIndexOf(FindNode('bl_x'))<>-1
-       then bl_x:=ReadFloat('bl_x',0.3);                                                      // 555b
+       then bl_x:=ReadFloat('bl_x',0);                                                      // 555b
 
     if NodeIndexOf(FindNode('bl_y'))<>-1
-       then bl_y:=ReadFloat('bl_y',0.3);                                                      // 555b
+       then bl_y:=ReadFloat('bl_y',0);                                                      // 555b
 
     if NodeIndexOf(FindNode('bl_z'))<>-1
-       then bl_z:=ReadFloat('bl_z',0.4);                                                      // 555b
+       then bl_z:=ReadFloat('bl_z',0);                                                      // 555b
 
     // rotate STL by
 

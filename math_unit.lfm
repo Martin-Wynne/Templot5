@@ -12,7 +12,7 @@ object math_form: Tmath_form
   Color = 14215400
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -20
+  Font.Height = -13
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True

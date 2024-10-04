@@ -38,7 +38,27 @@
 		Add draw chair labels option.
 		Add omit S1 chair labels option.
 	sc 20-sep-2024 556.
-	
+
+
+ SC 22-SEP-2024 556
+  print_chair_label_font
+ sc 22-sep-2024 556.
+
+ SC 24-SEP-2024 556
+  remove textout(0,0,'')
+ sc 24-sep-2024 556
+
+ SC 28-SEP-2024 556
+  use Geometric pen and Pen.Endcap
+ sc 28-SEP-2024 556
+
+ SC 29-SEP-2024
+  fix background chair outline bug
+ sc 29-sep-2024
+
+ SC 01-OCT-2024 556
+  use printrail_infill_colour_bk instead of hardcoded colour
+ sc 01-oct-2024 556
 ================================================================================
 """
 *)
@@ -137,6 +157,7 @@ begin
 
             printrail_infill_colour_cu:=clWhite;      // !!! used for solid infill.
             printrail_infill_colour_bg:=clWhite;      // !!! used for solid infill.
+            printrail_infill_colour_bk:=clWhite;      // SC 01-OCT-2024 556 // !!! used for solid infill.
 
             printtimber_infill_colour:=clBlack;       // for hatched infill
             printgrid_colour:=clBlack;
@@ -174,6 +195,7 @@ begin
 
             printrail_infill_colour_cu:=calc_intensity(save_priccu);
             printrail_infill_colour_bg:=calc_intensity(save_pricbg);
+            printrail_infill_colour_bk:=calc_intensity(save_pricbk);   // SC 01-OCT-2024 556
 
             printtimber_infill_colour:=calc_intensity(save_ptic);
             printgrid_colour:=calc_intensity(save_grc);
@@ -340,8 +362,8 @@ begin
     text_rect.Bottom:=text_rect.Top+TextHeight(str);
 
     Brush.Color:=clWhite;
-    // sbc Brush.Style:=bsSolid;
-    Brush.Style:=bsClear;
+    // SC 22-SEP-2024 556a
+    Brush.Style:=bsClear;   // replaces bsSolid
 
     FillRect(text_rect);
   end;//with
@@ -387,6 +409,10 @@ var
   grid_label_str:string;
 
   img_bgnd_colour:TColor;  // 206a
+
+  pen_pattern: TPenPattern;
+
+
 
               //////////////////////////////////////////////////////////////////
 
@@ -466,14 +492,14 @@ var
                               end;//case
                             end;
 
-					// SC 20-SEP-2024 556
-		    if print_settings_form.output_chair_labels_checkbox.Checked=False
-		       then begin
+	                  // SC 20-SEP-2024 556
+             		    if print_settings_form.output_chair_labels_checkbox.Checked=False
+              		       then begin
                               case mark_code of
                                  461..478: CONTINUE;     // no chair labels wanted 
-			      end;//case
+                     			      end;//case
                             end;
-					// sc 20-SEP-2024 556		
+              					// sc 20-SEP-2024 556
 
                    if print_settings_form.output_chairs_checkbox.Checked=False
                        then begin
@@ -489,14 +515,12 @@ var
                               end;//case
                             end;
 							
-			// SC 20-SEP-2024 556
-
+		                 	// SC 20-SEP-2024 556
                     //if ((mark_code=203) or (mark_code=233) or (mark_code=293)) and (i<(mark_index-1))     // timber infill
                     // include chair outline codes 
-
                     if (i<(mark_index-1)) and ((mark_code=203) or (mark_code=233) or (mark_code=293) or	    // timber infill
-		       (mark_code=484) or (mark_code=485) or (mark_code=487) or		                    // chair outlines
-		       (mark_code=493) or (mark_code=494) or (mark_code=497))		                    // chair outlines
+		                     (mark_code=484) or (mark_code=485) or (mark_code=487) or		                           // chair outlines
+		                     (mark_code=493) or (mark_code=494) or (mark_code=497))		                             // chair outlines
                        then begin
                               ptr_2nd:=Pointer(intarray_get(marks_list_ptr,i+1));        // pointer to the second infill Tmark record.
                               if ptr_2nd=nil then BREAK;
@@ -506,27 +530,26 @@ var
                               p3:=ptr_2nd^.p1;              // x3,y3 in  1/100ths mm
                               p4:=ptr_2nd^.p2;              // x4,y4 in  1/100ths mm
 							  
-							  // SC 20-SEP-2024 556
-							  // chair outline extra marks
-
+							                       // SC 20-SEP-2024 556
+							                       // chair outline extra marks
                               if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)    // another 12 marks for radiused corners
-				 then begin
-					n:=0;
-					nn:=2;
+                                 then begin
+                                   					n:=0;
+                                   					nn:=2;
 
-					repeat
+                                   					repeat
                                           ptr_3rd:=Pointer(intarray_get(marks_list_ptr,i+nn));        // pointer to the next infill Tmark record.
-					  if ptr_3rd=nil then EXIT;
+                                   					  if ptr_3rd=nil then EXIT;
 
-					  p[n]:=ptr_3rd^.p1;       // 1/100ths mm
-					  p[n+1]:=ptr_3rd^.p2;     // 1/100ths mm
+                                   					  p[n]:=ptr_3rd^.p1;       // 1/100ths mm
+                                   					  p[n+1]:=ptr_3rd^.p2;     // 1/100ths mm
 
-					  INC(n);   //+2
-					  INC(n);
-					  INC(nn);  //+1
+                                    					  INC(n);   //+2
+                                   					  INC(n);
+                                   					  INC(nn);  //+1
                                         until n>26;     // was 22
-				      end;
-					  // sc 20-sep-2024 556
+				                                  end;
+                       					  // sc 20-sep-2024 556
 							  
                             end
                        else ptr_2nd:=nil;    // keep compiler happy.
@@ -544,7 +567,8 @@ var
 
                                         Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                                         Brush.Style:=bsClear;
-                                        TextOut(0,0,'');
+                                        // SC 24-SEP-2024 556
+                                        // TextOut(0,0,' ');
 
                                         if export_black_white=True
                                            then Pen.Color:=clBlack
@@ -635,13 +659,13 @@ var
                                         if check_limits(move_to, line_to)=True then begin swap_move_to(on_canvas,canvas_height,move_to.X, move_to.Y); swap_line_to(on_canvas,canvas_height,line_to.X, line_to.Y); end;
                                       end;
 									  
-							  // SC 20-SEP-2024 556
+							                       // SC 20-SEP-2024 556
                               //if ((mark_code=203) or (mark_code=233) or (mark_code=293))  and (ptr_2nd<>nil)      // timber infill...
 
-			      if (ptr_2nd<>nil) and ((mark_code=203) or (mark_code=233) or (mark_code=293) or       // timber infill...
-				 (mark_code=484) or (mark_code=485) or (mark_code=487) or		            // chair outlines..
-				 (mark_code=493) or (mark_code=494) or (mark_code=497))			            // chair outlines
-							  // sc 20-sep-2024 556						
+			                           if (ptr_2nd<>nil) and ((mark_code=203) or (mark_code=233) or (mark_code=293) or       // timber infill...
+                  		          		 (mark_code=484) or (mark_code=485) or (mark_code=487) or		            // chair outlines..
+                  				           (mark_code=493) or (mark_code=494) or (mark_code=497))			            // chair outlines
+						           	            // sc 20-sep-2024 556
                                  then begin
                                         infill_points[0].X:=Round((p1.Y+ypd-grid_left)*scaw_out)+page_left_dots;
                                         infill_points[0].Y:=Round((p1.X-grid_top)*scal_out)+page_top_dots;
@@ -656,132 +680,127 @@ var
                                         infill_points[3].Y:=Round((p4.X-grid_top)*scal_out)+page_top_dots;
 
                                         // SC 20-SEP-2024 556 chair outline marks
-
                                         if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)         // 221a  chair outlines
                                            then begin
                                                   for n:=0 to 27 do begin               // 221a  was 23
-                                                    infill_points[n+4].X:=Round(limits(h_minint,h_maxint,(p[n].Y+ypd-grid_left)*scaw_out,dummy_i))+page_left_dots;
-                                                    infill_points[n+4].Y:=Round(limits(h_minint,h_maxint,(p[n].X-grid_top)*scal_out,dummy_i))+page_top_dots;
-                                                    end;   //next
+                                                                      infill_points[n+4].X:=Round(limits(h_minint,h_maxint,(p[n].Y+ypd-grid_left)*scaw_out,dummy_i))+page_left_dots;
+                                                                      infill_points[n+4].Y:=Round(limits(h_minint,h_maxint,(p[n].X-grid_top)*scal_out,dummy_i))+page_top_dots;
+                                                                    end;   //next
                                                 end;
                                         // sc 20-SEP-2024 556 chair outline marks
 										
                                         if (check_limits(infill_points[0],infill_points[1])=True) and (check_limits(infill_points[2],infill_points[3])=True)
-                                           then begin
-                                                  Pen.Width:=1;
-                                                  Pen.Style:=psSolid;
-                                                  Pen.Mode:=pmCopy;
+                                        then begin
+                                               Pen.Width:=1;
+                                               Pen.Style:=psSolid;
+                                               Pen.Mode:=pmCopy;
 
-                                                  Pen.Color:=clWhite;  // so no overdrawing of timber outlines.
+                                               Pen.Color:=clWhite;  // so no overdrawing of timber outlines.
 
-                                                  if export_black_white=True
-                                                     then Brush.Color:=clBlack
-                                                     else Brush.Color:=printtimber_infill_colour;
+                                               if export_black_white=True
+                                               then Brush.Color:=clBlack
+                                               else Brush.Color:=printtimber_infill_colour;
 
-                                                  case print_timb_infill_style of
-                                                                  0: CONTINUE;
-                                                                  1: Brush.Style:=bsFDiagonal;           // hatched. Forward diagonal for the foreground (control template).
-                                                                  2: Brush.Style:=bsDiagCross;
+                                               case print_timb_infill_style of
+                                                    0: CONTINUE;
+                                                    1: Brush.Style:=bsFDiagonal;           // hatched. Forward diagonal for the foreground (control template).
+                                                    2: Brush.Style:=bsDiagCross;
 
-                                                                  3: if export_black_white=True
-                                                                        then CONTINUE  // 209c now no fill   was Brush.Style:=bsFDiagonal
-                                                                        else Brush.Style:=bsSolid;
+                                                    3: if export_black_white=True
+                                                       then CONTINUE  // 209c now no fill   was Brush.Style:=bsFDiagonal
+                                                       else Brush.Style:=bsSolid;
 
-                                                                  4: begin                         // blank.
-                                                                       Brush.Style:=bsSolid;
-                                                                       Brush.Color:=clWhite;       // overide.
-                                                                     end;
-                                                                else CONTINUE;
-                                                  end;//case
+                                                    4: begin                         // blank.
+                                                          Brush.Style:=bsSolid;
+                                                          Brush.Color:=clWhite;       // overide.
+                                                       end;
+                                                    else CONTINUE;
+                                               end;//case
 												  
-                                                  // SC 20-SEP-2024 556 start
-                                                  // chair outline overides...
-                                                  // swap_polygon(on_canvas,canvas_height,infill_points);
+                                               // SC 20-SEP-2024 556 start
+                                               // chair outline overides...
+                                               // swap_polygon(on_canvas,canvas_height,infill_points);
+                                               if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)        // chair outlines
+                                               then begin
+                                                      Pen.Color:=printchair_colour;
+                                                      Brush.Color:=printchair_infill_colour;
+                                                      Brush.Style:=bsSolid;
+                                                    end;
 
-                                                  if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)        // chair outlines
-                                                     then begin
-                                                            Pen.Color:=printchair_colour;
-                                                            Brush.Color:=printchair_infill_colour;
-                                                            Brush.Style:=bsSolid;
-                                                          end;
+                                                // 241c switch-drive rib ..
 
-                                                  // 241c switch-drive rib ..
+                                                if mark_code=487
+                                                then begin
+                                                       Pen.Color:=clBlack;
+                                                       Brush.Color:=$00D0D0E0;
+                                                       Brush.Style:=bsDiagCross;
+                                                     end;
 
-                                                  if mark_code=487
-                                                     then begin
-                                                            Pen.Color:=clBlack;
-                                                            Brush.Color:=$00D0D0E0;
-                                                            Brush.Style:=bsDiagCross;
-                                                          end;
-
-                                                  if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)
-                                                     then swap_polygon(on_canvas,canvas_height,slice(infill_points,28))      // chair outline with radiused corners
-                                                     else swap_polygon(on_canvas,canvas_height,slice(infill_points,4));      // timber infill, chair with square corners
-												  // sc 20-SEP-2024 556
-                                                end;
+                                                if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)
+                                                then swap_polygon(on_canvas,canvas_height,slice(infill_points,28))      // chair outline with radiused corners
+                                                else swap_polygon(on_canvas,canvas_height,slice(infill_points,4));      // timber infill, chair with square corners
+												                                    // sc 20-SEP-2024 556
+                                             end;
                                       end;
 
                               // SC 20SEP-2024    556
-
                               if (mark_code>=461) and (mark_code<=478) and (print_settings_form.output_chair_labels_checkbox.Checked=True)    // Use Output settings for PDF and print
-                                 then begin
-                                        list_chair_code:=ptr_1st^.dxf_chair_code;    // MW 03-08-2024  555a
-                                        chair_label_str:=get_chair_str(list_chair_code);
+                              then begin
+                                     list_chair_code:=ptr_1st^.dxf_chair_code;    // MW 03-08-2024  555a
+                                     chair_label_str:=get_chair_str(list_chair_code);
 
-                                        if (list_chair_code=1) and (print_settings_form.output_omit_S1_labels_checkbox.checked=True)
-                                           then CONTINUE;
+                                     if (list_chair_code=1) and (print_settings_form.output_omit_S1_labels_checkbox.checked=True)
+                                     then CONTINUE;
 
-                                        if list_chair_code=14      // over-ride check flare-in from "CCL/R"
-                                           then case mark_code of
-                                                  461: chair_label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
-                                                  471: chair_label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
-                                                end;//case
+                                     if list_chair_code=14      // over-ride check flare-in from "CCL/R"
+                                     then case mark_code of
+                                               461: chair_label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                               471: chair_label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
+                                          end;//case
 
-                                        if list_chair_code=16      // over-ride check flare-out from "CCR/L"
-                                           then case mark_code of
-                                                  461: chair_label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
-                                                  471: chair_label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
-                                                end;//case
+                                     if list_chair_code=16      // over-ride check flare-out from "CCR/L"
+                                     then case mark_code of
+                                               461: chair_label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                               471: chair_label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
+                                          end;//case
 
-                                        p1:=ptr_1st^.p1;    // x1,y1  1/100ths mm
-                                        p2:=ptr_1st^.p2;    // x2,y2  1/100ths mm
+                                     p1:=ptr_1st^.p1;    // x1,y1  1/100ths mm
+                                     p2:=ptr_1st^.p2;    // x2,y2  1/100ths mm
 
-                                        move_to.Y:=Round((p1.Y+ypd-grid_left)*scaw_out)+page_left_dots;
-                                        move_to.X:=Round((p1.X-grid_top)*scal_out)+page_top_dots;
+                                     move_to.Y:=Round((p1.Y+ypd-grid_left)*scaw_out)+page_left_dots;
+                                     move_to.X:=Round((p1.X-grid_top)*scal_out)+page_top_dots;
 
-                                        Font.Assign(set_font('Arial',8,[],clBlack));  // 556  8 init
+                                     Font.Assign(print_chair_labels_font);  // 556  8 init
 
-                                        Font.Height:=0-Round(3.5*inscale*100*scal_out);   // 556 3.5" high text arbitrary
+                                     Font.Height:=0-Round(3.5*inscale*100*scal_out);   // 556 3.5" high text arbitrary
 
-                                        half_stringwidth:=TextWidth(chair_label_str) div 2;
-                                        half_stringheight:=TextHeight(chair_label_str) div 2;
+                                     half_stringwidth:=TextWidth(chair_label_str) div 2;
+                                     half_stringheight:=TextHeight(chair_label_str) div 2;
 
-                                          // draw the rectangle first...
+                                     // draw the rectangle first...
 
-                                        Brush.Style:=bsSolid;
-                                        Brush.Color:=printchair_label_infill_colour;
+                                     Brush.Style:=bsSolid;
+                                     Brush.Color:=printchair_label_infill_colour;
 
-                                        Pen.Width:=1;
-                                        Pen.Mode:=pmCopy;
-                                        Pen.Style:=psSolid;
-                                        Pen.Color:=Font.Color;
+                                     Pen.Width:=1;
+                                     Pen.Mode:=pmCopy;
+                                     Pen.Style:=psSolid;
+                                     Pen.Color:=Font.Color;
 
-                                        RoundRect(move_to.X-half_stringwidth-Round(ABS(Font.Height/2)), canvas_height-(move_to.Y-half_stringheight-2),
-                                                  move_to.X+half_stringwidth+Round(ABS(Font.Height/2)), canvas_height-(move_to.Y+half_stringheight+2),
-                                                  Round(ABS(Font.Height/2.5)), Round(ABS(Font.Height/2.5)) );   // font/2 padding, font/2.5 corner rads, arbitrary
+                                     RoundRect(move_to.X-half_stringwidth-Round(ABS(Font.Height/2)), canvas_height-(move_to.Y-half_stringheight-2),
+                                               move_to.X+half_stringwidth+Round(ABS(Font.Height/2)), canvas_height-(move_to.Y+half_stringheight+2),
+                                               Round(ABS(Font.Height/2.5)), Round(ABS(Font.Height/2.5)) );   // font/2 padding, font/2.5 corner rads, arbitrary
 
-                                          // then label text...
+                                     // then label text...
 
-                                        Brush.Style:=bsClear;
-                                        Font.Color:=clBlack;
+                                     Brush.Style:=bsClear;
+                                     Font.Color:=clBlack;
 
-                                        TextOut(move_to.X-half_stringwidth, canvas_height-(move_to.Y+half_stringheight), chair_label_str);
+                                     TextOut(move_to.X-half_stringwidth, canvas_height-(move_to.Y+half_stringheight), chair_label_str);
 
-                                        Font.Assign(print_labels_font);      // reset for grid labels
-                                      end;
-
-                              // sc 20-sep-2024
-			      // sbc part 1 end
+                                     Font.Assign(print_labels_font);      // reset for grid labels
+                                   end;
+                                   // sc 20-sep-2024
 
                             end;//codes
 
@@ -1405,6 +1424,11 @@ begin
 
       Brush.Style:=bsSolid;
 
+      // SC 28-SEP-2024 556
+      Pen.Cosmetic:=False;     // use Geometric Pen
+      Pen.EndCap:=pecFlat;     // Flat endcap instead of default round endcap
+      // sc 28-sep-2024 556
+
       case output_code of
         1,3: begin                           // bitmaps
                Brush.Color:=img_bgnd_colour;
@@ -1454,8 +1478,17 @@ begin
                               Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                               Brush.Style:=bsSolid;
 
+                              { // for bigger dots we can use psPattern
+                              Pen.Style := psPattern;
+                              SetLength(pen_pattern,2);
+                              pen_pattern[0] := 3;  //line [pixels]
+                              pen_pattern[1] := 3;  //space [pixels]
+                              Pen.SetPattern(pen_pattern);
+                              Pen.Width := 3;}
+
                               Pen.Style:=psDot;
-                              pen_width:=1;         // must be 1 for dots.
+                              // pen_width:=1;         // must be 1 for dots.
+                              pen_width:=printgrid_wide;
                             end
                        else begin
                               Pen.Style:=psSolid;
@@ -1592,6 +1625,7 @@ begin
 
           if pad_form.grid_in_front_of_shapes_menu_entry.Checked=False then export_bgnd_shapes(on_canvas,canvas_height,grid_left,grid_top,output_code);   // first print all background shapes if not already done.
 
+
           export_bgnd(on_canvas,canvas_height,grid_left,grid_top,output_code);       // now print any background templates.
 
                    //  control template - draw timbers and all marks except rail joints...
@@ -1600,6 +1634,8 @@ begin
           and (output_diagram_mode=False)  // 093a  no control template if diagram mode
           and (turnoutx>0)                 // not if invalidated
              then begin
+
+
 
                     if marks_list_ptr=nil then EXIT; //BREAK;       // pointer to marks list not valid, exit all sheets.
 
@@ -1612,7 +1648,8 @@ begin
 
                               Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                               Brush.Style:=bsClear;
-                              TextOut(0,0,'');
+                              // SC 24-SEP-2024 556
+                              // TextOut(0,0,' ');
 
                               Pen.Mode:=pmCopy;
 
@@ -1883,7 +1920,7 @@ begin
                                      Brush.Color:=Pen.Color;
                                      Brush.Style:=bsDiagCross;  // cross-hatched.
 
-                                     swap_text_out(on_canvas,canvas_height,0,0,'');    // !!! Delphi bug? This seems to be necessary before dotted lines will draw properly.
+                                     swap_text_out(on_canvas,canvas_height,0,0,' ');    // !!! Delphi bug? This seems to be necessary before dotted lines will draw properly.
 
                                      if shape_code=0 then Pen.Style:=psDot;  // dashed line.
                                    end;
@@ -1956,7 +1993,7 @@ begin
                                                                           Brush.Color:=clWhite;
                                                                           Pen.Color:=clBlack;
                                                                           Font.Color:=clBlack;  // !!!! including this.
-                                                                          swap_text_out(on_canvas,canvas_height,0,0,'');      // !!! Delphi bug?
+                                                                          swap_text_out(on_canvas,canvas_height,0,0,' ');      // !!! Delphi bug?
                                                                                                                               // TextOut obviously initialises some background mask property which I have been unable
                                                                                                                               // to find or set any other way.
                                                                         end;
@@ -2108,6 +2145,22 @@ var
   //single_colour_flag:boolean;
   i,n:integer;
 
+  // SC 22-SEP-2024 556
+  p:array[0..27] of TPoint;
+
+  ptr_1st,ptr_2nd:^Tmark;          // pointers to a Tmark record.   ###
+
+  ptr_3rd:^Tmark;
+
+  pn,pnn:integer;
+
+  dummy_i:integer;
+
+  list_chair_code:integer;   // MW 03-08-2024  555a
+  chair_label_str:string;
+  font_height,half_stringwidth,half_stringheight:integer;
+  // sc 22-sep-2024 556
+
   move_to,line_to:TPoint;
   p1,p2,p3,p4: TPoint;
 
@@ -2118,7 +2171,8 @@ var
 
   radcen_arm:extended;
 
-  infill_points:array [0..3] of TPoint;
+  // infill_points:array [0..3] of TPoint;
+  infill_points:array [0..34] of TPoint;   // SC 22-SEP-2024 556
 
   fontsize:extended;
   num_str:string;
@@ -2224,17 +2278,17 @@ begin
                     end;//case
                   end;
 
-		  // SC 20-SEP-2024 556
-		  if print_settings_form.output_chair_labels_checkbox.Checked=False
-		     then begin
+		        // SC 20-SEP-2024 556
+		        if print_settings_form.output_chair_labels_checkbox.Checked=False
+		           then begin
                     case code of
                        461..478: CONTINUE;     // no chair labels wanted 
-					end;//case
+					               end;//case
                   end;
-		  // sc 20-SEP-2024 556		
+		        // sc 20-SEP-2024 556
 
 
-         if print_settings_form.output_chairs_checkbox.Checked=False
+          if print_settings_form.output_chairs_checkbox.Checked=False
              then begin
                     case code of
                        480..499: CONTINUE;     // no chair outlines wanted  221a
@@ -2250,7 +2304,10 @@ begin
 
           if ((code=5) or (code=55) or (code=95)) and (out_factor<>1.0) then CONTINUE;   // reduced ends are meaningless if not full-size.
 
-          if ((code=203) or (code=233) or (code=293)) and (i<array_max)         // timber infill
+ 			      // SC 13-SEP-2024 556 add chair outlines
+          //if ((code=203) or (code=233) or (code=293)) and (i<array_max)         // timber infill
+          if ((code=203) or (code=233) or (code=293) or (code=484) or (code=485) or (code=487) or (code=493) or (code=494) or (code=497)) and (i<array_max)        // timber infill...
+          // sc 13-sep-2024 556
              then begin
                      p1.X:=intarray_get(list_bgnd_marks[0],i);    // x1,y1 in  1/100ths mm
                      p1.Y:=intarray_get(list_bgnd_marks[1],i);
@@ -2263,6 +2320,29 @@ begin
 
                      p4.X:=intarray_get(list_bgnd_marks[2],i+1);    // x4,y4 in  1/100ths mm
                      p4.Y:=intarray_get(list_bgnd_marks[3],i+1);
+
+                     // SC 13-SEP-2024 556 add chair outlines
+                     if (code=484) or (code=485) or (code=493) or (code=494) or (code=497)    // another 12 marks for radiused corners
+                        then begin
+                               pn:=0;
+                               // SC 29-SEP-2024 556
+                               // xx:=0;
+                               pnn:=2;
+                               // sc 29-sep-2024 556
+                               repeat
+                                  p[pn].X:=intarray_get(list_bgnd_marks[0],i+pnn);
+                                  p[pn].Y:=intarray_get(list_bgnd_marks[1],i+pnn);
+
+                                  p[pn+1].X:=intarray_get(list_bgnd_marks[2],i+pnn);
+                                  p[pn+1].Y:=intarray_get(list_bgnd_marks[3],i+pnn);
+
+                     				         INC(pn);   //+2
+                     				         INC(pn);
+                     				         INC(pnn);  //+1
+                               until pn>26;     // was 22
+
+                     		      end;
+                     // sc 13-sep-2024 556
                   end
              else begin         // keep compiler happy...
                      p1.X:=0;
@@ -2282,16 +2362,17 @@ begin
              then begin
                     Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                     Brush.Style:=bsClear;
-                    TextOut(0,0,'');
 
+                    // SC 24-SEP-2024 556
+                    // TextOut(0,0,' ');
 
-                     p1.X:=intarray_get(list_bgnd_marks[0],i);    // x1,y1 in  1/100ths mm
-                     p1.Y:=intarray_get(list_bgnd_marks[1],i);
+                    p1.X:=intarray_get(list_bgnd_marks[0],i);    // x1,y1 in  1/100ths mm
+                    p1.Y:=intarray_get(list_bgnd_marks[1],i);
 
-                     p2.X:=intarray_get(list_bgnd_marks[2],i);    // x2,y2 in  1/100ths mm
-                     p2.Y:=intarray_get(list_bgnd_marks[3],i);
+                    p2.X:=intarray_get(list_bgnd_marks[2],i);    // x2,y2 in  1/100ths mm
+                    p2.Y:=intarray_get(list_bgnd_marks[3],i);
 
-                     {if impact>0 then Pen.Width:=1        // impact printer or plotter.
+                    {if impact>0 then Pen.Width:=1        // impact printer or plotter.
                                  else begin}
                                        case code of
                                          1,101: Pen.Width:=printmark_wide;    // guide marks.  switch drive
@@ -2316,7 +2397,8 @@ begin
                          else Pen.Style:=psSolid;   // all the rest.
                     end;//case
 
-                    if Pen.Style<>psSolid then Pen.Width:=1;   // delphi bug? (patterns only work for lines 1 dot wide.)
+                    // SC 29-SEP-2024 556
+                    // if Pen.Style<>psSolid then Pen.Width:=1;   // delphi bug? (patterns only work for lines 1 dot wide.)
 
                     if export_black_white=True
                        then Pen.Color:=clBlack
@@ -2395,6 +2477,7 @@ begin
                             end;
 
                     if (code=203) or (code=233) or (code=293)       // timber infill...
+   		               or (code=484) or (code=485) or (code=487) or (code=493) or (code=494) or (code=497)   // SC 22-SEP-2024 chair outlines
                        then begin
                               infill_points[0].X:=Round((p1.Y-grid_left)*scaw_out)+page_left_dots;
                               infill_points[0].Y:=Round((p1.X-grid_top)*scal_out)+page_top_dots;
@@ -2407,6 +2490,18 @@ begin
 
                               infill_points[3].X:=Round((p4.Y-grid_left)*scaw_out)+page_left_dots;
                               infill_points[3].Y:=Round((p4.X-grid_top)*scal_out)+page_top_dots;
+
+                              // SC 22-SEP-2024 556 chair outlines
+                              if (code=484) or (code=485) or (code=493) or (code=494) or (code=497)         // 221a  chair outlines
+                                 then begin
+                                        for pn:=0 to 27
+                                        do begin               // 221a  was 23
+                                             //infill_points[pn+4].X:=Round(limits(h_minint,h_maxint,(p[pn].Y+ypd-grid_left)*scaw_out,dummy_i))+page_left_dots;
+                                             infill_points[pn+4].X:=Round(limits(h_minint,h_maxint,(p[pn].Y-grid_left)*scaw_out,dummy_i))+page_left_dots;
+                                             infill_points[pn+4].Y:=Round(limits(h_minint,h_maxint,(p[pn].X-grid_top)*scal_out,dummy_i))+page_top_dots;
+                                           end;   //next
+                                      end;
+                              // sc 22-SEP-2024 556 chair outlines
 
                               if (check_limits(infill_points[0],infill_points[1])=True) and (check_limits(infill_points[2],infill_points[3])=True)
                                  then begin
@@ -2441,9 +2536,98 @@ begin
                                                       else CONTINUE;
                                         end;//case
 
-                                        swap_polygon(on_canvas,canvas_height,infill_points);
+
+                                        // SC 22-SEP-2024 556
+                                        // swap_polygon(on_canvas,canvas_height,infill_points);
+                                        // chair outline overides...
+                                        if (code=484) or (code=485) or (code=493) or (code=494) or (code=497)        // chair outlines
+                                           then begin
+                                                  Pen.Color:=timber_colour;
+                                                  Brush.Color:=printchair_infill_colour;	// SC 13-SEP-2024 556
+                                                  Brush.Style:=bsSolid;
+                                           end;
+
+                                        // 241c switch-drive rib ..
+
+                                        if code=487
+                                           then begin
+                                                  Pen.Color:=clBlack;
+                                                  Brush.Color:=$00D0D0E0;
+                                                  Brush.Style:=bsDiagCross;
+                                           end;
+
+                                        if (code=484) or (code=485) or (code=493) or (code=494) or (code=497)
+                                           then swap_polygon(on_canvas,canvas_height,Slice(infill_points,28))      // chair outline with radiused corners
+                                           else swap_polygon(on_canvas,canvas_height,Slice(infill_points,4));      // timber infill, chair with square corners
+                                        // sc 22-SEP-2024 556
                                       end;
                             end;
+
+                    // SC 22-SEP-2024 556
+                    if (code>=461) and (code<=478) and
+                       (print_settings_form.output_chair_labels_checkbox.Checked=True)    // MW 03-08-2024  555a
+                       then begin
+
+                            list_chair_code:=intarray_get(list_bgnd_marks[6],i);  // 237a   chair code for this mark if it's a 3D chair
+
+                            chair_label_str:=get_chair_str(list_chair_code);
+
+                            if (list_chair_code=1) and (print_settings_form.output_omit_S1_labels_checkbox.checked=True)
+                               then CONTINUE;
+
+                            if list_chair_code=14      // over-ride check flare-in from "CCL/R"
+                               then case code of
+                                    461: chair_label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                    471: chair_label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
+                               end;
+
+                            if list_chair_code=16      // over-ride check flare-out from "CCR/L"
+                               then case code of
+                                    461: chair_label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                    471: chair_label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
+                               end;
+
+                            p1.X:=intarray_get(list_bgnd_marks[0],i);    // x1,y1 in  1/100ths mm
+                            p1.Y:=intarray_get(list_bgnd_marks[1],i);
+
+                            p2.X:=intarray_get(list_bgnd_marks[2],i);    // x2,y2 in  1/100ths mm
+                            p2.Y:=intarray_get(list_bgnd_marks[3],i);
+
+                            move_to.y:=Round((p1.Y-grid_left)*scaw_out)+page_left_dots;
+                            move_to.x:=Round((p1.X-grid_top)*scal_out)+page_top_dots;
+
+                            Font.Assign(print_chair_labels_font);  // 556  8 init
+
+                            Font.Height:=0-Round(3.5*inscale*100*scal_out);   // 556 3.5" high text arbitrary
+
+                            half_stringwidth:=TextWidth(chair_label_str) div 2;
+                            half_stringheight:=TextHeight(chair_label_str) div 2;
+
+                            // draw the rectangle first...
+
+                            Brush.Style:=bsSolid;
+                            Brush.Color:=printchair_label_infill_colour;
+
+                            Pen.Width:=1;
+                            Pen.Mode:=pmCopy;
+                            Pen.Style:=psSolid;
+                            Pen.Color:=Font.Color;
+
+                            RoundRect(move_to.X-half_stringwidth-Round(ABS(Font.Height/2)), canvas_height-(move_to.Y-half_stringheight-2),
+                                      move_to.X+half_stringwidth+Round(ABS(Font.Height/2)), canvas_height-(move_to.Y+half_stringheight+2),
+                                      Round(ABS(Font.Height/2.5)), Round(ABS(Font.Height/2.5)) );   // font/2 padding, font/2.5 corner rads, arbitrary
+
+                            // then label text...
+
+                            Brush.Style:=bsClear;
+                            Font.Color:=clBlack;
+
+                            TextOut(move_to.X-half_stringwidth, canvas_height-(move_to.Y+half_stringheight), chair_label_str);
+
+                            Font.Assign(print_labels_font);      // reset for grid labels
+
+                            end;
+                    // sc 22-sep-2024 556
 
                   end;//other codes
 
@@ -2779,7 +2963,8 @@ var
                                      else begin   // normal rails...
 
                                             if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
-                                               then Brush.Color:=calc_intensity(clGray)
+                                               //then Brush.Color:=calc_intensity(clGray)
+                                               then Brush.Color:=printrail_infill_colour_bk   // SC 01-OCT-2024 556 brick override
                                                else begin
                                                       if fb_kludge_this>0 then Brush.Color:=printrail_infill_colour_cu    // 0.94.a
                                                                           else Brush.Color:=printrail_infill_colour_bg;
@@ -3032,7 +3217,8 @@ var
                                   if Pen.Width<1 then Pen.Width:=1;
 
                                   if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
-                                     then Brush.Color:=calc_intensity(clGray)
+                                     // then Brush.Color:=calc_intensity(clGray)
+                                     then Brush.Color:=printrail_infill_colour_bk    // SC 01-OCT-2024 556 brick override
                                      else begin
                                             if fb_kludge_this>0 then Brush.Color:=printrail_infill_colour_cu    // 0.94.a
                                                                 else Brush.Color:=printrail_infill_colour_bg;
@@ -3553,7 +3739,9 @@ begin          // export background templates...
 
                               Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                               Brush.Style:=bsClear;
-                              TextOut(0,0,'');
+
+                              // SC 24-SEP-2024 556
+                              // TextOut(0,0,' ');
 
                               Pen.Mode:=pmCopy;
 

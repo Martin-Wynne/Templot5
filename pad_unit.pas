@@ -61,6 +61,7 @@ type
     OO3D_menu_entry: TMenuItem;
     pad_menu_bar: TMainMenu;
     main_menu: TMenuItem;
+    minimize_panel: TPanel;
     T2_panel: TPanel;
     print_menu: TMenuItem;
     print_screen_menu_entry: TMenuItem;
@@ -2388,6 +2389,7 @@ type
     N689: TMenuItem;
     N725: TMenuItem;
 
+    procedure minimize_panelClick(Sender: TObject);
     procedure OO3D_menu_entryClick(Sender: TObject);
     procedure get_file_from_code_menu_entryClick(Sender: TObject);
     procedure pad_file_viewer_menu_entryClick(Sender: TObject);
@@ -2405,6 +2407,8 @@ type
     procedure lock_scaling_menu_entryClick(Sender: TObject);
     procedure lock_scaling_at_menu_entryClick(Sender: TObject);
     procedure align_colour_menu_entryClick(Sender: TObject);
+    procedure sketchboard_buttonClick(Sender: TObject);
+    procedure sketchboard_show_menu_entryClick(Sender: TObject);
     procedure T2_panelClick(Sender: TObject);
     procedure T2_panelMouseMove(Sender: TObject; Shift: TShiftState; X,Y: Integer);
     procedure timber_colour_menu_entryClick(Sender: TObject);
@@ -3808,12 +3812,12 @@ type
                  end;
 
   Tmark=record              // mark from p1 to p2.
-          p1:TPoint;
-	  p2:TPoint;
-          code:integer;
-	  tb_code:integer;          // 235b  timber number string converted to character and number
-          dxf_chair_code:integer;   // 237a  chairing data for 3D exports
-          options_bits:integer;     // 555a  32 bit settings
+          p1:TPoint;                // [0],[1]
+	         p2:TPoint;                // [2],[3]
+          code:integer;             // [4]
+	         tb_code:integer;          // [5]   235b  timber number string converted to character and number
+          dxf_chair_code:integer;   // [6]   237a  chairing data for 3D exports
+          mark_bits:integer;        // [7]   555a  32 bit settings
         end;
 
   Tpex=record                      // x,y point floats (TPoint is integer).
@@ -3871,8 +3875,9 @@ type
                       hv_flip:boolean;               // key flipped
                       hv_omit_key:boolean;           // key omitted    556 MW
 
-                      hv_customized:boolean;         // chair customized
-                      hv_plug:integer;               // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+                      hv_jaws:boolean;               // jaws customized
+
+                      hv_plug:integer;               // plug customized     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit  4=force COT (no plug)
 
                       hv_jaw_options:array[0..3] of Tjaw_option;   // customized jaws on 4 possible rails in a chair 0..3
 
@@ -5391,7 +5396,7 @@ const
 
   gaunt_offset_help_str:string='    `0gaunt  offset`9'
     +'||Enter a dimension in full-size prototype INCHES for the amount by which one set of rails in gauntletted track is displaced from the other set of rails.'
-    +'||Changing this dimension will have no effect unless or until the control template is a `0gaunt turnout`3.'
+    +'||Changing this dimension will have no effect unless or until the control template is a `0gaunt turnout`3.'
     +'||To convert a normal turnout to a gaunt turnout, click the `0template > gaunt options > gaunt turnout`1 menu item.'
     +'||green_panel_begin tree.gif The V-crossing from a gaunt turnout is useful as a partial template in formations such as a tandem turnout,'
     +' allowing the turnout radius to be adjusted independently of the crossing angle.'
@@ -5402,7 +5407,7 @@ const
   gaunt_radius_help_str:string='    `0gaunt  turnout  radius`9'
     +'||Enter a dimension in mm for the turnout radius of a gaunt turnout.'
     +'||This radius applies to the equivalent straight turnout before it is curved. A negative radius is not valid.'
-    +'||Changing this dimension will have no effect unless or until the control template is a `0gaunt turnout`3.'
+    +'||Changing this dimension will have no effect unless or until the control template is a `0gaunt turnout`3.'
     +'||To convert a normal turnout to a gaunt turnout, click the `0template > gaunt options > gaunt turnout`1 menu item.'
     +'||green_panel_begin tree.gif The V-crossing from a gaunt turnout is useful as a partial template in formations such as a tandem turnout,'
     +' allowing the turnout radius to be adjusted independently of the crossing angle.'
@@ -5412,7 +5417,7 @@ const
   gaunt_sleeper_help_str:string='    `0modified  sleeper  length<BR>    for  gauntletted  track`9'
     +'||Enter a dimension in full-size prototype INCHES for the amount by which sleepers on gauntletted plain track should be longer than standard sleepers.'
     +'||This is usually the same dimension as the current gaunt offset, or the next round 6" step beyond. For example, if the current gaunt offset is 10.5", enter 12".'
-    +'||Changing this dimension will have no effect unless or until the control template is a `0gaunt turnout`3 which has some `0approach`3 track (for use as gauntletted plain track).'
+    +'||Changing this dimension will have no effect unless or until the control template is a `0gaunt turnout`3 which has some `0approach`3 track (for use as gauntletted plain track).'
     +'||To convert a normal turnout to a gaunt turnout, click the `0template > gaunt options > gaunt turnout`1 menu item.';
 
 //______________________________________________________________________________
@@ -5540,6 +5545,20 @@ procedure Tpad_form.align_colour_menu_entryClick(Sender: TObject);
 
 begin
   align_colour:=get_colour('choose  a  colour  for  the  control  template  radial  end  marks  on  the  pad',align_colour);
+end;
+//______________________________________________________________________________
+
+procedure Tpad_form.sketchboard_buttonClick(Sender: TObject);
+
+begin
+  do_open_source_bang('SKETCHBOARD');  // OT2024
+end;
+//______________________________________________________________________________
+
+procedure Tpad_form.sketchboard_show_menu_entryClick(Sender: TObject);
+
+begin
+  sketchboard_button.Click;
 end;
 //______________________________________________________________________________
 
@@ -9238,6 +9257,13 @@ procedure Tpad_form.OO3D_menu_entryClick(Sender: TObject);
 
 begin
   quick_gauge_click(t_003D_i);
+end;
+//______________________________________________________________________________
+
+procedure Tpad_form.minimize_panelClick(Sender: TObject);
+
+begin
+  Application.Minimize;       //  hide TEMPLOT on PAUSE key   556a MW
 end;
 //______________________________________________________________________________
 

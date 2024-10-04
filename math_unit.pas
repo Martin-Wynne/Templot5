@@ -29,6 +29,22 @@
 *)
 
 
+(*
+================================================================================
+	Changes applied
+================================================================================
+	SC 17-SEP-2024 556
+		calc_fill_chair_outline modified to always generate chair labels,
+		irrespective of state of brick_form.Showing,
+ sc 17-sep-2024 556.
+
+ SC 22-SEP-2024 556
+  assign print_chair_labels_font
+ sc 22-sep-2024 556.
+	
+================================================================================
+*)
+
 unit math_unit;
 
 {$MODE Delphi}
@@ -2529,6 +2545,7 @@ begin
             print_timber_numbers_font.Assign(set_font('Arial',Round(scale+3),[],clBlack));
             shapes_label_font.Assign(set_font('Times New Roman',18,[fsBold],clBlack));      // 0.93.a was Comic Sans 12   // (gets changed to shapes colour default later.)
             print_corner_page_numbers_font.Assign(set_font('Arial',6,[],clBlack));          // 0.93.a
+            print_chair_labels_font.Assign(set_font('Arial',8,[],clBlack));                  // SC 22-SEP-2024 556
           end
      else begin
             print_labels_font.Assign(set_font('Liberation Serif',8,[fsBold],clLime));
@@ -2536,6 +2553,7 @@ begin
             print_timber_numbers_font.Assign(set_font('Liberation Sans',Round(scale+3),[],clBlack));
             shapes_label_font.Assign(set_font('Liberation Serif',18,[fsBold],clBlack)); // (gets changed to shapes colour default later.)
             print_corner_page_numbers_font.Assign(set_font('Liberation Sans',6,[],clBlack));
+            print_chair_labels_font.Assign(set_font('Liberation Sans',8,[],clBlack));        // SC 22-SEP-2024 556
           end;
 
   //______________
@@ -3260,9 +3278,10 @@ begin
 
   if exp_chairing=True
      then begin
-            if (dxf_form.clip_fit_radio.Checked=True) or (dxf_form.snap_fit_radio.Checked=True)
-               then force_eq:=(k3n<6.99)     // 241b   force equalized to fit long 3D sockets on xing timbers  clip-fit or snap-fit (undercut sockets)
-               else force_eq:=(k3n<5.99);    // 239b   force equalized to fit long 3D sockets on xing timbers  press-fit (plain sockets)
+            if  ( (dxf_form.clip_fit_radio.Checked=True) or (dxf_form.snap_fit_radio.Checked=True) )
+            and (dxf_form.force_eq_checkbox.Checked=True)
+               then force_eq:=(k3n<6.99)
+               else force_eq:=False;
           end
      else force_eq:=False;
 
@@ -11961,8 +11980,6 @@ end;
 procedure trail_shove_along(X:integer);
 
 begin
-  //showmessage(inttostr(shove_index)+'  len:'+inttostr(Length(current_shoved_timbers))+'  '+floattostr(shovex)+'  '+floattostr(shovex_now));
-
   shovex:=shovex_now+(X-shove_now_x)/fx/shove_mouse_factor/2;                      // /2 arbitrary.
   current_shoved_timbers[shove_index].shove_data.sv_x:=shovex;
 
@@ -12915,7 +12932,7 @@ begin
 
   if (check_diffs_form.Showing=True) and (mouse_modify<0) and (hide_current_flag=False) then mouse_on_check_label(X,Y);  // see if it needs highlighting.
 
-  if (brick_form.Showing=True) and (mouse_modify<0) and (hide_current_flag=False) and (brick_form.show_labels_checkbox.Checked=True) and (exp_chairing=True)
+  if (mouse_modify<0) and (hide_current_flag=False) and (brick_form.show_labels_checkbox.Checked=True) and (exp_chairing=True)
      then mouse_on_chair_label(X,Y);     // see if it needs highlighting   MW 05-08-2024  555a
 
              //   -----  mouse actions...
@@ -14554,7 +14571,7 @@ begin
 
   if mouse_modify=-1               // no mouse action selected.
      then begin
-            if (brick_form.Showing=True) and (hide_current_flag=False)     // MW 03-08-2024  555a
+            if hide_current_flag=False     // MW 03-08-2024  555a
                then begin
                       if chair_label_clicked(pad_click_X,pad_click_Y)=True then EXIT; // clicked on a chair label
                     end;
@@ -20571,7 +20588,7 @@ begin
 
   ptr^.tb_code:=Ord(timb_str[1])*10000+tbn;   // global   prefix for current timber number   +    // timber number
   ptr^.dxf_chair_code:=dxf_code;              // global   237a  chairing data for 3D exports
-  ptr^.options_bits:=bit_settings;            // global   MW 04-08-2024
+  ptr^.mark_bits:=bit_settings;               // global   MW 04-08-2024
 
   if code=99
      then timb_numbers_str:=timb_numbers_str+num_str+Chr($1B);  // add number string and separator to the accumulator string.
@@ -23009,7 +23026,6 @@ begin
 
           end;//if timber_marks
 
-  //showmessage(debug_str);  // debug
 end;
 //_____________________________________________________________________________________________
 
@@ -23707,7 +23723,7 @@ var                                // enter with xtb, yns, yfs, tbq
   dummy:extended;
   x_curmod,x_curtimb,y_curmod,y_curtimb,k_curtimb:extended;
 
-                  ////////////////////////////////////////////////////////////
+                  //////////////////////////////////////////////////////////////
 
                   procedure nout_calc_fill_timber_mark(code:integer);
 
@@ -23742,7 +23758,7 @@ var                                // enter with xtb, yns, yfs, tbq
 
                     fill_mark(convert_point(pp1),convert_point(pp2),code,str);  // into marks list.
                   end;
-                  /////////////////////////////////////////////////////////
+                  //////////////////////////////////////////////////////////////
 
 
 begin
@@ -23974,6 +23990,13 @@ type
 
                  end;//record
 
+
+  Theaved_chairing_dims=record                            // 556 including chair heaving data
+                          chairing_dims:Tchairing_dims;
+                          heave_rail_chair:Theave_rail_chair;
+                          heaved_valid:boolean;
+                        end;//record
+
   Tchair_twist=record
                  x:extended;
                  y:extended;
@@ -24043,10 +24066,10 @@ var
   now_chairing_dims1:Tchairing_dims;   // on rail 1 (check chairs)               // 237c
   now_chairing_dims4:Tchairing_dims;   // on rail 4 (check chairs)    243b
 
-  heaved_chairing_dims1:Tchairing_dims;   // on rail 1  243b
-  heaved_chairing_dims2:Tchairing_dims;   // on rail 2  243b
-  heaved_chairing_dims3:Tchairing_dims;   // on rail 3  243b
-  heaved_chairing_dims4:Tchairing_dims;   // on rail 4  243b
+  heaved_chairing_dims1:Theaved_chairing_dims;   // on rail 1  556..
+  heaved_chairing_dims2:Theaved_chairing_dims;   // on rail 2
+  heaved_chairing_dims3:Theaved_chairing_dims;   // on rail 3
+  heaved_chairing_dims4:Theaved_chairing_dims;   // on rail 4
 
   null_chair:Tchairing_dims;  // ignore this chair
 
@@ -24108,7 +24131,7 @@ var
   ms_flange_wanted,
   ts_flange_wanted:boolean;
 
-  chair1_wanted,      // 233
+  chair1_wanted,      // 233  not omitted
   chair2_wanted,
   chair3_wanted,
   chair4_wanted:boolean;
@@ -24297,7 +24320,7 @@ var
                   end;
                   //////////////////////////////////////////////////////////////
 
-                  procedure calc_fill_chair_outline(twist:Tchair_twist; chairing_dims:Tchairing_dims; chcode:integer; side:extended);  // 214a
+                  procedure calc_fill_chair_outline(twist:Tchair_twist; heaved_chairing_dims:Theaved_chairing_dims; chcode:integer; side:extended);  // 214a
 
                     // enter with chair rectangle (centres of corner rads)  p1,p2,p3,p4  and chair cl, yret for jaw loose pin slot
                     // 245a and pm1,pm2,pm3,pm4 mid corners of 8-sided chairs (0=ignore if 4-sided), km1,km2,km3,km4 mid-side angles
@@ -24338,7 +24361,9 @@ var
                     plinth_rect_yinner:extended;  // 233d
                     plinth_rect_youter:extended;  // 233d
 
-                    plinth_spacing:extended;  // 233d
+                    plinth_spacing_sides:extended;       // 233d
+                    plinth_spacing_inner_end:extended;   // 556a
+                    plinth_spacing_outer_end:extended;   // 556a
 
                     loose_pin_org1, loose_pin_org2, loose_pin_org3, loose_pin_org4:Tpex;   // original unshifted slot
 
@@ -24380,50 +24405,1383 @@ var
 
                     tang_outlong1,tang_inlong1,tang_top_width,tang_top_clear,tang_bottom_space:extended;  // 241b
 
-
-                                      //========================================
-
-                                      procedure do_chair_mark(pt1,pt2:Tpex; code:integer);
-
-                                      var
-                                        p1,p2,pk1,pk2,pc1,pc2,ponpad,pp1,pp2:Tpex;
+                    outer_beefing:extended;
+                    inner_beefing:extended;
 
 
-                                      begin
-                                        if check_plain_track_for_blanking=True then EXIT;  // 229a
+                                    //==========================================
 
-                                        if twist.k<>0      // rotate chair on timber (crossing chairs equalized)
+                                    procedure do_chair_mark(pt1,pt2:Tpex; code:integer);
+
+                                    var
+                                      p1,p2,pk1,pk2,pc1,pc2,ponpad,pp1,pp2:Tpex;
+
+
+                                    begin
+                                      if check_plain_track_for_blanking=True then EXIT;  // 229a
+
+                                      if twist.k<>0      // rotate chair on timber (crossing chairs equalized)
+                                         then begin
+                                                dotransform(twist.k,twist.x,twist.y,pt1,pt1);
+                                                dotransform(twist.k,twist.x,twist.y,pt2,pt2);
+                                              end;
+
+                                      dotransform(chair_k,xtimbcl,0,pt1,pc1);       // pt1 rotate to required angle
+                                      dotransform(chair_k,xtimbcl,0,pt2,pc2);       // ditto pt2
+
+                                      pc1.y:=pc1.y+chair_y;   // to actual rail position
+                                      pc2.y:=pc2.y+chair_y;
+
+                                      dotransform(keq+k_curtimb, xtimbcl, yeq, pc1, pk1);       // timber equalising + curving line angle, transform p1 to pk1 (relative to equalising centre).
+                                      dotransform(keq+k_curtimb, xtimbcl, yeq, pc2, pk2);       // ditto p2
+
+                                      pk1.x:=pk1.x+x_curmod;      // shift p1 to final position for the curving.
+                                      pk1.y:=pk1.y+y_curmod;
+
+                                      dotransform(kform,xform,yform,pk1,ponpad);  // transform to template position on pad..
+                                      pp1.x:=ponpad.x+xshift;
+                                      pp1.y:=ponpad.y+yshift;
+
+                                      pk2.x:=pk2.x+x_curmod;      // shift p2 to final position for the curving.
+                                      pk2.y:=pk2.y+y_curmod;
+
+                                      dotransform(kform,xform,yform,pk2,ponpad);     // transform to template position on pad..
+                                      pp2.x:=ponpad.x+xshift;
+                                      pp2.y:=ponpad.y+yshift;
+
+                                      fill_mark(convert_point(pp1),convert_point(pp2),code,'');          // into marks list.
+                                    end;
+                                    //==========================================
+
+                                    procedure do_plug_socket;      // moved here 556
+
+                                    var
+                                      heaved_plug:integer;
+
+                                    begin
+                                              // plug rectangle outline (code 491, 24 marks) 227a  ...
+                                              // with 45-deg corners 8-sides clockwise with side=+1 , repeat 8-inner sides for bottom taper
+                                              // plus 8 marks for top and bottom of support pyramid
+
+                                              // 233d  modify plug/socket size rectangle if wanted   default mods zero  ...
+
+                                      with heaved_chairing_dims.chairing_dims do begin
+
+                                        p1.x:=plug_rect_xleft-plugsock_width_mod*inscale/2;
+                                        p2.x:=p1.x;
+
+                                        p3.x:=plug_rect_xright+plugsock_width_mod*inscale/2;
+                                        p4.x:=p3.x;
+
+                                        p1.y:=plug_rect_youter-plugsock_length_mod*inscale*side/2;
+                                        p2.y:=plug_rect_yinner+plugsock_length_mod*inscale*side/2;
+                                        p3.y:=p2.y;
+                                        p4.y:=p1.y;
+
+                                        if heaved_chairing_dims.heaved_valid=True
+                                           then heaved_plug:=heaved_chairing_dims.heave_rail_chair.hv_plug  // 1=force clip-fit  2=force snap-fit  3=force press-fit  4= force COT (no plug)
+                                           else heaved_plug:=0;
+
+                                        if (    (dxf_form.chairs_bullet_shape.Visible=True)
+                                             or (dxf_form.reset_both_bullet_shape.Visible=True)
+                                             or ( (dxf_form.cot_bullet_shape.Visible=True) and (heaved_plug<>0) )
+                                            )
+                                        and ( (dxf_form.cot_radio.Checked=False) or (heaved_plug<>0) )
+                                        and (heaved_plug<>4)
                                            then begin
-                                                  dotransform(twist.k,twist.x,twist.y,pt1,pt1);
-                                                  dotransform(twist.k,twist.x,twist.y,pt2,pt2);
-                                                end;
+                                                       // do plug and support...
 
-                                        dotransform(chair_k,xtimbcl,0,pt1,pc1);       // pt1 rotate to required angle
-                                        dotransform(chair_k,xtimbcl,0,pt2,pc2);       // ditto pt2
+                                                           // break plug corners ..
 
-                                        pc1.y:=pc1.y+chair_y;   // to actual rail position
-                                        pc2.y:=pc2.y+chair_y;
+                                                  if dxf_form.cnc_corners_checkbox.Checked=True
+                                                     then begin
+                                                            plug_clear_sides:=plug_corner_clear_cnc*inscale;
+                                                            plug_clear_ends:=(ABS(p3.x-p1.x)-plug_end_width_cnc*inscale)/2;    // 234e calc end corner relief
+                                                          end
+                                                     else begin
+                                                            plug_clear_sides:=plug_corner_clear_fdm*inscale;
 
-                                        dotransform(keq+k_curtimb, xtimbcl, yeq, pc1, pk1);       // timber equalising + curving line angle, transform p1 to pk1 (relative to equalising centre).
-                                        dotransform(keq+k_curtimb, xtimbcl, yeq, pc2, pk2);       // ditto p2
+                                                            {if chair_code=5
+                                                               then plug_clear_ends:=(ABS(p3.x-p1.x)-plug_end_width_fdm*2*inscale)/2   // wider on L1 chairs to clear loose-pin slot
+                                                               else}
 
-                                        pk1.x:=pk1.x+x_curmod;      // shift p1 to final position for the curving.
-                                        pk1.y:=pk1.y+y_curmod;
+                                                            plug_clear_ends:=(ABS(p3.x-p1.x)-plug_end_width_fdm*inscale)/2;    // 234e calc end corner relief
+                                                          end;
 
-                                        dotransform(kform,xform,yform,pk1,ponpad);  // transform to template position on pad..
-                                        pp1.x:=ponpad.x+xshift;
-                                        pp1.y:=ponpad.y+yshift;
+                                                    // outer sides...
 
-                                        pk2.x:=pk2.x+x_curmod;      // shift p2 to final position for the curving.
-                                        pk2.y:=pk2.y+y_curmod;
+                                                    // plug_fit = fine adjust plug size, default 0,  marks 0-7...
 
-                                        dotransform(kform,xform,yform,pk2,ponpad);     // transform to template position on pad..
-                                        pp2.x:=ponpad.x+xshift;
-                                        pp2.y:=ponpad.y+yshift;
+                                                  plug1.x:=p1.x-plug_fit_sides+plug_clear_ends;
+                                                  plug1.y:=p1.y-plug_fit_ends*side;
 
-                                        fill_mark(convert_point(pp1),convert_point(pp2),code,'');          // into marks list.
-                                      end;
-                                      //========================================
+                                                  plug2.x:=p1.x-plug_fit_sides;
+                                                  plug2.y:=p1.y-plug_fit_ends*side+plug_clear_sides*side;
+
+                                                  tang_pex1:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 0..1 break across p1 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p2.x-plug_fit_sides;
+                                                  plug2.y:=p2.y+plug_fit_ends*side-plug_clear_sides*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 1..2 side of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p2.x-plug_fit_sides+plug_clear_ends;
+                                                  plug2.y:=p2.y+plug_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 2..3 break across p2 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p3.x+plug_fit_sides-plug_clear_ends;
+                                                  plug2.y:=p3.y+plug_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 3..4 end of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p3.x+plug_fit_sides;
+                                                  plug2.y:=p3.y+plug_fit_ends*side-plug_clear_sides*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 4..5 break across p3 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p4.x+plug_fit_sides;
+                                                  plug2.y:=p4.y-plug_fit_ends*side+plug_clear_sides*side;
+
+                                                  tang_pex6:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 5..6 side of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p4.x+plug_fit_sides-plug_clear_ends;
+                                                  plug2.y:=p4.y-plug_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 6..7 break across p4 corner
+
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p1.x-plug_fit_sides+plug_clear_ends;
+                                                  plug2.y:=p1.y-plug_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 7...0 end of plug
+
+
+                                                     // repeat for inner sides (below taper), upper ...    marks 8-15...
+
+                                                  if (dxf_form.clip_fit_radio.Checked=True) or (heaved_plug=1)
+                                                     then begin
+                                                            plug_inner_fit_sides:=plug_fit_sides-clip_plug_inset_clear_upper*inscale;  // 1/4" clear below taper
+                                                            plug_inner_fit_ends:=plug_fit_ends-clip_plug_inset_clear_upper*inscale;    // 1/4" clear below taper
+                                                          end
+                                                     else if (dxf_form.snap_fit_radio.Checked=True) or (heaved_plug=2)
+                                                             then begin
+                                                                    plug_inner_fit_sides:=plug_fit_sides+snap_plug_overcut_mm;    // width of plug overcut to clip under socket undercut  241b
+                                                                    plug_inner_fit_ends:=plug_fit_ends;
+                                                                  end
+                                                             else begin        // press-fit
+                                                                    plug_inner_fit_sides:=plug_fit_sides-press_plug_inset_clear_upper*inscale;  // 1/4" clear below taper
+                                                                    plug_inner_fit_ends:=plug_fit_ends-press_plug_inset_clear_upper*inscale;    // 1/4" clear below taper
+                                                                  end;
+
+                                                  plug1.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
+                                                  plug1.y:=p1.y-plug_inner_fit_ends*side;
+
+                                                  plug2.x:=p1.x-plug_inner_fit_sides;
+                                                  plug2.y:=p1.y-plug_inner_fit_ends*side+plug_clear_sides*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p1 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p2.x-plug_inner_fit_sides;
+                                                  plug2.y:=p2.y+plug_inner_fit_ends*side-plug_clear_sides*side;
+
+                                                  tang_pex9:=plug1;
+                                                  tang_pex10:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // side of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p2.x-plug_inner_fit_sides+plug_clear_ends;
+                                                  plug2.y:=p2.y+plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p2 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p3.x+plug_inner_fit_sides-plug_clear_ends;
+                                                  plug2.y:=p3.y+plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // end of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p3.x+plug_inner_fit_sides;
+                                                  plug2.y:=p3.y+plug_inner_fit_ends*side-plug_clear_sides*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p3 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p4.x+plug_inner_fit_sides;
+                                                  plug2.y:=p4.y-plug_inner_fit_ends*side+plug_clear_sides*side;
+
+                                                  tang_pex13:=plug1;
+                                                  tang_pex14:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // side of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p4.x+plug_inner_fit_sides-plug_clear_ends;
+                                                  plug2.y:=p4.y-plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p4 corner
+
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
+                                                  plug2.y:=p1.y-plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // end of plug
+
+
+                                                     // repeat for inner sides, bottom ...    234e another 8 marks  16-23...
+
+                                                  if (dxf_form.clip_fit_radio.Checked=True) or (heaved_plug=1)
+                                                     then begin
+                                                            plug_inner_fit_sides:=plug_fit_sides-clip_plug_inset_clear_bottom*inscale;  // 1/2" clear at bottom
+                                                            plug_inner_fit_ends:=plug_fit_ends-clip_plug_inset_clear_bottom*inscale;    // 1/2" clear at bottom
+                                                          end
+                                                     else if (dxf_form.snap_fit_radio.Checked=True) or (heaved_plug=2)
+                                                             then begin
+                                                                    plug_inner_fit_sides:=plug_fit_sides-snap_plug_inset_clear_bottom*inscale;  // 1/2" clear at bottom
+                                                                    plug_inner_fit_ends:=plug_fit_ends-snap_plug_inset_clear_bottom*inscale;    // 1/2" clear at bottom
+                                                                  end
+                                                             else begin        // press-fit
+                                                                    plug_inner_fit_sides:=plug_fit_sides-press_plug_inset_clear_bottom*inscale;  // 1/2" clear at bottom
+                                                                    plug_inner_fit_ends:=plug_fit_ends-press_plug_inset_clear_bottom*inscale;    // 1/2" clear at bottom
+                                                                  end;
+
+                                                  plug1.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
+                                                  plug1.y:=p1.y-plug_inner_fit_ends*side;
+
+                                                  plug2.x:=p1.x-plug_inner_fit_sides;
+                                                  plug2.y:=p1.y-plug_inner_fit_ends*side+plug_clear_sides*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p1 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p2.x-plug_inner_fit_sides;
+                                                  plug2.y:=p2.y+plug_inner_fit_ends*side-plug_clear_sides*side;
+
+                                                  tang_pex17:=plug1;
+                                                  tang_pex18:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // side of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p2.x-plug_inner_fit_sides+plug_clear_ends;
+                                                  plug2.y:=p2.y+plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p2 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p3.x+plug_inner_fit_sides-plug_clear_ends;
+                                                  plug2.y:=p3.y+plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // end of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p3.x+plug_inner_fit_sides;
+                                                  plug2.y:=p3.y+plug_inner_fit_ends*side-plug_clear_sides*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p3 corner
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p4.x+plug_inner_fit_sides;
+                                                  plug2.y:=p4.y-plug_inner_fit_ends*side+plug_clear_sides*side;
+
+                                                  tang_pex21:=plug1;
+                                                  tang_pex22:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // side of plug
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p4.x+plug_inner_fit_sides-plug_clear_ends;
+                                                  plug2.y:=p4.y-plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // break across p4 corner
+
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
+                                                  plug2.y:=p1.y-plug_inner_fit_ends*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // end of plug
+
+
+                                                    // top of support pyramid 227a  (4 more marks  24-27) ...     (and bottom of plug)
+
+                                                          // 237a  allow for a twisted slot in plug base (e.g. crossing chairs, check-end chairs)
+                                                          // max twist (equalized chairs) say max 15 degs
+
+
+                                                  support_half_top_side_mm:=pyramid_top_side_inset*inscale;  // 241b  2" default   was 2.3/8"     was ((pin_slot_halfwide+loose_pin_clear_sides)*inscale*2*COS(tw)+(pin_slot_length+loose_pin_clear_front+loose_pin_clear_back)*inscale*SIN(tw))/2;  // half twisted slot extent     pyramid top dims
+
+                                                  if (k3n<4.99) and (chair_code>20) then support_half_top_side_mm:=support_half_top_side_mm+inscale*3/8;  // 241b 3/8" wider to clear twisted slots on short angle crossings   1:5 arbitrary
+
+                                                  support_half_top_end_mm:=(ABS(p1.y-p2.y)-pyramid_top_end_inset*inscale)/2;   // 237a pyramid top dims
+
+                                                  if chair_code=5 then support_half_top_end_mm:=support_half_top_end_mm+inscale*3/8;  // 241b L1 chair -- pyramid to clear pin slot
+
+                                                    // bottom dims of support pyramid ..
+
+                                                  support_half_bottom_side_mm:=support_half_top_side_mm+pyramid_taper*inscale;   // 234e pyramid bottom dims
+                                                  support_half_bottom_end_mm:=support_half_top_end_mm+pyramid_taper*inscale;     // 234e pyramid bottom dims
+
+                                                    // top ...
+
+                                                  midx:=(p1.x+p4.x)/2;
+                                                  midy:=(p1.y+p2.y)/2;
+
+                                                  plug1.x:=midx-support_half_top_side_mm;
+                                                  plug1.y:=midy-support_half_top_end_mm*side;
+
+                                                  plug2.x:=midx-support_half_top_side_mm;
+                                                  plug2.y:=midy+support_half_top_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 1st side
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx+support_half_top_side_mm;
+                                                  plug2.y:=midy+support_half_top_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 2nd side
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx+support_half_top_side_mm;
+                                                  plug2.y:=midy-support_half_top_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 3rd side
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx-support_half_top_side_mm;
+                                                  plug2.y:=midy-support_half_top_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 4th side
+
+
+                                                    // bottom of plug support pyramid 227a  (4 more marks 29-31) ...
+
+                                                  midx:=(p1.x+p4.x)/2;
+                                                  midy:=(p1.y+p2.y)/2;
+
+                                                  plug1.x:=midx-support_half_bottom_side_mm;
+                                                  plug1.y:=midy-support_half_bottom_end_mm*side;
+
+                                                  plug2.x:=midx-support_half_bottom_side_mm;
+                                                  plug2.y:=midy+support_half_bottom_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 1st side
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx+support_half_bottom_side_mm;
+                                                  plug2.y:=midy+support_half_bottom_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 2nd side
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx+support_half_bottom_side_mm;
+                                                  plug2.y:=midy-support_half_bottom_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 3rd side
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx-support_half_bottom_side_mm;
+                                                  plug2.y:=midy-support_half_bottom_end_mm*side;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 4th side
+
+
+                                                    // dummy top mid-rectangle on support pyramid 237a  (4 more marks 32-35  36 marks total) ...
+                                                    // corners used in DXF but not sides (for twisted slots)
+
+                                                  midx:=(p1.x+p4.x)/2;
+                                                  midy:=(p1.y+p2.y)/2;
+
+                                                  plug1.x:=midx-support_half_top_side_mm;
+                                                  plug1.y:=midy-support_half_top_end_mm*side*3/4;
+
+                                                  plug2.x:=midx-support_half_top_side_mm;
+                                                  plug2.y:=midy+support_half_top_end_mm*side*3/4;
+
+                                                  do_chair_mark(plug1,plug2,491);
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx+support_half_top_side_mm;
+                                                  plug2.y:=midy+support_half_top_end_mm*side*3/4;
+
+                                                  do_chair_mark(plug1,plug2,491);
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx+support_half_top_side_mm;
+                                                  plug2.y:=midy-support_half_top_end_mm*side*3/4;
+
+                                                  do_chair_mark(plug1,plug2,491);
+
+                                                  plug1:=plug2;
+                                                  plug2.x:=midx-support_half_top_side_mm;
+                                                  plug2.y:=midy-support_half_top_end_mm*side*3/4;
+
+                                                  do_chair_mark(plug1,plug2,491);
+
+
+                                                    //  24 more marks for clip-fit plugs -- tang recesses   (36..59  60 marks total) ...  241b
+
+                                                  tang2_spacing:=0;     // init single set of tangs
+                                                  tang2_long:=0;
+
+                                                  tang_outlong1:=3*inscale;   // 3"   init
+
+                                                  tang_top_width:=inscale*1.25;  // 1.1.4" at top of tang
+
+                                                  tang_top_clear:=inscale/2;   // 1/2" side clearance at top for tang to flex
+
+                                                  len:=ABS(p1.x-p4.x)/inscale;  // plug width convert to full size
+
+                                                  if len<6.25
+                                                     then tang_bottom_space:=inscale/2                        // 1/2" space from centre to rear of base of tang for 6" plugs S1 etc.
+                                                     else tang_bottom_space:=inscale/2+(len-6.25)*inscale/2;  // widen to similar tang bottom for wider plugs.
+
+                                                  case chair_code of   // arbitrary tang lengths ...
+
+                                                     1,3,4,6..10: begin                          // S1, S1J  no key jaw at inner end ...
+                                                                    if chair_inlong<(7*inscale)
+                                                                       then tang_inlong1:=chair_inlong-2.75*inscale
+                                                                       else tang_inlong1:=chair_inlong-4*inscale;
+                                                                  end;
+
+                                                              2: begin   // P slide
+
+                                                                    tang_inlong1:=1.5*inscale;                                        // 4.5" tang
+                                                                    tang2_spacing:=2*inscale;                                         // middle column
+                                                                    tang2_long:=chair_inlong-tang_inlong1-tang2_spacing-2.75*inscale;
+                                                                  end;
+
+                                                               5: tang_inlong1:=chair_inlong-3*inscale;   // L1 bridge chair
+
+                                                              11: begin   //  1P..2P
+
+                                                                    tang_inlong1:=2*inscale;                                          // 5" tang
+                                                                    tang2_spacing:=2*inscale;                                         // middle column
+                                                                    tang2_long:=chair_inlong-tang_inlong1-tang2_spacing-2.75*inscale;
+                                                                  end;
+
+                                                           12,13: begin
+                                                                    tang_inlong1:=chair_inlong-12*inscale;  // 3P..11P switch block, internal key jaws, pin slots
+                                                                    tang2_spacing:=3.75*inscale;
+                                                                    tang2_long:=5.25*inscale;
+                                                                  end;
+
+                                                           14,16: tang_inlong1:=chair_inlong-6.5*inscale;     // CCL, CCR
+
+                                                              21: begin                                           // ZY
+
+                                                                    if (chair_inlong+chair_outlong)>(23*inscale)  // split tangs if chair longer than 23" arbitrary
+                                                                       then begin
+                                                                              tang_inlong1:=(chair_inlong-chair_outlong)/2-inscale;    // 1" half middle column
+                                                                              tang2_spacing:=inscale*2;                                // 2" middle column
+                                                                              tang2_long:=tang_outlong1+tang_inlong1;
+                                                                            end
+                                                                       else tang_inlong1:=chair_inlong-6.5*inscale;   // shorter than 23" -- full length single tang
+                                                                  end;
+
+                                                          23..26: begin                                        // XA, AA, AB, BB  double keys on wing rail
+                                                                    tang_outlong1:=chair_outlong-6.5*inscale;
+
+                                                                     if (chair_inlong+chair_outlong)>(27.5*inscale)  // split long tangs if chair longer than arbitrary
+                                                                         then begin
+                                                                                tang_inlong1:=0-chair_outlong+12.5*inscale;               // 6" tang
+
+                                                                                tang2_spacing:=chair_inlong+chair_outlong-25*inscale;     // middle column   2.5" minimum
+                                                                                tang2_long:=tang_outlong1+tang_inlong1;
+                                                                              end
+                                                                         else if (chair_inlong+chair_outlong)>(24.5*inscale)  // split short tangs if chair longer than arbitrary
+                                                                                 then begin
+                                                                                        tang_inlong1:=0-chair_outlong+11*inscale;               // 4.5" tang
+
+                                                                                        tang2_spacing:=chair_inlong+chair_outlong-22*inscale;   // middle column   2.5" minimum
+                                                                                        tang2_long:=tang_outlong1+tang_inlong1;
+                                                                                      end
+                                                                                 else tang_inlong1:=chair_inlong-6.5*inscale;     // shorter chair, no split
+
+                                                                  end;
+
+                                                              27: begin             // CD/ED   no slots
+
+                                                                    if (chair_inlong+chair_outlong)>(19*inscale)  // split long tangs if chair longer than 19" arbitrary
+                                                                       then begin
+                                                                              tang_outlong1:=chair_outlong-3.5*inscale;
+                                                                              tang_inlong1:=0-chair_outlong+8.5*inscale;               // 5" tang
+
+                                                                              tang2_spacing:=chair_inlong+chair_outlong-17*inscale;   // middle column   2" minimum
+                                                                              tang2_long:=tang_outlong1+tang_inlong1;
+                                                                            end
+                                                                       else if (chair_inlong+chair_outlong)>(17*inscale)  // split short tangs if chair longer than 17" arbitrary
+                                                                               then begin
+                                                                                      tang_outlong1:=chair_outlong-3.5*inscale;
+                                                                                      tang_inlong1:=0-chair_outlong+7.5*inscale;               // 4" tang
+
+                                                                                      tang2_spacing:=chair_inlong+chair_outlong-15*inscale;   // middle column   2" minimum
+                                                                                      tang2_long:=tang_outlong1+tang_inlong1;
+                                                                                    end
+                                                                               else begin                                        // shorter chair, no split
+                                                                                      tang_inlong1:=chair_inlong-4*inscale;
+                                                                                      tang_outlong1:=chair_outlong-4*inscale;
+                                                                                    end;
+                                                                  end;
+
+                                                              28: begin                                           //EF
+                                                                    tang_outlong1:=chair_outlong-3*inscale;
+                                                                    tang_inlong1:=0-chair_outlong+8*inscale;               // 5" tang
+
+                                                                    tang2_spacing:=chair_inlong+chair_outlong-16*inscale;  // middle column
+                                                                    tang2_long:=tang_outlong1+tang_inlong1;
+                                                                  end;
+
+                                                             else tang_inlong1:=chair_inlong-6.5*inscale;  // long chair, double key jaws, pin slots  CC code 15    XN code 22
+
+                                                  end;//case
+
+
+                                                  plug1.x:=tang_pex1.x;           // 36
+                                                  plug1.y:=0-tang_outlong1*side;
+
+                                                  plug2:=plug1;                   // 37
+                                                  plug2.y:=tang_inlong1*side;
+
+                                                  tang_pex36:=plug1;
+                                                  tang_pex37:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);  // 36..37
+
+                                                  plug1:=plug2;                                 // 37
+                                                  plug2.y:=tang_pex37.y+tang2_spacing*side;     // 38
+
+                                                  tang_pex38:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);  // 37..38
+
+                                                  plug1:=plug2;                            // 38
+                                                  plug2.y:=tang_pex38.y+tang2_long*side;   // 39
+
+                                                  tang_pex39:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);  // 38..39
+
+
+
+                                                  plug1:=plug2;                   // 39
+                                                  plug2.x:=tang_pex6.x;           // 40
+
+                                                  do_chair_mark(plug1,plug2,491);  // 39..40
+
+
+                                                  plug1:=plug2;                   // 40
+                                                  plug2.y:=tang_pex38.y;          // 41
+
+                                                  tang_pex40:=plug1;
+                                                  tang_pex41:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);  // 40..41
+
+                                                  plug1:=plug2;                    // 41
+                                                  plug2.y:=tang_pex37.y;           // 42
+
+                                                  tang_pex42:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);   // 41..42
+
+                                                  plug1:=plug2;                   // 42
+                                                  plug2.y:=tang_pex36.y;          // 43
+
+                                                  tang_pex43:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);  // 42..43
+
+
+                                                  plug1:=plug2;                    // 43
+                                                  plug2.x:=tang_pex9.x;            // 44
+
+                                                  do_chair_mark(plug1,plug2,491);  // 43..44
+
+
+                                                  plug1:=plug2;                    // 44
+                                                  plug2.y:=tang_pex37.y;           // 45
+
+                                                  do_chair_mark(plug1,plug2,491);    // 44..45
+
+                                                  plug1:=plug2;              // 45
+                                                  plug2.y:=tang_pex38.y;     // 46
+
+                                                  tang_pex46:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 45..46
+
+                                                  plug1:=plug2;              // 46
+                                                  plug2.y:=tang_pex39.y;     // 47
+
+                                                  do_chair_mark(plug1,plug2,491);    // 46..47
+
+
+                                                  plug1:=plug2;              // 47
+                                                  plug2.x:=tang_pex14.x;     // 48
+
+                                                  do_chair_mark(plug1,plug2,491);    // 47..48
+
+
+                                                  plug1:=plug2;              // 48
+                                                  plug2.y:=tang_pex38.y;     // 49
+
+                                                  do_chair_mark(plug1,plug2,491);   // 48..49
+
+                                                  plug1:=plug2;              // 49
+                                                  plug2.y:=tang_pex37.y;     // 50
+
+                                                  tang_pex50:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);   // 49..50
+
+                                                  plug1:=plug2;              // 50
+                                                  plug2.y:=tang_pex36.y;     // 51
+
+                                                  do_chair_mark(plug1,plug2,491);
+
+                                                  plug1:=plug2;              // 51
+                                                  plug2.x:=tang_pex17.x;     // 52
+
+                                                  tang_pex52:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 51..52
+
+
+
+
+                                                  plug1:=plug2;              // 52
+                                                  plug2.y:=tang_pex37.y;     // 53
+
+                                                  tang_pex53:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 52..53
+
+                                                  plug1:=plug2;              // 53
+                                                  plug2.y:=tang_pex38.y;     // 54
+
+                                                  tang_pex54:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 53..54
+
+                                                  plug1:=plug2;              // 54
+                                                  plug2.y:=tang_pex39.y;     // 55
+
+                                                  tang_pex55:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 54..55
+
+                                                  plug1:=plug2;              // 55
+                                                  plug2.x:=tang_pex22.x;     // 56
+
+                                                  tang_pex56:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 55..56
+
+                                                  plug1:=plug2;              // 56
+                                                  plug2.y:=tang_pex38.y;     // 57
+
+                                                  tang_pex57:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 56..57
+
+                                                  plug1:=plug2;              // 57
+                                                  plug2.y:=tang_pex37.y;     // 58
+
+                                                  tang_pex58:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 57..58
+
+                                                  plug1:=plug2;              // 58
+                                                  plug2.y:=tang_pex36.y;     // 59
+
+                                                  tang_pex59:=plug2;
+
+                                                  do_chair_mark(plug1,plug2,491);    // 58..59
+
+                                                  plug1:=plug2;              // 59
+                                                  plug2.x:=tang_pex17.x;     // 52
+
+                                                  do_chair_mark(plug1,plug2,491);    // 59..52
+
+
+
+
+                                                    // add tangs, code 486 near side ...    8 marks
+
+                                                       // 1st tang bottom ...
+
+                                                  tang_pex52.y:=tang_pex52.y+clip_tang_end_space*inscale*side;    // 244d
+                                                  tang_pex53.y:=tang_pex53.y-clip_tang_end_space*inscale*side;    // 244d
+
+                                                  plug1:=tang_pex52;                // 0
+                                                  plug2:=tang_pex53;                // 1
+
+                                                  do_chair_mark(plug1,plug2,486);   // 0..1
+
+                                                  plug1:=plug2;                     // 1
+                                                  plug2.x:=midx-tang_bottom_space;  // 2
+
+                                                  do_chair_mark(plug1,plug2,486);   // 1..2
+
+                                                  plug1:=plug2;                     // 2
+                                                  plug2.y:=tang_pex52.y;            // 3
+
+                                                  do_chair_mark(plug1,plug2,486);   // 2..3
+
+                                                  plug1:=plug2;                     // 3
+                                                  plug2.x:=tang_pex52.x;            // 0
+
+                                                  do_chair_mark(plug1,plug2,486);
+
+
+                                                       // 1st tang top ...
+
+                                                  plug1.x:=tang_pex36.x-clip_tang_overcut*inscale;  // 4
+                                                  plug1.y:=tang_pex36.y+tang_top_clear*side;
+
+                                                  plug2:=plug1;                                // 5
+                                                  plug2.y:=tang_pex37.y-tang_top_clear*side;
+
+                                                  do_chair_mark(plug1,plug2,486);   // 4..5
+
+                                                  plug1:=plug2;                         // 5
+                                                  plug2.x:=plug1.x+tang_top_width;      // 6
+
+                                                  do_chair_mark(plug1,plug2,486);   // 5..6
+
+                                                  plug1:=plug2;                                  // 6
+                                                  plug2.y:=tang_pex36.y+tang_top_clear*side;     // 7
+
+                                                  do_chair_mark(plug1,plug2,486);   // 6..7
+
+                                                  plug1:=plug2;                                  // 7
+                                                  plug2.x:=tang_pex36.x-clip_tang_overcut*inscale;    // 4
+
+                                                  do_chair_mark(plug1,plug2,486);   // 7..4
+
+
+
+                                                       // 2nd tang bottom ...
+
+                                                  if tang2_spacing<>0
+                                                     then begin
+
+
+                                                            tang_pex54.y:=tang_pex54.y+clip_tang_end_space*inscale*side;    // 244d
+                                                            tang_pex55.y:=tang_pex55.y-clip_tang_end_space*inscale*side;    // 244d
+
+                                                            plug1:=tang_pex54;                // 0
+                                                            plug2:=tang_pex55;                // 1
+
+                                                            do_chair_mark(plug1,plug2,486);   // 0..1
+
+                                                            plug1:=plug2;                     // 1
+                                                            plug2.x:=midx-tang_bottom_space;  // 2
+
+                                                            do_chair_mark(plug1,plug2,486);   // 1..2
+
+                                                            plug1:=plug2;                     // 2
+                                                            plug2.y:=tang_pex54.y;            // 3
+
+                                                            do_chair_mark(plug1,plug2,486);   // 2..3
+
+                                                            plug1:=plug2;                     // 3
+                                                            plug2.x:=tang_pex54.x;            // 0
+
+                                                            do_chair_mark(plug1,plug2,486);
+
+
+                                                                 // 2nd tang top ...
+
+                                                            plug1.x:=tang_pex38.x-clip_tang_overcut*inscale;  // 4
+                                                            plug1.y:=tang_pex38.y+tang_top_clear*side;
+
+                                                            plug2:=plug1;                                // 5
+                                                            plug2.y:=tang_pex39.y-tang_top_clear*side;
+
+                                                            do_chair_mark(plug1,plug2,486);   // 4..5
+
+                                                            plug1:=plug2;                         // 5
+                                                            plug2.x:=plug1.x+tang_top_width;      // 6
+
+                                                            do_chair_mark(plug1,plug2,486);   // 5..6
+
+                                                            plug1:=plug2;                                  // 6
+                                                            plug2.y:=tang_pex38.y+tang_top_clear*side;     // 7
+
+                                                            do_chair_mark(plug1,plug2,486);   // 6..7
+
+                                                            plug1:=plug2;                                  // 7
+                                                            plug2.x:=tang_pex38.x-clip_tang_overcut*inscale;    // 4
+
+                                                            do_chair_mark(plug1,plug2,486);   // 7..4
+
+
+                                                          end;
+
+
+                                                    // add tangs, far side ...      8 marks
+
+                                                       // 1st tang bottom ...
+
+                                                  tang_pex59.y:=tang_pex59.y+clip_tang_end_space*inscale*side;    // 244d
+                                                  tang_pex58.y:=tang_pex58.y-clip_tang_end_space*inscale*side;    // 244d
+
+                                                  plug1:=tang_pex59;                // 0
+                                                  plug2:=tang_pex58;                // 1
+
+                                                  do_chair_mark(plug1,plug2,486);   // 0..1
+
+                                                  plug1:=plug2;                     // 1
+                                                  plug2.x:=midx+tang_bottom_space;  // 2
+
+                                                  do_chair_mark(plug1,plug2,486);   // 1..2
+
+                                                  plug1:=plug2;                     // 2
+                                                  plug2.y:=tang_pex59.y;            // 3
+
+                                                  do_chair_mark(plug1,plug2,486);   // 2..3
+
+                                                  plug1:=plug2;                     // 3
+                                                  plug2.x:=tang_pex59.x;            // 0
+
+                                                  do_chair_mark(plug1,plug2,486);
+
+
+                                                       // 1st tang top ...
+
+                                                  plug1.x:=tang_pex43.x+clip_tang_overcut*inscale;  // 4
+                                                  plug1.y:=tang_pex43.y+tang_top_clear*side;
+
+                                                  plug2:=plug1;                                // 5
+                                                  plug2.y:=tang_pex42.y-tang_top_clear*side;
+
+                                                  do_chair_mark(plug1,plug2,486);   // 4..5
+
+                                                  plug1:=plug2;                         // 5
+                                                  plug2.x:=plug1.x-tang_top_width;      // 6
+
+                                                  do_chair_mark(plug1,plug2,486);   // 5..6
+
+                                                  plug1:=plug2;                                  // 6
+                                                  plug2.y:=tang_pex43.y+tang_top_clear*side;     // 7
+
+                                                  do_chair_mark(plug1,plug2,486);   // 6..7
+
+                                                  plug1:=plug2;                                  // 7
+                                                  plug2.x:=tang_pex43.x+clip_tang_overcut*inscale;    // 4
+
+                                                  do_chair_mark(plug1,plug2,486);   // 7..4
+
+
+
+                                                       // 2nd tang bottom ...
+
+                                                  if tang2_spacing<>0
+                                                     then begin
+
+                                                            tang_pex57.y:=tang_pex57.y+clip_tang_end_space*inscale*side;    // 244d
+                                                            tang_pex56.y:=tang_pex56.y-clip_tang_end_space*inscale*side;    // 244d
+
+                                                            plug1:=tang_pex57;                // 0
+                                                            plug2:=tang_pex56;                // 1
+
+                                                            do_chair_mark(plug1,plug2,486);   // 0..1
+
+                                                            plug1:=plug2;                     // 1
+                                                            plug2.x:=midx+tang_bottom_space;  // 2
+
+                                                            do_chair_mark(plug1,plug2,486);   // 1..2
+
+                                                            plug1:=plug2;                     // 2
+                                                            plug2.y:=tang_pex57.y;            // 3
+
+                                                            do_chair_mark(plug1,plug2,486);   // 2..3
+
+                                                            plug1:=plug2;                     // 3
+                                                            plug2.x:=tang_pex57.x;            // 0
+
+                                                            do_chair_mark(plug1,plug2,486);
+
+
+                                                                 // 2nd tang top ...
+
+                                                            plug1.x:=tang_pex41.x+clip_tang_overcut*inscale;  // 4
+                                                            plug1.y:=tang_pex41.y+tang_top_clear*side;
+
+                                                            plug2:=plug1;                                // 5
+                                                            plug2.y:=tang_pex40.y-tang_top_clear*side;
+
+                                                            do_chair_mark(plug1,plug2,486);   // 4..5
+
+                                                            plug1:=plug2;                         // 5
+                                                            plug2.x:=plug1.x-tang_top_width;      // 6
+
+                                                            do_chair_mark(plug1,plug2,486);   // 5..6
+
+                                                            plug1:=plug2;                                  // 6
+                                                            plug2.y:=tang_pex41.y+tang_top_clear*side;     // 7
+
+                                                            do_chair_mark(plug1,plug2,486);   // 6..7
+
+                                                            plug1:=plug2;                                  // 7
+                                                            plug2.x:=tang_pex41.x+clip_tang_overcut*inscale;    // 4
+
+                                                            do_chair_mark(plug1,plug2,486);   // 7..4
+
+                                                          end;
+
+                                                end;//plug
+
+                                        
+                                        if (    (dxf_form.timbers_fdm_bullet_shape.Visible=True)
+                                             or (dxf_form.timbers_laser_bullet_shape.Visible=True)
+                                             or (dxf_form.reset_both_bullet_shape.Visible=True)
+                                             or ( (dxf_form.cot_bullet_shape.Visible=True) and (heaved_plug<>0) )
+                                           )
+                                       and ( (dxf_form.cot_radio.Checked=False) or (heaved_plug<>0) )
+                                       and (heaved_plug<>4)
+                                           then begin
+                                                        // doing a socket...
+
+                                                  sf_sides:=0;    // init...
+                                                  sf_ends:=0;
+                                                  sf_flap_ends:=0;
+                                                  socket_undercut:=0;
+
+                                                  flap_jut_length:=clip_socket_flap_jut_length*inscale;        // init 241c ...
+                                                  flap_rear_length:=clip_socket_flap_rear_length*inscale;
+                                                  flap_clear_width:=clip_socket_flap_clear_width*inscale;
+
+
+                                                  if chair_code>90         // RG and FG dummy chairs (for rail grooves)  // 234a
+                                                     then begin
+                                                            sf_sides:=0;
+                                                            sf_ends:=0;
+                                                            sf_flap_ends:=0;
+                                                            socket_undercut:=0;
+                                                          end
+                                                     else if ((dxf_form.snap_fit_radio.Checked=True) and (heaved_plug=0))
+                                                          or (heaved_plug=2)       // 241b ...
+                                                             then begin
+                                                                    if (timb_str='A') or (timb_str='N') or (timb_str='E') or (timb_str='R')
+                                                                       then sf_sides:=snap_socket_fit_sides_sl
+                                                                       else sf_sides:=snap_socket_fit_sides_timb;
+
+                                                                    sf_ends:=snap_socket_fit_ends;
+                                                                    sf_flap_ends:=0;
+
+                                                                    socket_undercut:=snap_socket_undercut;
+                                                                  end
+                                                             else if ((dxf_form.clip_fit_radio.Checked=True) and (heaved_plug=0))
+                                                                  or (heaved_plug=1)       // 241b ...
+                                                                     then begin
+                                                                            if (timb_str='A') or (timb_str='N') or (timb_str='E') or (timb_str='R')
+                                                                               then sf_sides:=clip_socket_fit_sides_sl
+                                                                               else sf_sides:=clip_socket_fit_sides_timb;
+
+                                                                            sf_ends:=clip_socket_fit_ends;
+
+                                                                            if dxf_form.end_flaps_checkbox.Checked=True                // 241c
+                                                                               then sf_flap_ends:=clip_socket_flap_top_length*inscale
+                                                                               else sf_flap_ends:=0;
+
+                                                                            socket_undercut:=clip_socket_undercut;
+                                                                          end
+                                                                     else if ((dxf_form.press_fit_radio.Checked=True) and (heaved_plug=0))
+                                                                          or (heaved_plug=3)// press-fit ...
+                                                                             then begin
+                                                                                    if (timb_str='A') or (timb_str='N') or (timb_str='E') or (timb_str='R')    // 236d
+                                                                                       then sf_sides:=press_socket_fit_sides_sl
+                                                                                       else sf_sides:=press_socket_fit_sides_timb;
+
+                                                                                    len:=ABS(p1.y-p2.y)/inscale;     // convert to full size
+
+                                                                                    if len<10                                             // 10"    L1
+                                                                                       then sf_ends:=press_short_socket_fit_ends
+                                                                                       else if len<15                                     // 15"    S1
+                                                                                               then sf_ends:=press_socket_fit_ends
+                                                                                               else if len<20                             // 20"    P
+                                                                                                       then sf_ends:=press_long_socket_fit_ends
+                                                                                                       else sf_ends:=press_very_long_socket_fit_ends;  // 4P, AA, BB
+
+                                                                                    sf_ends:=sf_ends-(dxf_form.plug_fit_trackbar.Position-100)*0.0005;    // range 0..200 =  +0.05 to -0.05 on socket (each end)
+
+                                                                                    sf_flap_ends:=0;
+
+                                                                                    socket_undercut:=0;
+                                                                                  end;
+
+                                                               // adjust socket walls for filament 241c ...
+
+                                                            if (dxf_form.filament_checkbox.Checked=True) and (filament_dia_mm<>1.75)
+                                                               then begin
+                                                                      filament_adjust:=SQR(filament_dia_mm)/3.0625*0.4-0.4;   // assume 0.4mm line width     3.0625 = 1.75*1.75
+
+                                                                      sf_sides:=sf_sides+filament_adjust;
+                                                                      sf_ends:=sf_ends+filament_adjust;
+
+                                                                    end;
+
+                                                  // socket outlines for 2-D ...   code 498 actual size
+
+                                                  sock1.x:=p1.x-sf_sides;
+                                                  sock1.y:=p1.y-sf_ends*side;
+
+                                                  sock2.x:=p2.x-sf_sides;
+                                                  sock2.y:=p2.y+sf_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,498);              // near side for 2-D
+
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+sf_sides;
+                                                  sock2.y:=p3.y+sf_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,498);              // gauge end for 2-D
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+sf_sides;
+                                                  sock2.y:=p4.y-sf_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,498);              // far side for 2-D
+
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-sf_sides;
+                                                  sock2.y:=p1.y-sf_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,498);              // outer end for 2-D
+
+
+
+                                                  // socket undercut 241b ...
+
+                                                  if chair_code<=90         // RG and FG dummy chairs (for rail grooves), no undercut  // 234a
+                                                     then begin
+                                                            undercut:=socket_undercut*inscale;        //  7/16" default width of side undercut
+
+                                                            sock1.x:=p1.x-sf_sides-undercut;
+                                                            sock1.y:=p1.y-sf_ends*side;
+
+                                                            sock2.x:=p2.x-sf_sides-undercut;
+                                                            sock2.y:=p2.y+sf_ends*side;
+
+                                                            do_chair_mark(sock1,sock2,498);    // near side
+
+                                                            sock1:=sock2;
+                                                            sock2.x:=p3.x+sf_sides+undercut;
+                                                            sock2.y:=p3.y+sf_ends*side;
+
+                                                            do_chair_mark(sock1,sock2,498);    // gauge end
+
+
+                                                            sock1:=sock2;
+                                                            sock2.x:=p4.x+sf_sides+undercut;
+                                                            sock2.y:=p4.y-sf_ends*side;
+
+                                                            do_chair_mark(sock1,sock2,498);    // far side
+
+
+                                                            sock1:=sock2;
+                                                            sock2.x:=p1.x-sf_sides-undercut;
+                                                            sock2.y:=p1.y-sf_ends*side;
+
+                                                            do_chair_mark(sock1,sock2,498);    // outer end
+
+                                                          end;
+
+
+                                                  // socket outline for 2-D (laser-cutting)...   code 9997 kerf_adjusted
+
+                                                  if (dxf_form.kerf_plus_undercut_checkbox.Checked=True) and (socket_undercut<>0)
+                                                     then kerf_undercut:=socket_undercut*inscale+kerf_extra_undercut_mm
+                                                     else kerf_undercut:=0;
+
+                                                  sock1.x:=p1.x-(sf_sides-kerf_offset+kerf_undercut);
+                                                  sock1.y:=p1.y-(sf_ends-kerf_offset)*side;
+
+                                                  sock2.x:=p2.x-(sf_sides-kerf_offset+kerf_undercut);
+                                                  sock2.y:=p2.y+(sf_ends-kerf_offset)*side;
+
+                                                  do_chair_mark(sock1,sock2,9997);              // near side for 2-D
+
+
+                                                  if (dxf_form.indented_socket_checkbox.Checked=True) and (socket_indent<>0)   // 244a
+                                                     then begin
+                                                            sock1:=sock2;
+                                                            sock2.x:=(p2.x+p3.x)/2;
+                                                            sock2.y:=(p2.y+p3.y)/2-socket_indent*inscale*side;
+
+                                                            do_chair_mark(sock1,sock2,9997);              // gauge end for 2-D, first half
+                                                          end;
+
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+(sf_sides-kerf_offset+kerf_undercut);
+                                                  sock2.y:=p3.y+(sf_ends-kerf_offset)*side;
+
+                                                  do_chair_mark(sock1,sock2,9997);              // gauge end for 2-D
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+(sf_sides-kerf_offset+kerf_undercut);
+                                                  sock2.y:=p4.y-(sf_ends-kerf_offset)*side;
+
+                                                  do_chair_mark(sock1,sock2,9997);              // far side for 2-D
+
+
+                                                  if (dxf_form.indented_socket_checkbox.Checked=True) and (socket_indent<>0)   // 244a
+                                                     then begin
+                                                            sock1:=sock2;
+                                                            sock2.x:=(p1.x+p4.x)/2;
+                                                            sock2.y:=(p1.y+p4.y)/2+socket_indent*inscale*side;
+
+                                                            do_chair_mark(sock1,sock2,9997);              // outer end for 2-D, first half
+                                                          end;
+
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-(sf_sides-kerf_offset+kerf_undercut);
+                                                  sock2.y:=p1.y-(sf_ends-kerf_offset)*side;
+
+                                                  do_chair_mark(sock1,sock2,9997);              // outer end for 2-D
+
+
+                                                  // repeat socket outline and add chamfer for 3-D (code 492, 12 marks) 228a , 241b ...
+
+                                                  socket_code:=492;   // socket outline full, plus top chamfer outline  plus undercut (20 marks)
+
+                                                    // outline 0..3  ...
+
+                                                  sock1.x:=p1.x-sf_sides;
+                                                  sock1.y:=p1.y-sf_ends*side-sf_flap_ends*side;
+
+                                                  sock2.x:=p2.x-sf_sides;
+                                                  sock2.y:=p2.y+sf_ends*side+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+sf_sides;
+                                                  sock2.y:=p3.y+sf_ends*side+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // gauge end
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+sf_sides;
+                                                  sock2.y:=p4.y-sf_ends*side-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-sf_sides;
+                                                  sock2.y:=p1.y-sf_ends*side-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // outer end
+
+
+                                                    // socket chamfer  4..7    228a ...
+
+                                                  if chair_code>90         // RG and FG dummy chairs (for rail grooves), no chamfer  // 234a
+                                                     then chamf:=0
+                                                     else chamf:=socket_chamfer*inscale;        //  3/8" default width of socket top chamfer
+
+                                                  sock1.x:=p1.x-sf_sides-chamf;
+                                                  sock1.y:=p1.y-sf_ends*side-chamf*side-sf_flap_ends*side;
+
+                                                  sock2.x:=p2.x-sf_sides-chamf;
+                                                  sock2.y:=p2.y+sf_ends*side+chamf*side+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+sf_sides+chamf;
+                                                  sock2.y:=p3.y+sf_ends*side+chamf*side+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // gauge end
+
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+sf_sides+chamf;
+                                                  sock2.y:=p4.y-sf_ends*side-chamf*side-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-sf_sides-chamf;
+                                                  sock2.y:=p1.y-sf_ends*side-chamf*side-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // outer end
+
+
+
+                                                    // socket undercut 8..11  241b ...
+
+                                                  if chair_code>90         // RG and FG dummy chairs (for rail grooves), no undercut  // 234a
+                                                     then undercut:=0
+                                                     else undercut:=socket_undercut*inscale;        //  7/16" default width of side undercut
+
+                                                  sock1.x:=p1.x-sf_sides-undercut;
+                                                  sock1.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
+
+                                                  sock2.x:=p2.x-sf_sides-undercut;
+                                                  sock2.y:=p2.y+sf_ends*side;//+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+sf_sides+undercut;
+                                                  sock2.y:=p3.y+sf_ends*side;//+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // gauge end
+
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+sf_sides+undercut;
+                                                  sock2.y:=p4.y-sf_ends*side;//-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-sf_sides-undercut;
+                                                  sock2.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // outer end
+
+
+                                                    // repeat chamfer without flap ends 12..15  241c ...
+
+                                                  if chair_code>90         // RG and FG dummy chairs (for rail grooves), no chamfer  // 234a
+                                                     then chamf:=0
+                                                     else chamf:=socket_chamfer*inscale;        //  3/8" default width of socket top chamfer
+
+                                                  sock1.x:=p1.x-sf_sides-chamf;
+                                                  sock1.y:=p1.y-sf_ends*side-chamf*side;//-sf_flap_ends*side;
+
+                                                  sock2.x:=p2.x-sf_sides-chamf;
+                                                  sock2.y:=p2.y+sf_ends*side+chamf*side;//+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+sf_sides+chamf;
+                                                  sock2.y:=p3.y+sf_ends*side+chamf*side;//+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // gauge end
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+sf_sides+chamf;
+                                                  sock2.y:=p4.y-sf_ends*side-chamf*side;//-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-sf_sides-chamf;
+                                                  sock2.y:=p1.y-sf_ends*side-chamf*side;//-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // outer end
+
+                                                    // repeat outline without flap ends 16..19  241c ...
+
+                                                  sock1.x:=p1.x-sf_sides;
+                                                  sock1.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
+
+                                                  sock2.x:=p2.x-sf_sides;
+                                                  sock2.y:=p2.y+sf_ends*side;//+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x+sf_sides;
+                                                  sock2.y:=p3.y+sf_ends*side;//+sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // gauge end
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x+sf_sides;
+                                                  sock2.y:=p4.y-sf_ends*side;//-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x-sf_sides;
+                                                  sock2.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // outer end
+
+
+                                                    // do near flap bottom 20..23 ...
+
+                                                  sock1.x:=p1.x+flap_clear_width;
+                                                  sock1.y:=p1.y-flap_rear_length*side;
+
+                                                  sock2:=sock1;
+                                                  sock2.y:=p1.y+flap_jut_length*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p4.x-flap_clear_width;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // jut end
+
+                                                  sock1:=sock2;
+                                                  sock2.y:=p1.y-flap_rear_length*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p1.x+flap_clear_width;;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // rear end
+
+
+                                                   // do far flap bottom 24..27 ...
+
+                                                  sock1.x:=p2.x+flap_clear_width;
+                                                  sock1.y:=p2.y+flap_rear_length*side;
+
+                                                  sock2:=sock1;
+                                                  sock2.y:=p2.y-flap_jut_length*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // near side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p3.x-flap_clear_width;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // jut end
+
+                                                  sock1:=sock2;
+                                                  sock2.y:=p2.y+flap_rear_length*side;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // far side
+
+                                                  sock1:=sock2;
+                                                  sock2.x:=p2.x+flap_clear_width;;
+
+                                                  do_chair_mark(sock1,sock2,socket_code);    // rear end
+
+                                                end;//socket
+
+                                      end;//with chairing_dims
+                                    end;
+                                    //==========================================
 
 
                   begin
@@ -24442,106 +25800,124 @@ var
                     curvi_k:=0;
                     curvi_k_mod:=0;
 
-                    with chairing_dims do begin
+                    with heaved_chairing_dims.chairing_dims do begin
 
-                      if brick_form.Showing=True   // chair labels ...  MW 03-08-2024   555a
-                         then begin
-                                  {
-                                  chair labels:
-                                  461,471 = interchangeable chair labels
-                                  462,472 = switch block chair labels
-                                  463,473 = V-crossing chair labels
-                                  464,474 = K-crossing chair labels
-                                  ... ... other specials
-                                  468,478 = SC customizable chair labels
-                                  }
+                					 // SC 17-SEP-2024 556
+                      {if brick_form.Showing=True   // chair labels ...  MW 03-08-2024   555a
+                         then begin}
+                      // sc 17-sep-2024 556
+{
+ chair labels:
+ 461,471 = interchangeable chair labels
+ 462,472 = switch block chair labels
+ 463,473 = V-crossing chair labels
+ 464,474 = K-crossing chair labels
+ ... ... other specials
+ 468,478 = SC customizable chair labels
+}
 
-                                label_code:=0;       // init..
-                                label_code_mod:=0;
+                      label_code:=0;       // init..
+                      label_code_mod:=0;
 
-                                if (((rail_code=2) or (rail_code=4)) and (hand_i=1))  // turnout road LH TEMPLATE
-                                or (((rail_code=1) or (rail_code=3)) and (hand_i=-1)) // main road    RH TEMPLATE
-                                   then label_code_mod:=10;
+                      if (((rail_code=2) or (rail_code=4)) and (hand_i=1))  // turnout road LH TEMPLATE
+                      or (((rail_code=1) or (rail_code=3)) and (hand_i=-1)) // main road    RH TEMPLATE
+                         then label_code_mod:=10;
 
-                                case chair_code of
-                                  1..3,                                                            // interchangeable S1, P, L1CC,
-                                  5..9,                                                            // L1, M1, S1J, S1O, S1N,
-                                  14..20: if brick_form.chair_label_interch_checkbox.Checked=True  // CCL/R, CC, CCR/L, SS, MS, L1CCL/R, L1CCR/L
-                                             then label_code:=461+label_code_mod;
+                      case chair_code of
+                        // SC 17-SEP-2024 556
 
-                                      10: if brick_form.chair_label_sc_checkbox.Checked=True       // customizable SC
-                                             then label_code:=469+label_code_mod;
+                        {1..3,                                                            // interchangeable S1, P, L1CC,
+                        5..9,                                                            // L1, M1, S1J, S1O, S1N,
+                        14..20: if brick_form.chair_label_interch_checkbox.Checked=True  // CCL/R, CC, CCR/L, SS, MS, L1CCL/R, L1CCR/L
+                                   then label_code:=461+label_code_mod;
 
-                                   11,12: if brick_form.chair_label_switch_block_checkbox.Checked=True   // switch block 1P..2P, 3P..11P
-                                             then label_code:=462+label_code_mod;
+                            10: if brick_form.chair_label_sc_checkbox.Checked=True       // customizable SC
+                                   then label_code:=469+label_code_mod;
 
-                                  21..28: if brick_form.chair_label_vxing_checkbox.Checked=True   // V-crossing ZY, XN, XA, AA, AB, BB/BC, CD/DD, EF
-                                             then label_code:=463+label_code_mod;
-                                  {nyi
-                                      40: 'SDP';
-                                      41: 'SDS';
-                                      50: 'PW';
-                                      51: 'PWL';
-                                      52: 'PWR';
-                                      98: 'FG'; //dummy chair  rail foot groove
-                                      99: 'RG'; //dummy chair  rail head groove
-                                  }
+                         11,12: if brick_form.chair_label_switch_block_checkbox.Checked=True   // switch block 1P..2P, 3P..11P
+                                   then label_code:=462+label_code_mod;
 
-                                end;//case
+                        21..28: if brick_form.chair_label_vxing_checkbox.Checked=True   // V-crossing ZY, XN, XA, AA, AB, BB/BC, CD/DD, EF
+                                   then label_code:=463+label_code_mod;}
 
-                                tempex.x:=xtimbcl;     // timber centre
+                        1..3,                                     // interchangeable S1, P, L1CC,
+                        5..9,                                     // L1, M1, S1J, S1O, S1N,
+                        14..20: label_code:=461+label_code_mod;   // CCL/R, CC, CCR/L, SS, MS, L1CCL/R, L1CCR/L
+                                        
+                            10: label_code:=469+label_code_mod;   // customizable SC
 
-                                  // label positions...
+                         11,12: label_code:=462+label_code_mod;   // switch block 1P..2P, 3P..11P
 
-                                case chair_code of
+                        21..28: label_code:=463+label_code_mod;   // V-crossing ZY, XN, XA, AA, AB, BB/BC, CD/DD, EF
 
-                                     5: begin                           // L1
-                                          tempex.y:=0-13*inscale*side;  // init  labels in six-foot  L1  13" arbitrary
-                                          if (xtimbcl>toex)
-                                         and ((xtimbcl<(ipx-30*inscale)) or ((xtimbcl>fpx) and (xtimbcl<mvjpx)))   // labels in four-foot,  beyond switch up to mid (IP-30" arbitrary), or beyond xing up to joint
-                                             then begin
-                                                    if rail_code=2 then tempex.y:=9*inscale;         // over-rides   L1 9" arbitrary..
-                                                    if rail_code=3 then tempex.y:=9*inscale*side;
-                                                  end;
-                                        end;
+                        // sc 17-sep-2024 556
 
-                                        // xing labels ...
+{nyi
+    40: 'SDP';
+    41: 'SDS';
+    50: 'PW';
+    51: 'PWL';
+    52: 'PWR';
+    98: 'FG'; //dummy chair  rail foot groove
+    99: 'RG'; //dummy chair  rail head groove
+}
 
-                                    22: tempex.y:=16*inscale;    // XN  16" arbitrary
+                      end;//case
 
-                                    23: tempex.y:=aq2offset(xtimbcl,dummy)-g+19*inscale;   // XA  19" arbitrary
+                      tempex.x:=xtimbcl;     // timber centre
 
-                                 24,25: tempex.y:=aq2offset(xtimbcl,dummy)-g+18.5*inscale; // AA, AB  18.5" arbitrary
+                        // label positions...
 
-                                    26: tempex.y:=aq2offset(xtimbcl,dummy)-g+20*inscale;   // BB/BC  20" arbitrary
+                      case chair_code of
 
-                                 27,28: tempex.y:=aq2offset(xtimbcl,dummy)-g+12*inscale;   // CD/DD, EF  12" arbitrary
-
-                                   else begin
-                                          tempex.y:=0-15*inscale*side;  // init  labels in six-foot    15" arbitrary
-
-                                          if (xtimbcl>toex)
-                                         and ((xtimbcl<(ipx-30*inscale)) or ((xtimbcl>fpx) and (xtimbcl<mvjpx)))   // labels in four-foot,  beyond switch up to mid (IP-30" arbitrary), or beyond xing up to joint
-                                             then begin
-                                                    if rail_code=2 then tempex.y:=11*inscale;         // over-rides  not L1 11" arbitrary..
-                                                    if rail_code=3 then tempex.y:=0-11*inscale;
-                                                  end;
-                                        end;
-
-                                end;//case
-
-                                if label_code<>0
+                           5: begin                           // L1
+                                tempex.y:=0-13*inscale*side;  // init  labels in six-foot  L1  13" arbitrary
+                                if (xtimbcl>toex)
+                               and ((xtimbcl<(ipx-30*inscale)) or ((xtimbcl>fpx) and (xtimbcl<mvjpx)))   // labels in four-foot,  beyond switch up to mid (IP-30" arbitrary), or beyond xing up to joint
                                    then begin
-                                          case rail_code of                                             // global  encode rail_code in 2 LSbits
-                                               1: begin bit_settings:=bit_settings AND $FFFFFFFC; end;
-                                               2: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000001; end;
-                                               3: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000002; end;
-                                               4: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000003; end;
-                                          end;//case
-
-                                          do_chair_mark(tempex,tempex,label_code);   // chair label
+                                          if rail_code=2 then tempex.y:=9*inscale;         // over-rides   L1 9" arbitrary..
+                                          if rail_code=3 then tempex.y:=9*inscale*side;
                                         end;
                               end;
+
+                              // xing labels ...
+
+                          22: tempex.y:=16*inscale;    // XN  16" arbitrary
+
+                          23: tempex.y:=aq2offset(xtimbcl,dummy)-g+19*inscale;   // XA  19" arbitrary
+
+                       24,25: tempex.y:=aq2offset(xtimbcl,dummy)-g+18.5*inscale; // AA, AB  18.5" arbitrary
+
+                          26: tempex.y:=aq2offset(xtimbcl,dummy)-g+20*inscale;   // BB/BC  20" arbitrary
+
+                       27,28: tempex.y:=aq2offset(xtimbcl,dummy)-g+12*inscale;   // CD/DD, EF  12" arbitrary
+
+                         else begin
+                                tempex.y:=0-15*inscale*side;  // init  labels in six-foot    15" arbitrary
+
+                                if (xtimbcl>toex)
+                               and ((xtimbcl<(ipx-30*inscale)) or ((xtimbcl>fpx) and (xtimbcl<mvjpx)))   // labels in four-foot,  beyond switch up to mid (IP-30" arbitrary), or beyond xing up to joint
+                                   then begin
+                                          if rail_code=2 then tempex.y:=11*inscale;         // over-rides  not L1 11" arbitrary..
+                                          if rail_code=3 then tempex.y:=0-11*inscale;
+                                        end;
+                              end;
+
+                      end;//case
+
+                      if label_code<>0
+                         then begin
+                                case rail_code of                                             // global  encode rail_code in 2 LSbits
+                                     1: begin bit_settings:=bit_settings AND $FFFFFFFC; end;
+                                     2: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000001; end;
+                                     3: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000002; end;
+                                     4: begin bit_settings:=bit_settings AND $FFFFFFFC; bit_settings:=bit_settings OR $00000003; end;
+                                end;//case
+
+                                do_chair_mark(tempex,tempex,label_code);   // chair label
+                              end;
+
+                            //end;   SC 17-SEP-2024 556
 
                       if (scale>4.05) and (dxf_form.increase_plug_size_checkbox.Checked=True)    // 244d  larger scales,  reduce overhang
                          then begin
@@ -24583,10 +25959,25 @@ var
 
                               end;
 
+                      outer_beefing:=0;  // init..
+                      inner_beefing:=0;
 
-                      plinth_spacing:=_3d_data.chair_plinth_spacing*inscale;  // plinth 1" inside all round
+                      if (dxf_form._3d_fdm_radiobutton.Checked=True) and (dxf_form.fdm_beefing_checkbox.Checked=True)
+                         then begin
+                                outer_beefing:=fdm_outer_beefing;
+                                inner_beefing:=fdm_inner_beefing;
+                              end
+                         else if (dxf_form._3d_resin_radiobutton.Checked=True) and (dxf_form.resin_beefing_checkbox.Checked=True)
+                                 then begin
+                                        outer_beefing:=resin_outer_beefing;
+                                        inner_beefing:=resin_inner_beefing;
+                                      end;
 
-                          // radiused corners at 15deg steps from p1-p4 centres = 14 marks per chair, 2 points per mark, sequence clockwise from 9 o'clock on p1
+                      plinth_spacing_sides:=_3d_data.chair_plinth_spacing_sides*inscale;                      // plinth 1" inside
+                      plinth_spacing_inner_end:=(_3d_data.chair_plinth_spacing_ends-inner_beefing)*inscale;   // 556a plinth 1" inside, less beefing
+                      plinth_spacing_outer_end:=(_3d_data.chair_plinth_spacing_ends-outer_beefing)*inscale;   // 556a plinth 1" inside, less beefing
+
+                      // radiused corners at 15deg steps from p1-p4 centres = 14 marks per chair, 2 points per mark, sequence clockwise from 9 o'clock on p1
 
                       arck:=Pi/12;    // 15 degs
 
@@ -24602,7 +25993,7 @@ var
 
 
 
-                      plinth_rect_xleft:=MIN(arc1.x,arc2.x)+plinth_spacing;  // 233d   plinth rectangle
+                      plinth_rect_xleft:=MIN(arc1.x,arc2.x)+plinth_spacing_sides;  // 233d   plinth rectangle
 
                       do_chair_mark(arc1,arc2,chcode);  // code 484,485,493,494,497 = chair outline, radiused corners - code in first mark only
 
@@ -24624,9 +26015,9 @@ var
 
                       until n>5;
 
-                      plug_rect_yinner:=arc2.y-plug_spacing_inner_end*side;     // 233d   plug rectangle
+                      plug_rect_yinner:=arc2.y-plug_spacing_inner_end*side;       // 233d   plug rectangle
 
-                      plinth_rect_yinner:=arc2.y-plinth_spacing*side;     // 233d   plinth rectangle
+                      plinth_rect_yinner:=arc2.y-plinth_spacing_inner_end*side;   // 556a   plinth rectangle
 
                             // rad around p3 ..
 
@@ -24655,9 +26046,9 @@ var
                       arc2.x:=p4.x+crad_outer;
                       arc2.y:=p4.y;
 
-                      plug_rect_xright:=MAX(arc1.x,arc2.x)-plug_spacing_sides;  // 233d  plug rectangle
+                      plug_rect_xright:=MAX(arc1.x,arc2.x)-plug_spacing_sides;      // 233d  plug rectangle
 
-                      plinth_rect_xright:=MAX(arc1.x,arc2.x)-plinth_spacing;  // 233d  plinth rectangle
+                      plinth_rect_xright:=MAX(arc1.x,arc2.x)-plinth_spacing_sides;  // 233d  plinth rectangle
 
                       do_chair_mark(arc1,arc2,0);
 
@@ -24679,9 +26070,9 @@ var
 
                       until n>5;
 
-                      plug_rect_youter:=arc1.y+plug_spacing_outer_end*side;   // 233d   plug rectangle
+                      plug_rect_youter:=arc1.y+plug_spacing_outer_end*side;       // 233d   plug rectangle
 
-                      plinth_rect_youter:=arc1.y+plinth_spacing*side;   // 233d   plinth rectangle
+                      plinth_rect_youter:=arc1.y+plinth_spacing_outer_end*side;   // 556a   plinth rectangle
 
                             // rad around p1 ..
 
@@ -24735,9 +26126,7 @@ var
                       slot_cl:=(plinth_rect_xleft+plinth_rect_xright)/2;
 
 
-                      //showmessage('slots');
-
-                        // 1st pin slot   ...
+                      // 1st pin slot   ...
 
                       case chair_code of    // angled crossing chairs    ZY, XN, XA, AA, AB, BB/BC, CD/DD, EF chairs
 
@@ -24846,9 +26235,6 @@ var
                                         end;
 
                                 shift_slot2:=(fw+fw_mods)+check_flare_shift;
-
-                                //if side=-1 then showmessage('14ts  '+floattostr(fw)+'  '+floattostr(fw_mods)+'  '+floattostr(check_flare_shift))
-                                //           else showmessage('14ms  '+floattostr(fw)+'  '+floattostr(fw_mods)+'  '+floattostr(check_flare_shift));
 
                                 twist_slot2:=0-check_flare_twist*side;
 
@@ -25148,1298 +26534,7 @@ var
 
                       //----------------------
 
-                        // plug rectangle outline (code 491, 24 marks) 227a  ...
-                        // with 45-deg corners 8-sides clockwise with side=+1 , repeat 8-inner sides for bottom taper
-                        // plus 8 marks for top and bottom of support pyramid
-
-                        // 233d  modify plug/socket size rectangle if wanted   default mods zero  ...
-
-                      p1.x:=plug_rect_xleft-plugsock_width_mod*inscale/2;
-                      p2.x:=p1.x;
-
-                      p3.x:=plug_rect_xright+plugsock_width_mod*inscale/2;
-                      p4.x:=p3.x;
-
-                      p1.y:=plug_rect_youter-plugsock_length_mod*inscale*side/2;
-                      p2.y:=plug_rect_yinner+plugsock_length_mod*inscale*side/2;
-                      p3.y:=p2.y;
-                      p4.y:=p1.y;
-
-                        // break plug corners ..
-
-                      if dxf_form.cnc_corners_checkbox.Checked=True
-                         then begin
-                                plug_clear_sides:=plug_corner_clear_cnc*inscale;
-                                plug_clear_ends:=(ABS(p3.x-p1.x)-plug_end_width_cnc*inscale)/2;    // 234e calc end corner relief
-                              end
-                         else begin
-                                plug_clear_sides:=plug_corner_clear_fdm*inscale;
-
-                                {if chair_code=5
-                                   then plug_clear_ends:=(ABS(p3.x-p1.x)-plug_end_width_fdm*2*inscale)/2   // wider on L1 chairs to clear loose-pin slot
-                                   else}
-
-                                plug_clear_ends:=(ABS(p3.x-p1.x)-plug_end_width_fdm*inscale)/2;    // 234e calc end corner relief
-                              end;
-
-                        // outer sides...
-
-                        // plug_fit = fine adjust plug size, default 0,  marks 0-7...
-
-                      plug1.x:=p1.x-plug_fit_sides+plug_clear_ends;
-                      plug1.y:=p1.y-plug_fit_ends*side;
-
-                      plug2.x:=p1.x-plug_fit_sides;
-                      plug2.y:=p1.y-plug_fit_ends*side+plug_clear_sides*side;
-
-                      tang_pex1:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 0..1 break across p1 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p2.x-plug_fit_sides;
-                      plug2.y:=p2.y+plug_fit_ends*side-plug_clear_sides*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 1..2 side of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p2.x-plug_fit_sides+plug_clear_ends;
-                      plug2.y:=p2.y+plug_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 2..3 break across p2 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p3.x+plug_fit_sides-plug_clear_ends;
-                      plug2.y:=p3.y+plug_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 3..4 end of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p3.x+plug_fit_sides;
-                      plug2.y:=p3.y+plug_fit_ends*side-plug_clear_sides*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 4..5 break across p3 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p4.x+plug_fit_sides;
-                      plug2.y:=p4.y-plug_fit_ends*side+plug_clear_sides*side;
-
-                      tang_pex6:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 5..6 side of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p4.x+plug_fit_sides-plug_clear_ends;
-                      plug2.y:=p4.y-plug_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 6..7 break across p4 corner
-
-
-                      plug1:=plug2;
-                      plug2.x:=p1.x-plug_fit_sides+plug_clear_ends;
-                      plug2.y:=p1.y-plug_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 7...0 end of plug
-
-
-                         // repeat for inner sides (below taper), upper ...    marks 8-15...
-
-                      if dxf_form.clip_fit_radio.Checked=True
-                         then begin
-                                plug_inner_fit_sides:=plug_fit_sides-clip_plug_inset_clear_upper*inscale;  // 1/4" clear below taper
-                                plug_inner_fit_ends:=plug_fit_ends-clip_plug_inset_clear_upper*inscale;    // 1/4" clear below taper
-                              end
-                         else if dxf_form.snap_fit_radio.Checked=True
-                                 then begin
-                                        plug_inner_fit_sides:=plug_fit_sides+snap_plug_overcut*inscale;    // 3/8" width of plug overcut to clip under socket undercut  241b
-                                        plug_inner_fit_ends:=plug_fit_ends;
-                                      end
-                                 else begin        // press-fit
-                                        plug_inner_fit_sides:=plug_fit_sides-press_plug_inset_clear_upper*inscale;  // 1/4" clear below taper
-                                        plug_inner_fit_ends:=plug_fit_ends-press_plug_inset_clear_upper*inscale;    // 1/4" clear below taper
-                                      end;
-
-                      plug1.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
-                      plug1.y:=p1.y-plug_inner_fit_ends*side;
-
-                      plug2.x:=p1.x-plug_inner_fit_sides;
-                      plug2.y:=p1.y-plug_inner_fit_ends*side+plug_clear_sides*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p1 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p2.x-plug_inner_fit_sides;
-                      plug2.y:=p2.y+plug_inner_fit_ends*side-plug_clear_sides*side;
-
-                      tang_pex9:=plug1;
-                      tang_pex10:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // side of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p2.x-plug_inner_fit_sides+plug_clear_ends;
-                      plug2.y:=p2.y+plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p2 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p3.x+plug_inner_fit_sides-plug_clear_ends;
-                      plug2.y:=p3.y+plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // end of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p3.x+plug_inner_fit_sides;
-                      plug2.y:=p3.y+plug_inner_fit_ends*side-plug_clear_sides*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p3 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p4.x+plug_inner_fit_sides;
-                      plug2.y:=p4.y-plug_inner_fit_ends*side+plug_clear_sides*side;
-
-                      tang_pex13:=plug1;
-                      tang_pex14:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // side of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p4.x+plug_inner_fit_sides-plug_clear_ends;
-                      plug2.y:=p4.y-plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p4 corner
-
-
-                      plug1:=plug2;
-                      plug2.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
-                      plug2.y:=p1.y-plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // end of plug
-
-
-                         // repeat for inner sides, bottom ...    234e another 8 marks  16-23...
-
-                      if dxf_form.clip_fit_radio.Checked=True
-                         then begin
-                                plug_inner_fit_sides:=plug_fit_sides-clip_plug_inset_clear_bottom*inscale;  // 1/2" clear at bottom
-                                plug_inner_fit_ends:=plug_fit_ends-clip_plug_inset_clear_bottom*inscale;    // 1/2" clear at bottom
-                              end
-                         else if dxf_form.snap_fit_radio.Checked=True
-                                 then begin
-                                        plug_inner_fit_sides:=plug_fit_sides-snap_plug_inset_clear_bottom*inscale;  // 1/2" clear at bottom
-                                        plug_inner_fit_ends:=plug_fit_ends-snap_plug_inset_clear_bottom*inscale;    // 1/2" clear at bottom
-                                      end
-                                 else begin        // press-fit
-                                        plug_inner_fit_sides:=plug_fit_sides-press_plug_inset_clear_bottom*inscale;  // 1/2" clear at bottom
-                                        plug_inner_fit_ends:=plug_fit_ends-press_plug_inset_clear_bottom*inscale;    // 1/2" clear at bottom
-                                      end;
-
-                      plug1.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
-                      plug1.y:=p1.y-plug_inner_fit_ends*side;
-
-                      plug2.x:=p1.x-plug_inner_fit_sides;
-                      plug2.y:=p1.y-plug_inner_fit_ends*side+plug_clear_sides*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p1 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p2.x-plug_inner_fit_sides;
-                      plug2.y:=p2.y+plug_inner_fit_ends*side-plug_clear_sides*side;
-
-                      tang_pex17:=plug1;
-                      tang_pex18:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // side of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p2.x-plug_inner_fit_sides+plug_clear_ends;
-                      plug2.y:=p2.y+plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p2 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p3.x+plug_inner_fit_sides-plug_clear_ends;
-                      plug2.y:=p3.y+plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // end of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p3.x+plug_inner_fit_sides;
-                      plug2.y:=p3.y+plug_inner_fit_ends*side-plug_clear_sides*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p3 corner
-
-                      plug1:=plug2;
-                      plug2.x:=p4.x+plug_inner_fit_sides;
-                      plug2.y:=p4.y-plug_inner_fit_ends*side+plug_clear_sides*side;
-
-                      tang_pex21:=plug1;
-                      tang_pex22:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // side of plug
-
-                      plug1:=plug2;
-                      plug2.x:=p4.x+plug_inner_fit_sides-plug_clear_ends;
-                      plug2.y:=p4.y-plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // break across p4 corner
-
-
-                      plug1:=plug2;
-                      plug2.x:=p1.x-plug_inner_fit_sides+plug_clear_ends;
-                      plug2.y:=p1.y-plug_inner_fit_ends*side;
-
-                      do_chair_mark(plug1,plug2,491);    // end of plug
-
-
-                        // top of support pyramid 227a  (4 more marks  24-27) ...     (and bottom of plug)
-
-                              // 237a  allow for a twisted slot in plug base (e.g. crossing chairs, check-end chairs)
-                              // max twist (equalized chairs) say max 15 degs
-
-
-                      support_half_top_side_mm:=pyramid_top_side_inset*inscale;  // 241b  2" default   was 2.3/8"     was ((pin_slot_halfwide+loose_pin_clear_sides)*inscale*2*COS(tw)+(pin_slot_length+loose_pin_clear_front+loose_pin_clear_back)*inscale*SIN(tw))/2;  // half twisted slot extent     pyramid top dims
-
-                      if (k3n<4.99) and (chair_code>20) then support_half_top_side_mm:=support_half_top_side_mm+inscale*3/8;  // 241b 3/8" wider to clear twisted slots on short angle crossings   1:5 arbitrary
-
-                      support_half_top_end_mm:=(ABS(p1.y-p2.y)-pyramid_top_end_inset*inscale)/2;   // 237a pyramid top dims
-
-                      if chair_code=5 then support_half_top_end_mm:=support_half_top_end_mm+inscale*3/8;  // 241b L1 chair -- pyramid to clear pin slot
-
-                        // bottom dims of support pyramid ..
-
-                      support_half_bottom_side_mm:=support_half_top_side_mm+pyramid_taper*inscale;   // 234e pyramid bottom dims
-                      support_half_bottom_end_mm:=support_half_top_end_mm+pyramid_taper*inscale;     // 234e pyramid bottom dims
-
-                        // top ...
-
-                      midx:=(p1.x+p4.x)/2;
-                      midy:=(p1.y+p2.y)/2;
-
-                      plug1.x:=midx-support_half_top_side_mm;
-                      plug1.y:=midy-support_half_top_end_mm*side;
-
-                      plug2.x:=midx-support_half_top_side_mm;
-                      plug2.y:=midy+support_half_top_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 1st side
-
-                      plug1:=plug2;
-                      plug2.x:=midx+support_half_top_side_mm;
-                      plug2.y:=midy+support_half_top_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 2nd side
-
-                      plug1:=plug2;
-                      plug2.x:=midx+support_half_top_side_mm;
-                      plug2.y:=midy-support_half_top_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 3rd side
-
-                      plug1:=plug2;
-                      plug2.x:=midx-support_half_top_side_mm;
-                      plug2.y:=midy-support_half_top_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 4th side
-
-
-                        // bottom of plug support pyramid 227a  (4 more marks 29-31) ...
-
-                      midx:=(p1.x+p4.x)/2;
-                      midy:=(p1.y+p2.y)/2;
-
-                      plug1.x:=midx-support_half_bottom_side_mm;
-                      plug1.y:=midy-support_half_bottom_end_mm*side;
-
-                      plug2.x:=midx-support_half_bottom_side_mm;
-                      plug2.y:=midy+support_half_bottom_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 1st side
-
-                      plug1:=plug2;
-                      plug2.x:=midx+support_half_bottom_side_mm;
-                      plug2.y:=midy+support_half_bottom_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 2nd side
-
-                      plug1:=plug2;
-                      plug2.x:=midx+support_half_bottom_side_mm;
-                      plug2.y:=midy-support_half_bottom_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 3rd side
-
-                      plug1:=plug2;
-                      plug2.x:=midx-support_half_bottom_side_mm;
-                      plug2.y:=midy-support_half_bottom_end_mm*side;
-
-                      do_chair_mark(plug1,plug2,491);    // 4th side
-
-
-                        // dummy top mid-rectangle on support pyramid 237a  (4 more marks 32-35  36 marks total) ...
-                        // corners used in DXF but not sides (for twisted slots)
-
-                      midx:=(p1.x+p4.x)/2;
-                      midy:=(p1.y+p2.y)/2;
-
-                      plug1.x:=midx-support_half_top_side_mm;
-                      plug1.y:=midy-support_half_top_end_mm*side*3/4;
-
-                      plug2.x:=midx-support_half_top_side_mm;
-                      plug2.y:=midy+support_half_top_end_mm*side*3/4;
-
-                      do_chair_mark(plug1,plug2,491);
-
-                      plug1:=plug2;
-                      plug2.x:=midx+support_half_top_side_mm;
-                      plug2.y:=midy+support_half_top_end_mm*side*3/4;
-
-                      do_chair_mark(plug1,plug2,491);
-
-                      plug1:=plug2;
-                      plug2.x:=midx+support_half_top_side_mm;
-                      plug2.y:=midy-support_half_top_end_mm*side*3/4;
-
-                      do_chair_mark(plug1,plug2,491);
-
-                      plug1:=plug2;
-                      plug2.x:=midx-support_half_top_side_mm;
-                      plug2.y:=midy-support_half_top_end_mm*side*3/4;
-
-                      do_chair_mark(plug1,plug2,491);
-
-
-                        //  24 more marks for clip-fit plugs -- tang recesses   (36..59  60 marks total) ...  241b
-
-                      tang2_spacing:=0;     // init single set of tangs
-                      tang2_long:=0;
-
-                      tang_outlong1:=3*inscale;   // 3"   init
-
-                      tang_top_width:=inscale*1.25;  // 1.1.4" at top of tang
-
-                      tang_top_clear:=inscale/2;   // 1/2" side clearance at top for tang to flex
-
-                      len:=ABS(p1.x-p4.x)/inscale;  // plug width convert to full size
-
-                      if len<6.25
-                         then tang_bottom_space:=inscale/2                        // 1/2" space from centre to rear of base of tang for 6" plugs S1 etc.
-                         else tang_bottom_space:=inscale/2+(len-6.25)*inscale/2;  // widen to similar tang bottom for wider plugs.
-
-                      case chair_code of   // arbitrary tang lengths ...
-
-                         1,3,4,6..10: begin                          // S1, S1J  no key jaw at inner end ...
-                                        if chair_inlong<(7*inscale)
-                                           then tang_inlong1:=chair_inlong-2.75*inscale
-                                           else tang_inlong1:=chair_inlong-4*inscale;
-                                      end;
-
-                                  2: begin   // P slide
-
-                                        tang_inlong1:=1.5*inscale;                                        // 4.5" tang
-                                        tang2_spacing:=2*inscale;                                         // middle column
-                                        tang2_long:=chair_inlong-tang_inlong1-tang2_spacing-2.75*inscale;
-                                      end;
-
-                                   5: tang_inlong1:=chair_inlong-3*inscale;   // L1 bridge chair
-
-                                  11: begin   //  1P..2P
-
-                                        tang_inlong1:=2*inscale;                                          // 5" tang
-                                        tang2_spacing:=2*inscale;                                         // middle column
-                                        tang2_long:=chair_inlong-tang_inlong1-tang2_spacing-2.75*inscale;
-                                      end;
-
-                               12,13: begin
-                                        tang_inlong1:=chair_inlong-12*inscale;  // 3P..11P switch block, internal key jaws, pin slots
-                                        tang2_spacing:=3.75*inscale;
-                                        tang2_long:=5.25*inscale;
-                                      end;
-
-                               14,16: tang_inlong1:=chair_inlong-6.5*inscale;     // CCL, CCR
-
-                                  21: begin                                           // ZY
-
-                                        if (chair_inlong+chair_outlong)>(23*inscale)  // split tangs if chair longer than 23" arbitrary
-                                           then begin
-                                                  tang_inlong1:=(chair_inlong-chair_outlong)/2-inscale;    // 1" half middle column
-                                                  tang2_spacing:=inscale*2;                                // 2" middle column
-                                                  tang2_long:=tang_outlong1+tang_inlong1;
-                                                end
-                                           else tang_inlong1:=chair_inlong-6.5*inscale;   // shorter than 23" -- full length single tang
-                                      end;
-
-                              23..26: begin                                        // XA, AA, AB, BB  double keys on wing rail
-                                        tang_outlong1:=chair_outlong-6.5*inscale;
-
-                                         if (chair_inlong+chair_outlong)>(27.5*inscale)  // split long tangs if chair longer than arbitrary
-                                             then begin
-                                                    tang_inlong1:=0-chair_outlong+12.5*inscale;               // 6" tang
-
-                                                    tang2_spacing:=chair_inlong+chair_outlong-25*inscale;     // middle column   2.5" minimum
-                                                    tang2_long:=tang_outlong1+tang_inlong1;
-                                                  end
-                                             else if (chair_inlong+chair_outlong)>(24.5*inscale)  // split short tangs if chair longer than arbitrary
-                                                     then begin
-                                                            tang_inlong1:=0-chair_outlong+11*inscale;               // 4.5" tang
-
-                                                            tang2_spacing:=chair_inlong+chair_outlong-22*inscale;   // middle column   2.5" minimum
-                                                            tang2_long:=tang_outlong1+tang_inlong1;
-                                                          end
-                                                     else tang_inlong1:=chair_inlong-6.5*inscale;     // shorter chair, no split
-
-                                      end;
-
-                                  27: begin             // CD/ED   no slots
-
-                                        if (chair_inlong+chair_outlong)>(19*inscale)  // split long tangs if chair longer than 19" arbitrary
-                                           then begin
-                                                  tang_outlong1:=chair_outlong-3.5*inscale;
-                                                  tang_inlong1:=0-chair_outlong+8.5*inscale;               // 5" tang
-
-                                                  tang2_spacing:=chair_inlong+chair_outlong-17*inscale;   // middle column   2" minimum
-                                                  tang2_long:=tang_outlong1+tang_inlong1;
-                                                end
-                                           else if (chair_inlong+chair_outlong)>(17*inscale)  // split short tangs if chair longer than 17" arbitrary
-                                                   then begin
-                                                          tang_outlong1:=chair_outlong-3.5*inscale;
-                                                          tang_inlong1:=0-chair_outlong+7.5*inscale;               // 4" tang
-
-                                                          tang2_spacing:=chair_inlong+chair_outlong-15*inscale;   // middle column   2" minimum
-                                                          tang2_long:=tang_outlong1+tang_inlong1;
-                                                        end
-                                                   else begin                                        // shorter chair, no split
-                                                          tang_inlong1:=chair_inlong-4*inscale;
-                                                          tang_outlong1:=chair_outlong-4*inscale;
-                                                        end;
-                                      end;
-
-                                  28: begin                                           //EF
-                                        tang_outlong1:=chair_outlong-3*inscale;
-                                        tang_inlong1:=0-chair_outlong+8*inscale;               // 5" tang
-
-                                        tang2_spacing:=chair_inlong+chair_outlong-16*inscale;  // middle column
-                                        tang2_long:=tang_outlong1+tang_inlong1;
-                                      end;
-
-                                 else tang_inlong1:=chair_inlong-6.5*inscale;  // long chair, double key jaws, pin slots  CC code 15    XN code 22
-
-                      end;//case
-
-
-                      plug1.x:=tang_pex1.x;           // 36
-                      plug1.y:=0-tang_outlong1*side;
-
-                      plug2:=plug1;                   // 37
-                      plug2.y:=tang_inlong1*side;
-
-                      tang_pex36:=plug1;
-                      tang_pex37:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);  // 36..37
-
-                      plug1:=plug2;                                 // 37
-                      plug2.y:=tang_pex37.y+tang2_spacing*side;     // 38
-
-                      tang_pex38:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);  // 37..38
-
-                      plug1:=plug2;                            // 38
-                      plug2.y:=tang_pex38.y+tang2_long*side;   // 39
-
-                      tang_pex39:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);  // 38..39
-
-
-
-                      plug1:=plug2;                   // 39
-                      plug2.x:=tang_pex6.x;           // 40
-
-                      do_chair_mark(plug1,plug2,491);  // 39..40
-
-
-                      plug1:=plug2;                   // 40
-                      plug2.y:=tang_pex38.y;          // 41
-
-                      tang_pex40:=plug1;
-                      tang_pex41:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);  // 40..41
-
-                      plug1:=plug2;                    // 41
-                      plug2.y:=tang_pex37.y;           // 42
-
-                      tang_pex42:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);   // 41..42
-
-                      plug1:=plug2;                   // 42
-                      plug2.y:=tang_pex36.y;          // 43
-
-                      tang_pex43:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);  // 42..43
-
-
-                      plug1:=plug2;                    // 43
-                      plug2.x:=tang_pex9.x;            // 44
-
-                      do_chair_mark(plug1,plug2,491);  // 43..44
-
-
-                      plug1:=plug2;                    // 44
-                      plug2.y:=tang_pex37.y;           // 45
-
-                      do_chair_mark(plug1,plug2,491);    // 44..45
-
-                      plug1:=plug2;              // 45
-                      plug2.y:=tang_pex38.y;     // 46
-
-                      tang_pex46:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 45..46
-
-                      plug1:=plug2;              // 46
-                      plug2.y:=tang_pex39.y;     // 47
-
-                      do_chair_mark(plug1,plug2,491);    // 46..47
-
-
-                      plug1:=plug2;              // 47
-                      plug2.x:=tang_pex14.x;     // 48
-
-                      do_chair_mark(plug1,plug2,491);    // 47..48
-
-
-                      plug1:=plug2;              // 48
-                      plug2.y:=tang_pex38.y;     // 49
-
-                      do_chair_mark(plug1,plug2,491);   // 48..49
-
-                      plug1:=plug2;              // 49
-                      plug2.y:=tang_pex37.y;     // 50
-
-                      tang_pex50:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);   // 49..50
-
-                      plug1:=plug2;              // 50
-                      plug2.y:=tang_pex36.y;     // 51
-
-                      do_chair_mark(plug1,plug2,491);
-
-                      plug1:=plug2;              // 51
-                      plug2.x:=tang_pex17.x;     // 52
-
-                      tang_pex52:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 51..52
-
-
-
-
-                      plug1:=plug2;              // 52
-                      plug2.y:=tang_pex37.y;     // 53
-
-                      tang_pex53:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 52..53
-
-                      plug1:=plug2;              // 53
-                      plug2.y:=tang_pex38.y;     // 54
-
-                      tang_pex54:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 53..54
-
-                      plug1:=plug2;              // 54
-                      plug2.y:=tang_pex39.y;     // 55
-
-                      tang_pex55:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 54..55
-
-                      plug1:=plug2;              // 55
-                      plug2.x:=tang_pex22.x;     // 56
-
-                      tang_pex56:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 55..56
-
-                      plug1:=plug2;              // 56
-                      plug2.y:=tang_pex38.y;     // 57
-
-                      tang_pex57:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 56..57
-
-                      plug1:=plug2;              // 57
-                      plug2.y:=tang_pex37.y;     // 58
-
-                      tang_pex58:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 57..58
-
-                      plug1:=plug2;              // 58
-                      plug2.y:=tang_pex36.y;     // 59
-
-                      tang_pex59:=plug2;
-
-                      do_chair_mark(plug1,plug2,491);    // 58..59
-
-                      plug1:=plug2;              // 59
-                      plug2.x:=tang_pex17.x;     // 52
-
-                      do_chair_mark(plug1,plug2,491);    // 59..52
-
-
-
-
-                        // add tangs, code 486 near side ...    8 marks
-
-                           // 1st tang bottom ...
-
-                      tang_pex52.y:=tang_pex52.y+clip_tang_end_space*inscale*side;    // 244d
-                      tang_pex53.y:=tang_pex53.y-clip_tang_end_space*inscale*side;    // 244d
-
-                      plug1:=tang_pex52;                // 0
-                      plug2:=tang_pex53;                // 1
-
-                      do_chair_mark(plug1,plug2,486);   // 0..1
-
-                      plug1:=plug2;                     // 1
-                      plug2.x:=midx-tang_bottom_space;  // 2
-
-                      do_chair_mark(plug1,plug2,486);   // 1..2
-
-                      plug1:=plug2;                     // 2
-                      plug2.y:=tang_pex52.y;            // 3
-
-                      do_chair_mark(plug1,plug2,486);   // 2..3
-
-                      plug1:=plug2;                     // 3
-                      plug2.x:=tang_pex52.x;            // 0
-
-                      do_chair_mark(plug1,plug2,486);
-
-
-                           // 1st tang top ...
-
-                      plug1.x:=tang_pex36.x-clip_tang_overcut*inscale;  // 4
-                      plug1.y:=tang_pex36.y+tang_top_clear*side;
-
-                      plug2:=plug1;                                // 5
-                      plug2.y:=tang_pex37.y-tang_top_clear*side;
-
-                      do_chair_mark(plug1,plug2,486);   // 4..5
-
-                      plug1:=plug2;                         // 5
-                      plug2.x:=plug1.x+tang_top_width;      // 6
-
-                      do_chair_mark(plug1,plug2,486);   // 5..6
-
-                      plug1:=plug2;                                  // 6
-                      plug2.y:=tang_pex36.y+tang_top_clear*side;     // 7
-
-                      do_chair_mark(plug1,plug2,486);   // 6..7
-
-                      plug1:=plug2;                                  // 7
-                      plug2.x:=tang_pex36.x-clip_tang_overcut*inscale;    // 4
-
-                      do_chair_mark(plug1,plug2,486);   // 7..4
-
-
-
-                           // 2nd tang bottom ...
-
-                      if tang2_spacing<>0
-                         then begin
-
-                                
-                                tang_pex54.y:=tang_pex54.y+clip_tang_end_space*inscale*side;    // 244d
-                                tang_pex55.y:=tang_pex55.y-clip_tang_end_space*inscale*side;    // 244d
-
-                                plug1:=tang_pex54;                // 0
-                                plug2:=tang_pex55;                // 1
-
-                                do_chair_mark(plug1,plug2,486);   // 0..1
-
-                                plug1:=plug2;                     // 1
-                                plug2.x:=midx-tang_bottom_space;  // 2
-
-                                do_chair_mark(plug1,plug2,486);   // 1..2
-
-                                plug1:=plug2;                     // 2
-                                plug2.y:=tang_pex54.y;            // 3
-
-                                do_chair_mark(plug1,plug2,486);   // 2..3
-
-                                plug1:=plug2;                     // 3
-                                plug2.x:=tang_pex54.x;            // 0
-
-                                do_chair_mark(plug1,plug2,486);
-
-
-                                     // 2nd tang top ...
-
-                                plug1.x:=tang_pex38.x-clip_tang_overcut*inscale;  // 4
-                                plug1.y:=tang_pex38.y+tang_top_clear*side;
-
-                                plug2:=plug1;                                // 5
-                                plug2.y:=tang_pex39.y-tang_top_clear*side;
-
-                                do_chair_mark(plug1,plug2,486);   // 4..5
-
-                                plug1:=plug2;                         // 5
-                                plug2.x:=plug1.x+tang_top_width;      // 6
-
-                                do_chair_mark(plug1,plug2,486);   // 5..6
-
-                                plug1:=plug2;                                  // 6
-                                plug2.y:=tang_pex38.y+tang_top_clear*side;     // 7
-
-                                do_chair_mark(plug1,plug2,486);   // 6..7
-
-                                plug1:=plug2;                                  // 7
-                                plug2.x:=tang_pex38.x-clip_tang_overcut*inscale;    // 4
-
-                                do_chair_mark(plug1,plug2,486);   // 7..4
-
-
-                              end;
-
-
-                        // add tangs, far side ...      8 marks
-
-                           // 1st tang bottom ...
-
-                      tang_pex59.y:=tang_pex59.y+clip_tang_end_space*inscale*side;    // 244d
-                      tang_pex58.y:=tang_pex58.y-clip_tang_end_space*inscale*side;    // 244d
-
-                      plug1:=tang_pex59;                // 0
-                      plug2:=tang_pex58;                // 1
-
-                      do_chair_mark(plug1,plug2,486);   // 0..1
-
-                      plug1:=plug2;                     // 1
-                      plug2.x:=midx+tang_bottom_space;  // 2
-
-                      do_chair_mark(plug1,plug2,486);   // 1..2
-
-                      plug1:=plug2;                     // 2
-                      plug2.y:=tang_pex59.y;            // 3
-
-                      do_chair_mark(plug1,plug2,486);   // 2..3
-
-                      plug1:=plug2;                     // 3
-                      plug2.x:=tang_pex59.x;            // 0
-
-                      do_chair_mark(plug1,plug2,486);
-
-
-                           // 1st tang top ...
-
-                      plug1.x:=tang_pex43.x+clip_tang_overcut*inscale;  // 4
-                      plug1.y:=tang_pex43.y+tang_top_clear*side;
-
-                      plug2:=plug1;                                // 5
-                      plug2.y:=tang_pex42.y-tang_top_clear*side;
-
-                      do_chair_mark(plug1,plug2,486);   // 4..5
-
-                      plug1:=plug2;                         // 5
-                      plug2.x:=plug1.x-tang_top_width;      // 6
-
-                      do_chair_mark(plug1,plug2,486);   // 5..6
-
-                      plug1:=plug2;                                  // 6
-                      plug2.y:=tang_pex43.y+tang_top_clear*side;     // 7
-
-                      do_chair_mark(plug1,plug2,486);   // 6..7
-
-                      plug1:=plug2;                                  // 7
-                      plug2.x:=tang_pex43.x+clip_tang_overcut*inscale;    // 4
-
-                      do_chair_mark(plug1,plug2,486);   // 7..4
-
-
-
-                           // 2nd tang bottom ...
-
-                      if tang2_spacing<>0
-                         then begin
-
-                                tang_pex57.y:=tang_pex57.y+clip_tang_end_space*inscale*side;    // 244d
-                                tang_pex56.y:=tang_pex56.y-clip_tang_end_space*inscale*side;    // 244d
-
-                                plug1:=tang_pex57;                // 0
-                                plug2:=tang_pex56;                // 1
-
-                                do_chair_mark(plug1,plug2,486);   // 0..1
-
-                                plug1:=plug2;                     // 1
-                                plug2.x:=midx+tang_bottom_space;  // 2
-
-                                do_chair_mark(plug1,plug2,486);   // 1..2
-
-                                plug1:=plug2;                     // 2
-                                plug2.y:=tang_pex57.y;            // 3
-
-                                do_chair_mark(plug1,plug2,486);   // 2..3
-
-                                plug1:=plug2;                     // 3
-                                plug2.x:=tang_pex57.x;            // 0
-
-                                do_chair_mark(plug1,plug2,486);
-
-
-                                     // 2nd tang top ...
-
-                                plug1.x:=tang_pex41.x+clip_tang_overcut*inscale;  // 4
-                                plug1.y:=tang_pex41.y+tang_top_clear*side;
-
-                                plug2:=plug1;                                // 5
-                                plug2.y:=tang_pex40.y-tang_top_clear*side;
-
-                                do_chair_mark(plug1,plug2,486);   // 4..5
-
-                                plug1:=plug2;                         // 5
-                                plug2.x:=plug1.x-tang_top_width;      // 6
-
-                                do_chair_mark(plug1,plug2,486);   // 5..6
-
-                                plug1:=plug2;                                  // 6
-                                plug2.y:=tang_pex41.y+tang_top_clear*side;     // 7
-
-                                do_chair_mark(plug1,plug2,486);   // 6..7
-
-                                plug1:=plug2;                                  // 7
-                                plug2.x:=tang_pex41.x+clip_tang_overcut*inscale;    // 4
-
-                                do_chair_mark(plug1,plug2,486);   // 7..4
-
-                              end;
-
-                      sf_sides:=0;    // init...
-                      sf_ends:=0;
-                      sf_flap_ends:=0;
-                      socket_undercut:=0;
-
-                      flap_jut_length:=clip_socket_flap_jut_length*inscale;        // init 241c ...
-                      flap_rear_length:=clip_socket_flap_rear_length*inscale;
-                      flap_clear_width:=clip_socket_flap_clear_width*inscale;
-
-
-                      if chair_code>90         // RG and FG dummy chairs (for rail grooves)  // 234a
-                         then begin
-                                sf_sides:=0;
-                                sf_ends:=0;
-                                sf_flap_ends:=0;
-                                socket_undercut:=0;
-                              end
-                         else begin
-
-                                if dxf_form.snap_fit_radio.Checked=True      // 241b ...
-                                   then begin
-                                          if (timb_str='A') or (timb_str='N') or (timb_str='E') or (timb_str='R')
-                                             then sf_sides:=snap_socket_fit_sides_sl
-                                             else sf_sides:=snap_socket_fit_sides_timb;
-
-                                          sf_ends:=snap_socket_fit_ends;
-                                          sf_flap_ends:=0;
-
-                                          socket_undercut:=snap_socket_undercut;
-                                        end
-                                   else begin
-                                          if dxf_form.clip_fit_radio.Checked=True      // 241b ...
-                                             then begin
-                                                    if (timb_str='A') or (timb_str='N') or (timb_str='E') or (timb_str='R')
-                                                       then sf_sides:=clip_socket_fit_sides_sl
-                                                       else sf_sides:=clip_socket_fit_sides_timb;
-
-                                                    sf_ends:=clip_socket_fit_ends;
-
-                                                    if dxf_form.end_flaps_checkbox.Checked=True                // 241c
-                                                       then sf_flap_ends:=clip_socket_flap_top_length*inscale
-                                                       else sf_flap_ends:=0;
-
-                                                    socket_undercut:=clip_socket_undercut;
-                                                  end
-                                             else begin     // press-fit ...
-                                                    if (timb_str='A') or (timb_str='N') or (timb_str='E') or (timb_str='R')    // 236d
-                                                       then sf_sides:=press_socket_fit_sides_sl
-                                                       else sf_sides:=press_socket_fit_sides_timb;
-
-                                                    len:=ABS(p1.y-p2.y)/inscale;     // convert to full size
-
-                                                    if len<10                                             // 10"    L1
-                                                       then sf_ends:=press_short_socket_fit_ends
-                                                       else if len<15                                     // 15"    S1
-                                                               then sf_ends:=press_socket_fit_ends
-                                                               else if len<20                             // 20"    P
-                                                                       then sf_ends:=press_long_socket_fit_ends
-                                                                       else sf_ends:=press_very_long_socket_fit_ends;  // 4P, AA, BB
-
-                                                    sf_ends:=sf_ends-(dxf_form.plug_fit_trackbar.Position-100)*0.0005;    // range 0..200 =  +0.05 to -0.05 on socket (each end)
-
-                                                    sf_flap_ends:=0;
-
-                                                    socket_undercut:=0;
-                                                  end;
-                                        end;
-
-                                // adjust for filament 241c ...
-
-                                if (dxf_form.filament_checkbox.Checked=True) and (filament_dia_mm<>1.75)
-                                   then begin
-                                          filament_adjust:=SQR(filament_dia_mm)/3.0625*0.4-0.4;   // assume 0.4mm line width     3.0625 = 1.75*1.75
-
-                                          sf_sides:=sf_sides+filament_adjust;
-                                          sf_ends:=sf_ends+filament_adjust;
-
-                                        end;
-
-
-                              end;
-
-                      // socket outlines for 2-D ...   code 498 actual size
-
-                      sock1.x:=p1.x-sf_sides;
-                      sock1.y:=p1.y-sf_ends*side;
-
-                      sock2.x:=p2.x-sf_sides;
-                      sock2.y:=p2.y+sf_ends*side;
-
-                      do_chair_mark(sock1,sock2,498);              // near side for 2-D
-
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+sf_sides;
-                      sock2.y:=p3.y+sf_ends*side;
-
-                      do_chair_mark(sock1,sock2,498);              // gauge end for 2-D
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+sf_sides;
-                      sock2.y:=p4.y-sf_ends*side;
-
-                      do_chair_mark(sock1,sock2,498);              // far side for 2-D
-
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-sf_sides;
-                      sock2.y:=p1.y-sf_ends*side;
-
-                      do_chair_mark(sock1,sock2,498);              // outer end for 2-D
-
-
-
-                      // socket undercut 241b ...
-
-                      if chair_code<=90         // RG and FG dummy chairs (for rail grooves), no undercut  // 234a
-                         then begin
-                                undercut:=socket_undercut*inscale;        //  7/16" default width of side undercut
-
-                                sock1.x:=p1.x-sf_sides-undercut;
-                                sock1.y:=p1.y-sf_ends*side;
-
-                                sock2.x:=p2.x-sf_sides-undercut;
-                                sock2.y:=p2.y+sf_ends*side;
-
-                                do_chair_mark(sock1,sock2,498);    // near side
-
-                                sock1:=sock2;
-                                sock2.x:=p3.x+sf_sides+undercut;
-                                sock2.y:=p3.y+sf_ends*side;
-
-                                do_chair_mark(sock1,sock2,498);    // gauge end
-
-
-                                sock1:=sock2;
-                                sock2.x:=p4.x+sf_sides+undercut;
-                                sock2.y:=p4.y-sf_ends*side;
-
-                                do_chair_mark(sock1,sock2,498);    // far side
-
-
-                                sock1:=sock2;
-                                sock2.x:=p1.x-sf_sides-undercut;
-                                sock2.y:=p1.y-sf_ends*side;
-
-                                do_chair_mark(sock1,sock2,498);    // outer end
-
-                              end;
-
-
-                      // socket outline for 2-D (laser-cutting)...   code 9997 kerf_adjusted
-
-                      if (dxf_form.kerf_plus_undercut_checkbox.Checked=True) and (socket_undercut<>0)
-                         then kerf_undercut:=socket_undercut*inscale+kerf_extra_undercut_mm
-                         else kerf_undercut:=0;
-
-                      sock1.x:=p1.x-(sf_sides-kerf_offset+kerf_undercut);
-                      sock1.y:=p1.y-(sf_ends-kerf_offset)*side;
-
-                      sock2.x:=p2.x-(sf_sides-kerf_offset+kerf_undercut);
-                      sock2.y:=p2.y+(sf_ends-kerf_offset)*side;
-
-                      do_chair_mark(sock1,sock2,9997);              // near side for 2-D
-
-
-                      if (dxf_form.indented_socket_checkbox.Checked=True) and (socket_indent<>0)   // 244a
-                         then begin
-                                sock1:=sock2;
-                                sock2.x:=(p2.x+p3.x)/2;
-                                sock2.y:=(p2.y+p3.y)/2-socket_indent*inscale*side;
-
-                                do_chair_mark(sock1,sock2,9997);              // gauge end for 2-D, first half
-                              end;
-
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+(sf_sides-kerf_offset+kerf_undercut);
-                      sock2.y:=p3.y+(sf_ends-kerf_offset)*side;
-
-                      do_chair_mark(sock1,sock2,9997);              // gauge end for 2-D
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+(sf_sides-kerf_offset+kerf_undercut);
-                      sock2.y:=p4.y-(sf_ends-kerf_offset)*side;
-
-                      do_chair_mark(sock1,sock2,9997);              // far side for 2-D
-
-
-                      if (dxf_form.indented_socket_checkbox.Checked=True) and (socket_indent<>0)   // 244a
-                         then begin
-                                sock1:=sock2;
-                                sock2.x:=(p1.x+p4.x)/2;
-                                sock2.y:=(p1.y+p4.y)/2+socket_indent*inscale*side;
-
-                                do_chair_mark(sock1,sock2,9997);              // outer end for 2-D, first half
-                              end;
-
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-(sf_sides-kerf_offset+kerf_undercut);
-                      sock2.y:=p1.y-(sf_ends-kerf_offset)*side;
-
-                      do_chair_mark(sock1,sock2,9997);              // outer end for 2-D
-
-
-                      // repeat socket outline and add chamfer for 3-D (code 492, 12 marks) 228a , 241b ...
-
-                      socket_code:=492;   // socket outline full, plus top chamfer outline  plus undercut (20 marks)
-
-                        // outline 0..3  ...
-
-                      sock1.x:=p1.x-sf_sides;
-                      sock1.y:=p1.y-sf_ends*side-sf_flap_ends*side;
-
-                      sock2.x:=p2.x-sf_sides;
-                      sock2.y:=p2.y+sf_ends*side+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+sf_sides;
-                      sock2.y:=p3.y+sf_ends*side+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // gauge end
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+sf_sides;
-                      sock2.y:=p4.y-sf_ends*side-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-sf_sides;
-                      sock2.y:=p1.y-sf_ends*side-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // outer end
-
-
-                        // socket chamfer  4..7    228a ...
-
-                      if chair_code>90         // RG and FG dummy chairs (for rail grooves), no chamfer  // 234a
-                         then chamf:=0
-                         else chamf:=socket_chamfer*inscale;        //  3/8" default width of socket top chamfer
-
-                      sock1.x:=p1.x-sf_sides-chamf;
-                      sock1.y:=p1.y-sf_ends*side-chamf*side-sf_flap_ends*side;
-
-                      sock2.x:=p2.x-sf_sides-chamf;
-                      sock2.y:=p2.y+sf_ends*side+chamf*side+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+sf_sides+chamf;
-                      sock2.y:=p3.y+sf_ends*side+chamf*side+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // gauge end
-
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+sf_sides+chamf;
-                      sock2.y:=p4.y-sf_ends*side-chamf*side-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-sf_sides-chamf;
-                      sock2.y:=p1.y-sf_ends*side-chamf*side-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // outer end
-
-
-
-                        // socket undercut 8..11  241b ...
-
-                      if chair_code>90         // RG and FG dummy chairs (for rail grooves), no undercut  // 234a
-                         then undercut:=0
-                         else undercut:=socket_undercut*inscale;        //  7/16" default width of side undercut
-
-                      sock1.x:=p1.x-sf_sides-undercut;
-                      sock1.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
-
-                      sock2.x:=p2.x-sf_sides-undercut;
-                      sock2.y:=p2.y+sf_ends*side;//+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+sf_sides+undercut;
-                      sock2.y:=p3.y+sf_ends*side;//+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // gauge end
-
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+sf_sides+undercut;
-                      sock2.y:=p4.y-sf_ends*side;//-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-sf_sides-undercut;
-                      sock2.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // outer end
-
-
-                        // repeat chamfer without flap ends 12..15  241c ...
-
-                      if chair_code>90         // RG and FG dummy chairs (for rail grooves), no chamfer  // 234a
-                         then chamf:=0
-                         else chamf:=socket_chamfer*inscale;        //  3/8" default width of socket top chamfer
-
-                      sock1.x:=p1.x-sf_sides-chamf;
-                      sock1.y:=p1.y-sf_ends*side-chamf*side;//-sf_flap_ends*side;
-
-                      sock2.x:=p2.x-sf_sides-chamf;
-                      sock2.y:=p2.y+sf_ends*side+chamf*side;//+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+sf_sides+chamf;
-                      sock2.y:=p3.y+sf_ends*side+chamf*side;//+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // gauge end
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+sf_sides+chamf;
-                      sock2.y:=p4.y-sf_ends*side-chamf*side;//-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-sf_sides-chamf;
-                      sock2.y:=p1.y-sf_ends*side-chamf*side;//-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // outer end
-
-                        // repeat outline without flap ends 16..19  241c ...
-
-                      sock1.x:=p1.x-sf_sides;
-                      sock1.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
-
-                      sock2.x:=p2.x-sf_sides;
-                      sock2.y:=p2.y+sf_ends*side;//+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x+sf_sides;
-                      sock2.y:=p3.y+sf_ends*side;//+sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // gauge end
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x+sf_sides;
-                      sock2.y:=p4.y-sf_ends*side;//-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x-sf_sides;
-                      sock2.y:=p1.y-sf_ends*side;//-sf_flap_ends*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // outer end
-
-                      
-                        // do near flap bottom 20..23 ...
-
-                      sock1.x:=p1.x+flap_clear_width;
-                      sock1.y:=p1.y-flap_rear_length*side;
-
-                      sock2:=sock1;
-                      sock2.y:=p1.y+flap_jut_length*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p4.x-flap_clear_width;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // jut end
-
-                      sock1:=sock2;
-                      sock2.y:=p1.y-flap_rear_length*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p1.x+flap_clear_width;;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // rear end
-
-
-                       // do far flap bottom 24..27 ...
-
-                      sock1.x:=p2.x+flap_clear_width;
-                      sock1.y:=p2.y+flap_rear_length*side;
-
-                      sock2:=sock1;
-                      sock2.y:=p2.y-flap_jut_length*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // near side
-
-                      sock1:=sock2;
-                      sock2.x:=p3.x-flap_clear_width;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // jut end
-
-                      sock1:=sock2;
-                      sock2.y:=p2.y+flap_rear_length*side;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // far side
-
-                      sock1:=sock2;
-                      sock2.x:=p2.x+flap_clear_width;;
-
-                      do_chair_mark(sock1,sock2,socket_code);    // rear end
+                      do_plug_socket;
 
                       INC(chair_count);
 
@@ -26560,9 +26655,6 @@ var
 
                   begin
                     with wing_end_flares do begin
-                    
-
-                      //showmessage(floattostr(ms_clx)+'  '+floattostr(ts_clx));
 
                       ms_wing_chair:=0; // init ..
                       ms_wing_add:=0;
@@ -26762,6 +26854,9 @@ var
 
                     jaw_skew:extended;  // skew angle for interchangeable loose jaws
 
+                    heaved_plug:integer;     // 556a..
+                    jaws_wanted:boolean;
+
                             //==================================================
 
                             procedure get_chair_options;   // 238a
@@ -26830,7 +26925,7 @@ var
                                  then begin
                                         with current_shoved_timbers[nn].heave_rail_chairs[rail_code] do begin
 
-                                          if hv_customized=True
+                                          if hv_jaws=True
                                              then begin
                                                     get_chair_options;  // get chi  list index
 
@@ -26864,7 +26959,7 @@ var
 
                               pt1,pt2,p1,p2,pk1,pk2,pc1,pc2,ponpad,pp1,pp2:Tpex;
 
-                              half_insert_span:extended;
+                              half_insert_span,cot_shift:extended;
 
                               z_off:extended;  // Z offset for loose jaws
 
@@ -26888,8 +26983,6 @@ var
 
                                                               with current_jmods[i] do begin
 
-                                                                //if POS('WN',jaw_str)=1 then showmessage ('test  '+floattostr(aq_f));
-
                                                                 jm_str:=jaw_str;   // jaw ident name (DXF block mame) '...'
 
                                                                 jm_h:=hand_i;
@@ -26912,7 +27005,6 @@ var
 
                               if (inner_jaw=True) and (current_jaw_options[chi][2]=True) and (current_jaw_options[chi][3]=True) then EXIT;  // only loose outer jaws wanted
 
-
                               if (inner_jaw=False) and (current_jaw_options[chi][1]=False) then EXIT;  // outer jaws not wanted
 
                                 // if exporting loose jaws only, drop Z onto raft..
@@ -26922,7 +27014,7 @@ var
                               and (POS('VN',jaw_str)<>1)  and  (POS('WN',jaw_str)<>1)   // don't drop DX insert on DD chairs  - insert includes seat and support
 
                                  then begin
-                                        if scale>4.05
+                                        if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
                                            then z_off:=pyramid_height_pin-pyramid_height_high
                                            else z_off:=pyramid_height_pin-pyramid_height_low;
                                       end
@@ -27013,6 +27105,19 @@ var
 
                                         pt2.x:=jaw_bb.x2;
                                         pt2.y:=jaw_bb.y2+half_insert_span*SIN(jaw_skew);
+                                      end;
+
+                              if (dxf_form.cot_radio.Checked=True) and  (jaw_is_loose=True)   // 556 MW
+                                 then begin
+                                        if chi_mod=1
+                                           then cot_shift:=0-g/3         // arbitrary
+                                           else cot_shift:=g/3;
+
+                                        pt1.x:=pt1.x+15*inscale;   // shift into clear space..
+                                        pt1.y:=pt1.y+cot_shift;
+
+                                        pt2.x:=pt2.x+15*inscale;
+                                        pt2.y:=pt2.y+cot_shift;
                                       end;
 
                               dotransform(chair_k,xtimbcl,0,pt1,pc1);       // pt1 rotate to required angle
@@ -27169,7 +27274,7 @@ var
 
                             var
                               n:integer;
-                              g_mod,dir,offset:extended;
+                              dir,offset,cot_shift:extended;
 
                               pt1,pt2,p1,p2,pk1,pk2,pc1,pc2,ponpad,pp1,pp2:Tpex;
 
@@ -27201,7 +27306,7 @@ var
                               if (current_jaw_options[chi][2]=True) and (current_jaw_options[chi][3]=True)   // loose, export it
 
                                  then begin
-                                        if scale>4.05
+                                        if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
                                            then z_off:=pyramid_height_pin-pyramid_height_high
                                            else z_off:=pyramid_height_pin-pyramid_height_low;
                                       end
@@ -27215,10 +27320,10 @@ var
                               half_insert_span:=ABS(key_bb.x2-key_bb.x1)/2;
 
                               pt1.x:=key_bb.x1;
-                              pt1.y:=key_bb.y1-half_insert_span*SIN(skew); // 239a  skew key from rail if any     //+g_mod/2;
+                              pt1.y:=key_bb.y1-half_insert_span*SIN(skew); // 239a  skew key from rail if any
 
                               pt2.x:=key_bb.x2;
-                              pt2.y:=key_bb.y2+half_insert_span*SIN(skew); // 239a  skew key from rail if any      //+g_mod/2;
+                              pt2.y:=key_bb.y2+half_insert_span*SIN(skew); // 239a  skew key from rail if any
 
 
                               if key_direction=0   // 233a  random direction or towards joint
@@ -27236,9 +27341,13 @@ var
                               if joint_timber<>0
                                  then dir:=joint_timber;    // 233d over-ride key direction for joint timbers
 
-                              if chair_key_max_offset<0.25   // central key wanted
-                                 then offset:=0
-                                 else offset:=dir*((chair_key_max_offset-0.25)*Random+0.25)*inscale;    // offset range 1/4"..max"    555a was 1/2" MW
+                              if dxf_form._3d_fdm_radiobutton.Checked=True    // 556 MW
+                                 then offset:=dir*Random*inscale/2            // max offset for FDM-printed chairs 1/2"
+                                 else begin
+                                        if chair_key_max_offset<0.25   // central key wanted
+                                           then offset:=0
+                                           else offset:=dir*((chair_key_max_offset-0.25)*Random+0.25)*inscale;    // offset range 1/4"..max"    555a was 1/2" MW
+                                      end;
 
                               pt1.x:=pt1.x-offset;     // modify insertion point for offset along the rail...
                               pt2.x:=pt2.x-offset;
@@ -27246,6 +27355,18 @@ var
                               pt1.y:=pt1.y-offset*SIN(key_angle);
                               pt2.y:=pt2.y-offset*SIN(key_angle);
 
+                              if (dxf_form.cot_radio.Checked=True) and  (jaw_is_loose=True)   // 556 MW
+                                 then begin
+                                        if chi_mod=1
+                                           then cot_shift:=0-g/3      // arbitrary
+                                           else cot_shift:=g/3;
+
+                                        pt1.x:=pt1.x+15*inscale;   // shift into clear space to follow loose jaw..
+                                        pt1.y:=pt1.y+cot_shift;
+
+                                        pt2.x:=pt2.x+15*inscale;
+                                        pt2.y:=pt2.y+cot_shift;
+                                      end;
 
                               dotransform(chair_k,xtimbcl,0,pt1,pc1);       // pt1 rotate to required angle
                               dotransform(chair_k,xtimbcl,0,pt2,pc2);       // ditto pt2
@@ -27393,6 +27514,25 @@ var
                             end;
                             //==================================================
 
+                            procedure do_bit_settings_plug(plug_fit:integer);      // 556a
+
+                             // 0=no change 1=force clip-fit  2=force snap-fit  3=force press-fit  4= force COT (no plug)
+
+                             // encode in 3 bits  MSB ..4,3,2.. LSB
+
+                            begin
+                              case plug_fit of
+                                   0: begin bit_settings:=bit_settings AND $FFFFFFE3; end;
+                                   1: begin bit_settings:=bit_settings AND $FFFFFFE3; bit_settings:=bit_settings OR $00000004; end;
+                                   2: begin bit_settings:=bit_settings AND $FFFFFFE3; bit_settings:=bit_settings OR $00000008; end;
+                                   3: begin bit_settings:=bit_settings AND $FFFFFFE3; bit_settings:=bit_settings OR $0000000C; end;
+                                   4: begin bit_settings:=bit_settings AND $FFFFFFE3; bit_settings:=bit_settings OR $00000010; end;
+                              end;//case
+                            end;
+                            //==================================================
+
+
+
                   begin
                     xcl_mod:=0; // init   235a
 
@@ -27413,7 +27553,8 @@ var
 
                           // search RAIL1
 
-                      if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str) then heave_chairs_form.rail1_groupbox.Visible:=(chairing_dims1.chair_code<>0);  // no chair exists
+                      if {(heave_chairs_form.Visible=True) and} (timber_str=current_shove_str)
+                         then heave_chairs_form.rail1_groupbox.Visible:=(chairing_dims1.chair_code<>0);  // no chair exists
 
                       if (main_road_stock_rail_flag=True) and (chair1_wanted=True) and (chairing_dims1.chair_code<>0)     // 237a
 
@@ -27484,28 +27625,38 @@ var
                                           heave_chairs_form.chair1_type_label.Caption:=get_cclr_chair_str(1,now_chairing_dims1.chair_code);
                                         end;
 
+                                heaved_chairing_dims1.chairing_dims:=now_chairing_dims1;
+                                heaved_chairing_dims1.heaved_valid:=False;                 // init
 
-                                heaved_chairing_dims1:=now_chairing_dims1;   // init
+                                do_bit_settings_plug(0);      // 556a   init
 
                                 nn:=find_shove(timber_str,False);
                                 if (nn>=0) and (nn<Length(current_shoved_timbers))     // valid existing shoved slot
                                    then begin
-                                          if current_shoved_timbers[nn].heave_rail_chairs[1].hv_ch<>0                                             // changed chair?
-                                             then heaved_chairing_dims1:=get_heaved_chair(current_shoved_timbers[nn].heave_rail_chairs[1].hv_ch);
+                                          with heaved_chairing_dims1 do begin
 
-                                          if current_shoved_timbers[nn].heave_rail_chairs[1].hv_ch=10    // SC chair
-                                             then begin
-                                                    with current_shoved_timbers[nn].heave_rail_chairs[1] do begin
+                                            heave_rail_chair:=current_shoved_timbers[nn].heave_rail_chairs[1];   // 556..
+                                            heaved_valid:=True;
 
-                                                      if hv_sc_outlong<>0 then heaved_chairing_dims1.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
-                                                      if hv_sc_inlong<>0 then heaved_chairing_dims1.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
-                                                      if hv_sc_halfwide<>0 then heaved_chairing_dims1.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+                                            do_bit_settings_plug(heave_rail_chair.hv_plug);      // 556a
 
-                                                    end;//with
-                                                  end;
+                                            if heave_rail_chair.hv_ch<>0                                      // changed chair?
+                                               then chairing_dims:=get_heaved_chair(heave_rail_chair.hv_ch);
+
+                                            if heave_rail_chair.hv_ch=10    // SC chair
+                                               then begin
+                                                      with heave_rail_chair do begin
+
+                                                        if hv_sc_outlong<>0 then chairing_dims.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
+                                                        if hv_sc_inlong<>0 then chairing_dims.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
+                                                        if hv_sc_halfwide<>0 then chairing_dims.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+
+                                                      end;//with
+                                                    end;
+                                          end;//with
                                         end;
 
-                                with heaved_chairing_dims1 do begin   // chair on rail 1
+                                with heaved_chairing_dims1.chairing_dims do begin   // chair on rail 1
 
                                   dxf_code:=chair_code;  //  237a  dxf_code global
 
@@ -27542,17 +27693,17 @@ var
 
                                     // put 2D chair outlines in file ...      // main-road stock-rail
 
-                                 if ((timb_str='K') or (timb_str='D')) and (cpi.temp_wrong_k_xing_pi=True)     // 244a temporary for customizing
-                                    then begin
-                                          chair_twist.x:=chair_midx;       // chair rotation centre
-                                          chair_twist.y:=0;                // from gauge-face
-                                          chair_twist.k:=hdk/2;            // equalized
-                                         end
-                                    else begin
-                                           chair_twist.x:=0;
-                                           chair_twist.y:=0;
-                                           chair_twist.k:=0;
-                                         end;
+                                if ((timb_str='K') or (timb_str='D')) and (cpi.temp_wrong_k_xing_pi=True)     // 244a temporary for customizing
+                                   then begin
+                                         chair_twist.x:=chair_midx;       // chair rotation centre
+                                         chair_twist.y:=0;                // from gauge-face
+                                         chair_twist.k:=hdk/2;            // equalized
+                                        end
+                                   else begin
+                                          chair_twist.x:=0;
+                                          chair_twist.y:=0;
+                                          chair_twist.k:=0;
+                                        end;
 
 
                                 case dxf_code of
@@ -27564,10 +27715,21 @@ var
 
                                 calc_fill_bolts(chair_twist,dxf_code);
 
+                                    // add chair jaws required ... 237c
 
-                                    // add chair jaws required ... 237c     main-road stock-rail...
+                                    // main-road stock-rail...  rail 1
 
-                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0)     // main-road stock-rail
+                                if heaved_chairing_dims1.heaved_valid=True
+                                   then heaved_plug:=heaved_chairing_dims1.heave_rail_chair.hv_plug  // 1=force clip-fit  2=force snap-fit  3=force press-fit  4= force COT (no plug)
+                                   else heaved_plug:=0;
+
+                                if dxf_form.cot_bullet_shape.Visible=True                          // COT track
+                                   then jaws_wanted:=((heaved_plug=0) or (heaved_plug=4))
+                                   else if dxf_form.cot_radio.Checked=True
+                                           then jaws_wanted:=(heaved_plug>0) and (heaved_plug<4)
+                                           else jaws_wanted:=True;                                 // normal plug track
+
+                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0) and (jaws_wanted=True)
                                    then begin
 
                                           aq_y:=aq2offset(chair_midx,aq_k); // for second rail
@@ -27747,7 +27909,8 @@ var
 
                              // search RAIL3
 
-                      if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str) then heave_chairs_form.rail3_groupbox.Visible:=(chairing_dims3.chair_code<>0);  // no chair exists
+                      if {(heave_chairs_form.Visible=True) and} (timber_str=current_shove_str)
+                         then heave_chairs_form.rail3_groupbox.Visible:=(chairing_dims3.chair_code<>0);  // no chair exists
 
                       if plain_track=True
                          then this_chair_wanted:=(turnout_road_stock_rail_flag=True) and (chair3_wanted=True)       // plain track TS rail
@@ -27781,29 +27944,38 @@ var
                                           heave_chairs_form.chair3_type_label.Caption:=get_cclr_chair_str(3,chairing_dims3.chair_code);
                                         end;
 
-                                heaved_chairing_dims3:=chairing_dims3;   // init
+                                heaved_chairing_dims3.chairing_dims:=chairing_dims3;
+                                heaved_chairing_dims3.heaved_valid:=False;                 // init
+
+                                do_bit_settings_plug(0);      // 556a   init
 
                                 nn:=find_shove(timber_str,False);
                                 if (nn>=0) and (nn<Length(current_shoved_timbers))     // valid existing shoved slot
                                    then begin
-                                          if current_shoved_timbers[nn].heave_rail_chairs[3].hv_ch<>0                                             // changed chair?
-                                             then heaved_chairing_dims3:=get_heaved_chair(current_shoved_timbers[nn].heave_rail_chairs[3].hv_ch);
+                                          with heaved_chairing_dims3 do begin
 
-                                          if current_shoved_timbers[nn].heave_rail_chairs[3].hv_ch=10    // SC chair
-                                             then begin
-                                                    with current_shoved_timbers[nn].heave_rail_chairs[3] do begin
+                                            heave_rail_chair:=current_shoved_timbers[nn].heave_rail_chairs[3];   // 556..
+                                            heaved_valid:=True;
 
-                                                      if hv_sc_outlong<>0 then heaved_chairing_dims3.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
-                                                      if hv_sc_inlong<>0 then heaved_chairing_dims3.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
-                                                      if hv_sc_halfwide<>0 then heaved_chairing_dims3.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+                                            do_bit_settings_plug(heave_rail_chair.hv_plug);      // 556a
 
-                                                    end;//with
-                                                  end;
+                                            if heave_rail_chair.hv_ch<>0                                      // changed chair?
+                                               then chairing_dims:=get_heaved_chair(heave_rail_chair.hv_ch);
 
+                                            if heave_rail_chair.hv_ch=10    // SC chair
+                                               then begin
+                                                      with heave_rail_chair do begin
+
+                                                        if hv_sc_outlong<>0 then chairing_dims.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
+                                                        if hv_sc_inlong<>0 then chairing_dims.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
+                                                        if hv_sc_halfwide<>0 then chairing_dims.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+
+                                                      end;//with
+                                                    end;
+                                          end;//with
                                         end;
-                                        
 
-                                with heaved_chairing_dims3 do begin   // chair on rail 3
+                                with heaved_chairing_dims3.chairing_dims do begin   // chair on rail 3
 
                                   dxf_code:=chair_code;  //  237a  dxf_code global - in list for DXF exports
 
@@ -27863,9 +28035,21 @@ var
 
                                 calc_fill_bolts(chair_twist,dxf_code);
 
-                                    // add chair jaws required ... 237c         main-road crossing-rail...
+                                    // add chair jaws required ... 237c
 
-                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0)     // main-road crossing-rail   rail 3
+                                    // main-road crossing-rail...   rail 3
+
+                                if heaved_chairing_dims3.heaved_valid=True
+                                   then heaved_plug:=heaved_chairing_dims3.heave_rail_chair.hv_plug  // 1=force clip-fit  2=force snap-fit  3=force press-fit  4= force COT (no plug)
+                                   else heaved_plug:=0;
+
+                                if dxf_form.cot_bullet_shape.Visible=True                          // COT track
+                                   then jaws_wanted:=((heaved_plug=0) or (heaved_plug=4))
+                                   else if dxf_form.cot_radio.Checked=True
+                                           then jaws_wanted:=(heaved_plug>0) and (heaved_plug<4)
+                                           else jaws_wanted:=True;                                 // normal plug track
+
+                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0) and (jaws_wanted=True)
                                    then begin
                                           bbin.x1:=chair_midx-bb;  // near
                                           bbin.x2:=chair_midx+bb;  // far
@@ -28013,8 +28197,6 @@ var
                                             bb13.y1:=bbin.y1-(fw+fw_tweak_xing+wing_end_flares.ms_wing_add)+bb*TAN(wing_end_flares.ms_wing_k+curvi_k_mod);
                                           except
                                             bb13.y1:=bbin.y1;
-
-                                            //showmessage('fp '+floattostr(bb13.y1));
 
                                           end;//try
 
@@ -28570,7 +28752,8 @@ var
 
                              // search RAIL2
 
-                      if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str) then heave_chairs_form.rail2_groupbox.Visible:=(chairing_dims2.chair_code<>0);  // no chair exists
+                      if {(heave_chairs_form.Visible=True) and} (timber_str=current_shove_str)
+                         then heave_chairs_form.rail2_groupbox.Visible:=(chairing_dims2.chair_code<>0);  // no chair exists
 
                       this_chair_wanted:=(turnout_road_crossing_rail_flag=True) and (chair2_wanted=True);    // closure rail/wing
 
@@ -28615,29 +28798,38 @@ var
                                           heave_chairs_form.chair2_type_label.Caption:=get_cclr_chair_str(2,chairing_dims2.chair_code);
                                         end;
 
-                                heaved_chairing_dims2:=chairing_dims2;   // init
+                                heaved_chairing_dims2.chairing_dims:=chairing_dims2;
+                                heaved_chairing_dims2.heaved_valid:=False;                 // init
+
+                                do_bit_settings_plug(0);      // 556a   init
 
                                 nn:=find_shove(timber_str,False);
                                 if (nn>=0) and (nn<Length(current_shoved_timbers))     // valid existing shoved slot
                                    then begin
-                                          if current_shoved_timbers[nn].heave_rail_chairs[2].hv_ch<>0                                             // changed chair?
-                                             then heaved_chairing_dims2:=get_heaved_chair(current_shoved_timbers[nn].heave_rail_chairs[2].hv_ch);
+                                          with heaved_chairing_dims2 do begin
 
-                                          if current_shoved_timbers[nn].heave_rail_chairs[2].hv_ch=10    // SC chair
-                                             then begin
-                                                    with current_shoved_timbers[nn].heave_rail_chairs[2] do begin
+                                            heave_rail_chair:=current_shoved_timbers[nn].heave_rail_chairs[2];   // 556..
+                                            heaved_valid:=True;
 
-                                                      if hv_sc_outlong<>0 then heaved_chairing_dims2.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
-                                                      if hv_sc_inlong<>0 then heaved_chairing_dims2.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
-                                                      if hv_sc_halfwide<>0 then heaved_chairing_dims2.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+                                            do_bit_settings_plug(heave_rail_chair.hv_plug);      // 556a
 
-                                                    end;//with
-                                                  end;
+                                            if heave_rail_chair.hv_ch<>0                                      // changed chair?
+                                               then chairing_dims:=get_heaved_chair(heave_rail_chair.hv_ch);
 
+                                            if heave_rail_chair.hv_ch=10    // SC chair
+                                               then begin
+                                                      with heave_rail_chair do begin
+
+                                                        if hv_sc_outlong<>0 then chairing_dims.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
+                                                        if hv_sc_inlong<>0 then chairing_dims.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
+                                                        if hv_sc_halfwide<>0 then chairing_dims.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+
+                                                      end;//with
+                                                    end;
+                                          end;//with
                                         end;
 
-
-                                with heaved_chairing_dims2 do begin   // chair on rail 2
+                                with heaved_chairing_dims2.chairing_dims do begin   // chair on rail 2
 
                                   dxf_code:=chair_code;  //  237a  dxf_code global - in list for DXF exports
 
@@ -28688,7 +28880,19 @@ var
 
                                     // add chair jaws ...
 
-                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0)     // turnout-road crossing-rail   rail 2
+                                    // turnout-road crossing-rail...   rail 2
+
+                                if heaved_chairing_dims2.heaved_valid=True
+                                   then heaved_plug:=heaved_chairing_dims2.heave_rail_chair.hv_plug  // 1=force clip-fit  2=force snap-fit  3=force press-fit  4= force COT (no plug)
+                                   else heaved_plug:=0;
+
+                                if dxf_form.cot_bullet_shape.Visible=True                          // COT track
+                                   then jaws_wanted:=((heaved_plug=0) or (heaved_plug=4))
+                                   else if dxf_form.cot_radio.Checked=True
+                                           then jaws_wanted:=(heaved_plug>0) and (heaved_plug<4)
+                                           else jaws_wanted:=True;                                 // normal plug track
+
+                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0) and (jaws_wanted=True)
                                    then begin
                                           aq_y:=aq2offset(chair_midx,aq_k); // for rail 2
                                           aq_f:=0;                          // modified later, wing rail flare
@@ -28749,7 +28953,8 @@ var
 
                              // search RAIL4
 
-                      if (heave_chairs_form.Visible=True) and (timber_str=current_shove_str) then heave_chairs_form.rail4_groupbox.Visible:=(chairing_dims4.chair_code<>0);    // no chair exists
+                      if {(heave_chairs_form.Visible=True) and} (timber_str=current_shove_str)
+                         then heave_chairs_form.rail4_groupbox.Visible:=(chairing_dims4.chair_code<>0);    // no chair exists
 
                       this_chair_wanted:=chair4_wanted;
 
@@ -28814,29 +29019,38 @@ var
                                           heave_chairs_form.chair4_type_label.Caption:=get_cclr_chair_str(4,now_chairing_dims4.chair_code);
                                         end;
 
-                                heaved_chairing_dims4:=now_chairing_dims4;   // init
+                                heaved_chairing_dims4.chairing_dims:=now_chairing_dims4;
+                                heaved_chairing_dims4.heaved_valid:=False;                 // init
+
+                                do_bit_settings_plug(0);      // 556a   init
 
                                 nn:=find_shove(timber_str,False);
                                 if (nn>=0) and (nn<Length(current_shoved_timbers))     // valid existing shoved slot
                                    then begin
-                                          if current_shoved_timbers[nn].heave_rail_chairs[4].hv_ch<>0                                             // changed chair?
-                                             then heaved_chairing_dims4:=get_heaved_chair(current_shoved_timbers[nn].heave_rail_chairs[4].hv_ch);
+                                          with heaved_chairing_dims4 do begin
 
-                                          if current_shoved_timbers[nn].heave_rail_chairs[4].hv_ch=10    // SC chair
-                                             then begin
-                                                    with current_shoved_timbers[nn].heave_rail_chairs[4] do begin
+                                            heave_rail_chair:=current_shoved_timbers[nn].heave_rail_chairs[4];   // 556..
+                                            heaved_valid:=True;
 
-                                                      if hv_sc_outlong<>0 then heaved_chairing_dims4.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
-                                                      if hv_sc_inlong<>0 then heaved_chairing_dims4.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
-                                                      if hv_sc_halfwide<>0 then heaved_chairing_dims4.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+                                            do_bit_settings_plug(heave_rail_chair.hv_plug);      // 556a
 
-                                                    end;//with
-                                                  end;
+                                            if heave_rail_chair.hv_ch<>0                                      // changed chair?
+                                               then chairing_dims:=get_heaved_chair(heave_rail_chair.hv_ch);
 
+                                            if heave_rail_chair.hv_ch=10    // SC chair
+                                               then begin
+                                                      with heave_rail_chair do begin
+
+                                                        if hv_sc_outlong<>0 then chairing_dims.chair_outlong:=hv_sc_outlong*inscale;        // custom SC chair dims
+                                                        if hv_sc_inlong<>0 then chairing_dims.chair_inlong:=hv_sc_inlong*inscale;           // custom SC chair dims
+                                                        if hv_sc_halfwide<>0 then chairing_dims.chair_halfwide:=hv_sc_halfwide*inscale;     // custom SC chair dims
+
+                                                      end;//with
+                                                    end;
+                                          end;//with
                                         end;
 
-
-                                with heaved_chairing_dims4 do begin   // chair on rail 4
+                                with heaved_chairing_dims4.chairing_dims do begin   // chair on rail 4
 
                                   dxf_code:=chair_code;  //  237a  dxf_code global - in list for DXF exports
 
@@ -28896,9 +29110,20 @@ var
 
                                     // add chair jaws required ... 237c
 
-                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0)      // turnout-road stock-rail
-                                   then begin
+                                    // // turnout-road stock-rail... rail 4
 
+                                if heaved_chairing_dims4.heaved_valid=True
+                                   then heaved_plug:=heaved_chairing_dims4.heave_rail_chair.hv_plug  // 1=force clip-fit  2=force snap-fit  3=force press-fit  4= force COT (no plug)
+                                   else heaved_plug:=0;
+
+                                if dxf_form.cot_bullet_shape.Visible=True                          // COT track
+                                   then jaws_wanted:=((heaved_plug=0) or (heaved_plug=4))
+                                   else if dxf_form.cot_radio.Checked=True
+                                           then jaws_wanted:=(heaved_plug>0) and (heaved_plug<4)
+                                           else jaws_wanted:=True;                                 // normal plug track
+
+                                if (exp_chairing=True) and (dxf_form.chairs_combo.ItemIndex<>0) and (jaws_wanted=True)
+                                   then begin
                                           aq_y:=aq3offset(chair_midx,aq_k); // for second rail
                                           aq_f:=0;                          // init, modified later, check flare
 
@@ -29230,8 +29455,8 @@ begin
          then begin
                 if (shove_timber_form.Showing=True) and (shove_timber_form.show_all_blue_checkbox.Checked=True) then shove_this:=90;  // draw highlighted blue if required (may be overidden later for red if currently selected).
 
-                if sv_code=-1                         // this value in the list is a flag.
-                   then EXIT//omit:=True              // he wants this timber omitted.
+                if sv_code=-1      // this value in the list is a flag, he wants this timber omitted
+                   then EXIT
                    else begin
                           if ((sv_option_bits AND $40)<>0) and ( (sv_use_tcol=True) or (sv_use_ocol=True) )     // 226a  shove_data.sv_col_has_been_set=True
                          and (modified_timbering_infill=True)                                                 // generator switch
@@ -31121,9 +31346,6 @@ begin
                                                                          or ( ( (wing_end_flares.ms_wing_chair<>0) or (wing_end_flares.ts_wing_chair<>0) ) and (cpi.temp_dd_parallel_wing_pi=True) ) // parallel wing over-ride
                                                                             then need_vee_chairs:=True
                                                                             else need_EF_chairs:=True;
-
-                                                                         //if need_EF_chairs=True then showmessage('ef '+Inttostr(wing_end_flares.ms_wing_chair)+' '+Inttostr(wing_end_flares.ts_wing_chair) )
-                                                                         //                       else showmessage('no ef '+Inttostr(wing_end_flares.ms_wing_chair)+' '+Inttostr(wing_end_flares.ts_wing_chair) );
 
                                                                        end
                                                                  else begin                                    // beyond crossing chairs...
@@ -36084,8 +36306,8 @@ begin
          hv_flip:=False;        // key flipped
          hv_omit_key:=False;    // key omitted
 
-         hv_customized:=False;  // chair customized
-         hv_plug:=0;            // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+         hv_jaws:=False;        // jaws customized
+         hv_plug:=0;            // plug customized   0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
          for o:=0 to HIGH(hv_jaw_options) do begin        // 0..3 number of rails 4 in customizable chair
            for w:=0 to HIGH(hv_jaw_options[o]) do begin   // 0..5 options 6 per jaw  Tjaw_option
@@ -37980,9 +38202,7 @@ var
 
   rail_number:integer;
 
-
 begin
-
   RESULT:=False;     //  init..
 
   heave_chairs_form.rail_highlight_shape.Visible:=False;
@@ -38016,7 +38236,7 @@ begin
 
       label_str:=get_chair_str(ptr_1st^.dxf_chair_code);
 
-      rail_number:=(ptr_1st^.options_bits AND $00000003)+1; // in 2 ls bits
+      rail_number:=(ptr_1st^.mark_bits AND $00000003)+1; // in 2 ls bits
 
       with enter_timber_form.Canvas do begin               // use as dummy canvas
         Font.Assign(pad_form.pad_timber_font_label.Font);  // for font name
@@ -38052,16 +38272,7 @@ begin
 
                 shove_timber_form.heave_chairs_button.Click;  // must do first - updates form
 
-                with heave_chairs_form do begin
-                  case rail_number of
-                    1: rail_highlight_shape.Top:=rail1_groupbox.Top+rail_highlight_shape.Left-rail1_groupbox.Left;  // default -8, allow for scaling..
-                    2: rail_highlight_shape.Top:=rail2_groupbox.Top+rail_highlight_shape.Left-rail2_groupbox.Left;
-                    3: rail_highlight_shape.Top:=rail3_groupbox.Top+rail_highlight_shape.Left-rail3_groupbox.Left;
-                    4: rail_highlight_shape.Top:=rail4_groupbox.Top+rail_highlight_shape.Left-rail4_groupbox.Left;
-                  end;//case
-
-                  rail_highlight_shape.Visible:=True;
-                end;//with
+                do_chair_selected(rail_number);     // heave_chairs_unit
 
                 redraw(True);
                 EXIT;
@@ -38072,7 +38283,7 @@ begin
 
   end;//next i
 end;
-//____________________________________________________________________________________________
+//______________________________________________________________________________
 
 function shape_clicked(X,Y:integer):boolean;  // 229a is it on a background shape?
 

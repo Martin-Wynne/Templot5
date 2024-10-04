@@ -28,7 +28,9 @@
 
 *)
 
-unit chair_frame_unit;{$MODE Delphi}
+unit chair_frame_unit;
+
+{$MODE Delphi}
 
 {$ALIGN OFF}
 
@@ -38,6 +40,9 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls;
 
 type
+
+  { Tchair_frame }
+
   Tchair_frame = class(TFrame)
     loose_checkbox0: TCheckBox;
     export_checkbox1: TCheckBox;
@@ -48,6 +53,8 @@ type
     Label1: TLabel;
     include_checkbox2: TCheckBox;
     procedure include_checkbox0MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure include_checkbox0MouseUp(Sender: TObject; Button: TMouseButton;
+     Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
   public
@@ -59,16 +66,27 @@ implementation
 {$R *.lfm}
 
 uses
-  chairs_unit;
+  chairs_unit, heave_chairs;
 
 //______________________________________________________________________________
 
 procedure Tchair_frame.include_checkbox0MouseDown(Sender: TObject;  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
-  // all checkboxes ...
+  // all checkboxes mouse down ...
 
 begin
-  chair_option_clicked:=4;     // mixed jaws
+  if chairs_form.Active=True                  // showing modal - inherited event
+     then chair_option_clicked:=4;            // mixed jaws
+end;
+//______________________________________________________________________________
+
+procedure Tchair_frame.include_checkbox0MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+
+  // all checkboxes mouse up ...
+
+begin
+  if heave_chairs_form.Showing=True          // inherited event
+     then heave_form_set_customized_jaws;
 end;
 //______________________________________________________________________________
 

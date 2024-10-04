@@ -1,5 +1,5 @@
 object chairs_form: Tchairs_form
-  Left = 428
+  Left = 532
   Height = 704
   Top = 423
   Width = 964
@@ -11,7 +11,7 @@ object chairs_form: Tchairs_form
   Color = 15791344
   DesignTimePPI = 120
   Font.Color = 16711808
-  Font.Height = -711
+  Font.Height = -1389
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -499,17 +499,18 @@ object chairs_form: Tchairs_form
     OnClick = help_buttonClick
   end
   inline chair_frame_all: Tchair_frame
-    Left = 241
+    Left = 242
     Height = 25
     Top = 220
-    Width = 817
     ClientHeight = 25
-    ClientWidth = 817
     Color = 15001828
+    Font.Height = -39
     ParentBackground = False
     ParentColor = False
     TabOrder = 9
     inherited frame_label: TLabel
+      Left = 0
+      Width = 120
       Caption = 'change  all  to :'
     end
     inherited Label1: TLabel
@@ -1326,9 +1327,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 5
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       inherited frame_label: TLabel
         Font.Color = 45056
@@ -1356,9 +1356,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 81
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 1
       inherited frame_label: TLabel
@@ -1392,9 +1391,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 158
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 2
       inherited frame_label: TLabel
@@ -1427,9 +1425,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 120
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 3
       inherited frame_label: TLabel
@@ -1464,9 +1461,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 182
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 4
       inherited frame_label: TLabel
@@ -1502,9 +1498,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 39
       Top = 286
-      Width = 817
       ClientHeight = 39
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 5
       inherited frame_label: TLabel
@@ -1538,9 +1533,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 222
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 6
       inherited frame_label: TLabel
@@ -1573,9 +1567,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 246
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 7
       inherited frame_label: TLabel
@@ -1607,9 +1600,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 310
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 8
       inherited frame_label: TLabel
@@ -1642,9 +1634,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 350
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 9
       inherited frame_label: TLabel
@@ -1676,9 +1667,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 374
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 10
       inherited frame_label: TLabel
@@ -1711,9 +1701,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 414
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 11
       inherited frame_label: TLabel
@@ -1745,9 +1734,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 460
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 12
       inherited frame_label: TLabel
@@ -1779,9 +1767,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 484
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 13
       inherited frame_label: TLabel
@@ -1813,9 +1800,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 524
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 14
       inherited frame_label: TLabel
@@ -1848,9 +1834,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 548
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 15
       inherited frame_label: TLabel
@@ -1883,9 +1868,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 588
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 16
       inherited frame_label: TLabel
@@ -1917,9 +1901,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 612
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 17
       inherited frame_label: TLabel
@@ -1951,9 +1934,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 652
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 18
       inherited frame_label: TLabel
@@ -1985,9 +1967,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 676
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 19
       inherited frame_label: TLabel
@@ -2019,9 +2000,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 908
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 20
       inherited frame_label: TLabel
@@ -2053,9 +2033,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 932
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 21
       inherited frame_label: TLabel
@@ -2091,9 +2070,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 972
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 22
       inherited frame_label: TLabel
@@ -2125,9 +2103,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 996
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 23
       inherited frame_label: TLabel
@@ -2159,9 +2136,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 780
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 24
       inherited frame_label: TLabel
@@ -2193,9 +2169,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 804
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 25
       inherited frame_label: TLabel
@@ -2227,9 +2202,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 716
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 26
       inherited frame_label: TLabel
@@ -2261,9 +2235,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 740
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 27
       inherited frame_label: TLabel
@@ -2295,9 +2268,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 43
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 30
       inherited frame_label: TLabel
@@ -2329,9 +2301,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 844
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 31
       inherited frame_label: TLabel
@@ -2367,9 +2338,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 868
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 32
       inherited frame_label: TLabel
@@ -2405,9 +2375,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1029
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 33
       inherited frame_label: TLabel
@@ -2439,9 +2408,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1101
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 34
       inherited frame_label: TLabel
@@ -2476,9 +2444,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1136
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 35
       inherited frame_label: TLabel
@@ -2510,9 +2477,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1065
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 36
       inherited frame_label: TLabel
@@ -2546,9 +2512,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1303
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 37
       inherited frame_label: TLabel
@@ -2580,9 +2545,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1375
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 38
       inherited frame_label: TLabel
@@ -2616,9 +2580,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1423
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 39
       inherited Label1: TLabel
@@ -2647,9 +2610,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1351
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 40
       inherited Label1: TLabel
@@ -2678,9 +2640,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1447
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 41
       inherited frame_label: TLabel
@@ -2712,9 +2673,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1518
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 42
       inherited frame_label: TLabel
@@ -2748,9 +2708,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1566
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 43
       inherited Label1: TLabel
@@ -2784,9 +2743,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1494
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 44
       inherited Label1: TLabel
@@ -2815,9 +2773,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1602
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 45
       inherited Label1: TLabel
@@ -2851,9 +2808,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1673
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 46
       inherited frame_label: TLabel
@@ -2888,10 +2844,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1709
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 47
       inherited frame_label: TLabel
@@ -2924,9 +2879,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1637
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 48
       inherited Label1: TLabel
@@ -2957,10 +2911,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1745
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 49
       inherited frame_label: TLabel
@@ -2993,10 +2946,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1816
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 50
       inherited frame_label: TLabel
@@ -3031,10 +2983,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1852
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 51
       inherited frame_label: TLabel
@@ -3067,10 +3018,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1780
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 52
       inherited frame_label: TLabel
@@ -3103,9 +3053,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1160
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 53
       inherited frame_label: TLabel
@@ -3137,9 +3086,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1232
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 54
       inherited frame_label: TLabel
@@ -3173,9 +3121,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1279
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 55
       inherited frame_label: TLabel
@@ -3207,9 +3154,8 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1208
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 56
       inherited frame_label: TLabel
@@ -3241,10 +3187,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1888
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 57
       inherited frame_label: TLabel
@@ -3277,10 +3222,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1960
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 58
       inherited frame_label: TLabel
@@ -3315,10 +3259,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1996
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 59
       inherited frame_label: TLabel
@@ -3351,10 +3294,9 @@ object chairs_form: Tchairs_form
       Left = 232
       Height = 25
       Top = 1924
-      Width = 817
       ClientHeight = 25
-      ClientWidth = 817
       Enabled = False
+      Font.Height = -39
       ParentBackground = False
       TabOrder = 60
       inherited frame_label: TLabel

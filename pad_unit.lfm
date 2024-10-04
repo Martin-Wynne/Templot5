@@ -12,7 +12,7 @@ object pad_form: Tpad_form
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -39
+  Font.Height = -364
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -35,6 +35,27 @@ object pad_form: Tpad_form
   ShowHint = True
   LCLVersion = '3.4.0.0'
   Scaled = False
+  object minimize_panel: TPanel
+    Left = 1244
+    Height = 28
+    Top = 720
+    Width = 92
+    Anchors = [akRight, akBottom]
+    BevelOuter = bvNone
+    BorderStyle = bsSingle
+    Caption = 'minimize'
+    Color = 13697023
+    Font.Color = clBlack
+    Font.Height = -17
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentColor = False
+    ParentFont = False
+    ParentShowHint = False
+    TabOrder = 22
+    OnClick = minimize_panelClick
+  end
   object pad_timber_font_label: TLabel
     Left = 156
     Height = 17
@@ -843,6 +864,7 @@ object pad_form: Tpad_form
       Font.Style = [fsBold]
       Layout = blGlyphBottom
       Transparent = False
+      OnClick = sketchboard_buttonClick
       ShowHint = True
       ParentFont = False
       ParentShowHint = False
@@ -1749,6 +1771,7 @@ object pad_form: Tpad_form
       Layout = tlCenter
       ParentColor = False
       ParentFont = False
+      Transparent = False
       OnClick = Label8Click
     end
     object scaling_change_button: TButton
@@ -2433,6 +2456,7 @@ object pad_form: Tpad_form
       object sketchboard_show_menu_entry: TMenuItem
         Caption = 's&how  sketchboard'
         GroupIndex = 20
+        OnClick = sketchboard_show_menu_entryClick
       end
       object N557: TMenuItem
         Caption = ' '
@@ -2441,6 +2465,7 @@ object pad_form: Tpad_form
       end
       object sketchboard_menu_entry: TMenuItem
         Caption = 's&ketchboard  options'
+        Enabled = False
         GroupIndex = 250
         object sb_reload_from_file_menu_entry: TMenuItem
           Caption = 'reload  sketchboard  from  &file ...'
@@ -4396,19 +4421,23 @@ object pad_form: Tpad_form
           object MenuItem3: TMenuItem
             Caption = 'REA'
             Checked = True
+            Enabled = False
             GroupIndex = 10
             RadioItem = True
           end
           object MenuItem4: TMenuItem
             Caption = 'GWR'
+            Enabled = False
             RadioItem = True
           end
           object MenuItem5: TMenuItem
             Caption = 'LSWR'
+            Enabled = False
             RadioItem = True
           end
           object MenuItem6: TMenuItem
             Caption = 'MR'
+            Enabled = False
             GroupIndex = 10
             RadioItem = True
           end

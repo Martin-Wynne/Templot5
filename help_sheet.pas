@@ -49,6 +49,7 @@ type
     continue_button: TButton;
     help_popup_menu: TPopupMenu;
     copy_all_popup_entry: TMenuItem;
+    help_top_label: TLabel;
     print_popup_entry: TMenuItem;
     stay_visible_popup_entry: TMenuItem;
     printer_margins_popup_entry: TMenuItem;
@@ -59,7 +60,6 @@ type
     N2: TMenuItem;
     N3: TMenuItem;
     top_panel: TPanel;
-    help_top_label: TLabel;
     blue_corner_panel: TPanel;
     size_updown: TUpDown;
     print_button: TButton;

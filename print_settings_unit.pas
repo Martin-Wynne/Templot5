@@ -33,10 +33,16 @@
 ================================================================================
 	Changes applied
 ================================================================================
-	SC 19-SEP-2024 556
-		Add object output_omit_S1_labels_checkbox.Tcheckbox to chairing_group in print_settings_unit.lfm
-	sc 17-sep-2024 556.
+SC 19-SEP-2024 556
+ Add object output_omit_S1_labels_checkbox.Tcheckbox to chairing_group in print_settings_unit.lfm
+sc 17-sep-2024 556.
 
+SC 22-SEP-2024 556
+ print_chair_label_font
+sc 22-sep-2024 556.
+
+SC 01-OCT-2024 556
+sc 01-oct-2024 556
 ================================================================================
 """
 *)
@@ -59,7 +65,15 @@ type
   { Tprint_settings_form }
 
   Tprint_settings_form = class(TForm)
-    chair_group_label: TLabel;
+    output_railbg_infill_colour_button1: TButton;
+    output_timber_label_colour_button: TButton;
+    pricbk_colour_panel: TPanel;
+    ptic_colour_panel: TPanel;
+    output_railbg_infill_colour_button: TButton;
+    output_railcu_infill_colour_button: TButton;
+    pricbg_colour_panel: TPanel;
+    priccu_colour_panel: TPanel;
+    infill_group_label: TLabel;
     Label10: TLabel;
     output_chairs_checkbox: TCheckBox;
     output_chair_infill_colour_button: TButton;
@@ -108,7 +122,11 @@ type
     Shape2: TShape;
     top_label1: TLabel;
     procedure pcic_colour_panelClick(Sender: TObject);
+    procedure pricbg_colour_panelClick(Sender: TObject);
+    procedure pricbk_colour_panelClick(Sender: TObject);
+    procedure priccu_colour_panelClick(Sender: TObject);
     procedure plic_colour_panelClick(Sender: TObject);
+    procedure ptic_colour_panelClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
     procedure FormCreate(Sender: TObject);
     procedure close_buttonClick(Sender: TObject);
@@ -160,6 +178,9 @@ var
   printrail_infill_colour_bg:integer=$00F0D0B4;  // 214a         was $00E8B080;   // 209c  was $00C09060;    // steely-blue.   //$0090C060 sea-green printed rails (background templates).
   save_pricbg:integer=$00F0D0B4;                 // 214a         was $00E8B080;   // 209c  was $00C09060;
 
+  printrail_infill_colour_bk:integer=clSilver;  // printed rails (brick templates).
+  save_pricbk:integer=clSilver;                 //
+
            // 0.93.a platforms ..
 
   printplat_edge_colour:integer=$005080A0;     // browny-orange platform edges
@@ -201,11 +222,12 @@ var
   save_pbg:integer=clPurple;
 
 
+  // Fonts
   print_labels_font:TFont;
   printer_text_font:TFont;
   print_timber_numbers_font:TFont;
-
   print_corner_page_numbers_font:TFont;  // 0.93.a
+  print_chair_labels_font:TFont;          // SC 22-SEP-2024 556
 
   printchair_colour:integer=$000050B0;
   save_pcc:integer=$000050B0;
@@ -253,7 +275,6 @@ end;
 //______________________________________________________________________________
 
 // SC 15-SEP-2024 556
-
 procedure Tprint_settings_form.pcic_colour_panelClick(Sender: TObject);
 
           // print chair infill colour
@@ -271,6 +292,62 @@ begin
           end;
 end;
 //______________________________________________________________________________
+
+// SC 01-OCT-2024 556
+procedure Tprint_settings_form.pricbg_colour_panelClick(Sender: TObject);
+
+          // print rail infill colour - background
+var
+  old:TColor;
+
+begin
+  old:=pricbg_colour_panel.Color;
+  pricbg_colour_panel.Color:=get_colour('choose  a  background  template  rail  infill  colour',pricbg_colour_panel.Color);
+  if pricbg_colour_panel.Color<>old
+     then begin
+            output_rails_checkbox.Checked:=True;               // colour changed, assume she wants to use it
+            printrail_infill_colour_bg:=pricbg_colour_panel.Color;
+            save_pricbg:=pricbg_colour_panel.Color;
+          end;
+end;
+//______________________________________________________________________________
+
+procedure Tprint_settings_form.pricbk_colour_panelClick(Sender: TObject);
+
+          // print rail infill colour - brick override
+var
+  old:TColor;
+
+begin
+  old:=pricbk_colour_panel.Color;
+  pricbk_colour_panel.Color:=get_colour('choose  a  brick  template  rail  infill  colour',pricbk_colour_panel.Color);
+  if pricbk_colour_panel.Color<>old
+     then begin
+            output_rails_checkbox.Checked:=True;               // colour changed, assume she wants to use it
+            printrail_infill_colour_bk:=pricbk_colour_panel.Color;
+            save_pricbk:=pricbk_colour_panel.Color;
+          end;
+end;
+//______________________________________________________________________________
+
+procedure Tprint_settings_form.priccu_colour_panelClick(Sender: TObject);
+
+          // print rail infill colour - current (control)
+var
+  old:TColor;
+
+begin
+  old:=priccu_colour_panel.Color;
+  priccu_colour_panel.Color:=get_colour('choose  a  control  template  rail  infill  colour',priccu_colour_panel.Color);
+  if priccu_colour_panel.Color<>old
+     then begin
+            output_rails_checkbox.Checked:=True;               // colour changed, assume she wants to use it
+            printrail_infill_colour_cu:=priccu_colour_panel.Color;
+            save_priccu:=priccu_colour_panel.Color;
+          end;
+end;
+//______________________________________________________________________________
+// sc 01-oct-2024 556
 
 procedure Tprint_settings_form.plic_colour_panelClick(Sender: TObject);
 
@@ -290,6 +367,25 @@ begin
 end;
 
 // sc 15-sep-2024 556
+
+// SC 01-OCT-2024 556
+procedure Tprint_settings_form.ptic_colour_panelClick(Sender: TObject);
+
+          // print timber infill colour
+var
+  old:TColor;
+
+begin
+  old:=ptic_colour_panel.Color;
+  ptic_colour_panel.Color:=get_colour('choose  a  timber  infill  colour',ptic_colour_panel.Color);
+  if ptic_colour_panel.Color<>old
+     then begin
+            output_timbering_checkbox.Checked:=True;               // colour changed, assume she wants to use it
+            printtimber_infill_colour:=ptic_colour_panel.Color;
+            save_ptic:=ptic_colour_panel.Color;
+          end;
+end;
+//______________________________________________________________________________
 
 //______________________________________________________________________________
 

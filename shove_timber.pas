@@ -1368,8 +1368,8 @@ begin
                       hv_flip:=False;           // key flipped
                       hv_omit_key:=False;       // key omitted    // 556 MW
 
-                      hv_customized:=False;     // chair customized
-                      hv_plug:=0;               // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+                      hv_jaws:=False;           // jaws customized
+                      hv_plug:=0;               // plug customized   0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
                       for w:=0 to HIGH(hv_jaw_options) do begin       // 0..3    4 rails in customized chair
                         for i:=0 to HIGH(hv_jaw_options[w]) do begin  // 0..5    6 options per jaw  Tjaw_option
@@ -1422,6 +1422,8 @@ begin
   ms_flange_checkbox.Checked:=True;
   near_flange_checkbox.Checked:=True;
   far_flange_checkbox.Checked:=True;
+
+  heave_form_reset_all(True);     // True = no timber selected
 
   shove_buttons(True,1,-1);
   show_and_redraw(True,True);
@@ -2465,8 +2467,8 @@ begin
         OR (hv_ch<>0)        // modified chair code
         OR hv_flip           // key flipped
         OR hv_omit_key       // key omitted        // 556 MW
-        OR hv_customized     // chair customized
-        OR (hv_plug<>0)      // change plug     0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
+        OR hv_jaws           // jaws customized
+        OR (hv_plug<>0)      // plug customized   0=no change, 1=force clip-fit  2=force snap-fit  3=force press-fit
 
         OR (hv_sc_outlong<>0)    // SC dims modified..
         OR (hv_sc_inlong<>0)

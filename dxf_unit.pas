@@ -48,11 +48,29 @@ type
     all_loose_jaws_button: TButton;
     all_slots_button: TButton;
     all_solid_jaws_button: TButton;
+    backlash_panel: TPanel;
+    backlash_settings_button: TButton;
+    beefing_button: TButton;
     caged_clip_checkbox: TCheckBox;
-    cot_loose_jaws_checkbox: TCheckBox;
+    club_button: TButton;
     cot_timber_depth_button: TButton;
+    exp_panel: TPanel;
+    fdm_beefing_checkbox: TCheckBox;
+    Label27: TLabel;
+    Label53: TLabel;
+    Label92: TLabel;
+    Label93: TLabel;
+    modify_backlash_button: TButton;
+    resin_beefing_checkbox: TCheckBox;
+    force_eq_checkbox: TCheckBox;
+    fdm_chairs_checkbox: TCheckBox;
+    cot_include_loose_jaws_checkbox: TCheckBox;
+    cot_loose_jaws_checkbox: TCheckBox;
     cot_spacer_blocks_checkbox: TCheckBox;
     Label88: TLabel;
+    Label89: TLabel;
+    Label90: TLabel;
+    Label91: TLabel;
     socket_depth_button: TButton;
     chairs_bullet_shape: TShape;
     cot_flanges_checkbox: TCheckBox;
@@ -61,7 +79,7 @@ type
     Label87: TLabel;
     Shape8: TShape;
     cot_radio: TRadioButton;
-    timbers_with_chairs_bullet_shape: TShape;
+    cot_bullet_shape: TShape;
     chairs_only_button: TButton;
     timbers_with_chairs_button: TButton;
     chair_jaws_panel: TPanel;
@@ -332,8 +350,6 @@ type
     y_scale_edit: TEdit;
     z_scale_edit: TEdit;
     grbl_button: TButton;
-    minibo_button: TButton;
-    minibo_backlash_button: TButton;
     fill_below_key_checkbox: TCheckBox;
     Label58: TLabel;
     save_custom_button: TButton;
@@ -351,10 +367,6 @@ type
     hide_settings_button: TButton;
     fdm_filament_button: TButton;
     filament_checkbox: TCheckBox;
-    exp_panel: TPanel;
-    Label53: TLabel;
-    Label27: TLabel;
-    club_button: TButton;
     kerfs_only_checkbox: TCheckBox;
     unchaired_kerf_checkbox: TCheckBox;
     alignment_plates_radio: TRadioButton;
@@ -379,9 +391,9 @@ type
     socket_indent_button: TButton;
     indented_socket_checkbox: TCheckBox;
     omit_flanges_conflict_checkbox: TCheckBox;
-    mod_timbers_for_scale_checkbox: TCheckBox;
+    thinify_timbers_checkbox: TCheckBox;
     Label74: TLabel;
-    mod_depths_edit: TEdit;
+    thinify_edit: TEdit;
     increase_plug_size_checkbox: TCheckBox;
     Label75: TLabel;
     Label77: TLabel;
@@ -393,6 +405,7 @@ type
     procedure all_loose_jaws_buttonClick(Sender: TObject);
     procedure all_slots_buttonClick(Sender: TObject);
     procedure all_solid_jaws_buttonClick(Sender: TObject);
+    procedure beefing_buttonClick(Sender: TObject);
     procedure cot_timber_depth_buttonClick(Sender: TObject);
     procedure ok_panelClick(Sender: TObject);
     procedure help_buttonClick(Sender: TObject);
@@ -431,8 +444,8 @@ type
     procedure marker_colour_panelClick(Sender: TObject);
     procedure clips_buttonClick(Sender: TObject);
     procedure rebuild_now_buttonClick(Sender: TObject);
-    procedure minibo_buttonClick(Sender: TObject);
-    procedure minibo_backlash_buttonClick(Sender: TObject);
+    procedure modify_backlash_buttonClick(Sender: TObject);
+    procedure backlash_settings_buttonClick(Sender: TObject);
     procedure _3d_resin_radiobuttonClick(Sender: TObject);
     procedure _3d_cad_radiobuttonClick(Sender: TObject);
     procedure _3d_fdm_radiobuttonClick(Sender: TObject);
@@ -496,6 +509,7 @@ type
     public
       socket_corners:Tsocket_corners;
       chair_id:integer;                 // 237a
+      plug_fit:integer;                 // 556a
       timber_id_str:string;             // 238a
     end;//class
 
@@ -606,7 +620,7 @@ var
   dropper_ridge_spacing_top_mm:extended=0.4;    // 241f
   dropper_ridge_spacing_bottom_mm:extended=0.6; // 241f
 
-  dropper_ridge_height:extended=2.16;        // 244d   2.16" = 0.72mm in 4mm/ft scale = 6 layers at 0.12mm
+  dropper_ridge_height_mm:extended=0.8;     // 556a MW
     //---------------
 
     // brick connector clips ...
@@ -688,7 +702,7 @@ var
 
   clip_socket_flap_clear_width:extended=1.5;  // 0.5mm clear each side     0.75;     // = 0.25mm 241c   flap 0.25mm clear of sides   4mm/ft
 
-  clip_tang_end_space:extended=5/16;  // 5/16" 244d  end space between tang base and tang housing
+  clip_tang_end_space:extended=7/16;  // 7/16" 556  was 5/16" 244d  end space between tang base and tang housing
 
       // 241b sides and ends for press-fit sockets ...
 
@@ -705,7 +719,8 @@ var
   socket_indent:extended=1/3;  // inches  1/3" for indented ends of socket
 
 
-  snap_plug_overcut:extended=3/8;            // 3/8  inch side overcut on plug for snap-fit  (jut width)
+  snap_plug_overcut_mm:extended=0.12;        // 0.12mm side overcut on plug for snap-fit  (jut width)
+
   snap_plug_overcut_depth:extended=2.5;      // 2.1/2" snap-fit depth to plug overcut        (jut width)
 
 
@@ -757,7 +772,7 @@ var
   plug_fit_ends:extended=0;   // mm
 
   pyramid_height_low:extended=3.0;      // mm  chair support pyramid  - low for electronics snips (up to 4mm/ft scale)
-  pyramid_height_high:extended=7.0;     // mm  chair support pyramid  - high for workshop side cutters (over 4mm/ft scale)
+  pyramid_height_high:extended=5.0;     // mm  chair support pyramid  - high for workshop side cutters (over 4mm/ft scale)
   
   pyramid_taper:extended=1.25;      // inches all round at base    237e   was 0.75"
 
@@ -833,9 +848,9 @@ var
   nails_toprad:extended=0.175;  // default top 0.35mm dia
   nails_botrad:extended=0.275;  // default bottom 0.55mm dia
 
-  bl_x:extended=0.3;   // MINIBO backlash mm on X
-  bl_y:extended=0.3;   // MINIBO backlash mm on Y
-  bl_z:extended=0.4;   // MINIBO backlash mm on Z
+  bl_x:extended=0.04;   // typical backlash mm on X        // 556a changes
+  bl_y:extended=0.06;   // typical backlash mm on Y
+  bl_z:extended=0;      // gravity backlash correction on Z
 
     // default custom rail section is BS-95R   inches full-size ...
 
@@ -891,8 +906,14 @@ var
 
   dxf_showing_settings:boolean=False;  // 241c
 
-  mod_timbers_for_scale_factor:extended=1.0;  //0.653;
-  mod_depths_adjustment:extended=1.0;
+  thinify_timbers_for_scale_factor:extended=1.0;  //0.653;
+  thinify_adjustment:extended=1.0;
+
+  fdm_outer_beefing:extended=0.5;  // 1/2" additional depth behind outer jaw FDM
+  fdm_inner_beefing:extended=0.5;  // 1/2" additional depth behind inner jaw FDM
+
+  resin_outer_beefing:extended=0;  // additional depth behind outer jaw resin     // 556a
+  resin_inner_beefing:extended=0;  // additional depth behind inner jaw resin
 
   output_extents_left,output_extents_bot,output_extents_right,output_extents_top:double;  // 555a  MW 20-AUG-2024
 
@@ -993,9 +1014,6 @@ var
 
   stl:boolean=False;  // 227a
 
-  outer_beefing:extended=0;  // additional depth behind ribs outer jaw
-  inner_beefing:extended=0;  // additional depth behind ribs inner jaw
-
   flange_extra:extended=0.5;  // inches +ve increase flange clearance on inner chair jaws
 
 
@@ -1054,6 +1072,9 @@ var
 
   procedure do_export_templates_dxf;forward;  // 227a now in wrapper for kludge FB
 
+  function do_a_pyramid(top1,top2,top3,top4,bot1,bot2,bot3,bot4:Tpex; zt,zb:extended; layer:integer):string;forward;     // 237a   pex clockwise from south-west
+
+
 //______________________________________________________________________________
 
 function make_stl_dim(axis:integer; shrinkage_factor,scaleby,shift,d:extended):string;   // generate floating point string.
@@ -1096,14 +1117,14 @@ begin
 
                         // modify Z for plugs and timbers if wanted...
 
-                      if (dxf_form.mod_timbers_for_scale_checkbox.Checked=True) and (dxf_form.z_datum_underside_checkbox.Checked=True)     // 244d
+                      if (dxf_form.thinify_timbers_checkbox.Checked=True) and (dxf_form.z_datum_underside_checkbox.Checked=True)     // 244d
                       and (inserting_loose_dxf=False)  // 244e   loose jaws may be lower on raft
                       and ((d+shift)>0)
                       and ((scale<3.95) or (scale>4.05))
                          then begin
                                 if d<(d_mod_level-shift)                                    // modify plug/timber depths for model scale
-                                   then d:=((d+shift)*mod_timbers_for_scale_factor)-shift
-                                   else d:=((d+shift)-d_mod_level+d_mod_level*mod_timbers_for_scale_factor)-shift;
+                                   then d:=((d+shift)*thinify_timbers_for_scale_factor)-shift
+                                   else d:=((d+shift)-d_mod_level+d_mod_level*thinify_timbers_for_scale_factor)-shift;
                               end;
                     end;
           end;
@@ -1399,15 +1420,15 @@ begin
 
                         // modify Z for plugs and timbers if wanted...
                       
-                      if (dxf_form.mod_timbers_for_scale_checkbox.Checked=True) and (dxf_form.z_datum_underside_checkbox.Checked=True)     // 244d
+                      if (dxf_form.thinify_timbers_checkbox.Checked=True) and (dxf_form.z_datum_underside_checkbox.Checked=True)     // 244d
                       and (inserting_loose_dxf=False)  // 244e    loose jaws may be lower on raft
                       and ((d+shift)>0)
                       and ((scale<3.95) or (scale>4.05))
                       and (creating_block_str='')          // blocks mod when inserted, not when created
                          then begin
                                 if d<(d_mod_level-shift)                                    // modify plug/timber depths for model scale
-                                   then d:=((d+shift)*mod_timbers_for_scale_factor)-shift
-                                   else d:=((d+shift)-d_mod_level+d_mod_level*mod_timbers_for_scale_factor)-shift;
+                                   then d:=((d+shift)*thinify_timbers_for_scale_factor)-shift
+                                   else d:=((d+shift)-d_mod_level+d_mod_level*thinify_timbers_for_scale_factor)-shift;
                               end;
 
                     end;
@@ -1565,7 +1586,7 @@ function loose_jaw_pin_outer(shift_twist,CC_swap:boolean; angle,p0y,zplinth,pin_
 var
   p:array[0..17] of Tpex;
 
-  zplug,zbot,zlow,zlowest:extended;  // down from rail top
+  zplug,zbot,zlow,zlowest,zfloor,zraft:extended;  // down from rail top
 
   shear_chamf,shear_bot:extended;
 
@@ -1582,7 +1603,7 @@ begin
      then plug_extended_depth:=clip_plug_extended_depth
      else if dxf_form.snap_fit_radio.Checked=True
              then plug_extended_depth:=snap_plug_extended_depth
-             else plug_extended_depth:=press_plug_extended_depth;
+             else plug_extended_depth:=press_plug_extended_depth;   // press-fit or COT
 
   s:='';
 
@@ -1593,6 +1614,16 @@ begin
   zbot:=0-rail_section_data_mm.rail_depth_mm-(seat_thick+plug_extended_depth-loose_pin_depth_clear)*inscale;      // 236d  bottom of pin
 
   zlowest:=zbot-pyramid_height_pin;  // 236d  bottom of pin support pyramid
+
+  if dxf_form.thinify_timbers_checkbox.Checked=True    // use COT dims if not thinifying ...  556a MW
+     then begin
+            zfloor:=zplug-normal_timber_thick*inscale;
+            zraft:=zfloor+normal_flange_depth*inscale;
+          end
+     else begin
+            zfloor:=zplug-cot_timber_thick*inscale;
+            zraft:=zfloor+cot_flange_depth*inscale;
+          end;
 
   shear_chamf:=ABS(zlow-zplug)*TAN(angle);
   shear_bot:=ABS(zbot-zplug)*TAN(angle);
@@ -1606,7 +1637,7 @@ begin
   p[5].y:=0;
 
 
-      // top part through plinth ...
+      // top part through plinth ...    and COT top of support
 
   p[6].x:=0-pin_slot_halfwide*inscale+loose_pin_clear_sides;  // 236d
   p[6].y:=p0y-pin_slot_length*inscale+loose_pin_clear_back;   // 236d
@@ -1620,48 +1651,83 @@ begin
   p[9].x:=p[8].x;
   p[9].y:=p[6].y;
 
-          // start of chamfered bottom ...
+  if dxf_form.Cot_radio.Checked=True    // 556 MW
+     then begin
+                    // bottom of COT support...
 
-  p[1].x:=p[6].x+loose_pin_bottom_taper_ins*inscale;
-  p[1].y:=p[6].y+shear_chamf+loose_pin_bottom_taper_ins*inscale;
+            p[14].x:=p[6].x-0.5; //0.2;
+            p[14].y:=p[6].y-0.5; //0.2+shear_bot;
 
-  p[2].x:=p[7].x+loose_pin_bottom_taper_ins*inscale;
-  p[2].y:=p[7].y+shear_chamf-loose_pin_bottom_taper_ins*inscale;
+            p[15].x:=p[14].x;
+            p[15].y:=p[7].y+0.5; //0.2+shear_bot;
 
-  p[3].x:=p[8].x-loose_pin_bottom_taper_ins*inscale;
-  p[3].y:=p[8].y+shear_chamf-loose_pin_bottom_taper_ins*inscale;
+            p[16].x:=p[8].x+0.5; //0.2;
+            p[16].y:=p[15].y;
 
-  p[4].x:=p[9].x-loose_pin_bottom_taper_ins*inscale;
-  p[4].y:=p[9].y+shear_chamf+loose_pin_bottom_taper_ins*inscale;
+            p[17].x:=p[16].x;
+            p[17].y:=p[14].y;
+
+                    // COT raft...
+
+            p[1].x:=p[6].x-15*inscale;
+            p[1].y:=p[6].y-4*inscale;
+
+            p[2].x:=p[1].x;
+            p[2].y:=p[7].y+4*inscale;
+
+            p[3].x:=p[8].x+15*inscale;
+            p[3].y:=p[2].y;
+
+            p[4].x:=p[3].x;
+            p[4].y:=p[1].y;
+
+          end
+     else begin
+
+                    // start of chamfered bottom ...
+
+            p[1].x:=p[6].x+loose_pin_bottom_taper_ins*inscale;
+            p[1].y:=p[6].y+shear_chamf+loose_pin_bottom_taper_ins*inscale;
+
+            p[2].x:=p[7].x+loose_pin_bottom_taper_ins*inscale;
+            p[2].y:=p[7].y+shear_chamf-loose_pin_bottom_taper_ins*inscale;
+
+            p[3].x:=p[8].x-loose_pin_bottom_taper_ins*inscale;
+            p[3].y:=p[8].y+shear_chamf-loose_pin_bottom_taper_ins*inscale;
+
+            p[4].x:=p[9].x-loose_pin_bottom_taper_ins*inscale;
+            p[4].y:=p[9].y+shear_chamf+loose_pin_bottom_taper_ins*inscale;
 
 
-          // base of chamfered bottom and top of support for loose pin ...
+                    // base of chamfered bottom and top of support for loose pin ...
 
-  p[10].x:=p[6].x+0.1;
-  p[10].y:=p[6].y+0.1+shear_bot;
+            p[10].x:=p[6].x+0.1;
+            p[10].y:=p[6].y+0.1+shear_bot;
 
-  p[11].x:=p[10].x;
-  p[11].y:=p[7].y-0.1+shear_bot;
+            p[11].x:=p[10].x;
+            p[11].y:=p[7].y-0.1+shear_bot;
 
-  p[12].x:=p[8].x-0.1;
-  p[12].y:=p[11].y;
+            p[12].x:=p[8].x-0.1;
+            p[12].y:=p[11].y;
 
-  p[13].x:=p[12].x;
-  p[13].y:=p[10].y;
+            p[13].x:=p[12].x;
+            p[13].y:=p[10].y;
 
-          // bottom of support for loose pin...
+                    // bottom of support for loose pin...
 
-  p[14].x:=p[6].x-0.2;
-  p[14].y:=p[6].y-0.2+shear_bot;
+            p[14].x:=p[6].x-0.2;
+            p[14].y:=p[6].y-0.2+shear_bot;
 
-  p[15].x:=p[14].x;
-  p[15].y:=p[7].y+0.2+shear_bot;
+            p[15].x:=p[14].x;
+            p[15].y:=p[7].y+0.2+shear_bot;
 
-  p[16].x:=p[8].x+0.2;
-  p[16].y:=p[15].y;
+            p[16].x:=p[8].x+0.2;
+            p[16].y:=p[15].y;
 
-  p[17].x:=p[16].x;
-  p[17].y:=p[14].y;
+            p[17].x:=p[16].x;
+            p[17].y:=p[14].y;
+
+          end;
 
   if CC_swap=True   // 237a
      then begin
@@ -1692,45 +1758,63 @@ begin
 
   debug_code:=123;
 
-    // pin ...
-
-  s:=s+dxf_3dface_pex( p[6],zplinth, p[7],zplinth, p[8],zplinth, p[9],zplinth, 21,0);   // upper surface of pin
-  s:=s+dxf_3dface_pex( p[10],zbot,   p[11],zbot,   p[12],zbot,   p[13],zbot,   21,0);   // lower surface of pin
-
-     // pin through plinth ...
-
-  s:=s+dxf_3dface_pex( p[7],zplinth, p[8],zplinth, p[8],zplug,    p[7],zplug,    21,0);   // rear side of pin
-  s:=s+dxf_3dface_pex( p[9],zplinth, p[8],zplinth, p[8],zplug,    p[9],zplug,    21,0);   // right side of pin
-  s:=s+dxf_3dface_pex( p[9],zplinth, p[6],zplinth, p[6],zplug,    p[9],zplug,    21,0);   // front side of pin
-  s:=s+dxf_3dface_pex( p[6],zplinth, p[7],zplinth, p[7],zplug,    p[6],zplug,    21,0);   // left side of pin
-
-       // pin through plug ...
-
-  s:=s+dxf_3dface_pex( p[7],zplug, p[8],zplug, p[3],zlow,    p[2],zlow,    21,0);   // rear side of pin
-  s:=s+dxf_3dface_pex( p[9],zplug, p[8],zplug, p[3],zlow,    p[4],zlow,    21,0);   // right side of pin
-  s:=s+dxf_3dface_pex( p[9],zplug, p[6],zplug, p[1],zlow,    p[4],zlow,    21,0);   // front side of pin
-  s:=s+dxf_3dface_pex( p[6],zplug, p[7],zplug, p[2],zlow,    p[1],zlow,    21,0);   // left side of pin
-
-      // bottom chamfer on pin ...
-
-  s:=s+dxf_3dface_pex( p[11],zbot, p[12],zbot, p[3],zlow, p[2],zlow,  21,0);   // rear side bottom chamfer
-  s:=s+dxf_3dface_pex( p[13],zbot, p[12],zbot, p[3],zlow, p[4],zlow,  21,0);   // right side bottom chamfer
-  s:=s+dxf_3dface_pex( p[13],zbot, p[10],zbot, p[1],zlow, p[4],zlow,  21,0);   // front side bottom chamfer
-  s:=s+dxf_3dface_pex( p[10],zbot, p[11],zbot, p[2],zlow, p[1],zlow,  21,0);   // left side bottom chamfer
-
-     // support for pin ...
-
-  if dxf_form.loose_jaw_pyramids_checkbox.Checked=True
+  if dxf_form.Cot_radio.Checked=True    // 556 MW   COT loose jaw support...
      then begin
-            s:=s+dxf_3dface_pex( p[10],zbot,    p[11],zbot,    p[12],zbot,    p[13],zbot,    35,0);   // upper surface of support
-            s:=s+dxf_3dface_pex( p[14],zlowest, p[15],zlowest, p[16],zlowest, p[17],zlowest, 35,0);   // lower surface of support
+                  // down to raft...
 
-            s:=s+dxf_3dface_pex( p[11],zbot, p[12],zbot, p[16],zlowest, p[15],zlowest, 35,0);   // rear side of support
-            s:=s+dxf_3dface_pex( p[13],zbot, p[12],zbot, p[16],zlowest, p[17],zlowest, 35,0);   // right side of support
-            s:=s+dxf_3dface_pex( p[13],zbot, p[10],zbot, p[14],zlowest, p[17],zlowest, 35,0);   // front side of support
-            s:=s+dxf_3dface_pex( p[10],zbot, p[11],zbot, p[15],zlowest, p[14],zlowest, 35,0);   // left side of support
+            s:=s+dxf_3dface_pex( p[6],zplinth, p[7],zplinth, p[8],zplinth, p[9],zplinth, 35,0);   // upper surface
+            s:=s+dxf_3dface_pex( p[14],zraft,  p[15],zraft,  p[16],zraft,  p[17],zraft,  35,0);   // lower surface
+
+            s:=s+dxf_3dface_pex( p[7],zplinth, p[8],zplinth, p[16],zraft,    p[15],zraft,    35,0);   // rear side
+            s:=s+dxf_3dface_pex( p[9],zplinth, p[8],zplinth, p[16],zraft,    p[17],zraft,    35,0);   // right side
+            s:=s+dxf_3dface_pex( p[9],zplinth, p[6],zplinth, p[14],zraft,    p[17],zraft,    35,0);   // front side
+            s:=s+dxf_3dface_pex( p[6],zplinth, p[7],zplinth, p[15],zraft,    p[14],zraft,    35,0);   // left side
+
+                  // down to floor (underside of timbers)
+
+            s:=s+do_a_pyramid(p[1],p[2],p[3],p[4],p[1],p[2],p[3],p[4],zraft,zfloor,35);
+          end
+     else begin
+
+              // pin ...
+
+            s:=s+dxf_3dface_pex( p[6],zplinth, p[7],zplinth, p[8],zplinth, p[9],zplinth, 21,0);   // upper surface of pin
+            s:=s+dxf_3dface_pex( p[10],zbot,   p[11],zbot,   p[12],zbot,   p[13],zbot,   21,0);   // lower surface of pin
+
+               // pin through plinth ...
+
+            s:=s+dxf_3dface_pex( p[7],zplinth, p[8],zplinth, p[8],zplug,    p[7],zplug,    21,0);   // rear side of pin
+            s:=s+dxf_3dface_pex( p[9],zplinth, p[8],zplinth, p[8],zplug,    p[9],zplug,    21,0);   // right side of pin
+            s:=s+dxf_3dface_pex( p[9],zplinth, p[6],zplinth, p[6],zplug,    p[9],zplug,    21,0);   // front side of pin
+            s:=s+dxf_3dface_pex( p[6],zplinth, p[7],zplinth, p[7],zplug,    p[6],zplug,    21,0);   // left side of pin
+
+                 // pin through plug ...
+
+            s:=s+dxf_3dface_pex( p[7],zplug, p[8],zplug, p[3],zlow,    p[2],zlow,    21,0);   // rear side of pin
+            s:=s+dxf_3dface_pex( p[9],zplug, p[8],zplug, p[3],zlow,    p[4],zlow,    21,0);   // right side of pin
+            s:=s+dxf_3dface_pex( p[9],zplug, p[6],zplug, p[1],zlow,    p[4],zlow,    21,0);   // front side of pin
+            s:=s+dxf_3dface_pex( p[6],zplug, p[7],zplug, p[2],zlow,    p[1],zlow,    21,0);   // left side of pin
+
+                // bottom chamfer on pin ...
+
+            s:=s+dxf_3dface_pex( p[11],zbot, p[12],zbot, p[3],zlow, p[2],zlow,  21,0);   // rear side bottom chamfer
+            s:=s+dxf_3dface_pex( p[13],zbot, p[12],zbot, p[3],zlow, p[4],zlow,  21,0);   // right side bottom chamfer
+            s:=s+dxf_3dface_pex( p[13],zbot, p[10],zbot, p[1],zlow, p[4],zlow,  21,0);   // front side bottom chamfer
+            s:=s+dxf_3dface_pex( p[10],zbot, p[11],zbot, p[2],zlow, p[1],zlow,  21,0);   // left side bottom chamfer
+
+               // support for pin ...
+
+            if dxf_form.loose_jaw_pyramids_checkbox.Checked=True
+               then begin
+                      s:=s+dxf_3dface_pex( p[10],zbot,    p[11],zbot,    p[12],zbot,    p[13],zbot,    35,0);   // upper surface of support
+                      s:=s+dxf_3dface_pex( p[14],zlowest, p[15],zlowest, p[16],zlowest, p[17],zlowest, 35,0);   // lower surface of support
+
+                      s:=s+dxf_3dface_pex( p[11],zbot, p[12],zbot, p[16],zlowest, p[15],zlowest, 35,0);   // rear side of support
+                      s:=s+dxf_3dface_pex( p[13],zbot, p[12],zbot, p[16],zlowest, p[17],zlowest, 35,0);   // right side of support
+                      s:=s+dxf_3dface_pex( p[13],zbot, p[10],zbot, p[14],zlowest, p[17],zlowest, 35,0);   // front side of support
+                      s:=s+dxf_3dface_pex( p[10],zbot, p[11],zbot, p[15],zlowest, p[14],zlowest, 35,0);   // left side of support
+                    end;
           end;
-
   RESULT:=s;
 end;
 //______________________________________________________________________________
@@ -2674,6 +2758,8 @@ var
 
   pn:integer;
 
+  outer_beefing:extended;
+
                              ///////////////////////////////////////////////////
 
                              procedure do_rib_rad(pcentre:Tpex; rad,startk:extended; nmod:integer; make_horz_faces:boolean; z:extended);
@@ -2732,6 +2818,14 @@ var
 
 begin
   if _3d=False then EXIT;
+
+  outer_beefing:=0;  // init
+
+  if (dxf_form._3d_fdm_radiobutton.Checked=True) and (dxf_form.fdm_beefing_checkbox.Checked=True)
+     then outer_beefing:=fdm_outer_beefing;
+
+  if (dxf_form._3d_resin_radiobutton.Checked=True) and (dxf_form.resin_beefing_checkbox.Checked=True)
+     then outer_beefing:=resin_outer_beefing;
 
   for pn:=0 to 55 do begin p[pn].x:=0; p[pn].y:=0; end;    // init all to prevent fp errors   223a
 
@@ -3390,6 +3484,8 @@ var
 
   no_grip:boolean;
 
+  inner_beefing:extended;
+
 
 
                              ///////////////////////////////////////////////////
@@ -3628,6 +3724,16 @@ var
 
 begin
   if _3d=False then EXIT;
+
+  inner_beefing:=0;  // init
+
+    // no room for beefing on L1 bridge chairs ...
+
+  if (dxf_form._3d_fdm_radiobutton.Checked=True) and (dxf_form.fdm_beefing_checkbox.Checked=True) and (L1=False)
+     then inner_beefing:=fdm_inner_beefing;
+
+  if (dxf_form._3d_resin_radiobutton.Checked=True) and (dxf_form.resin_beefing_checkbox.Checked=True) and (L1=False)
+     then inner_beefing:=resin_inner_beefing;
 
   for pn:=0 to 50 do begin p[pn].x:=0; p[pn].y:=0; end;    // init all to prevent fp errors   223a
 
@@ -4812,7 +4918,7 @@ begin
      then plug_extended_depth:=clip_plug_extended_depth
      else if dxf_form.snap_fit_radio.Checked=True
              then plug_extended_depth:=snap_plug_extended_depth
-             else plug_extended_depth:=press_plug_extended_depth;
+             else plug_extended_depth:=press_plug_extended_depth;     // press-fit or COT
 
   if _3d=False then EXIT;       // not in 2-D files
 
@@ -4824,7 +4930,7 @@ begin
 
   zneck:=zbase-1.25*inscale;          // 1.25" arbitrary   support neck
 
-  if scale>4.05
+  if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
      then zraft:=zbase-plug_extended_depth*inscale-pyramid_height_high-inscale/32   //  1/32" integrity overlap
      else zraft:=zbase-plug_extended_depth*inscale-pyramid_height_low-inscale/32;   //  1/32" integrity overlap
 
@@ -4893,8 +4999,16 @@ begin
 
     if (dxf_form.cot_radio.Checked=True) and (dxf_form.cot_spacer_blocks_checkbox.Checked=True)   // 555a add COT support pyramid  (unlike chairs, support is part of inserted block, not 2D)
        then begin
-              zfloor:=zbase-cot_timber_thick*inscale;
-              zraft:=zfloor+cot_flange_depth*inscale;
+              if dxf_form.thinify_timbers_checkbox.Checked=True    // use COT dims if not thinifying ...  556a MW
+                 then begin
+                        zfloor:=zbase-normal_timber_thick*inscale;
+                        zraft:=zfloor+normal_flange_depth*inscale;
+                      end
+                 else begin
+                        zfloor:=zbase-cot_timber_thick*inscale;
+                        zraft:=zfloor+cot_flange_depth*inscale;
+                      end;
+
               s:=s+do_a_pyramid(bot_pex1,bot_pex2,bot_pex3,bot_pex4,neck_pex1,neck_pex2,neck_pex3,neck_pex4,zbase,zneck,18);    // down to neck
               s:=s+do_a_pyramid(neck_pex1,neck_pex2,neck_pex3,neck_pex4,bot_pex1,bot_pex2,bot_pex3,bot_pex4,zneck,zraft,35);    // down to raft
 
@@ -4951,7 +5065,7 @@ begin
      then plug_extended_depth:=clip_plug_extended_depth
      else if dxf_form.snap_fit_radio.Checked=True
              then plug_extended_depth:=snap_plug_extended_depth
-             else plug_extended_depth:=press_plug_extended_depth;
+             else plug_extended_depth:=press_plug_extended_depth;        // press-fit or COT
 
   if _3d=False then EXIT;       // not in 2-D files
 
@@ -4959,7 +5073,7 @@ begin
 
   zneck:=0-rail_section_data_mm.rail_depth_mm-inscale/2;    // down 1/2" below rail
 
-  if scale>4.05
+  if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
      then zraft:=0-rail_section_data_mm.rail_depth_mm-seat_thick*inscale-plug_extended_depth*inscale-pyramid_height_high-inscale/32   //  1/32" integrity overlap
      else zraft:=0-rail_section_data_mm.rail_depth_mm-seat_thick*inscale-plug_extended_depth*inscale-pyramid_height_low-inscale/32;   //  1/32" integrity overlap
 
@@ -5015,8 +5129,17 @@ begin
        then begin
               zseat:=0-rail_section_data_mm.rail_depth_mm;
               zbase:=zseat-seat_thick*inscale;                          // down to timber top
-              zfloor:=zbase-cot_timber_thick*inscale;
-              zraft:=zfloor+cot_flange_depth*inscale;
+
+              if dxf_form.thinify_timbers_checkbox.Checked=True    // use COT dims if not thinifying ...  556a MW
+                 then begin
+                        zfloor:=zbase-normal_timber_thick*inscale;
+                        zraft:=zfloor+normal_flange_depth*inscale;
+                      end
+                 else begin
+                        zfloor:=zbase-cot_timber_thick*inscale;
+                        zraft:=zfloor+cot_flange_depth*inscale;
+                      end;
+
               s:=s+do_a_pyramid(neck_pex1,neck_pex2,neck_pex3,neck_pex4,bot_pex1,bot_pex2,bot_pex3,bot_pex4,zneck,zraft,35);    // down to raft
 
               bot_pex1.x:=0-15*inscale;
@@ -5363,7 +5486,7 @@ begin
      then plug_extended_depth:=clip_plug_extended_depth
      else if dxf_form.snap_fit_radio.Checked=True
              then plug_extended_depth:=snap_plug_extended_depth
-             else plug_extended_depth:=press_plug_extended_depth;
+             else plug_extended_depth:=press_plug_extended_depth;       // press-fit or COT
 
   if _3d=False then EXIT;       // not in 2-D files
 
@@ -5463,8 +5586,8 @@ begin
       p[15].y:=p[7].y;
 
       if S1J=True
-         then p[16].x:=0-_2d_data.S1J_chair_halfwide*inscale+_3d_data.chair_plinth_spacing*inscale    // plinth
-         else p[16].x:=0-_2d_data.S1_chair_halfwide*inscale+_3d_data.chair_plinth_spacing*inscale;    // plinth
+         then p[16].x:=0-_2d_data.S1J_chair_halfwide*inscale+_3d_data.chair_plinth_spacing_sides*inscale    // plinth
+         else p[16].x:=0-_2d_data.S1_chair_halfwide*inscale+_3d_data.chair_plinth_spacing_sides*inscale;    // plinth
 
       p[16].y:=p[10].y;
 
@@ -5477,8 +5600,8 @@ begin
             p[18].y:=0;
 
       if S1J=True
-         then p[19].x:=_2d_data.S1J_chair_halfwide*inscale-_3d_data.chair_plinth_spacing*inscale    // plinth
-         else p[19].x:=_2d_data.S1_chair_halfwide*inscale-_3d_data.chair_plinth_spacing*inscale;    // plinth
+         then p[19].x:=_2d_data.S1J_chair_halfwide*inscale-_3d_data.chair_plinth_spacing_sides*inscale    // plinth
+         else p[19].x:=_2d_data.S1_chair_halfwide*inscale-_3d_data.chair_plinth_spacing_sides*inscale;    // plinth
 
       p[19].y:=p[9].y;
 
@@ -5533,8 +5656,8 @@ begin
               p[14].x:=_2d_data.XN_seat_top_halfwide*inscale;
               p[15].x:=_2d_data.XN_seat_top_halfwide*inscale;
 
-              p[16].x:=0-_2d_data.XN_chair_halfwide*inscale+_3d_data.chair_plinth_spacing*inscale;  // plinth
-              p[19].x:=_2d_data.XN_chair_halfwide*inscale-_3d_data.chair_plinth_spacing*inscale;    // plinth
+              p[16].x:=0-_2d_data.XN_chair_halfwide*inscale+_3d_data.chair_plinth_spacing_sides*inscale;  // plinth
+              p[19].x:=_2d_data.XN_chair_halfwide*inscale-_3d_data.chair_plinth_spacing_sides*inscale;    // plinth
 
 
               p[1].y:=p[1].y+fw;   // merge seats for XN chair, full fw for integrity overlap ...
@@ -5562,8 +5685,8 @@ begin
               p[14].x:=_2d_data.XA_seat_top_halfwide*inscale;
               p[15].x:=_2d_data.XA_seat_top_halfwide*inscale;
 
-              p[16].x:=0-_2d_data.XA_chair_halfwide*inscale+_3d_data.chair_plinth_spacing*inscale;  // plinth
-              p[19].x:=_2d_data.XA_chair_halfwide*inscale-_3d_data.chair_plinth_spacing*inscale;    // plinth
+              p[16].x:=0-_2d_data.XA_chair_halfwide*inscale+_3d_data.chair_plinth_spacing_sides*inscale;  // plinth
+              p[19].x:=_2d_data.XA_chair_halfwide*inscale-_3d_data.chair_plinth_spacing_sides*inscale;    // plinth
 
 
               if XA=True
@@ -5754,7 +5877,7 @@ begin
                                     bot_pex4:=p[0];
 
 
-                                    if scale>4.05
+                                    if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
                                        then zraft:=0-rail_section_data_mm.rail_depth_mm-seat_thick*inscale-plug_extended_depth*inscale-pyramid_height_high-inscale/32   // 1/32" integrity overlap
                                        else zraft:=0-rail_section_data_mm.rail_depth_mm-seat_thick*inscale-plug_extended_depth*inscale-pyramid_height_low-inscale/32;   // 1/32" integrity overlap
 
@@ -6037,6 +6160,7 @@ var
 
   file_ok:boolean;  // 243b
 
+
 begin
   if any_bgnd<1
      then begin
@@ -6097,7 +6221,7 @@ begin
                 dxf_3d_page_control.Visible:=False;
                 exp_panel.Visible:=False;
                 ClientWidth:=320;
-                ClientHeight:=678;
+                ClientHeight:=680;
               end;
 
 
@@ -6268,13 +6392,13 @@ begin
 
 
       try
-        mod_depths_adjustment:=StrToFloat(Trim(dxf_form.mod_depths_edit.Text))/100;   // 244d   % setting
+        thinify_adjustment:=StrToFloat(Trim(dxf_form.thinify_edit.Text))/100;   // 244d   % setting
       except
-        show_modal_message('error: modify-timber-depths adjustment must be a valid number with no spaces or other text');
+        show_modal_message('error: thinify factor must be a valid number with no spaces or other text');
         EXIT;
       end;//try
 
-      mod_timbers_for_scale_factor:=(4.0/scale)*mod_depths_adjustment;  // 244d      to use same Z dims as 4mm/ft scale for plugs and timbers
+      thinify_timbers_for_scale_factor:=(4.0/scale)*thinify_adjustment;  // 244d      to use same Z dims as 4mm/ft scale for plugs and timbers
 
       if z_datum_underside_checkbox.Checked=True then z_shift:=z_shift+rail_section_data_mm.rail_depth_mm+(seat_thick+timber_thick)*inscale;
 
@@ -6384,6 +6508,15 @@ begin
                             showing_dialog:=False;   // 212a Wine bug
 
                             FileName:=lower_case_filename(FileName);   // 0.79.a   to underscores and lower case.
+
+                            if POS(' ',FileName)<>0                             // 556a
+                               then if alert(2,'   Bad  File  Location',
+                                               '        WARNING'
+                                              +'||There are one or more spaces in the path to the selected file location:'
+                                              +'||`0'+FileName+'`f'
+                                              +'||This is likely to cause problems when saving and accessing the file.',
+                                                '','','','','cancel','continue',0)=5
+                                       then EXIT;
 
                             dxf_filename:=ChangeFileExt(FileName,'.dxf');
                             stl_filename:=ChangeFileExt(FileName,'.stl');
@@ -7431,6 +7564,7 @@ begin
 
       except
         Screen.Cursor:=crDefault;
+
         alert(5,'      file  error',
                 '||Unable to create DXF/STL file(s).'
                +'||Please check the file and folder names and that this file is not in use by another application.'
@@ -7514,12 +7648,23 @@ begin
 
             if cot_radio.Checked=True
                then begin
-                      timber_thick:=cot_timber_thick;
-                      flange_depth:=cot_flange_depth;
-                      splint_depth:=cot_splint_depth;
-                      slab_depth:=cot_slab_depth;
-                      label_char_thickness:=cot_label_char_thickness;
                       chair_key_max_offset:=cot_chair_key_max_offset;
+
+                      if thinify_timbers_checkbox.Checked=True    // use COT dims if not thinifying ...  556a MW
+                         then begin
+                                timber_thick:=normal_timber_thick;
+                                flange_depth:=normal_flange_depth;
+                                splint_depth:=normal_splint_depth;
+                                slab_depth:=normal_slab_depth;
+                                label_char_thickness:=normal_label_char_thickness;
+                              end
+                         else begin
+                                timber_thick:=cot_timber_thick;
+                                flange_depth:=cot_flange_depth;
+                                splint_depth:=cot_splint_depth;
+                                slab_depth:=cot_slab_depth;
+                                label_char_thickness:=cot_label_char_thickness;
+                              end;
 
                       if cot_flanges_checkbox.Checked=True
                          then flanges_combo.ItemIndex:=8
@@ -7529,12 +7674,13 @@ begin
 
                       if cot_loose_jaws_checkbox.Checked=True
                          then begin
-                                for n:=15 to 24 do begin    // XN..BB chairs   set checkboxes for jaw pin slots ...
+                                for n:=13 to 24 do begin    // ZY..BB chairs, both rails   set checkboxes for jaw pin slots ...
 
-                                  chair_frames[n].include_checkbox1.Checked:=False;   // don't include outer jaw
-                                  chair_frames[n].loose_checkbox0.Checked:=True;      // outer jaw is loose
-                                  chair_frames[n].export_checkbox1.Checked:=False;    // don't export loose jaw
-                                  chair_frames[n].include_checkbox2.Checked:=False;   // don't include key
+                                  chair_frames[n].include_checkbox0.Checked:=True;                                      // include inner jaw
+                                  chair_frames[n].include_checkbox1.Checked:=cot_include_loose_jaws_checkbox.Checked;   // include outer jaw
+                                  chair_frames[n].loose_checkbox0.Checked:=True;                                        // chair slot+jaw pin - outer jaw is loose
+                                  chair_frames[n].export_checkbox1.Checked:=False;                                      // export loose jaw only
+                                  chair_frames[n].include_checkbox2.Checked:=cot_include_loose_jaws_checkbox.Checked;   // include key
 
                                 end;//next frame
                               end;
@@ -7677,6 +7823,32 @@ begin
   chairs_form.modify_button.Click;
   chairs_form.modify_button.Tag:=0;           // reset
   show_modal_message('All chairs on all background templates'+#13+'have been changed to solid outer jaws.');
+end;
+//______________________________________________________________________________
+
+procedure Tdxf_form.beefing_buttonClick(Sender: TObject);
+
+var
+  n:integer;
+  od:Toutdim;
+
+begin
+     putdim('please refer to Templot Club forum',2,'FDM  chair  outer  jaw  beefing  ( full-size inches )',fdm_outer_beefing,False,True,False,False);   // negative ok, no preset, zero ok, don't terminate on zero.
+     putdim('please refer to Templot Club forum',2,'FDM  chair  inner  jaw  beefing  ( full-size inches )',fdm_inner_beefing,False,True,False,False);   // negative ok, no preset, zero ok, don't terminate on zero.
+
+     putdim('please refer to Templot Club forum',2,'resin  chair  outer  jaw  beefing  ( full-size inches )',resin_outer_beefing,False,True,False,False);   // negative ok, no preset, zero ok, don't terminate on zero.
+  n:=putdim('please refer to Templot Club forum',2,'resin  chair  inner  jaw  beefing  ( full-size inches )',resin_inner_beefing,False,True,False,False);   // negative ok, no preset, zero ok, don't terminate on zero.
+
+  if n<>3 then EXIT;
+
+  if getdims('  chair  jaw  beefing ...','',dxf_form,n,od)=True
+     then begin
+            fdm_outer_beefing:=od[0];
+            fdm_inner_beefing:=od[1];
+
+            resin_outer_beefing:=od[2];
+            resin_inner_beefing:=od[3];
+          end;
 end;
 //______________________________________________________________________________
 
@@ -7853,6 +8025,9 @@ var
   pex:Tpexes;
   sockets_pex:Tpexes;
 
+  chair_plug_fit:integer; // 556a..
+  p_s_fit:integer;
+
   sprue_pex:array[0..5] of Tpex;
 
   web_pex:array[0..3] of Tpex;  // 228b
@@ -7963,6 +8138,9 @@ var
 
   doing_L1:boolean; // 236d
 
+  chair_base_wanted:boolean;   // 556a
+  chair_jaws_wanted:boolean;
+
   tb_encoded:extended;  // 237a
 
   slots_wanted:integer;
@@ -8011,13 +8189,31 @@ var
 
                               procedure insert_bolt;
 
-                              begin
+                              var
+                                bolt_wanted:boolean;   // 556a
 
+                              begin
                                 if dxf_form.chair_bolts_combo.ItemIndex=0 then EXIT;      // not wanted in file
 
-                                if (now_ti.file_blocks.keep_jaw_options[chi][2]=True)   // 239a
-                               and (now_ti.file_blocks.keep_jaw_options[chi][3]=True)   // not exporting a loose jaw
-                                   then EXIT;
+                                bolt_wanted:=True; // init
+
+                                if ((now_ti.file_blocks.keep_jaw_options[chi][2]=False) or (now_ti.file_blocks.keep_jaw_options[chi][3]=False))   // not exporting a loose jaw
+                                   then begin                                                                                                     // bolt wanted
+                                          if dxf_form.cot_bullet_shape.Visible=True    // doing a COT base
+                                             then begin
+                                                    if dxf_form.cot_radio.Checked=True
+                                                       then bolt_wanted:=((chair_plug_fit=0) or (chair_plug_fit=4))
+                                                       else EXIT;                                                    // only sockets wanted
+                                                  end
+                                             else begin                                // not a COT base, normal plug track
+                                                    if dxf_form.cot_radio.Checked=True
+                                                       then bolt_wanted:=((chair_plug_fit>0) and (chair_plug_fit<4))
+                                                       else bolt_wanted:=True;
+                                                  end;
+                                        end
+                                   else EXIT;
+
+                                if bolt_wanted=False then EXIT;
 
                                 if (dxf_form.limits_checkbox.Checked=True)     // only within limits?
                                and ((x1>xmax) or (y1>ymax) or (x1<xmin) or (y1<ymin))
@@ -8982,39 +9178,13 @@ var
 
 
 begin
-  if dxf_form.clip_fit_radio.Checked=True                         // 241b
-     then begin
-            plug_extended_depth:=clip_plug_extended_depth;
-            plug_taper_depth:=clip_plug_taper_depth;
-            plug_inset_depth:=clip_plug_inset_depth;
-            plug_total_depth:=clip_plug_total_depth;
-            undercut_depth:=clip_undercut_depth;
-            clearcut_depth:=clip_clearcut_depth;
-          end
-     else if dxf_form.snap_fit_radio.Checked=True
-             then begin
-                    plug_extended_depth:=snap_plug_extended_depth;
-                    plug_taper_depth:=snap_plug_taper_depth;
-                    plug_inset_depth:=snap_plug_inset_depth;
-                    plug_total_depth:=snap_plug_total_depth;
-                    undercut_depth:=snap_undercut_depth;
-                    clearcut_depth:=snap_clearcut_depth;
-                  end
-             else begin
-                    plug_extended_depth:=press_plug_extended_depth;
-                    plug_taper_depth:=press_plug_taper_depth;
-                    plug_inset_depth:=press_plug_inset_depth;
-                    plug_total_depth:=press_plug_total_depth;
-
-                    undercut_depth:=0;
-                    clearcut_depth:=0;
-                  end;
-
-
   RESULT:=0;         // init  234e
   z98:=0;            // init
 
   doing_L1:=False;   // init 236d
+
+  chair_base_wanted:=True;     // 556a..
+  chair_jaws_wanted:=True;
 
   z8:=0;   // keep compiler happy...
   z13:=0;
@@ -9028,6 +9198,15 @@ begin
   z86:=0;
   z87:=0;
 
+  plug_extended_depth:=0;
+  plug_taper_depth:=0;
+  plug_inset_depth:=0;
+  plug_total_depth:=0;
+  undercut_depth:=0;
+  clearcut_depth:=0;
+
+  chair_plug_fit:=0;
+  p_s_fit:=0;
 
   try
 
@@ -9077,20 +9256,6 @@ begin
                      then seat_thick:=_3d_data.seat_thickness                                            // 235a  from chairing data
                      else seat_thick:=template_info.keep_dims.box_dims1.proto_info.rail_seat_height_pi;  // 235a  unchaired as template rail section data
 
-                  z8:=rail_foot_z-seat_thick*inscale;
-
-                  z13:=z8-timber_thick*inscale;  // z13 timber bottom
-
-                  z15:=z8-socket_chamfer_depth*inscale;  // z15 is chamfer depth (defaults 0.36" deep x 0.15" wide)
-
-                  z99:=z8-socket_depth*inscale;  // mm  blind socket depth 3.75" scale default   z8 is timber top
-
-                  z80:=z8-undercut_depth*inscale;  // 241b ...
-                  z81:=z8-clearcut_depth*inscale;
-
-                  z82:=z8-clip_socket_flap_top_depth*inscale;
-                  
-
                   now_keep:=Ttemplate(keeps_list.Objects[n]).template_info.bgnd_keep;    // get the drawing data
 
                 end;//with Ttemplate
@@ -9124,10 +9289,10 @@ begin
 
                     dxf_chair:=intarray_get(list_bgnd_marks[6],i);  // 237a   chair code for this mark if it's a 3D chair
 
+                    chair_plug_fit:=(intarray_get(list_bgnd_marks[7],i) AND $0000001C) div 4;  // 556  encoded heaved_plug in 3 bits  MSB ..4,3,2.. LSB
 
                     if code=492       // socket outlines, get 28 corners ...        now 28 corners 241c
                        then begin
-
                               nj:=socket_list.AddObject(IntToStr(socket_list.Count),Tsocket_object.Create);
 
                               np:=0; // init
@@ -9145,9 +9310,12 @@ begin
                                   socket_corners[np].y:=intarray_get(list_bgnd_marks[1],i)/100;
 
                                   chair_id:=intarray_get(list_bgnd_marks[6],i);  // 237a   chair code for this socket
+
+                                  plug_fit:=(intarray_get(list_bgnd_marks[7],i) AND $0000001C) div 4;  // 556  encoded heaved_plug in 3 bits  MSB ..4,3,2.. LSB
+
                                   timber_id_str:=tb_str+IntToStr(tb_id);         // 238a   timber this socket is on
 
-                                  sockets_pex[np]:=socket_corners[np];
+                                  sockets_pex[np]:=socket_corners[np];   // for drawing socket
 
                                 end;//with
 
@@ -9161,60 +9329,111 @@ begin
 
                                  // socket in list, now draw it...
 
+                              if ((dxf_form.clip_fit_radio.Checked=True) and (chair_plug_fit=0))
+                              or (chair_plug_fit=1)
+                                 then begin
+                                        p_s_fit:=1;
+                                        plug_extended_depth:=clip_plug_extended_depth;
+                                        plug_taper_depth:=clip_plug_taper_depth;
+                                        plug_inset_depth:=clip_plug_inset_depth;
+                                        plug_total_depth:=clip_plug_total_depth;
+                                        undercut_depth:=clip_undercut_depth;
+                                        clearcut_depth:=clip_clearcut_depth;
+                                      end
+                                 else if ((dxf_form.snap_fit_radio.Checked=True) and (chair_plug_fit=0))
+                                      or (chair_plug_fit=2)
+                                         then begin
+                                                p_s_fit:=2;
+                                                plug_extended_depth:=snap_plug_extended_depth;
+                                                plug_taper_depth:=snap_plug_taper_depth;
+                                                plug_inset_depth:=snap_plug_inset_depth;
+                                                plug_total_depth:=snap_plug_total_depth;
+                                                undercut_depth:=snap_undercut_depth;
+                                                clearcut_depth:=snap_clearcut_depth;
+                                              end
+                                         else if ((dxf_form.press_fit_radio.Checked=True) and (chair_plug_fit=0))
+                                              or (chair_plug_fit=3)
+                                                 then begin
+                                                        p_s_fit:=3;
+                                                        plug_extended_depth:=press_plug_extended_depth;
+                                                        plug_taper_depth:=press_plug_taper_depth;
+                                                        plug_inset_depth:=press_plug_inset_depth;
+                                                        plug_total_depth:=press_plug_total_depth;
+
+                                                        undercut_depth:=0;
+                                                        clearcut_depth:=0;
+                                                      end
+                                                 else if chair_plug_fit=4
+                                                         then p_s_fit:=4
+                                                         else p_s_fit:=0;  // COT no plug/socket
+
+
+                              z8:=rail_foot_z-seat_thick*inscale;
+
+                              z13:=z8-timber_thick*inscale;  // z13 timber bottom
+
+                              z15:=z8-socket_chamfer_depth*inscale;  // z15 is chamfer depth (defaults 0.36" deep x 0.15" wide)
+
+                              z99:=z8-socket_depth*inscale;  // mm  blind socket depth  z8 is timber top
+
+                              z80:=z8-undercut_depth*inscale;  // 241b ...
+                              z81:=z8-clearcut_depth*inscale;
+
+                              z82:=z8-clip_socket_flap_top_depth*inscale;
+
+
                               debug_code:=181;
 
-                                 // top rebate around socket ...    z8 is timber top    // rebate instead of chamfer...     234e
-
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[4],z8, sockets_pex[4],z15, sockets_pex[5],z15, sockets_pex[5],z8,  23,0));  // rebate near side
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[5],z8, sockets_pex[5],z15, sockets_pex[6],z15, sockets_pex[6],z8,  23,0));  // rebate gauge end
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[6],z8, sockets_pex[6],z15, sockets_pex[7],z15, sockets_pex[7],z8,  23,0));  // rebate far side
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[7],z8, sockets_pex[7],z15, sockets_pex[4],z15, sockets_pex[4],z8,  23,0));  // rebate outer end
-
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[4],z15, sockets_pex[0],z15, sockets_pex[1],z15, sockets_pex[5],z15,  23,0));  // rebate near bottom
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[5],z15, sockets_pex[1],z15, sockets_pex[2],z15, sockets_pex[6],z15,  23,0));  // rebate gauge end bottom
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[6],z15, sockets_pex[2],z15, sockets_pex[3],z15, sockets_pex[7],z15,  23,0));  // rebate far bottom
-                              Write(dxf_file,dxf_3dface_pex( sockets_pex[7],z15, sockets_pex[3],z15, sockets_pex[0],z15, sockets_pex[4],z15,  23,0));  // rebate outer end bottom
-
-
-                              if dxf_form.blind_sockets_checkbox.Checked=True
+                              if (p_s_fit>0) and (p_s_fit<4)
                                  then begin
-                                          // base of socket ...
 
-                                        debug_code:=182;
+                                           // top rebate around socket ...    z8 is timber top    // rebate instead of chamfer...     234e
 
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[0],z99, sockets_pex[1],z99, sockets_pex[2],z99, sockets_pex[3],z99,  23,0));  // base of socket
-                                      end
-                                 else begin
-                                          // bottom flange around socket ...    z13 is timber bottom, same width as top chamfer
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[4],z8, sockets_pex[4],z15, sockets_pex[5],z15, sockets_pex[5],z8,  23,0));  // rebate near side
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[5],z8, sockets_pex[5],z15, sockets_pex[6],z15, sockets_pex[6],z8,  23,0));  // rebate gauge end
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[6],z8, sockets_pex[6],z15, sockets_pex[7],z15, sockets_pex[7],z8,  23,0));  // rebate far side
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[7],z8, sockets_pex[7],z15, sockets_pex[4],z15, sockets_pex[4],z8,  23,0));  // rebate outer end
 
-                                        debug_code:=183;
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[4],z15, sockets_pex[0],z15, sockets_pex[1],z15, sockets_pex[5],z15,  23,0));  // rebate near bottom
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[5],z15, sockets_pex[1],z15, sockets_pex[2],z15, sockets_pex[6],z15,  23,0));  // rebate gauge end bottom
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[6],z15, sockets_pex[2],z15, sockets_pex[3],z15, sockets_pex[7],z15,  23,0));  // rebate far bottom
+                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[7],z15, sockets_pex[3],z15, sockets_pex[0],z15, sockets_pex[4],z15,  23,0));  // rebate outer end bottom
 
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[4],z13, sockets_pex[0],z13, sockets_pex[1],z13, sockets_pex[5],z13,  23,0));  // flange near side
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[5],z13, sockets_pex[1],z13, sockets_pex[2],z13, sockets_pex[6],z13,  23,0));  // flange gauge end
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[6],z13, sockets_pex[2],z13, sockets_pex[3],z13, sockets_pex[7],z13,  23,0));  // flange far side
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[7],z13, sockets_pex[3],z13, sockets_pex[0],z13, sockets_pex[4],z13,  23,0));  // flange outer end
 
-                                        z99:=z13;
+                                        if dxf_form.blind_sockets_checkbox.Checked=True
+                                           then begin
+                                                    // base of socket ...
+
+                                                  debug_code:=182;
+
+                                                  Write(dxf_file,dxf_3dface_pex( sockets_pex[0],z99, sockets_pex[1],z99, sockets_pex[2],z99, sockets_pex[3],z99,  23,0));  // base of socket
+                                                end
+                                           else begin
+                                                    // bottom flange around socket ...    z13 is timber bottom, same width as top chamfer
+
+                                                  debug_code:=183;
+
+                                                  Write(dxf_file,dxf_3dface_pex( sockets_pex[4],z13, sockets_pex[0],z13, sockets_pex[1],z13, sockets_pex[5],z13,  23,0));  // flange near side
+                                                  Write(dxf_file,dxf_3dface_pex( sockets_pex[5],z13, sockets_pex[1],z13, sockets_pex[2],z13, sockets_pex[6],z13,  23,0));  // flange gauge end
+                                                  Write(dxf_file,dxf_3dface_pex( sockets_pex[6],z13, sockets_pex[2],z13, sockets_pex[3],z13, sockets_pex[7],z13,  23,0));  // flange far side
+                                                  Write(dxf_file,dxf_3dface_pex( sockets_pex[7],z13, sockets_pex[3],z13, sockets_pex[0],z13, sockets_pex[4],z13,  23,0));  // flange outer end
+
+                                                  z99:=z13;
+                                                end;
+
                                       end;
 
-                                          // sides of socket ...
+                                 // sides of socket ...
 
                               debug_code:=184;
 
-                              if dxf_form.press_fit_radio.Checked=True
-                                 then begin
-                                                  // plain socket sides ...
+                              case p_s_fit of   // 1=clip-fit  2=snap-fit  3=press-fit
 
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[0],z99, sockets_pex[1],z99, sockets_pex[1],z15, sockets_pex[0],z15,  23,0));  // side of socket
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[1],z99, sockets_pex[2],z99, sockets_pex[2],z15, sockets_pex[1],z15,  23,0));  // side of socket
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[2],z99, sockets_pex[3],z99, sockets_pex[3],z15, sockets_pex[2],z15,  23,0));  // side of socket
-                                        Write(dxf_file,dxf_3dface_pex( sockets_pex[3],z99, sockets_pex[0],z99, sockets_pex[0],z15, sockets_pex[3],z15,  23,0));  // side of socket
-                                      end
-                                 else begin
+                                 1,2: begin
 
-                                                 // socket sides with undercut ...  241b
+                                          // socket sides with undercut ...  241b
 
-                                        // upper sides/ends above undercut...
+                                          // upper sides/ends above undercut...
 
                                         Write(dxf_file,dxf_3dface_pex( sockets_pex[0],z80, sockets_pex[1],z80, sockets_pex[1],z15, sockets_pex[0],z15,  23,0));  // side of socket
                                         Write(dxf_file,dxf_3dface_pex( sockets_pex[1],z80, sockets_pex[2],z80, sockets_pex[2],z15, sockets_pex[1],z15,  23,0));  // side of socket
@@ -9260,7 +9479,7 @@ begin
                                         Write(dxf_file,dxf_3dface_pex( sockets_pex[1],z80,  sockets_pex[2],z80,  sockets_pex[2],z81,  sockets_pex[1],z81,  23,0));  // far end
                                         Write(dxf_file,dxf_3dface_pex( sockets_pex[2],z80,  sockets_pex[18],z80, sockets_pex[18],z81, sockets_pex[2],z81,  23,0));  // far far side
 
-                                        if (dxf_form.clip_fit_radio.Checked=True) and (dxf_form.end_flaps_checkbox.Checked=True)   // 241c
+                                        if (p_s_fit=1) and (dxf_form.end_flaps_checkbox.Checked=True)   // 241c
                                            then begin
 
                                                   // add chunks over end flaps
@@ -9298,6 +9517,16 @@ begin
 
                                       end;
 
+                                   3: begin
+                                                    // press-fit  plain socket sides ...
+
+                                          Write(dxf_file,dxf_3dface_pex( sockets_pex[0],z99, sockets_pex[1],z99, sockets_pex[1],z15, sockets_pex[0],z15,  23,0));  // side of socket
+                                          Write(dxf_file,dxf_3dface_pex( sockets_pex[1],z99, sockets_pex[2],z99, sockets_pex[2],z15, sockets_pex[1],z15,  23,0));  // side of socket
+                                          Write(dxf_file,dxf_3dface_pex( sockets_pex[2],z99, sockets_pex[3],z99, sockets_pex[3],z15, sockets_pex[2],z15,  23,0));  // side of socket
+                                          Write(dxf_file,dxf_3dface_pex( sockets_pex[3],z99, sockets_pex[0],z99, sockets_pex[0],z15, sockets_pex[3],z15,  23,0));  // side of socket
+                                        end;
+
+                              end;//case
                             end;//socket
 
                   until 0<>0;
@@ -9451,6 +9680,8 @@ begin
           move_to.x:=intarray_get(list_bgnd_marks[0],i);    // x1,y1 in  1/100ths mm
           move_to.y:=intarray_get(list_bgnd_marks[1],i);
 
+          chair_plug_fit:=(intarray_get(list_bgnd_marks[7],i) AND $0000001C) div 4;  // 556  encoded heaved_plug in 3 bits  MSB ..4,3,2.. LSB
+
           if (code=99) or (code=-5)  // text
              then begin
                     line_to.x:=0;    // x2,y2  not used.
@@ -9459,6 +9690,48 @@ begin
              else begin
                     line_to.x:=intarray_get(list_bgnd_marks[2],i);    // x2,y2 in  1/100ths mm  or other data
                     line_to.y:=intarray_get(list_bgnd_marks[3],i);
+                  end;
+
+          if (code=486) or (code=491) or (code=492)     // 556a plug tangs, plug outlines, sockets
+             then begin
+                    if ((dxf_form.clip_fit_radio.Checked=True) and (chair_plug_fit=0))
+                    or (chair_plug_fit=1)
+                       then begin
+                              p_s_fit:=1;
+                              plug_extended_depth:=clip_plug_extended_depth;
+                              plug_taper_depth:=clip_plug_taper_depth;
+                              plug_inset_depth:=clip_plug_inset_depth;
+                              plug_total_depth:=clip_plug_total_depth;
+                              undercut_depth:=clip_undercut_depth;
+                              clearcut_depth:=clip_clearcut_depth;
+                            end
+                       else if ((dxf_form.snap_fit_radio.Checked=True) and (chair_plug_fit=0))
+                            or (chair_plug_fit=2)
+                               then begin
+                                      p_s_fit:=2;
+                                      plug_extended_depth:=snap_plug_extended_depth;
+                                      plug_taper_depth:=snap_plug_taper_depth;
+                                      plug_inset_depth:=snap_plug_inset_depth;
+                                      plug_total_depth:=snap_plug_total_depth;
+                                      undercut_depth:=snap_undercut_depth;
+                                      clearcut_depth:=snap_clearcut_depth;
+                                    end
+                               else if ((dxf_form.press_fit_radio.Checked=True) and (chair_plug_fit=0))
+                                    or (chair_plug_fit=3)
+                                       then begin
+                                              p_s_fit:=3;
+                                              plug_extended_depth:=press_plug_extended_depth;
+                                              plug_taper_depth:=press_plug_taper_depth;
+                                              plug_inset_depth:=press_plug_inset_depth;
+                                              plug_total_depth:=press_plug_total_depth;
+
+                                              undercut_depth:=0;
+                                              clearcut_depth:=0;
+                                            end
+                                       else if chair_plug_fit=4
+                                               then p_s_fit:=4
+                                               else p_s_fit:=0;  // COT no plug/socket
+
                   end;
 
                   // get timber ID ...      238a
@@ -9564,7 +9837,7 @@ begin
 
                    490: layer:=25;      // timber   side,end flanges
 
-               486,491: layer:=34;      // chair plug outlines   227a
+               486,491: layer:=34;      // chair plug tang, outlines   227a
 
                    492: if (_3d=False) or (dxf_form.sockets_combo.ItemIndex=0)      // 492 sockets and top chamfer for 3-D printing
                            then CONTINUE                                            // not in 2-D, see 498 instead
@@ -9630,7 +9903,9 @@ begin
                     z14:=out_flange_top_z;
                     z13:=timb_bot_z;
 
-                    z50:=z14+dropper_ridge_height*inscale;   // 241f
+                    if dxf_form.thinify_timbers_checkbox.Checked=True
+                       then z50:=z14+dropper_ridge_height_mm*scale/4   // 556a   // revert minify to keep ridge height
+                       else z50:=z14+dropper_ridge_height_mm;          // 241f
 
                     do_flange:=True;  // 244c  init
 
@@ -9863,9 +10138,26 @@ begin
 
              // chair base, plug and supports ...
 
-          if (now_ti.file_blocks.keep_jaw_options[chi][2]=False) or (now_ti.file_blocks.keep_jaw_options[chi][3]=False)   // not exporting a loose jaw
-             then begin
+          chair_base_wanted:=True; // init
 
+          if ((now_ti.file_blocks.keep_jaw_options[chi][2]=False) or (now_ti.file_blocks.keep_jaw_options[chi][3]=False))   // not exporting a loose jaw
+             then begin                                                                                                     // chair base wanted
+                    if dxf_form.cot_bullet_shape.Visible=True    // doing a COT base
+                       then begin
+                              if dxf_form.cot_radio.Checked=True
+                                 then chair_base_wanted:=((chair_plug_fit=0) or (chair_plug_fit=4))
+                                 else chair_base_wanted:=False;                                                    // only sockets wanted
+                            end
+                       else begin                                // not a COT base, normal plug track
+                              if dxf_form.cot_radio.Checked=True
+                                 then chair_base_wanted:=((chair_plug_fit>0) and (chair_plug_fit<4))    // only heaved chairs
+                                 else chair_base_wanted:=True;
+                            end;
+                  end
+             else chair_base_wanted:=False;
+
+          if chair_base_wanted=True       // 556a
+             then begin
                     if ( (code=484) or (code=485) or (code=493) or (code=494) or (code=497) )        // 221a chair outlines with corner rads    layer 16
                    and ( i<(array_max-18) )
                        then begin
@@ -10074,7 +10366,7 @@ begin
 
                          //   ss1,etc slot outlines already set for this chair in plinth above ...
 
-                  if (code=491) and (i<(array_max-60))      // 241b chair plug outline  layer 16    60 total marks
+                  if (code=491) and (i<(array_max-60))      // 241b chair and plug outlines  layer 16    60 total marks
                      then begin
 
                             np:=0; // init
@@ -10101,7 +10393,7 @@ begin
 
                             z96:=z8;                   // if no plug  support pyramid on underside of chair base     z8 is timber top
 
-                            if scale>4.05
+                            if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
                                then z98:=z96-pyramid_height_high   // mm  depth of pyramid
                                else z98:=z96-pyramid_height_low;   // mm  depth of pyramid
 
@@ -10116,7 +10408,9 @@ begin
 
                                             // 234e  mods  allow plug bottom inset smaller than inset below taper ( second taper) ...
 
-                                      if dxf_form.snap_fit_radio.Checked=True   // 241b
+
+
+                                      if p_s_fit=2   // snap-fit
                                          then begin
                                                 z99:=z8-snap_plug_overcut_depth*inscale;   // mm  default 2.1/4" depth to plug overcut
                                                 z95:=z99;                                  // mm  level overcut top face
@@ -10152,7 +10446,7 @@ begin
                                       if z97>z95 then z97:=z95;
                                       if z96>z97 then z96:=z97;
 
-                                      if scale>4.05
+                                      if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
                                          then z98:=z96-pyramid_height_high     // mm  depth of pyramid support below plug
                                          else z98:=z96-pyramid_height_low;     // mm  depth of pyramid support below plug
 
@@ -10408,7 +10702,7 @@ begin
 
                                       debug_code:=176;
 
-                                      tangs:=dxf_form.clip_fit_radio.Checked;
+                                      tangs:=(p_s_fit=1);  // clip-fit
 
                                       double_tangs:=ABS(pex[38].y-pex[37].y)>minfp;   // 2 tang sets on this chair?   non-zero spacing
 
@@ -10715,7 +11009,7 @@ begin
 
                               DEC(i);  // undo last INC  228a
 
-                              if (_3d=True) and (dxf_form.plugs_checkbox.Checked=True) and (dxf_form.clip_fit_radio.Checked=True) and (dxf_form.omit_tangs_checkbox.Checked=False)  // 241b clip-fit near-side tang  AUG 2023
+                              if (_3d=True) and (dxf_form.plugs_checkbox.Checked=True) and (p_s_fit=1) and (dxf_form.omit_tangs_checkbox.Checked=False)  // 241b clip-fit near-side tang  AUG 2023
                                  then begin
 
                                         Write(dxf_file,insert_crlf_str(do_a_pyramid(pex[4],pex[5],pex[6],pex[7], pex[0],pex[1],pex[2],pex[3], z8-clip_tang_overcut_depth*inscale, z8-clip_tang_floor_depth*inscale, 22) ));  // layer 22 = chair keys
@@ -12079,7 +12373,7 @@ begin
                     plug_total_depth:=snap_plug_total_depth;
                   end
              else begin
-                    plug_total_depth:=press_plug_total_depth;
+                    plug_total_depth:=press_plug_total_depth;    // press-fit or COT
                   end;
 
 
@@ -12127,7 +12421,7 @@ begin
 
   if shapes_z1>=0
      then begin
-            if scale>4.05
+            if (scale>4.05) //and (dxf_form.thinify_timbers_checkbox.Checked=False)
                then shapes_z1:=timb_top_z-plug_total_depth*inscale-pyramid_height_high     // no plugs or pyramids
                else shapes_z1:=timb_top_z-plug_total_depth*inscale-pyramid_height_low;     // no plugs or pyramids
           end;
@@ -13006,7 +13300,7 @@ begin
               rail_web_thick_mm:=custom_rail_web_thick*inscale*(100+chair_web_adjustment)/100;
             end;
 
-    if (dxf_form._3d_fdm_radiobutton.Checked=True) and (dxf_form.cot_radio.Checked=True)     // 555a MW   for FDM chairs (COT track) ...
+    if (dxf_form._3d_fdm_radiobutton.Checked=True) and (dxf_form.fdm_chairs_checkbox.Checked=True)     // 555a MW   for FDM chairs (COT track) ...
        then begin
               rail_web_top_mm:=rail_web_top_mm*fdm_rail_foot_factor;                                      //  from rail top to intersection fish angle on rail centre-line
               rail_web_bottom_mm:=rail_depth_mm-(rail_depth_mm-rail_web_bottom_mm)*fdm_rail_foot_factor;  //  from rail top to intersection fish angle on rail centre-line
@@ -13053,7 +13347,7 @@ begin
   timbout_combo.ItemIndex:=14;       // brown timber outline              colour not used in 3-D
   timbout_kerf_combo.ItemIndex:=3;   // green timber laser kerf outline   colour not used in 3-D
 
-  sockets_combo.ItemIndex:=0;
+  //sockets_combo.ItemIndex:=0;
   sockets_kerf_combo.ItemIndex:=0;
 
   flanges_combo.ItemIndex:=0;
@@ -13066,15 +13360,19 @@ begin
      then shapes_bgnd_combo.ItemIndex:=11   // orange
      else shapes_bgnd_combo.ItemIndex:=0;
 
-  plugs_checkbox.Checked:=False;
-  pyramids_checkbox.Checked:=False;
-  loose_jaw_pyramids_checkbox.Checked:=False;
+  //plugs_checkbox.Checked:=False;
+  //pyramids_checkbox.Checked:=False;
+  //loose_jaw_pyramids_checkbox.Checked:=False;
+
+  blind_sockets_checkbox.Checked:=True;    // assume FDM
+
+  thinify_timbers_checkbox.Checked:=True;
 
   brick_slabs_radio.Checked:=True;
 
   switch_drive_checkbox.Checked:=False;
 
-  timbers_with_chairs_bullet_shape.Visible:=True;
+  cot_bullet_shape.Visible:=True;
 
   timbers_fdm_bullet_shape.Visible:=False;
   timbers_laser_bullet_shape.Visible:=False;
@@ -13104,11 +13402,11 @@ begin
   timbout_combo.ItemIndex:=14;       // brown timber outline              colour not used in 3-D
   timbout_kerf_combo.ItemIndex:=3;   // green timber laser kerf outline   colour not used in 3-D
 
-  sockets_combo.ItemIndex:=9;        // silver
+  //sockets_combo.ItemIndex:=9;        // silver
   sockets_kerf_combo.ItemIndex:=5;   // blue chair sockets laser kerf outline    colour not used in 3-D
 
   flanges_combo.ItemIndex:=8;        // grey
-  soleplates_combo.ItemIndex:=12;   // maroon
+  soleplates_combo.ItemIndex:=12;    // maroon
   webs_combo.ItemIndex:=8;           // grey
   splints_combo.ItemIndex:=8;        // grey
   clips_combo.ItemIndex:=3;          // green
@@ -13117,9 +13415,13 @@ begin
      then shapes_bgnd_combo.ItemIndex:=11   // orange
      else shapes_bgnd_combo.ItemIndex:=0;
 
-  plugs_checkbox.Checked:=False;
-  pyramids_checkbox.Checked:=False;
-  loose_jaw_pyramids_checkbox.Checked:=False;
+  //plugs_checkbox.Checked:=False;
+  //pyramids_checkbox.Checked:=False;
+  //loose_jaw_pyramids_checkbox.Checked:=False;
+
+  blind_sockets_checkbox.Checked:=True;    // assume FDM
+
+  thinify_timbers_checkbox.Checked:=False;
 
   brick_slabs_radio.Checked:=True;
 
@@ -13127,7 +13429,7 @@ begin
 
   timbers_fdm_bullet_shape.Visible:=True;
 
-  timbers_with_chairs_bullet_shape.Visible:=False;
+  cot_bullet_shape.Visible:=False;
   timbers_laser_bullet_shape.Visible:=False;
   chairs_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=False;
@@ -13153,12 +13455,12 @@ begin
   if kerfs_only_checkbox.Checked=False         // add normal outlines
      then begin
             timbout_combo.ItemIndex:=14;       // brown timber outline
-            sockets_combo.ItemIndex:=9;        // silver socket outline
+            //sockets_combo.ItemIndex:=9;        // silver socket outline
           end;
 
-  plugs_checkbox.Checked:=False;
-  pyramids_checkbox.Checked:=False;
-  loose_jaw_pyramids_checkbox.Checked:=False;
+  //plugs_checkbox.Checked:=False;
+  //pyramids_checkbox.Checked:=False;
+  //loose_jaw_pyramids_checkbox.Checked:=False;
 
   switch_drive_checkbox.Checked:=False;
 
@@ -13166,7 +13468,7 @@ begin
 
   timbers_laser_bullet_shape.Visible:=True;
 
-  timbers_with_chairs_bullet_shape.Visible:=False;
+  cot_bullet_shape.Visible:=False;
   timbers_fdm_bullet_shape.Visible:=False;
   chairs_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=False;
@@ -13202,13 +13504,17 @@ begin
   chairs_combo.ItemIndex:=1;        //red   colour not used in 3-D..
   chair_bolts_combo.ItemIndex:=1;   //red
 
-  plugs_checkbox.Checked:=True;
-  pyramids_checkbox.Checked:=True;
-  loose_jaw_pyramids_checkbox.Checked:=True;                  rail_label.Visible:=True;
+  //plugs_checkbox.Checked:=True;
+  //pyramids_checkbox.Checked:=True;
+  //loose_jaw_pyramids_checkbox.Checked:=True;
+
+  blind_sockets_checkbox.Checked:=False;    // assume resin
+
+  thinify_timbers_checkbox.Checked:=False;
 
   switch_drive_checkbox.Checked:=False;
 
-  sockets_combo.ItemIndex:=0;
+  //sockets_combo.ItemIndex:=0;
   sockets_kerf_combo.ItemIndex:=0;   // no chair sockets laser kerf outline
   sprues_combo.ItemIndex:=0;
   flanges_combo.ItemIndex:=0;
@@ -13221,7 +13527,7 @@ begin
 
   chairs_bullet_shape.Visible:=True;
 
-  timbers_with_chairs_bullet_shape.Visible:=False;
+  cot_bullet_shape.Visible:=False;
   timbers_fdm_bullet_shape.Visible:=False;
   timbers_laser_bullet_shape.Visible:=False;
   reset_both_bullet_shape.Visible:=False;
@@ -13243,9 +13549,9 @@ begin
 
   combo_colour_defaults_button.Click;
 
-  plugs_checkbox.Checked:=True;
-  pyramids_checkbox.Checked:=True;
-  loose_jaw_pyramids_checkbox.Checked:=True;
+  //plugs_checkbox.Checked:=True;
+  //pyramids_checkbox.Checked:=True;
+  //loose_jaw_pyramids_checkbox.Checked:=True;
 
   plain_rafts_radio.Checked:=True;
 
@@ -13253,7 +13559,7 @@ begin
 
   reset_both_bullet_shape.Visible:=True;
 
-  timbers_with_chairs_bullet_shape.Visible:=False;
+  cot_bullet_shape.Visible:=False;
   timbers_fdm_bullet_shape.Visible:=False;
   timbers_laser_bullet_shape.Visible:=False;
   chairs_bullet_shape.Visible:=False;
@@ -13560,7 +13866,7 @@ begin
      putdim(str,1,'SNAP-FIT :  plug  inset  start  depth',snap_plug_inset_depth*inscale,True,True,False,False);         // no negative, no preset, zero ok, don't terminate on zero.
      putdim(str,1,'SNAP-FIT :  plug  tang  top  depth',snap_plug_overcut_depth*inscale,True,True,False,False);          // no negative, no preset, zero ok, don't terminate on zero.
 
-     putdim(str,1,'SNAP-FIT :  plug  tang  jut  width',snap_plug_overcut*inscale,False,True,False,False);                 // negative ok, no preset, zero ok, don't terminate on zero.
+     putdim(str,1,'SNAP-FIT :  plug  tang  jut  width',snap_plug_overcut_mm,False,True,False,False);                 // negative ok, no preset, zero ok, don't terminate on zero.
 
      putdim(str,1,'SNAP-FIT :  plug  upper  inset  width',snap_plug_inset_clear_upper*inscale,False,True,False,False);      // negative ok, no preset, zero ok, don't terminate on zero.
   n:=putdim(str,1,'SNAP-FIT :  plug  bottom  inset  width',snap_plug_inset_clear_bottom*inscale,False,True,False,False);    // negative ok, no preset, zero ok, don't terminate on zero.
@@ -13576,7 +13882,7 @@ begin
             snap_plug_inset_depth:=od[3]/inscale;
             snap_plug_overcut_depth:=od[4]/inscale;
 
-            snap_plug_overcut:=od[5]/inscale;
+            snap_plug_overcut_mm:=od[5];
 
             snap_plug_inset_clear_upper:=od[6]/inscale;
             snap_plug_inset_clear_bottom:=od[7]/inscale;
@@ -13900,13 +14206,22 @@ end;
 procedure Tdxf_form.cot_timber_depth_buttonClick(Sender: TObject);    // 555a
 
 const
-  str:string='For FDM 3D printing, timbering depths need to match the layer setting in your slicing software. Please refer to the Templot Club user forum.';
+  str:string='For FDM 3D printing, ideally timbering depths need to match the layer setting in your slicing software. Please refer to the Templot Club user forum.';
 
 var
-  n:integer;
+  n,i:integer;
   od:Toutdim;
 
 begin
+  if alert(2,'    COT  timber  depths ...',
+             '||`0      COT  timber  depths`9'
+            +'||The timbering depths which you are about to set for COT track will be used only if the `0thinify`3 function is not in force.'
+            +'||When including chair sockets within COT track, it is recommended that the `0thinify`3 function is used'
+            +' so that the chair plugs will be dimensioned to match the sockets.'
+            +'||When the `0thinify`3 function is in force, any dimensions entered here will be ignored.',
+             '','','','continue','cancel','',0)=5
+     then EXIT;
+
   cot_radio.Checked:=True;
 
      putdim(str,1,'COT  full  timber  depth  ( thickness )',cot_timber_thick*inscale,True,True,False,False);     // no negative, no preset, zero ok, don't terminate on zero.
@@ -14063,7 +14378,7 @@ begin
      putdim('please refer to Templot Club forum',1,'dropper-wire  ridge  space  at  top',dropper_ridge_spacing_top_mm,True,True,False,False);   // no negative, no preset, zero ok, don't terminate on zero.
      putdim('please refer to Templot Club forum',1,'dropper-wire  ridge  space  at  bottom',dropper_ridge_spacing_bottom_mm,True,True,False,False);   // no negative, no preset, zero ok, don't terminate on zero.
 
-  n:=putdim('please refer to Templot Club forum',1,'dropper-wire  ridge  height',dropper_ridge_height*inscale,True,True,False,False);   // no negative, no preset, zero ok, don't terminate on zero.
+  n:=putdim('please refer to Templot Club forum',1,'dropper-wire  ridge  height',dropper_ridge_height_mm,True,True,False,False);   // no negative, no preset, zero ok, don't terminate on zero.
 
   if n<>2 then EXIT;
 
@@ -14072,7 +14387,7 @@ begin
             dropper_ridge_spacing_top_mm:=od[0];
             dropper_ridge_spacing_bottom_mm:=od[1];
 
-            dropper_ridge_height:=od[2]/inscale;
+            dropper_ridge_height_mm:=od[2];
           end;
 
   redraw(True);     // show ridges
@@ -14403,7 +14718,7 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tdxf_form.minibo_buttonClick(Sender: TObject);     // 232c
+procedure Tdxf_form.modify_backlash_buttonClick(Sender: TObject);     // 232c
 
   // adjust X and Y for backlash
 
@@ -14508,7 +14823,7 @@ begin
        then InitialDir:=exe_str+'DXF-FILES\'
        else InitialDir:=user_load_custom_path;
 
-    Title:='    modify  G  code  file  for  MINIBO ...';
+    Title:='modify  G  code  file  for  backlash  correction ...';
     Filter:='G code (.gcode)|*.gcode';
     DefaultExt:='.gcode';
 
@@ -14527,8 +14842,8 @@ begin
      else user_load_custom_path:=ExtractFilePath(mbo_str);  // for next time
 
 
-  if alert(7,'    modify  for  MINIBO',
-             'Do you want to modify G code in this file:||`0'+mbo_str+'`f||for MINIBO 3D printer ?',
+  if alert(7,'    modify  for  backlash',
+             'Do you want to modify G code in this file:||`0'+mbo_str+'`f||for backlash correction ?',
             '','','','','no  -  cancel','yes',0)=5
      then EXIT;
 
@@ -14566,14 +14881,15 @@ begin
 end;
 //______________________________________________________________________________
 
-procedure Tdxf_form.minibo_backlash_buttonClick(Sender: TObject);
+procedure Tdxf_form.backlash_settings_buttonClick(Sender: TObject);
 
 const
   str:string='    `03D  printer  backlash  correction`9'
-            +'||This function is primarily intended for backlash corrections on small 3D printers which do not support the M425 GCODE command.'
+            +'||This function is primarily intended for backlash corrections on FDM 3D printers which do not support the M425 GCODE command.'
             +'||Enter a dimension in mm corresponding to the amount of backlash-error found on the relevant axis.'
-            +'||This dimension will be used to modify the G-CODE file selected by clicking the `0modify G-CODE for 3D printer`z button.'
-            +'||The correction required will be typically in the range 0.1mm - 0.5mm. The maximum Templot will accept is 2.0mm. Entering zero will disable corrections on that axis.'
+            +'||This dimension will be used to modify the G-CODE file selected by clicking the `0modify G-CODE for backlash`z button.'
+            +'||A G-CODE file is created by your slicer software and is typically saved on a USB memory stick or SD card. Use this function to modify it before transferring it to your printer.'
+            +'||The correction required will be typically in the range 0.01mm - 0.5mm. The maximum Templot will accept is 2.0mm. Entering zero will disable corrections on that axis.'
             +'||For this function to work, the file must be formatted for absolute dimensioning in mm.'
             +'||CAUTION: Do not use this function on files formatted in inches.'
             +'||For more information please refer to the Templot Club forum.';
@@ -14977,7 +15293,7 @@ begin
   show_settings_button.Visible:=True;
 
   ClientWidth:=320;
-  ClientHeight:=678;
+  ClientHeight:=680;
 
   dxf_showing_settings:=False;
 end;

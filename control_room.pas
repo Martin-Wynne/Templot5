@@ -513,8 +513,8 @@ var
   max_export_y:integer=16000;
   min_export_y:integer=-16000;
 
-  program_version:integer=556;     // this program version number (*100, e.g Templot v:1.3 = 130). started 10-09-2024 MW  released:
-  version_build:string='';         // sub-build letter for this version no longer used  10-09-2024
+  program_version:integer=556;     // this program version number (*100, e.g Templot v:1.3 = 130). started 10-09-2024 MW
+  version_build:string='.a';       // sub-build letter for this version started 10-09-2024   released: 04-10-2024
 
   loaded_version:integer=50000;   // init the loaded data file versions..
   later_file:boolean=False;
@@ -965,7 +965,7 @@ begin
                       then EXIT                                // so don't alert him again, just quit.
                       else begin
                              spacer_str:='|||||                      '; // defaults..
-                             save_str:='QUIT        ';
+                             save_str:='smooth  QUIT';
                              no_save_str:='';
                              backup_str:='';
 
@@ -974,7 +974,7 @@ begin
                                        if save_done=False
                                           then begin
                                                  save_str:='save  all  templates  in  a  named  file  and  QUIT            ';
-                                                 no_save_str:='QUIT        ';
+                                                 no_save_str:='smooth  QUIT';
                                                  spacer_str:='|                      ';
                                                  backup_str:='||Your storage box contains one or more templates which have not yet been saved in a named data file.'
                                                             +'||These and your background track plan can be restored when you next run Templot,'
@@ -994,7 +994,16 @@ begin
                                        repeat
                                          i:=alert(7,'      session  finished ?',
                                                   spacer_str+'Templot  is  about  to  QUIT.'+backup_str,
-                                                  '','','important  information  ',no_save_str,'cancel  quit   -   continue  running    ',save_str,3);
+                                                  '','emergency  STOP','important  information  ',no_save_str,'cancel  quit   -   continue  running    ',save_str,3);
+                                       if i=2
+                                          then begin                           // 556
+                                                 create_backup_file(False);    // ensure ebk files up to date and include latest contol template changes
+                                                 on_idle_can_run:=False;
+                                                 under_way:=False;
+                                                 prog_running:=False;
+                                                 Application.Terminate;
+                                               end;
+
                                        if i=3 then alert_help(0,quit_help,'');
                                        until i<>3;
 
@@ -1666,6 +1675,19 @@ begin
             dtp_form_resize;
           end;
 *)
+
+  if POS(' ',exe_str)<>0                             // 556a
+     then alert(2,'   Bad  Installation  Location',
+                  '        WARNING'
+                  +'||There are one or more spaces in the path to the location where you have installed Templot:'
+                  +'||`0'+exe_str+'`f'
+                  +'||This is likely to cause problems when saving and accessing files from Templot.'
+                  +'||There was a warning on the installation dialog that the path to the Templot program must not include'
+                  +' spaces anywhere in the folder names. The default installation location for Templot is:'
+                  +'||`0C:\TEMPLOT_DEV\`f'
+                  +'||Templot can be installed anywhere you wish on your computer, providing the entire path to it contains no spaces.',
+                      '','','','','','OK',0);
+
 
   ebk1_str:=exe_str+'ebk1.ebk';    // 1st emergency backup file.
   ebk2_str:=exe_str+'ebk2.ebk';    // 2nd emergency backup file.
@@ -5050,7 +5072,7 @@ begin
              '||         `0<I>'+Application.Title+'</I>`9  early release 2024'
              +'|||Sorry, the function you have selected is not available in this early release of '+Application.Title+':'
              +'||               <B>'+str+'</B>'
-             +'||To use this function you need to swap back to <B>Templot2</B> - click the blue bar below.',
+             +'||To use this function you need to swap back to <B>Templot2</B>. No data will be lost - click the blue bar below.',
                '','','','swap  back  to  using  Templot2','cancel','more  information',0);
   case i of
        4: do_t2_swap;
