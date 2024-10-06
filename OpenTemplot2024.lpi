@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="5"/>
       <MinorVersionNr Value="56"/>
-      <BuildNr Value="1052"/>
+      <BuildNr Value="1059"/>
       <StringTable ProductName="TEMPLOT5"/>
     </VersionInfo>
     <BuildModes>
@@ -635,7 +635,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="TEMPLOT5_OUTPUT\templot_5.exe"/>
+      <Filename Value="C:\85A\LAZARUS_T5\LAZ_2024_ALL\LAZ_2024_NEW\TEMPLOT5_OUTPUT\templot_5.exe"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
