@@ -12,7 +12,7 @@ object pad_form: Tpad_form
   Color = clSilver
   DesignTimePPI = 120
   Font.Color = clNavy
-  Font.Height = -364
+  Font.Height = -569
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   KeyPreview = True
@@ -10221,10 +10221,6 @@ object pad_form: Tpad_form
             Caption = '-'
             GroupIndex = 40
           end
-          object diagram_track_colour_menu_entry: TMenuItem
-            Caption = 'diagram-mode  track  &colour ...'
-            GroupIndex = 40
-          end
         end
         object N644: TMenuItem
           Caption = ' '
@@ -10890,14 +10886,17 @@ object pad_form: Tpad_form
         object diagram_mode_track_colour_menu_entry: TMenuItem
           Caption = '&diagram-mode  track  colour ...'
           GroupIndex = 70
+          OnClick = diagram_mode_track_colour_menu_entryClick
         end
         object track_background_colour_menu_entry: TMenuItem
           Caption = 'track  bac&kground  colour ...'
           GroupIndex = 70
+          OnClick = track_background_colour_menu_entryClick
         end
         object track_background_width_menu_entry: TMenuItem
           Caption = 'track  background  &width ...'
           GroupIndex = 70
+          OnClick = track_background_width_menu_entryClick
         end
       end
       object output_grid_options_menu_entry: TMenuItem
