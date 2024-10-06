@@ -22,6 +22,7 @@
 *.lrt
 
 # Lazarus local files (user-specific info)
+*.lpi
 *.lps
 
 # Lazarus backups and unit output folders.

@@ -131,7 +131,7 @@ begin
 
   RequireDerivedFormResource:=True;
 
-  Application.Title:='Templot5';
+ Application.Title:='Templot5';
 
 
   WriteLn(' '+#13+#10+'    DO NOT CLOSE THIS WINDOW');  // THIS IS NEEDED TO PREVENT HIGH CPU USAGE - minimized on open_button click
