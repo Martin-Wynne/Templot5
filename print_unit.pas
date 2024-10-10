@@ -40,7 +40,7 @@
  sc 19-sep-2024 556.
 
  SC 22-SEP-2024 556
-  print_chair_label_font
+  print_chair_labels_font
  sc 22-sep-2024 556.
 
  SC 24-SEP-2024 556
@@ -1691,6 +1691,7 @@ var
                                                    else begin   // normal rails...
 
                                                           Brush.Color:=printrail_infill_colour_cu;
+                                                          rail_infill_i:=print_railcu_infill_style;  // SC 01-OCT-2024 556
 
                                                           case rail_infill_i of
                                                                 1: Brush.Style:=bsBDiagonal;   // hatched
@@ -1931,6 +1932,7 @@ var
                             Pen.Style:=psSolid;
 
                             Brush.Color:=printrail_infill_colour_cu;
+                            rail_infill_i:=print_railcu_infill_style;  // SC 01-OCT-2024 556
 
                             if (black_white=True) or (impact>0)
                                then begin
@@ -3657,7 +3659,7 @@ begin
   printer_text_font:=TFont.Create;
   print_timber_numbers_font:=TFont.Create;
   print_corner_page_numbers_font:=TFont.Create;    // 0.93.a
-  print_chair_labels_font:=TFont.Create;           // SC 22-SEP-2024 556
+  print_chair_labels_font:=TFont.Create;            // SC 22-SEP-2024 556
 
   ClientWidth:=652;
   ClientHeight:=304;
@@ -5305,37 +5307,52 @@ var
                                   end;//case
                                 end
                            else begin
+                                  // default rail infill style
+                                  rail_infill_i:=print_railbg_infill_style;  // SC 01-OCT-2024 556
+
                                   if ((this_one_trackbed_cess_ts=True) and (rail=18))  // 215a
                                   or ((this_one_trackbed_cess_ms=True) and (rail=22))  // 215a
 
                                      then begin
                                             if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
-                                               then Brush.Color:=Pen.Color
-                                               else Brush.Color:=sb_track_bgnd_colour;      // cess use same colour as track background
-                                            Brush.Style:=bsBDiagonal;
+                                               then begin
+                                                      Brush.Color:=Pen.Color;
+                                                      rail_infill_i:=print_railbk_infill_style; // brick style
+                                                    end
+                                               else begin
+                                                      Brush.Color:=sb_track_bgnd_colour;      // cess use same colour as track background
+                                                      // Brush.Style:=bsBDiagonal;
+                                                      rail_infill_i:=1;   // SC 01-)CT-2024 556
+                                                    end;
                                           end
                                      else begin   // normal rails...
 
                                             if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
                                                // then Brush.Color:=calc_intensity(clSilver)  // 214b  - was clGray
-                                               then Brush.Color:=printrail_infill_colour_bk   // SC 01-OCT-2024 556 brick override
+                                               then begin
+                                                      Brush.Color:=printrail_infill_colour_bk;   // SC 01-OCT-2024 556 brick override
+                                                      rail_infill_i:=print_railbk_infill_style;  // SC 01-OCT-2024 556 brick Style
+                                                    end
                                                else begin
-                                                      if fb_kludge_this>0 then Brush.Color:=printrail_infill_colour_cu    // 0.94.a
-                                                                          else Brush.Color:=printrail_infill_colour_bg;
+                                                      if fb_kludge_this>0
+                                                         then begin
+                                                                Brush.Color:=printrail_infill_colour_cu;    // 0.94.a
+                                                                rail_infill_i:=print_railcu_infill_style; // SC 01-OCT-2024 556
+                                                              end
+                                                         else Brush.Color:=printrail_infill_colour_bg;
                                                     end;
-
-                                            case rail_infill_i of
-                                                            1: Brush.Style:=bsBDiagonal;   // hatched
-                                                            2: Brush.Style:=bsSolid;       // solid
-                                                            3: Brush.Style:=bsDiagCross;   // cross_hatched
-                                                            4: begin                       // blank
-                                                                 Brush.Style:=bsSolid;
-                                                                 Brush.Color:=clWhite;     // overide
-                                                               end;
-                                                          else Brush.Style:=bsSolid;       // solid
-                                            end;//case
-
                                           end;
+                                  case rail_infill_i of
+                                        1: Brush.Style:=bsBDiagonal;   // hatched
+                                        2: Brush.Style:=bsSolid;       // solid
+                                        3: Brush.Style:=bsDiagCross;   // cross_hatched
+                                        4: begin                       // blank
+                                             Brush.Style:=bsSolid;
+                                             Brush.Color:=clWhite;     // overide
+                                           end;
+                                        else Brush.Style:=bsSolid;       // solid
+                                  end;//case
+
                                 end;
 
                         if (black_white=True) or (impact>0)
@@ -5568,10 +5585,20 @@ var
 
                                   if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
                                      // then Brush.Color:=calc_intensity(clSilver)  // 214b  - was clGray
-                                     then Brush.Color:=printrail_infill_colour_bk   // SC 01-OCT-2024 556 brick override
+                                     then begin
+                                            Brush.Color:=printrail_infill_colour_bk;   // SC 01-OCT-2024 556 brick override
+                                            rail_infill_i:=print_railbk_infill_style; // SC 01-OCT-2024 556 - brick override
+                                          end
                                      else begin
-                                            if fb_kludge_this>0 then Brush.Color:=printrail_infill_colour_cu   //0.94.a
-                                                                else Brush.Color:=printrail_infill_colour_bg;
+                                            if fb_kludge_this>0
+                                               then begin
+                                                      Brush.Color:=printrail_infill_colour_cu;   //0.94.a
+                                                      rail_infill_i:=print_railcu_infill_style;   // SC 01-OCT-2024 556
+                                                    end
+                                               else begin
+                                                      Brush.Color:=printrail_infill_colour_bg;
+                                                      rail_infill_i:=print_railbg_infill_style;   // SC 01-OCT-2024 556
+                                                    end;
                                           end;
 
                                   case rail_infill_i of
@@ -5836,8 +5863,14 @@ var
                         if Pen.Width<1 then Pen.Width:=1;
 
                         if using_mapping_colour=True
-                           then Brush.Color:=mapping_colour
-                           else Brush.Color:=sb_diagram_colour;  // 209c was printrail_infill_colour_bg;
+                           then begin
+                                  Brush.Color:=mapping_colour;
+                                  rail_infill_i:=print_railbk_infill_style; // SC 01-OCT-2024
+                                end
+                           else begin
+                                  Brush.Color:=sb_diagram_colour;  // 209c was printrail_infill_colour_bg;
+                                  rail_infill_i:=sb_diagram_infill_style;   // SC 01-OCT-2024
+                                end;
 
                         case rail_infill_i of
                                         1: Brush.Style:=bsBDiagonal;   // hatched
@@ -5970,6 +6003,8 @@ begin          // print background templates...
 
         using_mapping_colour:=False;  // default init.
 
+        rail_infill_i:=print_railbg_infill_style;   // SC 01-OCT-2024 556 default background style
+
         with Ttemplate(keeps_list.Objects[n]).template_info.keep_dims do begin
 
           if box_dims1.bgnd_code_077<>1 then CONTINUE;
@@ -5995,6 +6030,7 @@ begin          // print background templates...
                  then begin
                         mapping_colour:=calc_intensity(box_dims1.pad_marker_colour);
                         using_mapping_colour:=True;
+                        rail_infill_i:=print_railbk_infill_style;  // SC 01-OCT-2024 556 use brick Style
                       end;
 
           fb_kludge_this:=box_dims1.fb_kludge_template_code;  // 0.94.a
