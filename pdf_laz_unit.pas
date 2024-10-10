@@ -39,14 +39,22 @@
 		Add omit S1 chair labels option.
 	sc 12-sep-2024 556.
 
-
  SC 22-SEP-2024 556
-  print_chair_label_font
+  print_chair_labels_font
  sc 22-sep-2024 556.
+
+ SC 24-SEP-2024 556
+  remove textout(0,0,'')
+ sc 24-sep-2024 556
 
  SC 29-SEP-2024 556
   fix SC background chair outline bug
  sc 29-sep-2024 556
+
+ SC 01-OCT-2024 556
+  use printrail_infill_colour_bk instead of hardcoded colour
+ sc 01-oct-2024 556
+
 ================================================================================
 """
 *)
@@ -1060,7 +1068,8 @@ var
 
                                         Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                                         Brush.Style:=bsClear;
-                                        TextOut(0,0,'');
+                                        // SC 24-SEP-2024 556
+                                        // TextOut(0,0,'');
 
                                         if pdf_black_white=True
                                            then Pen.Color:=clBlack
@@ -1146,7 +1155,8 @@ var
 
                                                             Brush.Color:=clWhite;
                                                             Brush.Style:=bsClear;   // 226d  was solid
-                                                            TextOut(0,0,'');
+                                                            // SC 24-SEP-2024 556
+                                                            // TextOut(0,0,'');
 
                                                             text_out(on_canvas, move_to.X-(TextWidth(num_str) div 2),
                                                                                 move_to.Y-(TextHeight(num_str) div 2),
@@ -1323,7 +1333,7 @@ var
                                                 half_stringwidth:=TextWidth(chair_label_str) div 2;
                                                 half_stringheight:=TextHeight(chair_label_str) div 2;
 
-						                                          Brush.Style:=bsSolid;
+                                          						Brush.Style:=bsSolid;
                                                 Brush.Color:=printchair_label_infill_colour;	// SC 13-SEP-2024 556
 
                                                 Font.Color:=clBlack;
@@ -1684,7 +1694,7 @@ var
                                                 Brush.Color:=printplat_infill_colour;
 
                                                 case print_platform_infill_style of
-                                                        0: begin Brush.Style:=bsClear; TextOut(0,0,''); end;
+                                                        0: begin Brush.Style:=bsClear; {TextOut(0,0,'');} end;
                                                         1: Brush.Style:=bsBDiagonal;    // hatched. backward diagonal (forward diagonal on control template timbers).
                                                         2: Brush.Style:=bsDiagCross;
 
@@ -1709,6 +1719,7 @@ var
                                                    else begin   // normal rails...
 
                                                           Brush.Color:=printrail_infill_colour_cu;
+                                                          rail_infill_i:=print_railcu_infill_style;   // SC 01-OCT-2024 556
 
                                                           case rail_infill_i of
                                                                 1: Brush.Style:=bsBDiagonal;   // hatched
@@ -1948,13 +1959,14 @@ var
                             Pen.Style:=psSolid;
 
                             Brush.Color:=printrail_infill_colour_cu;
+                            rail_infill_i:=print_railcu_infill_style;
 
                             if {(}pdf_black_white=True  {) or (impact>0)}
                                then begin
                                       Brush.Style:=bsSolid;              // solid infill white.
                                       Brush.Color:=clWhite;
                                     end
-                               else case rail_infill_i of
+                               else case rail_infill_i of               // SC 01-OCT-2024 556
                                           1: Brush.Style:=bsBDiagonal;   // hatched
                                           2: Brush.Style:=bsSolid;       // solid
                                           3: Brush.Style:=bsDiagCross;   // cross_hatched
@@ -2051,6 +2063,8 @@ var
 begin
   RESULT:=0;         // init
   page_counter:=1;   // init first page
+
+  rail_infill_i:=print_railcu_infill_style;    // SC 01-OCT-2024
 
   with pdf_laz_form.pdf_save_dialog do begin
 
@@ -2367,10 +2381,15 @@ try
           Brush.Color:=clWhite;
           Brush.Style:=bsSolid;
 
+          // SC 28-SEP-2024 556
+          Pen.Cosmetic:=False;     // use Geometric Pen
+          Pen.EndCap:=pecFlat;     // Flat endcap instead of default round endcap
+          // sc 28-sep-2024 556
+
           FillRect(Rect(0,0,printer_width_indexmax_dots,printer_length_indexmax_dots)); //  this clears the canvas  (pdf_width_dots-1)
 
-
-          TextOut(0,0,'');      // !!! Delphi bug? This seems to be necessary before dotted lines will draw properly.
+          // SC 24-SEP-2024 556
+          // TextOut(0,0,'');      // !!! Delphi bug? This seems to be necessary before dotted lines will draw properly.
                                 // TextOut obviously initialises some background mask property which I have been unable
                                 // to find or set any other way.
 
@@ -2384,7 +2403,8 @@ try
                        else ident_str:=page_num_str;
 
                     Brush.Style:=bsClear;
-                    TextOut(0,0,'');
+                    // SC 24-SEP-2024 556
+                    // TextOut(0,0,'');
 
                     Font.Name:='Courier New';
                     Font.Height:=0-ABS((page_left_dots-page_right_dots)*9 div 23);  // 9/23 trial and error for this font up to z/99
@@ -2580,7 +2600,8 @@ try
                            then begin
                                   Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                                   Brush.Style:=bsClear;
-                                  TextOut(0,0,'');
+                                  // SC 24-SEP-2024 556
+                                  // TextOut(0,0,'');
 
                                   Pen.Mode:=pmCopy;
 
@@ -2608,7 +2629,8 @@ try
                            then begin
                                   Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                                   Brush.Style:=bsClear;
-                                  TextOut(0,0,'');
+                                  // SC 24-SEP-2024 556
+                                  // TextOut(0,0,'');
 
                                   Pen.Color:=printcurail_colour;
                                   Pen.Mode:=pmCopy;
@@ -2891,7 +2913,8 @@ try
                         if print_corner_page_numbers_font.Size>8
                            then begin
                                   Brush.Style:=bsClear;
-                                  TextOut(0,0,'');
+                                  // SC 24-SEP-2024 556
+                                  // TextOut(0,0,'');
                                 end;
 
                         Textout(page_left_dots+printmargin_wide+3, page_top_dots+printmargin_wide+2, this_page_begin_str);                                                                                // top left corner
@@ -2913,7 +2936,8 @@ try
               Font.Color:=calc_intensity(clBlack);
               Brush.Color:=clWhite;
               Brush.Style:=bsClear;   // transparent over detail.
-              TextOut(0,0,'');
+              // SC 24-SEP-2024 556
+              // TextOut(0,0,'');
 
               TextOut(left_blanking_dots,page_bottom_dots+(printmargin_wide div 2)+halfmm_dots,page_str+bottom_str); // add the bottom string last.
 
@@ -3298,7 +3322,8 @@ begin
                                 0: begin
                                      Brush.Color:=clWhite;
                                      Brush.Style:=bsClear;      // transparent. (also lines).
-                                     TextOut(0,0,'');
+                                     // SC 24-SEP-2024 556
+                                     // TextOut(0,0,'');
                                    end;
                                 1: begin
                                      if pdf_black_white=True        // 0.93.a   -- use timber infill colour
@@ -3312,7 +3337,8 @@ begin
                                      Brush.Color:=Pen.Color;
                                      Brush.Style:=bsDiagCross;  // cross-hatched.
 
-                                     TextOut(0,0,'');      // !!! Delphi bug? This seems to be necessary before dotted lines will draw properly.
+                                     // SC 24-SEP-2024 556
+                                     // TextOut(0,0,'');      // !!! Delphi bug? This seems to be necessary before dotted lines will draw properly.
                                                            // TextOut obviously initialises some background mask property which I have been unable
                                                            // to find or set any other way.
 
@@ -3325,7 +3351,8 @@ begin
                               else begin
                                      Brush.Color:=clWhite;
                                      Brush.Style:=bsClear;      // transparent.
-                                     TextOut(0,0,'');
+                                     // SC 24-SEP-2024 556
+                                     // TextOut(0,0,'');
                                    end;
                   end;//case
 
@@ -3392,7 +3419,8 @@ begin
                                                                 Brush.Color:=on_canvas.Brush.Color;
                                                                 Brush.Style:=bsSolid;
                                                                 FillRect(dummy_rect);
-                                                                TextOut(0,0,'');      // !!! Delphi bug?
+                                                                // SC 24-SEP-2024 556
+                                                                // TextOut(0,0,'');      // !!! Delphi bug?
                                                               end;//with
 
                                                               try
@@ -3430,7 +3458,8 @@ begin
                                                                           Brush.Color:=clWhite;
                                                                           Pen.Color:=clBlack;
                                                                           Font.Color:=clBlack;  // !!!! including this.
-                                                                          TextOut(0,0,'');      // !!! Delphi bug?
+                                                                          // SC 24-SEP-2024 556
+                                                                          // TextOut(0,0,'');      // !!! Delphi bug?
                                                                                                 // TextOut obviously initialises some background mask property which I have been unable
                                                                                                 // to find or set any other way.
                                                                         end;
@@ -3457,7 +3486,8 @@ begin
                                                     Pen.Color:=printshape_colour;
                                                     Brush.Color:=clWhite;
                                                     Brush.Style:=bsClear;
-                                                    TextOut(0,0,'');
+                                                    // SC 24-SEP-2024 556
+                                                    // TextOut(0,0,'');
                                                     Rectangle(move_to.X, move_to.Y, line_to.X, line_to.Y);
                                                   end;
 
@@ -3852,7 +3882,8 @@ begin
              then begin
                     Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                     Brush.Style:=bsClear;
-                    TextOut(0,0,'');
+                    // SC 24-SEP-2024 556
+                    // TextOut(0,0,'');
 
 
                      p1.X:=intarray_get(list_bgnd_marks[0],i);    // x1,y1 in  1/100ths mm
@@ -4167,7 +4198,8 @@ begin
 
                                         Brush.Color:=clWhite;
                                         Brush.Style:=bsClear;    // 226d  was solid
-                                        TextOut(0,0,'');
+                                        // SC 24-SEP-2024 556
+                                        // TextOut(0,0,'');
 
                                         if print_settings_form.output_timb_id_prefix_checkbox.Checked=True    // 223d
                                            then begin
@@ -4632,7 +4664,7 @@ var
                                      else Brush.Color:=printplat_infill_colour;
 
                                   case print_platform_infill_style of
-                                          0: begin Brush.Style:=bsClear; TextOut(0,0,''); end;
+                                          0: begin Brush.Style:=bsClear; {TextOut(0,0,'');} end;
                                           1: Brush.Style:=bsFDiagonal;    // hatched. forward diagonal (backward diagonal on bgnd template timbers).
                                           2: Brush.Style:=bsDiagCross;
 
@@ -4648,36 +4680,55 @@ var
                                   end;//case
                                 end
                            else begin
+                                  // default rail infill style
+                                  rail_infill_i:=print_railbg_infill_style;  // SC 01-OCT-2024 556
+
                                   if ((this_one_trackbed_cess_ts=True) and (rail=18))  // 215a
                                   or ((this_one_trackbed_cess_ms=True) and (rail=22))  // 215a
                                      then begin
                                             if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
-                                               then Brush.Color:=Pen.Color
-                                               else Brush.Color:=sb_track_bgnd_colour;      // cess use same colour as track background
-                                            Brush.Style:=bsBDiagonal;
+                                               then begin
+                                                      Brush.Color:=Pen.Color;
+                                                      rail_infill_i:=print_railbk_infill_style; // brick style
+                                                    end
+                                               else begin
+                                                      Brush.Color:=sb_track_bgnd_colour;      // cess use same colour as track background
+                                                      // Brush.Style:=bsBDiagonal;
+                                                      rail_infill_i:=1;   // SC 01-)CT-2024 556
+                                                    end
                                           end
                                      else begin   // normal rails...
 
                                             if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
                                                // then Brush.Color:=calc_intensity(clSilver)  // 214b  - was clGray
-                                               then Brush.Color:=printrail_infill_colour_bk   // SC 01-OCT-2024 556 - brick override
+                                               then begin
+                                                      Brush.Color:=printrail_infill_colour_bk;   // SC 01-OCT-2024 556 - brick override
+                                                      rail_infill_i:=print_railbk_infill_style; // SC 01-OCT-2024 556 - brick override
+                                                    end
                                                else begin
-                                                      if fb_kludge_this>0 then Brush.Color:=printrail_infill_colour_cu  // 0.94.a
-                                                                          else Brush.Color:=printrail_infill_colour_bg;
+                                                      if fb_kludge_this>0
+                                                         then begin
+                                                                Brush.Color:=printrail_infill_colour_cu;  // 0.94.a
+                                                                rail_infill_i:=print_railcu_infill_style;   // SC 01-OCT-2024 556
+                                                              end
+                                                         else begin
+                                                                Brush.Color:=printrail_infill_colour_bg;
+                                                                rail_infill_i:=print_railbg_infill_style;   // SC 01-OCT-2024 556
+                                                              end;
                                                     end;
-
-                                            case rail_infill_i of
-                                                            1: Brush.Style:=bsBDiagonal;   // hatched
-                                                            2: Brush.Style:=bsSolid;       // solid
-                                                            3: Brush.Style:=bsDiagCross;   // cross_hatched
-                                                            4: begin                       // blank
-                                                                 Brush.Style:=bsSolid;
-                                                                 Brush.Color:=clWhite;     // overide
-                                                               end;
-                                                          else Brush.Style:=bsSolid;       // solid
-                                            end;//case
-
                                           end;
+
+                                  case rail_infill_i of
+                                                  1: Brush.Style:=bsBDiagonal;   // hatched
+                                                  2: Brush.Style:=bsSolid;       // solid
+                                                  3: Brush.Style:=bsDiagCross;   // cross_hatched
+                                                  4: begin                       // blank
+                                                       Brush.Style:=bsSolid;
+                                                       Brush.Color:=clWhite;     // overide
+                                                     end;
+                                                else Brush.Style:=bsSolid;       // solid
+                                  end;//case
+
                                 end;
 
                         if pdf_black_white=True
@@ -4909,22 +4960,32 @@ var
 
                                   if ( (using_mapping_colour=True) and (Pen.Color=mapping_colour) ) or ( (mapping_colours_print<0) and (Pen.Color=printbg_single_colour) )
                                      // then Brush.Color:=calc_intensity(clSilver)  // 214b  - was clGray
-                                     then Brush.Color:=printrail_infill_colour_bk  // SC 01-OCT-2024 556 - brick override
+                                     then begin
+                                            Brush.Color:=printrail_infill_colour_bk;  // SC 01-OCT-2024 556 - brick override
+                                            rail_infill_i:=print_railbk_infill_style; // SC 01-OCT-2024 556 - brick override
+                                          end
 
                                      else begin
-                                            if fb_kludge_this>0 then Brush.Color:=printrail_infill_colour_cu
-                                                                else Brush.Color:=printrail_infill_colour_bg;
+                                            if fb_kludge_this>0
+                                               then begin
+                                                      Brush.Color:=printrail_infill_colour_cu;
+                                                      rail_infill_i:=print_railcu_infill_style;   // SC 01-OCT-2024 556
+                                                    end
+                                               else begin
+                                                      Brush.Color:=printrail_infill_colour_bg;
+                                                      rail_infill_i:=print_railbg_infill_style;   // SC 01-OCT-2024 556
+                                                    end;
                                           end;
 
                                   case rail_infill_i of
-                                                  1: Brush.Style:=bsBDiagonal;   // hatched
-                                                  2: Brush.Style:=bsSolid;       // solid
-                                                  3: Brush.Style:=bsDiagCross;   // cross_hatched
-                                                  4: begin                       // blank
-                                                       Brush.Style:=bsSolid;
-                                                       Brush.Color:=clWhite;     // overide
-                                                     end;
-                                                else Brush.Style:=bsSolid;       // solid
+                                        1: Brush.Style:=bsBDiagonal;   // hatched
+                                        2: Brush.Style:=bsSolid;       // solid
+                                        3: Brush.Style:=bsDiagCross;   // cross_hatched
+                                        4: begin                       // blank
+                                             Brush.Style:=bsSolid;
+                                             Brush.Color:=clWhite;     // overide
+                                           end;
+                                        else Brush.Style:=bsSolid;       // solid
                                   end;//case
 
                                   if pdf_black_white=True
@@ -5176,8 +5237,14 @@ var
                         if Pen.Width<1 then Pen.Width:=1;
 
                         if using_mapping_colour=True
-                           then Brush.Color:=mapping_colour
-                           else Brush.Color:=sb_diagram_colour;  // 209c  was printrail_infill_colour_bg;
+                           then begin
+                                  Brush.Color:=mapping_colour;
+                                  rail_infill_i:=print_railbk_infill_style; // SC 01-OCT-2024 556 - brick override
+                                end
+                           else begin
+                                  Brush.Color:=sb_diagram_colour;  // 209c  was printrail_infill_colour_bg;
+                                  rail_infill_i:=sb_diagram_infill_style;   // SC 01-OCT-2024 556
+                                end;
 
                         case rail_infill_i of
                                         1: Brush.Style:=bsBDiagonal;   // hatched
@@ -5311,6 +5378,8 @@ begin          // print background templates...
 
         using_mapping_colour:=False;  // default init.
 
+        rail_infill_i:=print_railbg_infill_style;   // SC 01-OCT-2024 556 default background style
+
         with Ttemplate(keeps_list.Objects[n]).template_info.keep_dims do begin
 
           if box_dims1.bgnd_code_077<>1 then CONTINUE;    // 0.77.b BUG???
@@ -5336,6 +5405,7 @@ begin          // print background templates...
                  then begin
                         mapping_colour:=calc_intensity(box_dims1.pad_marker_colour);
                         using_mapping_colour:=True;
+                        rail_infill_i:=print_railbk_infill_style;  // SC 01-OCT-2024 556 use brick Style
                       end;
 
           fb_kludge_this:=box_dims1.fb_kludge_template_code;  // 0.94.a
@@ -5352,7 +5422,8 @@ begin          // print background templates...
 
                               Brush.Color:=clWhite;  // 0.93.a gaps in dotted lines.
                               Brush.Style:=bsClear;
-                              TextOut(0,0,'');
+                              // SC 24-SEP-2024 556
+                              // TextOut(0,0,'');
 
                               Pen.Mode:=pmCopy;
 
