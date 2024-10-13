@@ -447,7 +447,6 @@ var
                   for i:=0 to (mark_index-1) do begin   // (mark_index is always the next free slot)
 
                     ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
-                    if ptr_1st=nil then BREAK;
 
                     mark_code:=ptr_1st^.code;              // check this mark wanted.
 
@@ -523,34 +522,32 @@ var
 		                     (mark_code=493) or (mark_code=494) or (mark_code=497))		                             // chair outlines
                        then begin
                               ptr_2nd:=@marks_list[i+1];        // pointer to the second infill Tmark record.
-                              if ptr_2nd=nil then BREAK;
 
                               p1:=ptr_1st^.p1;              // x1,y1 in  1/100ths mm
                               p2:=ptr_1st^.p2;              // x2,y2 in  1/100ths mm
                               p3:=ptr_2nd^.p1;              // x3,y3 in  1/100ths mm
                               p4:=ptr_2nd^.p2;              // x4,y4 in  1/100ths mm
-							  
-							                       // SC 20-SEP-2024 556
-							                       // chair outline extra marks
+
+                                     // SC 20-SEP-2024 556
+                                     // chair outline extra marks
                               if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)    // another 12 marks for radiused corners
                                  then begin
-                                   					n:=0;
-                                   					nn:=2;
+                                        n:=0;
+                                        nn:=2;
 
-                                   					repeat
+                                        repeat
                                           ptr_3rd:=@marks_list[i+nn];        // pointer to the next infill Tmark record.
-                                   					  if ptr_3rd=nil then EXIT;
 
-                                   					  p[n]:=ptr_3rd^.p1;       // 1/100ths mm
-                                   					  p[n+1]:=ptr_3rd^.p2;     // 1/100ths mm
+                                          p[n]:=ptr_3rd^.p1;       // 1/100ths mm
+                                          p[n+1]:=ptr_3rd^.p2;     // 1/100ths mm
 
-                                    					  INC(n);   //+2
-                                   					  INC(n);
-                                   					  INC(nn);  //+1
+                                          INC(n);   //+2
+                                          INC(n);
+                                          INC(nn);  //+1
                                         until n>26;     // was 22
-				                                  end;
-                       					  // sc 20-sep-2024 556
-							  
+                                      end;
+                                  // sc 20-sep-2024 556
+
                             end
                        else ptr_2nd:=nil;    // keep compiler happy.
 
