@@ -6503,7 +6503,7 @@ begin
 end;
 //______________________________________________________________________________
 
-function new_marks_list(var list_p:Pointer):boolean;
+function new_marks_list(var list: Tmark_array):boolean;
 
          // return pointer to array of pointers to Tmark records.
 var
@@ -6518,25 +6518,9 @@ var
 begin
   RESULT:=True;                                 // assume good result.
 
-  if list_p<>nil
-     then begin                                 // first free any previous memory.
-            array_max:=intarray_max(list_p);
-            for n:=0 to array_max do begin
-              p:=Pointer(intarray_get(list_p,n));
-              if p<>nil
-                 then begin
-                        try
-                          Dispose(p);
-                        except
-                          RESULT:=False;
-                          EXIT;
-                        end;//try
-                      end;
-            end;//for
-            intarray_free(list_p);
-          end;
+  SetLength(list, 0);
 
-                // estimate number of marks needed...
+  // estimate number of marks needed...
 
   mark_count:=0;
 
@@ -6635,22 +6619,9 @@ begin
 
   mark_count:=mark_count+500;     // 221a  500 more for luck
 
-  list_p:=intarray_create(mark_count,False);    // array of pointers to Tmark records.
-  if list_p<>nil
-     then begin
-            for n:=0 to mark_count do begin
-              try
-                New(p);
-              except
-                RESULT:=False;
-                p:=nil;
-              end;//try
+  SetLength(list, mark_count);
 
-              intarray_set(list_p,n,Integer(p));  // put pointer to each mark (or nil) in array.
-            end;//for
-          end
-     else RESULT:=False;
-
+  Result := True;
 end;
 //___________________________________________________________________________________________
 
@@ -6806,7 +6777,7 @@ begin
   mark_index:=0;               //  init index for list of new marks.
   timb_numbers_str:='';        //  and accumulator string for the timber numbers.
 
-  if new_marks_list(marks_list_ptr)=False    // ### clear the old marks list and create a new one.
+  if new_marks_list(marks_list)=False    // ### clear the old marks list and create a new one.
      then begin
             memory_alert;     //  warn him.
             EXIT;
@@ -20462,14 +20433,12 @@ var
 
 begin
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  if Length(marks_list) = 0 then EXIT;        // pointer to marks list not valid.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;
 
-  ptr:=Pointer(intarray_get(marks_list_ptr,mark_index));  // pointer to the next Tmark record.
-
-  if ptr=nil then EXIT;
+  ptr:=@marks_list[mark_index];  // pointer to the next Tmark record.
 
   ptr^.code:=code;                     // code for this entry :
 
@@ -22139,8 +22108,8 @@ begin
     pad_timber_numbers:=current_timber_numbers_menu_entry.Checked;
   end;//with
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  if Length(marks_list) = 0 then EXIT;        // pointer to marks list not valid.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
@@ -22151,7 +22120,7 @@ begin
     for i:=0 to (mark_index-1) do begin   // (mark_index is always the next free slot)
 
       try
-        ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
+        ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
         if ptr_1st=nil then EXIT;
 
 	code:=ptr_1st^.code;
@@ -22164,8 +22133,7 @@ begin
 
         if ((code=203) or (code=233) or (code=293) or (code=484) or (code=485) or (code=487) or (code=493) or (code=494) or (code=497)) and (i<(mark_index-1))      // timber infill, chair outlines
            then begin
-                  ptr_2nd:=Pointer(intarray_get(marks_list_ptr,i+1));        // pointer to the second infill Tmark record.
-                  if ptr_2nd=nil then EXIT;
+                  ptr_2nd:=@marks_list[i+1];        // pointer to the second infill Tmark record.
 
                   p3:=ptr_2nd^.p1;              // x3,y3 in  1/100ths mm
                   p4:=ptr_2nd^.p2;              // x4,y4 in  1/100ths mm
@@ -22179,8 +22147,7 @@ begin
                   nn:=2;
 
                   repeat
-                    ptr_nn:=Pointer(intarray_get(marks_list_ptr,i+nn));        // pointer to the next infill Tmark record.
-                    if ptr_nn=nil then EXIT;
+                    ptr_nn:=@marks_list[i+nn];        // pointer to the next infill Tmark record.
 
                     p[n]:=ptr_nn^.p1;       // 1/100ths mm
                     p[n+1]:=ptr_nn^.p2;     // 1/100ths mm
@@ -37982,9 +37949,9 @@ begin
 
       // find number string clicked on in control template marks list...
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+  if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
 
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
@@ -37992,8 +37959,7 @@ begin
 
   for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
     try
-      ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-      if ptr_1st=nil then EXIT;
+      ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
       code:=ptr_1st^.code;
 
@@ -38078,9 +38044,9 @@ begin
   end;//with
 
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+  if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
 
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
@@ -38088,8 +38054,7 @@ begin
 
   for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
     try
-      ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-      if ptr_1st=nil then EXIT;
+      ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
       code:=ptr_1st^.code;
 
@@ -38209,16 +38174,15 @@ begin
 
       // find label string clicked on...
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+  if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
 
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
   for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
     try
-      ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-      if ptr_1st=nil then EXIT;
+      ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
       code:=ptr_1st^.code;
 
@@ -38383,16 +38347,15 @@ begin
 
       // find number string clicked on in control template marks list...
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+  if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
 
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
   for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
     try
-      ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-      if ptr_1st=nil then EXIT;
+      ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
       code:=ptr_1st^.code;
 
@@ -38455,9 +38418,9 @@ begin
     half_height:=TextHeight('A') div 2;
   end;//with
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+  if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
 
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
@@ -38465,8 +38428,7 @@ begin
 
   for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
     try
-      ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-      if ptr_1st=nil then EXIT;
+      ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
       code:=ptr_1st^.code;
 
@@ -38611,16 +38573,15 @@ begin   // find if on chair label...
 
   mouse_is_over_chair_label_mark:=-1;   // init
 
-  if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
+  if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
 
-  markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+  markmax:=High(marks_list);  // max index for the present list.
 
   if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
   for i:=0 to (mark_index-1) do begin     // (mark_index is always the next free slot)
 
-    ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-    if ptr_1st=nil then EXIT;
+    ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
     code:=ptr_1st^.code;
 
