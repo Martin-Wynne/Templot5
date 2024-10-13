@@ -75,7 +75,7 @@ implementation
 
 {$R *.lfm}
 
-uses control_room, pad_unit, math_unit, shove_timber, alert_unit, bgkeeps_unit;
+uses control_room, pad_unit, math_unit, shove_timber, alert_unit, bgkeeps_unit, heave_chairs;
 
 //______________________________________________________________________________
 
@@ -165,6 +165,7 @@ begin
       if num_str=entered_str   // timber exists...
          then begin
                 current_shove_str:=entered_str;
+                heave_selected_tb_str:='';       // 556b de-select clicked chair label
 
                 n:=find_shove(current_shove_str,True);              // find it or create an empty slot.
                 if (n>=0) and (n<Length(current_shoved_timbers))    // valid slot.
@@ -182,6 +183,7 @@ begin
                         end
                    else begin
                           current_shove_str:='';         // !!! error?
+                          heave_selected_tb_str:='';     // 556b de-select clicked chair label
                           shove_buttons(False,0,-1);
                         end;
                 EXIT;         // found this timber number.

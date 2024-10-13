@@ -12,7 +12,7 @@ object heave_chairs_form: Theave_chairs_form
   Color = 15852503
   DesignTimePPI = 120
   Font.Color = clBlack
-  Font.Height = -2713
+  Font.Height = -20216
   Font.Name = 'Arial'
   Font.Style = [fsBold]
   OnCreate = FormCreate
@@ -708,7 +708,6 @@ object heave_chairs_form: Theave_chairs_form
     ClientHeight = 124
     ClientWidth = 290
     Color = 16776432
-    Enabled = False
     Font.Color = 16744448
     Font.Height = -17
     Font.Name = 'Arial'
@@ -787,7 +786,7 @@ object heave_chairs_form: Theave_chairs_form
     object flip_key4_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 28
+      Top = 26
       Width = 78
       AutoSize = False
       Caption = 'flip key'
@@ -816,7 +815,7 @@ object heave_chairs_form: Theave_chairs_form
     object sc4_size_button: TButton
       Left = 124
       Height = 20
-      Top = 28
+      Top = 4
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -867,7 +866,7 @@ object heave_chairs_form: Theave_chairs_form
     object omit_key4_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 8
+      Top = 4
       Width = 78
       AutoSize = False
       Caption = 'omit key'
@@ -897,6 +896,24 @@ object heave_chairs_form: Theave_chairs_form
       Transparent = False
       Visible = False
     end
+    object omitted_label4: TLabel
+      Left = 6
+      Height = 20
+      Top = 56
+      Width = 70
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'omitted'
+      Color = clWhite
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      Visible = False
+    end
   end
   object rail3_groupbox: TGroupBox
     Left = 84
@@ -906,7 +923,6 @@ object heave_chairs_form: Theave_chairs_form
     ClientHeight = 124
     ClientWidth = 290
     Color = 16776432
-    Enabled = False
     Font.Color = 16744448
     Font.Height = -17
     Font.Name = 'Arial'
@@ -916,7 +932,7 @@ object heave_chairs_form: Theave_chairs_form
     ParentFont = False
     TabOrder = 1
     object chair3_type_label: TLabel
-      Left = 132
+      Left = 128
       Height = 22
       Top = 56
       Width = 76
@@ -985,7 +1001,7 @@ object heave_chairs_form: Theave_chairs_form
     object flip_key3_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 28
+      Top = 26
       Width = 78
       AutoSize = False
       Caption = 'flip key'
@@ -1014,7 +1030,7 @@ object heave_chairs_form: Theave_chairs_form
     object sc3_size_button: TButton
       Left = 124
       Height = 20
-      Top = 28
+      Top = 4
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -1051,7 +1067,7 @@ object heave_chairs_form: Theave_chairs_form
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
-    object chair_family3_label2: TLabel
+    object chair_family3_label: TLabel
       Left = 232
       Height = 19
       Hint = ' click to change prototype '
@@ -1065,7 +1081,7 @@ object heave_chairs_form: Theave_chairs_form
     object omit_key3_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 8
+      Top = 4
       Width = 78
       AutoSize = False
       Caption = 'omit key'
@@ -1095,6 +1111,24 @@ object heave_chairs_form: Theave_chairs_form
       Transparent = False
       Visible = False
     end
+    object omitted_label3: TLabel
+      Left = 6
+      Height = 20
+      Top = 56
+      Width = 70
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'omitted'
+      Color = clWhite
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      Visible = False
+    end
   end
   object rail2_groupbox: TGroupBox
     Left = 84
@@ -1104,7 +1138,6 @@ object heave_chairs_form: Theave_chairs_form
     ClientHeight = 124
     ClientWidth = 290
     Color = 16776432
-    Enabled = False
     Font.Color = 16744448
     Font.Height = -17
     Font.Name = 'Arial'
@@ -1183,7 +1216,7 @@ object heave_chairs_form: Theave_chairs_form
     object flip_key2_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 28
+      Top = 26
       Width = 78
       AutoSize = False
       Caption = 'flip key'
@@ -1212,7 +1245,7 @@ object heave_chairs_form: Theave_chairs_form
     object sc2_size_button: TButton
       Left = 124
       Height = 20
-      Top = 28
+      Top = 4
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -1249,7 +1282,7 @@ object heave_chairs_form: Theave_chairs_form
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
-    object chair_family2_label2: TLabel
+    object chair_family2_label: TLabel
       Left = 232
       Height = 19
       Hint = ' click to change prototype '
@@ -1263,7 +1296,7 @@ object heave_chairs_form: Theave_chairs_form
     object omit_key2_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 8
+      Top = 4
       Width = 78
       AutoSize = False
       Caption = 'omit key'
@@ -1293,6 +1326,24 @@ object heave_chairs_form: Theave_chairs_form
       Transparent = False
       Visible = False
     end
+    object omitted_label2: TLabel
+      Left = 6
+      Height = 20
+      Top = 56
+      Width = 70
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'omitted'
+      Color = clWhite
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      Visible = False
+    end
   end
   object rail1_groupbox: TGroupBox
     Left = 84
@@ -1302,7 +1353,6 @@ object heave_chairs_form: Theave_chairs_form
     ClientHeight = 124
     ClientWidth = 290
     Color = 16776432
-    Enabled = False
     Font.Color = 16744448
     Font.Height = -17
     Font.Name = 'Arial'
@@ -1381,7 +1431,7 @@ object heave_chairs_form: Theave_chairs_form
     object flip_key1_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 28
+      Top = 26
       Width = 78
       AutoSize = False
       Caption = 'flip key'
@@ -1410,7 +1460,7 @@ object heave_chairs_form: Theave_chairs_form
     object sc1_size_button: TButton
       Left = 124
       Height = 20
-      Top = 28
+      Top = 4
       Width = 74
       Caption = 'SC  size ...'
       Font.Color = clBlack
@@ -1447,7 +1497,7 @@ object heave_chairs_form: Theave_chairs_form
       Font.Style = [fsBold, fsItalic]
       ParentFont = False
     end
-    object chair_family1_label2: TLabel
+    object chair_family1_label: TLabel
       Left = 232
       Height = 19
       Hint = ' click to change prototype '
@@ -1461,7 +1511,7 @@ object heave_chairs_form: Theave_chairs_form
     object omit_key1_checkbox: TCheckBox
       Left = 210
       Height = 20
-      Top = 8
+      Top = 4
       Width = 78
       AutoSize = False
       Caption = 'omit key'
@@ -1481,6 +1531,24 @@ object heave_chairs_form: Theave_chairs_form
       Alignment = taCenter
       AutoSize = False
       Caption = 'customized chair'
+      Color = clWhite
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      Visible = False
+    end
+    object omitted_label1: TLabel
+      Left = 6
+      Height = 20
+      Top = 56
+      Width = 70
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'omitted'
       Color = clWhite
       Font.Color = clRed
       Font.Height = -15
@@ -1660,7 +1728,7 @@ object heave_chairs_form: Theave_chairs_form
       Height = 25
       Top = 136
       ClientHeight = 25
-      Font.Height = -39
+      Font.Height = -49
       ParentBackground = False
       inherited frame_label: TLabel
         Font.Color = clBlue
@@ -1704,7 +1772,7 @@ object heave_chairs_form: Theave_chairs_form
       Height = 25
       Top = 164
       ClientHeight = 25
-      Font.Height = -39
+      Font.Height = -49
       ParentBackground = False
       TabOrder = 1
       inherited frame_label: TLabel
@@ -1752,7 +1820,7 @@ object heave_chairs_form: Theave_chairs_form
       Top = 192
       ClientHeight = 25
       Enabled = False
-      Font.Height = -39
+      Font.Height = -49
       ParentBackground = False
       TabOrder = 2
       inherited frame_label: TLabel
@@ -1800,7 +1868,7 @@ object heave_chairs_form: Theave_chairs_form
       Top = 220
       ClientHeight = 25
       Enabled = False
-      Font.Height = -39
+      Font.Height = -49
       ParentBackground = False
       TabOrder = 3
       inherited frame_label: TLabel
@@ -2146,9 +2214,9 @@ object heave_chairs_form: Theave_chairs_form
     OnMouseUp = chair_radio1MouseUp
   end
   object Label10: TLabel
-    Left = 128
+    Left = 124
     Height = 37
-    Top = 70
+    Top = 72
     Width = 206
     Alignment = taCenter
     AutoSize = False
@@ -2193,7 +2261,7 @@ object heave_chairs_form: Theave_chairs_form
   object Label25: TLabel
     Left = 128
     Height = 37
-    Top = 224
+    Top = 230
     Width = 206
     Alignment = taCenter
     AutoSize = False
