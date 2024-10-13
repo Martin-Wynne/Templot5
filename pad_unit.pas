@@ -1572,7 +1572,6 @@ type
     N373: TMenuItem;
     diagram_mode_track_colour_menu_entry: TMenuItem;
     N374: TMenuItem;
-    diagram_track_colour_menu_entry: TMenuItem;
     toputtimberingbackon1: TMenuItem;
     clickoneoftheotheroptions1: TMenuItem;
     optionsabove1: TMenuItem;
@@ -3343,8 +3342,8 @@ type
     procedure centre_line_option_ms_track_menu_entryClick(Sender: TObject);
     procedure centre_line_option_normal_menu_entryClick(Sender: TObject);
     procedure centre_line_offset_options_menu_entryClick(Sender: TObject);
-// OT2024    procedure track_background_width_menu_entryClick(Sender: TObject);
-// OT2024    procedure track_background_colour_menu_entryClick(Sender: TObject);
+    procedure track_background_width_menu_entryClick(Sender: TObject);
+    procedure track_background_colour_menu_entryClick(Sender: TObject);
     procedure centre_line_option_custom_menu_entryClick(Sender: TObject);
     procedure centre_line_option_custom_offet_menu_entryClick(Sender: TObject);
     procedure add_group_tag_menu_entryClick(Sender: TObject);
@@ -3383,7 +3382,7 @@ type
     procedure show_control_template_menu_entryClick(Sender: TObject);
     procedure show_name_labels_menu_entryClick(Sender: TObject);
     procedure make_branch_crossover_menu_entryClick(Sender: TObject);
-// OT2024    procedure diagram_mode_track_colour_menu_entryClick(Sender: TObject);
+    procedure diagram_mode_track_colour_menu_entryClick(Sender: TObject);
     procedure qb_600x300_menu_entryClick(Sender: TObject);
     procedure qb_900x500_menu_entryClick(Sender: TObject);
     procedure qb_1200x600_menu_entryClick(Sender: TObject);
@@ -26631,7 +26630,6 @@ begin
   if his_option=True then keep_form.centre_line_offset_options_as_stored_menu_entry.Checked:=True;   // radio item.
 end;
 //______________________________________________________________________________
-(* OT2024
 
 procedure Tpad_form.track_background_width_menu_entryClick(Sender: TObject);   // 206a
 
@@ -26671,7 +26669,6 @@ begin
   save_sb_diagram_col:=get_colour('choose  a  colour  for  track  in  diagram  mode',save_sb_diagram_col);
 end;
 //______________________________________________________________________________
-*)
 
 procedure Tpad_form.centre_line_option_custom_offet_menu_entryClick(Sender: TObject);
 

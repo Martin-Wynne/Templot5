@@ -22,12 +22,15 @@
 *.lrt
 
 # Lazarus local files (user-specific info)
+*.lpi
 *.lps
 
 # Lazarus backups and unit output folders.
 # These can be changed by user in Lazarus/project options.
 backup/
 *.bak
+*.pasx
+*.lfmx
 lib/
 logs/
 
@@ -38,3 +41,4 @@ logs/
 templot_5.exe
 
 
+*.lpi
