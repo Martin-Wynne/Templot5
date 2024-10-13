@@ -112,7 +112,11 @@ begin
     with colour_form do begin
       Caption:='    Templot  fonts  and  text  colours ...';
       colour_label.Caption:='  '+str+' ...';
+      colour_form.font_dialog.Title:='select font';	// SC 15-SEP-2024 556
       font_dialog.Font.Assign(fon);
+
+      colour_form.font_dialog.Title:='select font';	// SC 15-SEP-2024 556
+
       Show;
       BringToFront;
 
@@ -120,7 +124,7 @@ begin
 
       showing_dialog:=True;   // 212a Wine bug
 
-      if font_dialog.Execute=True then RESULT:=font_dialog.Font
+      if colour_form.font_dialog.Execute=True then RESULT:=font_dialog.Font
                                   else begin
                                          showing_dialog:=False;
 

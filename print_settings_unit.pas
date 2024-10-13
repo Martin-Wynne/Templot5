@@ -486,7 +486,7 @@ begin
 end;
 
 
-    //______________________________________________________________________________
+//______________________________________________________________________________
 
 
 
@@ -896,7 +896,7 @@ var
 
 begin
   old:=prip_colour_panel.Color;
-  prip_colour_panel.Color:=get_colour('choose  a  timber  infill  colour',prip_colour_panel.Color);
+  prip_colour_panel.Color:=get_colour('choose  a  platform  infill  colour',prip_colour_panel.Color);
   if prip_colour_panel.Color<>old
      then begin
             output_platforms_checkbox.Checked:=True;               // colour changed, assume she wants to use it
@@ -997,7 +997,7 @@ old:TColor;
 
 begin
   old:=rail_joint_marks_colour_panel.Color;
-  rail_joint_marks_colour_panel.Color:=get_colour('choose  a  rail  edge  colour',rail_joint_marks_colour_panel.Color);
+  rail_joint_marks_colour_panel.Color:=get_colour('choose  a  colour  for  the  rail  joint  marks',rail_joint_marks_colour_panel.Color);
   if rail_joint_marks_colour_panel.Color<>old
     then begin
            output_rail_joints_checkbox.Checked:=True;               // colour changed, assume she wants to use it
@@ -1411,7 +1411,7 @@ var
 
 begin
   old:=sb_track_bgnd_colour_panel.Color;
-  sb_track_bgnd_colour_panel.Color:=get_colour('choose  a  diagram  mode  track  bounds  colour',sb_track_bgnd_colour_panel.Color);
+  sb_track_bgnd_colour_panel.Color:=get_colour('choose  an  infill  colour  for  the  track  bounds',sb_track_bgnd_colour_panel.Color);
   if sb_track_bgnd_colour_panel.Color<>old
      then begin
             sb_track_bgnd_colour:=sb_track_bgnd_colour_panel.Color;
