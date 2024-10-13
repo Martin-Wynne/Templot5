@@ -3819,6 +3819,7 @@ type
           dxf_chair_code:integer;   // [6]   237a  chairing data for 3D exports
           mark_bits:integer;        // [7]   555a  32 bit settings
         end;
+  Tmark_array=array of Tmark;
 
   Tpex=record                      // x,y point floats (TPoint is integer).
          x:extended;
@@ -4460,7 +4461,7 @@ var
   dv_copies:array[0..dv_copies_c] of Tdummy_vehicle_corners;  // up to 32 copies 0.98.a
   dv_copies_index:integer=-1;                                 // init num copies -1
 
-  marks_list_ptr:Pointer=nil;     //###  // pointer to list of pointers to Tmarks.
+  marks_list:Tmark_array;
 
   timb_numbers_str:string='';     // accumulated timber numbering strings with $1B separators.
 
