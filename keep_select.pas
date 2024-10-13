@@ -7055,14 +7055,14 @@ begin
 
                               //  now draw turnout timbers and all marks (except rail ends) ...
 
-          if marks_list_ptr=nil then EXIT;        // pointer to marks list not valid.
-          markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+          if Length(marks_list)=0 then EXIT;        // pointer to marks list not valid.
+          markmax:=High(marks_list);  // max index for the present list.
 
           if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
           for i:=0 to (mark_index-1) do begin   // (mark_index is always the next free slot)
 
-            ptr:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
+            ptr:=@marks_list[i];  // pointer to the next Tmark record.
             if ptr=nil then EXIT;
 
             code:=ptr^.code;             // check this mark wanted.
@@ -8400,8 +8400,8 @@ begin
 
                        // copy mark data from list (not rail ends) ...
 
-                    if marks_list_ptr=nil then EXIT;                 // pointer to marks list not valid.
-                    markmax:=intarray_max(marks_list_ptr);           // max index for the present list.
+                    if Length(marks_list)=0 then EXIT;                 // pointer to marks list not valid.
+                    markmax:=High(marks_list);           // max index for the present list.
                     if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
                     for i:=0 to 7 do begin                           // 235b 7 was 4
@@ -8412,7 +8412,7 @@ begin
                     end;//for
 
                     for i:=0 to (mark_index-1) do begin              // (mark_index is always the next free slot)
-                      ptr:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
+                      ptr:=@marks_list[i];  // pointer to the next Tmark record.
                       if ptr=nil then EXIT;
 
                       intarray_set(list_bgnd_marks[0],i,ptr^.p1.X);
