@@ -436,7 +436,7 @@ var
                 // sc 20-sep-2024
 
               begin
-                markmax:=intarray_max(marks_list_ptr);  // max index for the present list.
+                markmax:=High(marks_list);  // max index for the present list.
 
                 if mark_index>markmax then mark_index:=markmax;  // ??? shouldn't be.
 
@@ -446,8 +446,7 @@ var
 
                   for i:=0 to (mark_index-1) do begin   // (mark_index is always the next free slot)
 
-                    ptr_1st:=Pointer(intarray_get(marks_list_ptr,i));  // pointer to the next Tmark record.
-                    if ptr_1st=nil then BREAK;
+                    ptr_1st:=@marks_list[i];  // pointer to the next Tmark record.
 
                     mark_code:=ptr_1st^.code;              // check this mark wanted.
 
@@ -522,35 +521,33 @@ var
 		                     (mark_code=484) or (mark_code=485) or (mark_code=487) or		                           // chair outlines
 		                     (mark_code=493) or (mark_code=494) or (mark_code=497))		                             // chair outlines
                        then begin
-                              ptr_2nd:=Pointer(intarray_get(marks_list_ptr,i+1));        // pointer to the second infill Tmark record.
-                              if ptr_2nd=nil then BREAK;
+                              ptr_2nd:=@marks_list[i+1];        // pointer to the second infill Tmark record.
 
                               p1:=ptr_1st^.p1;              // x1,y1 in  1/100ths mm
                               p2:=ptr_1st^.p2;              // x2,y2 in  1/100ths mm
                               p3:=ptr_2nd^.p1;              // x3,y3 in  1/100ths mm
                               p4:=ptr_2nd^.p2;              // x4,y4 in  1/100ths mm
-							  
-							                       // SC 20-SEP-2024 556
-							                       // chair outline extra marks
+
+                                     // SC 20-SEP-2024 556
+                                     // chair outline extra marks
                               if (mark_code=484) or (mark_code=485) or (mark_code=493) or (mark_code=494) or (mark_code=497)    // another 12 marks for radiused corners
                                  then begin
-                                   					n:=0;
-                                   					nn:=2;
+                                        n:=0;
+                                        nn:=2;
 
-                                   					repeat
-                                          ptr_3rd:=Pointer(intarray_get(marks_list_ptr,i+nn));        // pointer to the next infill Tmark record.
-                                   					  if ptr_3rd=nil then EXIT;
+                                        repeat
+                                          ptr_3rd:=@marks_list[i+nn];        // pointer to the next infill Tmark record.
 
-                                   					  p[n]:=ptr_3rd^.p1;       // 1/100ths mm
-                                   					  p[n+1]:=ptr_3rd^.p2;     // 1/100ths mm
+                                          p[n]:=ptr_3rd^.p1;       // 1/100ths mm
+                                          p[n+1]:=ptr_3rd^.p2;     // 1/100ths mm
 
-                                    					  INC(n);   //+2
-                                   					  INC(n);
-                                   					  INC(nn);  //+1
+                                          INC(n);   //+2
+                                          INC(n);
+                                          INC(nn);  //+1
                                         until n>26;     // was 22
-				                                  end;
-                       					  // sc 20-sep-2024 556
-							  
+                                      end;
+                                  // sc 20-sep-2024 556
+
                             end
                        else ptr_2nd:=nil;    // keep compiler happy.
 
@@ -1640,7 +1637,7 @@ begin
 
 
 
-                    if marks_list_ptr=nil then EXIT; //BREAK;       // pointer to marks list not valid, exit all sheets.
+                    if Length(marks_list)=0 then EXIT; //BREAK;       // pointer to marks list not valid, exit all sheets.
 
                     draw_marks(grid_left,grid_top,False);   // print all the background timbering and marks except rail joints.
 
