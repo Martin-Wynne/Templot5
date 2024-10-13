@@ -11,10 +11,10 @@ object colour_form: Tcolour_form
   Color = 5636095
   DesignTimePPI = 120
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -13
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '3.4.0.0'
+  LCLVersion = '3.6.0.0'
   Scaled = False
   object colour_label: TLabel
     Left = 0
@@ -33,12 +33,14 @@ object colour_form: Tcolour_form
   end
   object font_dialog: TFontDialog
     OnShow = font_dialogShow
+    Title = 'a'
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
     MinFontSize = 0
     MaxFontSize = 0
-    Left = 368
+    Left = 264
+    Top = 4
   end
   object colour_dialog: TColorDialog
     OnShow = colour_dialogShow
@@ -62,7 +64,7 @@ object colour_form: Tcolour_form
       'ColorO=E0C0A0'
       'ColorP=FFFFFF'
     )
-    Left = 208
+    Left = 152
     Top = 4
   end
 end

@@ -1,14 +1,14 @@
 object print_settings_form: Tprint_settings_form
-  Left = 266
-  Height = 649
-  Top = 29
+  Left = 249
+  Height = 650
+  Top = 37
   Width = 1070
   HorzScrollBar.Tracking = True
   VertScrollBar.Tracking = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSizeToolWin
   Caption = '       output  elements'
-  ClientHeight = 649
+  ClientHeight = 650
   ClientWidth = 1070
   Color = 15792376
   DesignTimePPI = 120

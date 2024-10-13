@@ -47,17 +47,59 @@ type
   { Tbgkeeps_form }
 
   Tbgkeeps_form = class(TForm)
+    bgkeep_highlight_colour_button: TButton;
+    templates_button: TButton;
+    trackpad_backdrop_colour_button: TButton;
+    bgkeep_highlight_colour_panel: TPanel;
+    trackpad_backdrop_colour_panel: TPanel;
+    bgkeep_peg_colour_button: TButton;
+    bgkeep_group_colour_button: TButton;
+    bgkeep_peg_colour_panel: TPanel;
+    bgkeep_group_colour_panel: TPanel;
     blue_corner_panel: TPanel;
+    help_button: TButton;
+    Label7: TLabel;
+    name_label_font_button: TButton;
+    full_size_radiobutton: TRadioButton;
+    bgkeep_mark_colour_button: TButton;
+    bgkeep_mark_colour_panel: TPanel;
     how_panel: TPanel;
+    infill_group_label: TLabel;
+    colour_group_label: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    label_size_panel: TPanel;
+    marker_colour_options_label: TLabel;
+    marker_colour_options_label1: TLabel;
+    marker_colour_options_panel: TPanel;
+    marker_options_help_button: TButton;
+    use_normal_colours_radiobutton: TRadioButton;
+    bgkeep_timberfill_colour_button: TButton;
+    bgkeep_timberfill_colour_panel: TPanel;
+    Panel5: TPanel;
+    label_style_panel: TPanel;
+    bgkeep_platform_colour_button: TButton;
+    bgkeep_platform_colour_panel: TPanel;
+    bgkeep_trackbed_colour_button: TButton;
+    bgkeep_trackbed_colour_panel: TPanel;
+    boxed_over_radiobutton: TRadioButton;
+    shapes_button: TButton;
+    transparent_radiobutton: TRadioButton;
+    bgkeep_timb_infill_style_combobox: TComboBox;
+    use_rails_and_timbers_radiobutton: TRadioButton;
+    use_rails_only_radiobutton: TRadioButton;
+    bgkeep_rail_colour_button: TButton;
+    bgkeep_rail_colour_panel: TPanel;
+    Shape1: TShape;
     size_updown: TUpDown;
     colour_panel: TPanel;
     colour_patch: TImage;
     datestamp_label: TLabel;
-    help_button: TButton;
     close_panel: TPanel;
     close_button: TButton;
     show_groupbox: TGroupBox;
+    use_timbers_only_radiobutton: TRadioButton;
     timber_outlines_checkbox: TCheckBox;
     timber_centres_checkbox: TCheckBox;
     gauge_faces_checkbox: TCheckBox;
@@ -72,9 +114,11 @@ type
     timber_infill_checkbox: TCheckBox;
     Label1: TLabel;
     timber_numbering_checkbox: TCheckBox;
-    help_shape: TShape;
     apply_button: TButton;
     platforms_checkbox: TCheckBox;
+    bgkeep_timber_colour_button: TButton;
+    bgkeep_timber_colour_panel: TPanel;
+    top_label1: TLabel;
     trackbed_edges_checkbox: TCheckBox;
     template_id_checkbox: TCheckBox;
     Label2: TLabel;
@@ -90,17 +134,45 @@ type
     bricks_only_timber_outlines_flanges_checkbox: TCheckBox;
     radial_centre_marks_checkbox: TCheckBox;
     dropper_ridge_marks_checkbox: TCheckBox;
+    use_print_mapping_colour_radiobutton: TRadioButton;
+    scaled_radiobutton: TRadioButton;
+    procedure bgkeep_group_colour_panelClick(Sender: TObject);
+    procedure bgkeep_highlight_colour_panelClick(Sender: TObject);
+    procedure bgkeep_mark_colour_panelClick(Sender: TObject);
+    procedure bgkeep_peg_colour_panelClick(Sender: TObject);
+    procedure bgkeep_platform_colour_panelClick(Sender: TObject);
+    procedure bgkeep_rail_colour_panelClick(Sender: TObject);
+    procedure bgkeep_timberfill_colour_panelClick(Sender: TObject);
+    procedure bgkeep_timber_colour_panelClick(Sender: TObject);
+    procedure bgkeep_timb_infill_style_comboboxChange(Sender: TObject);
+    procedure bgkeep_trackbed_colour_panelClick(Sender: TObject);
+    procedure boxed_over_radiobuttonClick(Sender: TObject);
+    procedure brick_colours_panelClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure full_size_radiobuttonClick(Sender: TObject);
+    procedure marker_options_help_buttonClick(Sender: TObject);
+    procedure name_label_font_buttonClick(Sender: TObject);
+    procedure scaled_radiobuttonClick(Sender: TObject);
+    procedure templates_buttonClick(Sender: TObject);
+    procedure transparent_radiobuttonClick(Sender: TObject);
+    procedure use_normal_colours_radiobuttonClick(Sender: TObject);
+    procedure use_rails_and_timbers_radiobuttonClick(Sender: TObject);
+    procedure use_rails_only_radiobuttonClick(Sender: TObject);
+    procedure shapes_buttonClick(Sender: TObject);
     procedure size_updownClick(Sender: TObject; Button: TUDBtnType);
     procedure colour_panelClick(Sender: TObject);
     procedure how_panelClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure close_buttonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure use_timbers_only_radiobuttonClick(Sender: TObject);
     procedure timber_numbering_checkboxClick(Sender: TObject);
     procedure timber_infill_checkboxClick(Sender: TObject);
     procedure FormDeactivate(Sender: TObject);
     procedure apply_buttonClick(Sender: TObject);
     procedure chair_outlines_checkboxMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure trackpad_backdrop_colour_panelClick(Sender: TObject);
+    procedure use_print_mapping_colour_radiobuttonClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -1998,7 +2070,31 @@ implementation
 {$R *.lfm}
 
 uses
-  control_room, colour_unit, help_sheet, alert_unit, keep_select, math_unit, prefs_unit, brick_unit;
+  control_room, colour_unit, help_sheet, alert_unit, keep_select, math_unit, prefs_unit,
+  bgnd_unit, brick_unit;
+
+//______________________________________________________________________________
+
+function font_colour_for_rgb_panel(colour:integer):TColor;
+
+var
+  red,green,blue:integer;
+  weighted_average:extended;
+
+begin
+  RESULT:=clWhite;  // init
+
+  red:=(colour AND $000000FF);
+  green:=(colour AND $0000FF00) div $100;
+  blue:=(colour AND $00FF0000) div $10000;
+
+  // calculate Greyscale RGB value using weighted average
+  // Y = 0.299 R + 0.587 G + 0.114 B
+  weighted_average:= (0.299*red+0.587*green+0.114*blue);
+  // showmessage('sbc average '+FloatToStr(weighted_average));
+  if (weighted_average>138) or ((green=0) and (weighted_average>100)) then RESULT:=clBlack;
+end;
+
 
 //______________________________________________________________________________
 
@@ -2017,6 +2113,362 @@ begin
 
   size_updown.Tag:=size_updown.Position;                           // and save for the next click.
 end;
+
+procedure Tbgkeeps_form.bgkeep_timberfill_colour_panelClick(Sender: TObject);
+
+          // background template timber infill colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_timberfill_colour_panel.Color;
+  bgkeep_timberfill_colour_panel.Color:=get_colour('choose  an  infill  colour  for  background  timbers',bgkeep_timberfill_colour_panel.Color);
+  if bgkeep_timberfill_colour_panel.Color<>old
+     then begin
+            bgkeep_timberfill_colour:=bgkeep_timberfill_colour_panel.Color;
+            bgkeep_timberfill_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_timberfill_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_rail_colour_panelClick(Sender: TObject);
+
+          // background template rail outline colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_rail_colour_panel.Color;
+  bgkeep_rail_colour_panel.Color:=get_colour('choose  an  outline  colour  for  background  rail edges',bgkeep_rail_colour_panel.Color);
+  if bgkeep_rail_colour_panel.Color<>old
+     then begin
+            bgkeep_rail_colour:=bgkeep_rail_colour_panel.Color;
+            bgkeep_rail_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_rail_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_platform_colour_panelClick(Sender: TObject);
+
+          // background template platform outline colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_platform_colour_panel.Color;
+  bgkeep_platform_colour_panel.Color:=get_colour('choose  an  outline  colour  for  background  platform  edge',bgkeep_platform_colour_panel.Color);
+  if bgkeep_platform_colour_panel.Color<>old
+     then begin
+            bgkeep_platform_colour:=bgkeep_platform_colour_panel.Color;
+            bgkeep_platform_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_platform_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_mark_colour_panelClick(Sender: TObject);
+
+          // background template marks colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_mark_colour_panel.Color;
+  bgkeep_mark_colour_panel.Color:=get_colour('choose  an  outline  colour  for  background  marks',bgkeep_mark_colour_panel.Color);
+  if bgkeep_mark_colour_panel.Color<>old
+     then begin
+            bgkeep_mark_colour:=bgkeep_mark_colour_panel.Color;
+            bgkeep_mark_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_mark_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_group_colour_panelClick(Sender: TObject);
+
+          // background template group colour  == selection_colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_group_colour_panel.Color;
+  bgkeep_group_colour_panel.Color:=get_colour('choose  background  templates  group  colour',bgkeep_group_colour_panel.Color);
+  if bgkeep_group_colour_panel.Color<>old
+     then begin
+            selection_colour:=bgkeep_group_colour_panel.Color;
+            bgkeep_group_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_group_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_highlight_colour_panelClick(Sender: TObject);
+
+          // background highlight colour == hover_colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_highlight_colour_panel.Color;
+  bgkeep_highlight_colour_panel.Color:=get_colour('choose  highlight  colour  for  a  selected  background  template',bgkeep_highlight_colour_panel.Color);
+  if bgkeep_highlight_colour_panel.Color<>old
+     then begin
+            hover_colour:=bgkeep_highlight_colour_panel.Color;
+            bgkeep_highlight_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_highlight_colour_panel.Color);
+          end;
+end;
+
+procedure Tbgkeeps_form.bgkeep_peg_colour_panelClick(Sender: TObject);
+
+          // background template pegs colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_peg_colour_panel.Color;
+  bgkeep_peg_colour_panel.Color:=get_colour('choose  a  colour  for  background  pegs',bgkeep_peg_colour_panel.Color);
+  if bgkeep_peg_colour_panel.Color<>old
+     then begin
+            bgkeep_peg_colour:=bgkeep_peg_colour_panel.Color;
+            bgkeep_peg_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_peg_colour_panel.Color);
+          end;
+
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_timber_colour_panelClick(Sender: TObject);
+
+          // background template timber outline colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_timber_colour_panel.Color;
+  bgkeep_timber_colour_panel.Color:=get_colour('choose  an  outline  colour  for  background  timbers',bgkeep_timber_colour_panel.Color);
+  if bgkeep_timber_colour_panel.Color<>old
+     then begin
+            bgkeep_timber_colour:=bgkeep_timber_colour_panel.Color;
+            bgkeep_timber_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_timber_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.bgkeep_timb_infill_style_comboboxChange(Sender: TObject
+  );
+begin
+  bgpad_timb_infill_style:=bgkeep_timb_infill_style_combobox.ItemIndex;
+end;
+
+procedure Tbgkeeps_form.bgkeep_trackbed_colour_panelClick(Sender: TObject);
+
+          // background template trackbed edges colour
+var
+  old:TColor;
+
+begin
+  old:=bgkeep_trackbed_colour_panel.Color;
+  bgkeep_trackbed_colour_panel.Color:=get_colour('choose  a  trackbed  edge  colour',bgkeep_trackbed_colour_panel.Color);
+  if bgkeep_trackbed_colour_panel.Color<>old
+     then begin
+            bgkeep_trackbed_colour:=bgkeep_trackbed_colour_panel.Color;
+            bgkeep_trackbed_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_trackbed_colour_panel.Color);
+          end;
+
+
+end;
+
+procedure Tbgkeeps_form.boxed_over_radiobuttonClick(Sender: TObject);
+
+begin
+  pad_form.boxed_over_names_menu_entry.Checked:=True;    // radio item.
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.brick_colours_panelClick(Sender: TObject);
+
+begin
+  brick_form.Show;
+  redraw(True);     // show chair labels
+end;
+
+procedure Tbgkeeps_form.FormShow(Sender: TObject);
+
+begin
+  // initialise colours and fonts
+  bgkeep_timberfill_colour_panel.Color:=bgkeep_timberfill_colour;
+  bgkeep_timberfill_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_timberfill_colour_panel.Color);
+
+  bgkeep_timber_colour_panel.Color:=bgkeep_timber_colour;
+  bgkeep_timber_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_timber_colour_panel.Color);
+
+  bgkeep_rail_colour_panel.Color:=bgkeep_rail_colour;
+  bgkeep_rail_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_rail_colour_panel.Color);
+
+  bgkeep_platform_colour_panel.Color:=bgkeep_platform_colour;
+  bgkeep_platform_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_platform_colour_panel.Color);
+
+  bgkeep_trackbed_colour_panel.Color:=bgkeep_trackbed_colour;
+  bgkeep_trackbed_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_trackbed_colour_panel.Color);
+
+  bgkeep_mark_colour_panel.Color:=bgkeep_mark_colour;
+  bgkeep_mark_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_mark_colour_panel.Color);
+
+  bgkeep_peg_colour_panel.Color:=bgkeep_peg_colour;
+  bgkeep_peg_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_peg_colour_panel.Color);
+
+  bgkeep_group_colour_panel.Color:=selection_colour;
+  bgkeep_group_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_group_colour_panel.Color);
+
+  bgkeep_highlight_colour_panel.Color:=hover_colour;
+  bgkeep_highlight_colour_panel.Font.Color:=font_colour_for_rgb_panel(bgkeep_highlight_colour_panel.Color);
+
+  trackpad_backdrop_colour_panel.Color:=paper_colour;
+  trackpad_backdrop_colour_panel.Font.Color:=font_colour_for_rgb_panel(trackpad_backdrop_colour_panel.Color);
+
+  bgkeep_timb_infill_style_combobox.ItemIndex:=bgpad_timb_infill_style;
+
+  case marker_colours_pad of
+             0: use_normal_colours_radiobutton.Checked:=True;          // radio item.
+             1: use_rails_only_radiobutton.Checked:=True;              // radio item.
+             2: use_timbers_only_radiobutton.Checked:=True;            // radio item.
+             3: use_rails_and_timbers_radiobutton.Checked:=True;       // radio item.
+             4: use_print_mapping_colour_radiobutton.Checked:=True;    // radio item.
+  end;//case
+
+  transparent_radiobutton.checked:=pad_form.transparent_names_menu_entry.Checked;  // radio item.
+  boxed_over_radiobutton.checked:=pad_form.boxed_over_names_menu_entry.Checked;    // radio item.
+  scaled_radiobutton.checked:=pad_form.names_scaled_menu_entry.Checked;            // radio item
+  full_size_radiobutton.checked:=pad_form.names_fullsize_menu_entry.Checked;       // radio item
+
+
+end;
+
+procedure Tbgkeeps_form.full_size_radiobuttonClick(Sender: TObject);
+
+begin
+  pad_form.names_fullsize_menu_entry.Checked:=True;     // radio item
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.marker_options_help_buttonClick(Sender: TObject);
+
+const
+marker_mapping_help_str:string='      `0Using  Marker  Colours  and  Mapping  Colours`9'
+ +'||Marker and mapping colours allow individual templates or groups of templates to be displayed and printed in different colours. This is useful when templates are being superimposed,'
+ +' or when it is desired to have different areas of the track plan in different colours. For example, the main running lines might be in one colour, sidings and yards in another colour,'
+ +' and off-stage storage sidings in a third colour.'
+
+ +'||"Marker colour" is the term used for a colour which applies primarily to the trackpad and sketchboard display on the screen.'
+ +'||"Mapping colour" is the term used for a colour which applies primarily to the print and PDF output.'
+
+ +'||Colours for the screen and printing are set independently because some colours which are usable on the screen are not suitable for printing templates (white, yellow, pale pastel colours, etc.).'
+
+ +'||Every stored template has an individual marker colour in which it can be displayed on the trackpad,'
+ +' and an option setting for whether this colour should be used instead of the normal colours which are being used for background templates on the trackpad.'
+ +' The pre-set marker colour is Red, and the option setting is Off, i.e. the marker colour is not actually used until this option setting is changed for this template.'
+
+ +'||Likewise, every stored template has an individual mapping colour in which it can be printed,'
+ +' and an option setting for whether this colour should be used instead of the normal colours which are being used for printing background templates.'
+ +' The pre-set mapping colour is Magenta-pink, and the option setting is Off, i.e. the mapping colour is not actually used until this option setting is changed for this template.'
+
+ +'||Marker and mapping colours and these option settings are part of the template specification and are included in template data .box files when templates are saved.'
+
+ +'||To change the colours and options for a single background template, click on the template and then on its pop-up menu select the TEMPLATE COLOURS menu items.'
+ +' Changing the marker or mapping colour automatically selects the option to use the relevant colour.'
+
+ +'||To change the colours and options for a group of templates (so that they are all displayed in the same colour), first select the group. Then click the GROUP > GROUP SELECT > TEMPLATE COLOURS FOR GROUP menu items.'
+ +'||N.B. PLEASE BE AWARE that a selected group of templates is normally displayed in the GROUP COLOUR. The templates will not appear in the chosen marker colour until the group is de-selected (GROUP > GROUP SELECT > GROUP SELECT NONE menu item).'
+
+ +'||When a number of templates are being displayed in a given marker colour, it is possible to select all those templates as a group by clicking the GROUP > GROUP SELECT > SELECT BY MARKER COLOUR... menu item.'
+ +' In this way the marker colour for the whole group can be changed.'
+
+ +'||Handy Hint:'
+ +'|It will often be useful to maintain a correlation between coloured areas of the track plan and your remembered groups (GROUP > GROUP SELECT > REMEMBER THIS GROUP menu items).'
+ +' There is no automatic link between marker colours and remembered groups, because only you know what the colours signify. It is possible to have every template on the plan in a slightly different colour,'
+ +' whereas the number of remembered groups is limited to 8.'
+
+ +'||The way in which the marker colours are actually used in displaying the background templates is set in the TRACKPAD > TRACKPAD BACKGND TEMPLATES COLOURS menu options. You can choose whether these colours should apply to the rails, timbers, or both.'
+ +' It is also possible to use the mapping colours instead as a means of previewing the printed output. Changing these settings has no effect on templates which have not had their option setting changed to use their marker or mapping colours.'
+
+ +'||The way in which the mapping colours are actually used in printing background templates is set in the PRINT > PRINTED DRAWING OPTIONS > COLOUR OPTIONS menu options.'
+ +' You can choose whether these colours should apply to the rails, timbers, or both. This will often be determined by the current printing size and likely consumption of coloured ink.'
+ +' Mapping colours do not apply to any timber infill or rail infill. When mapping colours are used for the rails the rail infill colour is set to grey.'
+ +' It is also possible to use the marker colours instead as a means of printing the track plan in the same colours as those in which it is being displayed on the screen.'
+ +' Changing these settings has no effect on templates which have not had their option setting changed to use their marker or mapping colours.'
+
+ +'||There is also a SINGLE COLOUR option for printing which overrides all other colour settings and prints the entire track plan in a single colour of your choice.'
+ +' Finally there is an OPTIONS > BLACK RAIL-EDGES tickbox on the PRINT PAGES window which overrides all other colour, grey-shade, and print-intensity settings and ensures that the rail-edges are always printed in full black.';
+
+begin
+  help(0,marker_mapping_help_str,'');
+end;
+
+procedure Tbgkeeps_form.name_label_font_buttonClick(Sender: TObject);
+
+begin
+  pad_form.bgnd_keeps_font_label.Font.Assign(get_font('choose  a  font  and  text  colour  for  the  template  name  labels',pad_form.bgnd_keeps_font_label.Font,True));
+  do_rollback:=False;       // no need to put this change in rollback register on redraw.
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.scaled_radiobuttonClick(Sender: TObject);
+
+begin
+  pad_form.names_scaled_menu_entry.Checked:=True;     // radio item
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.templates_buttonClick(Sender: TObject);
+begin
+  with keep_form do begin
+
+    Show;
+    BringToFront;
+    keep_form.show_list_button.Click;
+  end;//with
+
+end;
+
+procedure Tbgkeeps_form.transparent_radiobuttonClick(Sender: TObject);
+
+begin
+  pad_form.transparent_names_menu_entry.Checked:=True;    // radio item.
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.use_normal_colours_radiobuttonClick(Sender: TObject);
+
+begin
+  marker_colours_pad:=0;
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.use_rails_and_timbers_radiobuttonClick(Sender: TObject);
+
+  //   for pad: 0=normal, 1=rails only, 2=timber outlines only, 3=rails and timber outlines, 4=print  mapping  colours instead.
+
+begin
+  marker_colours_pad:=3;
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.use_rails_only_radiobuttonClick(Sender: TObject);
+
+begin
+  marker_colours_pad:=1;
+  do_rollback:=False;
+  redraw(True);
+end;
+
+procedure Tbgkeeps_form.shapes_buttonClick(Sender: TObject);
+
+begin
+  do_bgnd(False);  // False = show new shape tab
+end;
+
 //______________________________________________________________________________
 
 procedure Tbgkeeps_form.colour_panelClick(Sender: TObject);
@@ -2068,10 +2520,22 @@ end;
 procedure Tbgkeeps_form.FormCreate(Sender: TObject);
 
 begin
-  ClientWidth:=800;
-  ClientHeight:=300;
+  ClientWidth:=1070;
+  ClientHeight:=580;
+
   AutoScroll:=True;
 end;
+
+procedure Tbgkeeps_form.use_timbers_only_radiobuttonClick(Sender: TObject);
+
+//   for pad: 0=normal, 1=rails only, 2=timber outlines only, 3=rails and timber outlines, 4=print  mapping  colours instead.
+
+begin
+  marker_colours_pad:=2;
+  do_rollback:=False;
+  redraw(True);
+end;
+
 //______________________________________________________________________________
 
 procedure Tbgkeeps_form.timber_numbering_checkboxClick(Sender: TObject);
@@ -2125,6 +2589,35 @@ procedure Tbgkeeps_form.chair_outlines_checkboxMouseUp(Sender: TObject; Button: 
 begin
   brick_form.bgnd_chairs_checkbox.Checked:=bgkeeps_form.chair_outlines_checkbox.Checked;    // 244d
 end;
+
+procedure Tbgkeeps_form.trackpad_backdrop_colour_panelClick(Sender: TObject);
+
+          // trackpad backdrop colour == paper_colour
+var
+  old:TColor;
+
+begin
+  old:=trackpad_backdrop_colour_panel.Color;
+  trackpad_backdrop_colour_panel.Color:=get_colour('choose  a  trackpad  backdrop  colour',trackpad_backdrop_colour_panel.Color);
+  if trackpad_backdrop_colour_panel.Color<>old
+     then begin
+            paper_colour:=trackpad_backdrop_colour_panel.Color;
+            pad_form.Color:=paper_colour;             //  set screen colour for trackpad.
+            trackpad_backdrop_colour_panel.Font.Color:=font_colour_for_rgb_panel(trackpad_backdrop_colour_panel.Color);
+          end;
+
+end;
+
+procedure Tbgkeeps_form.use_print_mapping_colour_radiobuttonClick(Sender: TObject);
+
+//   for pad: 0=normal, 1=rails only, 2=timber outlines only, 3=rails and timber outlines, 4=print  mapping  colours instead.
+
+begin
+  marker_colours_pad:=4;
+  do_rollback:=False;
+  redraw(True);
+end;
+
 //______________________________________________________________________________
 
 end.
