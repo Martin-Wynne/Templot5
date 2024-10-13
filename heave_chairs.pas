@@ -49,10 +49,14 @@ type
    customized_label3: TLabel;
    customized_label2: TLabel;
    customized_label1: TLabel;
+   omitted_label4: TLabel;
+   omitted_label3: TLabel;
+   omitted_label2: TLabel;
+   omitted_label1: TLabel;
    restore_button: TButton;
-    chair_family3_label2: TLabel;
-    chair_family2_label2: TLabel;
-    chair_family1_label2: TLabel;
+    chair_family3_label: TLabel;
+    chair_family2_label: TLabel;
+    chair_family1_label: TLabel;
     chair_radio3: TRadioButton;
     chair_radio2: TRadioButton;
     chair_radio1: TRadioButton;
@@ -196,6 +200,9 @@ type
 var
   heave_chairs_form: Theave_chairs_form;
 
+  heave_selected_rail:integer=0;
+  heave_selected_tb_str:string='';
+
   function get_chair_str(chair_code:integer):string;                  // 244a
   function get_cclr_chair_str(rail_code,chair_code:integer):string;   // 555a  // MW 04-08-2024
 
@@ -248,6 +255,9 @@ var
 begin
   if (rail<1) or (rail>4) then EXIT;     // ???
 
+  heave_selected_rail:=rail;                  // 556b for selected chair label
+  heave_selected_tb_str:=current_shove_str;
+
   heave_form_reset_all(False);   // init   reset all   False=timber number showing
 
   with heave_chairs_form do begin
@@ -270,10 +280,10 @@ begin
       4: chair_radio4.Checked:=True;
     end;//case
 
-    rail1_groupbox.Enabled:=False;  // init..
-    rail2_groupbox.Enabled:=False;
-    rail3_groupbox.Enabled:=False;
-    rail4_groupbox.Enabled:=False;
+    //rail1_groupbox.Enabled:=False;  // init..
+    //rail2_groupbox.Enabled:=False;
+    //rail3_groupbox.Enabled:=False;
+    //rail4_groupbox.Enabled:=False;
 
     case rail of
       1: rail1_groupbox.Enabled:=True;
@@ -337,6 +347,8 @@ begin
             end;
 
   end;//with form
+
+  redraw(True);   // 556b to show changed selected chair label
 end;
 //______________________________________________________________________________
 
@@ -684,10 +696,10 @@ begin
     rail2_groupbox.Visible:=True;
     rail1_groupbox.Visible:=True;
 
-    rail4_groupbox.Enabled:=False;
-    rail3_groupbox.Enabled:=False;
-    rail2_groupbox.Enabled:=False;
-    rail1_groupbox.Enabled:=False;
+    //rail4_groupbox.Enabled:=False;
+    //rail3_groupbox.Enabled:=False;
+    //rail2_groupbox.Enabled:=False;
+    //rail1_groupbox.Enabled:=False;
 
 
         // main running rail...
@@ -955,6 +967,7 @@ procedure heave_form_update(omit_code:integer);    // called from shove_timber
 
 var
   n,r:integer;
+  not_omitted:boolean;
 
 begin
   redraw(False);  // update chair visibility
@@ -1004,10 +1017,10 @@ begin
     rail2_big_number_label.Enabled:=rail2_groupbox.Visible;
     rail1_big_number_label.Enabled:=rail1_groupbox.Visible;
 
-    rail4_groupbox.Enabled:=False;    // init..
-    rail3_groupbox.Enabled:=False;
-    rail2_groupbox.Enabled:=False;
-    rail1_groupbox.Enabled:=False;
+    //rail4_groupbox.Enabled:=False;    // init..
+    //rail3_groupbox.Enabled:=False;
+    //rail2_groupbox.Enabled:=False;
+    //rail1_groupbox.Enabled:=False;
 
     customized_label4.Visible:=False;
     customized_label3.Visible:=False;
@@ -1026,40 +1039,91 @@ begin
                    then begin
                           for r:=1 to 4 do customize_panel.Enabled:=customize_panel.Enabled or (heave_rail_chairs[r].hv_jaws) or (heave_rail_chairs[r].hv_plug<>0);
 
-                          customized_label4.Visible:=(heave_rail_chairs[4].hv_jaws) or (heave_rail_chairs[4].hv_plug<>0);
-                          customized_label3.Visible:=(heave_rail_chairs[3].hv_jaws) or (heave_rail_chairs[3].hv_plug<>0);
-                          customized_label2.Visible:=(heave_rail_chairs[2].hv_jaws) or (heave_rail_chairs[2].hv_plug<>0);
-                          customized_label1.Visible:=(heave_rail_chairs[1].hv_jaws) or (heave_rail_chairs[1].hv_plug<>0);
+                          customized_label4.Visible:=((heave_rail_chairs[4].hv_jaws) or (heave_rail_chairs[4].hv_plug<>0)) and (heave_rail_chairs[4].hv_omit=False);
+                          customized_label3.Visible:=((heave_rail_chairs[3].hv_jaws) or (heave_rail_chairs[3].hv_plug<>0)) and (heave_rail_chairs[3].hv_omit=False);
+                          customized_label2.Visible:=((heave_rail_chairs[2].hv_jaws) or (heave_rail_chairs[2].hv_plug<>0)) and (heave_rail_chairs[2].hv_omit=False);
+                          customized_label1.Visible:=((heave_rail_chairs[1].hv_jaws) or (heave_rail_chairs[1].hv_plug<>0)) and (heave_rail_chairs[1].hv_omit=False);
                         end;
 
                 omit4_checkbox.Checked:=heave_rail_chairs[4].hv_omit;
+                omitted_label4.Visible:=heave_rail_chairs[4].hv_omit;  // 556b
+
+                not_omitted:=(heave_rail_chairs[4].hv_omit=False);  // 556b...
+
+                sc4_size_button.Visible:=not_omitted;
+                omit_key4_checkbox.Visible:=not_omitted;
+                flip_key4_checkbox.Visible:=not_omitted;
+                chair_family4_label.Visible:=not_omitted;
+                rail4_combo.Visible:=not_omitted;
+                change4_checkbox.Visible:=not_omitted;
+                chair4_type_label.Visible:=not_omitted;
+                normal_ch_label4.Visible:=not_omitted;
 
                 if heave_rail_chairs[4].hv_omit=True
-                   then rail4_groupbox.Color:=$00CCEEFF
+                   then rail4_groupbox.Color:=$00F1E3D8
                    else if heave_rail_chairs[4].hv_ch<>0
                            then rail4_groupbox.Color:=$00B8FFB8
                            else rail4_groupbox.Color:=$00FFFCF0;
 
+
                 omit3_checkbox.Checked:=heave_rail_chairs[3].hv_omit;
+                omitted_label3.Visible:=heave_rail_chairs[3].hv_omit;  // 556b
+
+                not_omitted:=(heave_rail_chairs[3].hv_omit=False);  // 556b...
+
+                sc3_size_button.Visible:=not_omitted;
+                omit_key3_checkbox.Visible:=not_omitted;
+                flip_key3_checkbox.Visible:=not_omitted;
+                chair_family3_label.Visible:=not_omitted;
+                rail3_combo.Visible:=not_omitted;
+                change3_checkbox.Visible:=not_omitted;
+                chair3_type_label.Visible:=not_omitted;
+                normal_ch_label3.Visible:=not_omitted;
 
                 if heave_rail_chairs[3].hv_omit=True
-                   then rail3_groupbox.Color:=$00CCEEFF
+                   then rail3_groupbox.Color:=$00F1E3D8
                    else if heave_rail_chairs[3].hv_ch<>0
                            then rail3_groupbox.Color:=$00B8FFB8
                            else rail3_groupbox.Color:=$00FFFCF0;
 
+
                 omit2_checkbox.Checked:=heave_rail_chairs[2].hv_omit;
+                omitted_label2.Visible:=heave_rail_chairs[2].hv_omit;  // 556b
+
+                not_omitted:=(heave_rail_chairs[2].hv_omit=False);  // 556b...
+
+                sc2_size_button.Visible:=not_omitted;
+                omit_key2_checkbox.Visible:=not_omitted;
+                flip_key2_checkbox.Visible:=not_omitted;
+                chair_family2_label.Visible:=not_omitted;
+                rail2_combo.Visible:=not_omitted;
+                change2_checkbox.Visible:=not_omitted;
+                chair2_type_label.Visible:=not_omitted;
+                normal_ch_label2.Visible:=not_omitted;
 
                 if heave_rail_chairs[2].hv_omit=True
-                   then rail2_groupbox.Color:=$00CCEEFF
+                   then rail2_groupbox.Color:=$00F1E3D8
                    else if heave_rail_chairs[2].hv_ch<>0
                            then rail2_groupbox.Color:=$00B8FFB8
                            else rail2_groupbox.Color:=$00FFFCF0;
 
+
                 omit1_checkbox.Checked:=heave_rail_chairs[1].hv_omit;
+                omitted_label1.Visible:=heave_rail_chairs[1].hv_omit;  // 556b
+
+                not_omitted:=(heave_rail_chairs[1].hv_omit=False);  // 556b...
+
+                sc1_size_button.Visible:=not_omitted;
+                omit_key1_checkbox.Visible:=not_omitted;
+                flip_key1_checkbox.Visible:=not_omitted;
+                chair_family1_label.Visible:=not_omitted;
+                rail1_combo.Visible:=not_omitted;
+                change1_checkbox.Visible:=not_omitted;
+                chair1_type_label.Visible:=not_omitted;
+                normal_ch_label1.Visible:=not_omitted;
 
                 if heave_rail_chairs[1].hv_omit=True
-                   then rail1_groupbox.Color:=$00CCEEFF
+                   then rail1_groupbox.Color:=$00F1E3D8
                    else if heave_rail_chairs[1].hv_ch<>0
                            then rail1_groupbox.Color:=$00B8FFB8
                            else rail1_groupbox.Color:=$00FFFCF0;

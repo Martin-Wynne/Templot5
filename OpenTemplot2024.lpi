@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="5"/>
       <MinorVersionNr Value="56"/>
-      <BuildNr Value="1059"/>
+      <BuildNr Value="1080"/>
       <StringTable ProductName="TEMPLOT5"/>
     </VersionInfo>
     <BuildModes>

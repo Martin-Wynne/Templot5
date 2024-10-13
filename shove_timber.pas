@@ -652,6 +652,7 @@ begin
   end;//with
 
   current_shove_str:='';
+  heave_selected_tb_str:='';   // 556b de-select clicked chair label
   shovetimbx:=0;
   shovetimbx_zero:=0;
   shove_buttons(False,0,-1);
@@ -1517,6 +1518,7 @@ begin
   delete_null_shove_entries;   // tidy the list.
 
   current_shove_str:='';       // 242a
+  heave_selected_tb_str:='';   // 556b de-select clicked chair label
 
   enter_timber_form.Close;
 
@@ -2064,6 +2066,7 @@ begin
   if bontimb<1 then EXIT;     // ???
 
   current_shove_str:='B'+IntToStr(bontimb);
+  heave_selected_tb_str:='';   // 556b de-select clicked chair label
 
   n:=find_shove(current_shove_str,True);              // find it or create an empty slot.
   if (n>=0) and (n<Length(current_shoved_timbers))    // valid slot.
@@ -2167,6 +2170,7 @@ begin
   end;//next i
 
   current_shove_str:=num_str;   // last one hidden.
+  heave_selected_tb_str:='';    // 556b de-select clicked chair label
   shove_buttons(True,0,n);
   cancel_adjusts(False);        // can't continue to adjust it.
   show_and_redraw(True,True);
@@ -2263,6 +2267,7 @@ begin
   end;//next i
 
   current_shove_str:=num_str;   // last one omitted.
+  heave_selected_tb_str:='';    // 556b de-select clicked chair label
   shove_buttons(True,-1,n);
   cancel_adjusts(False);        // can't continue to adjust it.
   show_and_redraw(True,True);

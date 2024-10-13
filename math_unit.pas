@@ -20468,6 +20468,8 @@ begin
 
                  {
                  chair labels:
+                 441..458      // as below-20 = label currently selected  556b MW
+
                  461,471 = interchangeable chair labels
                  462,472 = switch block chair labels
                  463,473 = V-crossing chair labels
@@ -20607,6 +20609,8 @@ procedure enter_mark(track:boolean; p1,p2:Tpex; code:integer; num_str:string);  
 
                     {
                     chair labels:
+                    441..458      // as below-20 = label currently selected  556b MW
+
                     461,471 = interchangeable chair labels
                     462,472 = switch block chair labels
                     463,473 = V-crossing chair labels
@@ -22226,7 +22230,7 @@ begin
                                           then Pen.Color:=timber_infill_colour                        // timber infilling. n.b. gets changed to paper colour later, but NOT yet !
                                           else CONTINUE;
 
-                             461..478: Pen.Color:=clBlack;   // MW 03-08-2024  555a    chair labels
+                             441..478: Pen.Color:=clBlack;   // MW 03-08-2024  555a    chair labels
 
                      480..483,488,489: begin
                                          Pen.Color:=clBlue;  // 233d  chair key marks
@@ -22416,20 +22420,20 @@ begin
                                               end;
                                     end;
 
-                            if (code>=461) and (code<=478) and (brick_form.show_labels_checkbox.Checked=True)    // MW 03-08-2024  555a
+                            if (code>=441) and (code<=478) and (brick_form.show_labels_checkbox.Checked=True)    // MW 03-08-2024  555a
                                then begin
                                       chair_label_str:=get_chair_str(list_chair_code);
 
                                       if list_chair_code=14      // over-ride check flare-in from "CCL/R"
                                          then case code of
-                                                461: chair_label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
-                                                471: chair_label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
+                                            441,461: chair_label_str:='CCL';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                            451,471: chair_label_str:='CCR';     // TS LH TEMPLATE - MS RH TEMPLATE
                                               end;
 
                                       if list_chair_code=16      // over-ride check flare-out from "CCR/L"
                                          then case code of
-                                                461: chair_label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
-                                                471: chair_label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
+                                            441,461: chair_label_str:='CCR';     // MS LH TEMPLATE - TS RH TEMPLATE
+                                            451,471: chair_label_str:='CCL';     // TS LH TEMPLATE - MS RH TEMPLATE
                                               end;
 
                                       move_to.X:=Round(check_int1x);
@@ -22448,22 +22452,32 @@ begin
                                                 half_stringwidth:=TextWidth(chair_label_str) div 2;
                                                 half_stringheight:=TextHeight(chair_label_str) div 2;
 
-                                                Brush.Style:=bsClear;  //bsSolid;
+                                                case code of
+                                                  441..458: begin                       // selected chair label
+                                                              Brush.Style:=bsSolid;
+                                                              Brush.Color:=clYellow;
 
-                                                if mouse_is_over_chair_label_mark=i
-                                                   then begin
-                                                          Brush.Style:=bsSolid;
-                                                          Brush.Color:=clYellow;       // mouse is over it
-                                                        end;
+                                                              Font.Color:=clBlack;
+                                                            end;
 
-                                                   //else Brush.Color:=$00E0FFD8;     // pale green
+                                                  461..478: begin
+                                                              Brush.Style:=bsClear;     // chair label not selected
 
-                                                Font.Color:=clBlack;
+                                                              if mouse_is_over_chair_label_mark=i
+                                                                 then begin
+                                                                        Brush.Style:=bsSolid;
+                                                                        Brush.Color:=clLime;       // mouse is over it
+                                                                      end;
+
+                                                              Font.Color:=clBlack;
+                                                            end;
+                                                end;//case
 
                                                 Pen.Width:=1;       // draw the rectangle first...
                                                 Pen.Mode:=pmCopy;
                                                 Pen.Style:=psSolid;
                                                 Pen.Color:=Font.Color;
+
                                                 RoundRect(move_to.X-half_stringwidth-Round(ABS(Font.Height/2)), move_to.Y-half_stringheight-2, move_to.X+half_stringwidth+Round(ABS(Font.Height/2)), move_to.Y+half_stringheight+2, Round(ABS(Font.Height/2.5)), Round(ABS(Font.Height/2.5)) );   // font/2 padding, font/2.5 corner rads, arbitrary
 
                                                 TextOut(move_to.X-half_stringwidth, move_to.Y-half_stringheight, chair_label_str);
@@ -23869,7 +23883,7 @@ begin
 end;
 //_______________________________________________________________________________________________________________________________
 
-procedure drawtimber(full_length,retcurve:boolean; joint_timber,key_towards:integer);     // mark timber outline.
+procedure drawtimber(full_length,retcurve:boolean; joint_timber,key_towards:integer);     // mark timber outline and chairing
 
    // enter with xtb, xns, xfs, yns, yfs, tbl (all unshoved)
    // if full_length=False, this is for crossover exit road - so no far end.
@@ -24080,7 +24094,7 @@ var
 
   xdiff,ydiff:extended;
 
-  socket_code,label_code,label_code_mod:integer;       // MW 03-08-202drawtimber4  555a
+  socket_code,label_code,label_code_mod:integer;       // MW 03-08-2024  555a
 
   xnso,xfso,ynso,yfso:extended;
 
@@ -25775,6 +25789,9 @@ var
                       // sc 17-sep-2024 556
 {
  chair labels:
+
+ 441..458      // as below-20 = label currently selected  556b MW
+
  461,471 = interchangeable chair labels
  462,472 = switch block chair labels
  463,473 = V-crossing chair labels
@@ -25830,6 +25847,11 @@ var
 }
 
                       end;//case
+
+                       // 556b for selected chair label..
+
+                      if (heave_selected_rail=rail_code) and  (heave_selected_tb_str=timber_str) and (current_shove_str=timber_str)
+                         then label_code:=label_code-20;  // 441..458
 
                       tempex.x:=xtimbcl;     // timber centre
 
@@ -31897,6 +31919,7 @@ begin
   if shove_timber_form.Showing=True
      then begin
             current_shove_str:='';      // de-select any shoved timber.
+            heave_selected_tb_str:='';  // and any clicked chair label
             shovetimbx:=0;
             shove_buttons(False,0,-1);
           end;
@@ -37985,6 +38008,7 @@ begin
                 if num_str=current_shove_str then EXIT;       // not if already on it.
 
                 current_shove_str:=num_str;
+                heave_selected_tb_str:='';   // 556b de-select clicked chair label
 
                 n:=find_shove(current_shove_str,True); // find it or an empty slot, or warn him if no room.
                 if n>=0                                // found a slot.
@@ -38000,6 +38024,7 @@ begin
                         end
                    else begin
                           current_shove_str:='';         // !!! no room for it ?
+                          heave_selected_tb_str:='';     // 556b de-select clicked chair label
                           shove_buttons(False,0,-1);
                         end;
                 redraw(True);
@@ -38151,7 +38176,7 @@ begin
 end;
 //______________________________________________________________________________
 
-function chair_label_clicked(X,Y:integer):boolean;  // screen co-ords of a click, is it on a chair label?  MW 03-08-2024  555a
+function chair_label_clicked(X,Y:integer):boolean;  // screen co-ords of a click, is it on an unslected chair label?  MW 03-08-2024  555a
 
 var
   i,n:integer;
@@ -38170,7 +38195,7 @@ var
 begin
   RESULT:=False;     //  init..
 
-  heave_chairs_form.rail_highlight_shape.Visible:=False;
+  heave_chairs_form.rail_highlight_shape.Visible:=False;   // yellow groupbox outline
 
       // find label string clicked on...
 
@@ -38187,7 +38212,7 @@ begin
       code:=ptr_1st^.code;
 
       case code of
-        461..478: do_nothing;
+        461..478: do_nothing;     // not 441..458 = already selected
              else CONTINUE;
       end;//case
 
@@ -38586,7 +38611,7 @@ begin   // find if on chair label...
     code:=ptr_1st^.code;
 
     case code of
-      461..478: do_nothing;
+      461..478: do_nothing;    // not 441..458 = already selected
            else CONTINUE;
     end;//case
 
