@@ -6503,7 +6503,7 @@ begin
 end;
 //______________________________________________________________________________
 
-function new_marks_list(var list: Tmark_array):boolean;
+function new_marks_list(var list:Tmark_array):boolean;
 
          // return pointer to array of pointers to Tmark records.
 var

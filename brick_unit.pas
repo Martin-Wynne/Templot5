@@ -91,6 +91,7 @@ var
   xing_blankingx:extended=0;
   xing_lengthx:extended=0;
 
+
 implementation
 
 {$R *.lfm}
