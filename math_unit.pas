@@ -6507,9 +6507,7 @@ function new_marks_list(var list: Tmark_array):boolean;
 
          // return pointer to array of pointers to Tmark records.
 var
-  p:^Tmark;                 // p is a pointer to a Tmark record.
-  n,mark_count:integer;
-  array_max:integer;
+  mark_count:integer;
 
   num_rail_lengths:extended;
   num_sleepers,num_timbers:integer;
@@ -20436,7 +20434,13 @@ begin
   if Length(marks_list) = 0 then EXIT;        // pointer to marks list not valid.
   markmax:=High(marks_list);  // max index for the present list.
 
-  if mark_index>markmax then mark_index:=markmax;
+  if mark_index>markmax then
+    begin
+    // increase the length...
+    WriteLn('Extending marks_list...');
+    SetLength(marks_list, Length(marks_list)+500);
+    markmax := High(marks_list);
+    end;
 
   ptr:=@marks_list[mark_index];  // pointer to the next Tmark record.
 
@@ -20565,7 +20569,6 @@ begin
      then timb_numbers_str:=timb_numbers_str+num_str+Chr($1B);  // add number string and separator to the accumulator string.
 
   INC(mark_index);                                              // bump index for next.
-  if mark_index>markmax then mark_index:=markmax;
 end;
 //_______________________________________________________________________________________
 
