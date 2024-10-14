@@ -20437,7 +20437,6 @@ begin
   if mark_index>markmax then
     begin
     // increase the length...
-    WriteLn('Extending marks_list...');
     SetLength(marks_list, Length(marks_list)+500);
     markmax := High(marks_list);
     end;
