@@ -20434,12 +20434,11 @@ begin
   if Length(marks_list) = 0 then EXIT;        // pointer to marks list not valid.
   markmax:=High(marks_list);  // max index for the present list.
 
-  if mark_index>markmax then
-    begin
-    // increase the length...
-    SetLength(marks_list, Length(marks_list)+500);
-    markmax := High(marks_list);
-    end;
+  if mark_index>markmax   // increase the length...
+     then begin
+            SetLength(marks_list, Length(marks_list)+500);
+            markmax:=High(marks_list);
+          end;
 
   ptr:=@marks_list[mark_index];  // pointer to the next Tmark record.
 
@@ -20527,7 +20526,7 @@ begin
                  // code 605  joggle return        // 206b
 
                  // code 701  FP mark label             // 211b
-                 // code 702  blunt nose label          // 211b                                     enter_mark(
+                 // code 702  blunt nose label          // 211b
                  // code 703  half-diamond tips label   // 211b
 
                  // code 600  long toe mark          // 206b
